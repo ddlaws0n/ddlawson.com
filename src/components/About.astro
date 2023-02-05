@@ -1,0 +1,33 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const storyCards = [
+  {
+    prompt: 'Born in Kenya 🇰🇪',
+  },
+  {
+    prompt: 'Raised in Italy 🇮🇹',
+  },
+  {
+    prompt: 'Educated in the UK 🇬🇧',
+  },
+  {
+    prompt: 'Living in the US 🇺🇸',
+  },
+];
+---
+
+<!-- Responsive CSS Grid layout with tailwind classes with one large column and a small column -->
+<section id="about" class="grid grid-cols-1 dark:text-white lg:grid-cols-2">
+  <div class="lg:col-span-1">
+    <div class="bg-slate-200 py-12 dark:bg-slate-800 lg:py-20">
+      <div class="mx-auto text-center">
+        <p>Born in Kenya 🇰🇪</p>
+        <p>Raised in Italy 🇮🇹</p>
+        <p>Educated in the UK 🇬🇧</p>
+        <p>Living in the US 🇺🇸</p>
+      </div>
+    </div>
+  </div>
+  <div class="lg:col-span-1"></div>
+</section>
