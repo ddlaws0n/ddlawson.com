@@ -1,0 +1,52 @@
+---
+import { Image } from '@astrojs/image/components';
+import testOne from '@/assets/images/astro-website-blog.png';
+import testTwo from '@/assets/images/light-in-the-dark.png';
+import testThree from '@/assets/images/thinking-in-code.png';
+---
+
+<div class="bg-slate-200 py-12 dark:bg-slate-800 lg:py-20">
+  <article class="mx-auto max-w-6xl px-3">
+    <section class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3" data-test="articles-section">
+      <div class="col-span-1">
+        <a
+          href="/posts/introducing-astro"
+          class="relative top-0 block h-full overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-75 ease-in-out hover:-top-2 hover:shadow-xl"
+          data-test="article-card"
+        >
+          <Image src={testOne} alt="Introducing Astro: Ship Less JavaScript" format="webp" />
+          <div class="py-6 px-8 dark:bg-slate-700">
+            <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">06-08-2021</p>
+            <h2 class="text-2xl font-bold leading-tight dark:text-white">Introducing Astro: Ship Less JavaScript</h2>
+          </div>
+        </a>
+      </div><div class="col-span-1">
+        <a
+          href="/posts/installing-go-on-a-mac"
+          class="relative top-0 block h-full overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-75 ease-in-out hover:-top-2 hover:shadow-xl"
+          data-test="article-card"
+        >
+          <Image src={testTwo} alt="Installing Go on a Mac" />
+
+          <div class="py-6 px-8 dark:bg-slate-700">
+            <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">02-01-2020</p>
+            <h2 class="text-2xl font-bold leading-tight dark:text-white">Installing Go on a Mac, a beginners guide</h2>
+          </div>
+        </a>
+      </div><div class="col-span-1">
+        <a
+          href="/posts/how-to-compare-dates-in-javascript"
+          class="relative top-0 block h-full overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-75 ease-in-out hover:-top-2 hover:shadow-xl"
+          data-test="article-card"
+        >
+          <Image src={testThree} alt="How to compare dates in JavaScript" />
+
+          <div class="py-6 px-8 dark:bg-slate-700">
+            <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">01-28-2020</p>
+            <h2 class="text-2xl font-bold leading-tight dark:text-white">How to compare dates in JavaScript</h2>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+</div>

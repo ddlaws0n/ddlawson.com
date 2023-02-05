@@ -1,28 +1,86 @@
 ---
-import ToggleTheme from "@/components/ToggleTheme.astro";
+import ToggleTheme from '@/components/ToggleTheme.astro';
+import { Icon } from 'astro-icon';
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1); // remove the first "/"
+const isActive = currentPath === '' ? 'active' : '';
+
+const navItems = [
+  // {
+  //   name: 'Home',
+  //   href: '/',
+  // },
+  // {
+  //   name: 'About',
+  //   href: '#about',
+  // },
+];
+
+const socialShares = [
+  {
+    name: 'tabler:brand-linkedin',
+    link: 'https://www.linkedin.com/in/ddlawson',
+    ariaLabel: 'Whatsapp',
+  },
+  {
+    name: 'tabler:brand-github',
+    link: 'https://www.github.com',
+    ariaLabel: 'GitHub',
+  },
+  {
+    name: 'tabler:brand-twitter',
+    link: 'https://www.twitter.com',
+    ariaLabel: 'Twitter',
+  },
+];
 ---
 
-<header id="page-header" class="flex flex-none items-center bg-white py-10">
-    <div class="flex flex-col text-center sm:flex-row sm:items-center sm:justify-between space-y-6 sm:space-y-0 container xl:max-w-7xl mx-auto px-4 lg:px-10">
-      <!-- <div>
+<div class="max-screen-lg mx-auto">
+  <div
+    class="aspect-square fixed bottom-[calc(100%-200px)] -z-50 w-full max-w-screen-lg rounded-full bg-gradient-to-r from-blue-300 via-cyan-300 to-green-300 opacity-70 blur-3xl filter dark:bottom-[calc(100%-180px)] dark:from-rose-700 dark:via-pink-700 dark:to-purple-700 dark:opacity-60"
+  >
+  </div>
+</div>
+
+<header id="page-header" class="flex flex-none items-center bg-white py-6 dark:bg-slate-900">
+  <div
+    class="container mx-auto flex flex-col space-y-6 px-4 text-center sm:flex-row sm:items-center sm:justify-between sm:space-y-0 lg:px-10 xl:max-w-7xl"
+  >
+    <!-- <div>
         <a href="javascript:void(0)" class="inline-flex items-center space-x-2 font-bold text-lg tracking-wide text-primary-600 hover:text-primary-400">
           <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="opacity-75 hi-outline hi-cube-transparent inline-block w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
           <span>David D Lawson</span>
         </a>
       </div> -->
-      <nav class="space-x-4 sm:space-x-6" aria-label="Main navigation">
-        <a href="javascript:void(0)" class="font-semibold text-gray-900 hover:text-gray-500">
-          <span>Home</span>
-        </a>
-        <a href="javascript:void(0)" class="font-semibold text-gray-900 hover:text-gray-500">
-          <span>About</span>
-        </a>
-        <a href="javascript:void(0)" class="font-semibold text-gray-900 hover:text-gray-500">
-          <span>Blog</span>
-        </a>
-      </nav>
-      <div>
-        <ToggleTheme />
-      </div>
+    <nav class="space-x-4 sm:space-x-6" aria-label="Main navigation">
+      {
+        navItems.map(({ name, href }) => (
+          <a href={href} class:list={['font-semibold text-gray-900 hover:text-primary-600 dark:text-white', isActive]}>
+            <span>{name}</span>
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center justify-center">
+      <ToggleTheme iconClass="h-6 w-6" />
+      {
+        socialShares.map(({ name, link, ariaLabel }) => (
+          <a
+            href={link}
+            class="hover:bg-primary-50 hover:text-primary-600 inline-block rounded-lg p-2.5 text-sm text-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+            aria-label={ariaLabel}
+          >
+            <Icon name={name} class="h-6 w-6" />
+          </a>
+        ))
+      }
     </div>
-  </header>
+  </div>
+</header>
+
+<!-- <style>
+    .active {
+      @apply text-primary-600
+    }
+  </style> -->
