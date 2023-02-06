@@ -6,7 +6,7 @@ const CONFIG = {
   trailingSlash: false,
 
   title: 'David D Lawson',
-  description: '🚀 Customer Experience Professional with a passion for tech',
+  description: '🚀 Customer Experience professional with a passion for people & tech',
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 

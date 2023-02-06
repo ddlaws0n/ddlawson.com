@@ -5,6 +5,7 @@ import { SITE } from './src/config.mjs';
 import tailwind from '@astrojs/tailwind';
 import image from '@astrojs/image';
 import compress from 'astro-compress';
+import sitemap from '@astrojs/sitemap';
 
 // Fonts
 import '@fontsource/besley';
@@ -20,12 +21,15 @@ export default defineConfig({
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),
+    sitemap({
+      // customPages: ['https://analytics.ddlawson.com/']
+    }),
     compress({
       css: true,
       html: {
         removeAttributeQuotes: false,
       },
-      img: false,
+      img: true,
       js: true,
       svg: false,
 

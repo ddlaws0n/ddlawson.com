@@ -1,3 +1,4 @@
 dist
 .github
 .changeset
+node_modules
