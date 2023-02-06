@@ -20,7 +20,17 @@ export default defineConfig({
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),
-    compress(),
+    compress({
+      css: true,
+      html: {
+        removeAttributeQuotes: false,
+      },
+      img: false,
+      js: true,
+      svg: false,
+
+      logger: 1,
+    }),
   ],
   vite: {
     resolve: {

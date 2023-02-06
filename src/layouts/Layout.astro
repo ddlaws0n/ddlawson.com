@@ -17,9 +17,9 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="antialiased transition-colors delay-200">
+  <body class="min-h-full bg-white antialiased transition-colors dark:bg-slate-900" delay-200">
     <Header />
-    <main class="">
+    <main class="" ">
       <slot />
     </main>
     <BasicScripts />
