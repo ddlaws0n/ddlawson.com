@@ -1,7 +1,7 @@
 const CONFIG = {
   name: 'David D Lawson',
 
-  origin: 'https://www.ddlawson.com',
+  origin: 'https://ddlawson.com',
   basePathname: '/',
   trailingSlash: false,
 
@@ -9,6 +9,8 @@ const CONFIG = {
   description: '🚀 Customer Experience professional with a passion for people & tech',
 
   defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+
+  umamiId: 'a42e4c62-cd7c-48db-84c7-037290ac367c',
 
   language: 'en',
   textDirection: 'ltr',
