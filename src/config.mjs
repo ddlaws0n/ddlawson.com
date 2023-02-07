@@ -15,11 +15,11 @@ const CONFIG = {
   language: 'en',
   textDirection: 'ltr',
 
-  dateFormatter: new Intl.DateTimeFormat('en', {
+  dateFormatter: new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
-    timeZone: 'UTC',
+    timeZone: 'GMT',
   }),
 
   blog: {

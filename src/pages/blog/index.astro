@@ -1,0 +1,23 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+---
+
+<PageLayout>
+  <div class="mx-auto bg-gray-200 text-center dark:bg-gray-800">
+    {
+      blogPosts.map((post) => (
+        <div class="bg-white py-12 text-black dark:bg-black dark:text-white">
+          <h1>{post.data.title}</h1>
+          <p>{post.data.description}</p>
+          <p>{post.data.author}</p>
+          <a href={`/blog/${post.slug}`}>Read Post</a>
+        </div>
+      ))
+    }
+  </div>
+</PageLayout>

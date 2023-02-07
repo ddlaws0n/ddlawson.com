@@ -1,7 +1,8 @@
 ---
 title: Test Post Hello World
-date: 2023-02-07 17:29:00
+publishDate: '2023-02-07 17:29:00'
 description: This is a test post
+draft: false
 ---
 
 Hello, test post!
