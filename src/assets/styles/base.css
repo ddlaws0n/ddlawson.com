@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  ::selection {
+    @apply bg-secondary-300/80 dark:bg-secondary-800
+  }
+
+  /* .cursor-newtab {
+      cursor: url('/images/new-tab.png') 10 10, pointer;
+    } */
+
+  img {
+    content-visibility: auto;
+  }
+
+  /* #region  /**=========== Default Typography =========== */
+  /* h1,
+  .h1 {
+    @apply font-primary text-2xl font-bold md:text-4xl;
+  }
+
+  h2,
+  .h2 {
+    @apply font-primary text-xl font-bold md:text-3xl;
+  }
+
+  h3,
+  .h3 {
+    @apply font-primary text-lg font-bold md:text-2xl;
+  }
+
+  h4,
+  .h4 {
+    @apply font-primary text-base font-bold md:text-lg;
+  } */
+
+  /* body,
+  .body {
+    @apply font-primary text-sm md:text-base;
+  } */
+  /* #endregion  /**======== Default Typography =========== */
+
+  /* .layout {
+      max-width: 68rem;
+      @apply mx-auto w-11/12;
+    }
+  
+    .bg-dark a.custom-link {
+      @apply border-gray-200 hover:border-gray-200/0;
+    }
+  
+    .min-h-main {
+      @apply min-h-[calc(100vh-82px)];
+    }
+    .accent {
+      @apply dark:bg-gradient-to-tr dark:from-primary-300 dark:to-primary-400 dark:bg-clip-text dark:text-transparent;
+    }
+  
+    .accent-highlight {
+      @apply bg-primary-300/50 dark:bg-gradient-to-tr dark:from-primary-300 dark:to-primary-400 dark:bg-clip-text dark:text-transparent;
+    } */
+}
+
+@layer components {
+
+  .background-grid {
+    @apply relative z-0 bg-slate-100;
+    @apply dark:bg-[#0c1222];
+
+    &::before {
+      @apply bg-grid-slate-200/80 absolute inset-0 z-[-1] content-[''];
+      @apply dark:bg-grid-slate-50/[.025];
+
+      mask-image: linear-gradient(transparent, black, transparent);
+    }
+
+    &--fade-in {
+      @apply bg-transparent bg-gradient-to-t from-slate-100 via-slate-100;
+      @apply dark:bg-transparent dark:from-[#0c1222] dark:via-[#0c1222];
+
+      &::before {
+        @apply bg-left-bottom;
+
+        mask-image: linear-gradient(transparent, black, black);
+      }
+    }
+
+    &--fade-out {
+      @apply bg-transparent bg-gradient-to-b from-slate-100 via-slate-100;
+      @apply dark:bg-transparent dark:from-[#0c1222] dark:via-[#0c1222];
+
+      &::before {
+        mask-image: linear-gradient(black, black, transparent);
+      }
+    }
+  }
+}
+
+
+
+

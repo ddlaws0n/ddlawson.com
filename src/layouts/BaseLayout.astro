@@ -1,5 +1,5 @@
 ---
-// import '@/assets/styles/base.css';
+import '@/assets/styles/base.css';
 // import MetaTags from '~/components/common/MetaTags.astro';
 import BasicScripts from '@/components/BasicScripts.astro';
 // import { MetaSEO } from '~/types';
@@ -12,7 +12,7 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!DOCTYPE html>
-<html lang={language} dir="ltr">
+<html lang={language} dir="ltr" class="scroll-smooth motion-reduce:scroll-auto">
   <head>
     <!-- <MetaTags {...meta} /> -->
     <meta charset="UTF-8" />
@@ -29,13 +29,8 @@ const { language = 'en-gb' } = SITE;
     }
   </head>
 
-  <body class="min-h-full bg-white antialiased transition-colors duration-500 dark:bg-slate-900 dark:text-white">
+  <body class="h-full bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
     <slot />
     <BasicScripts />
-    <style is:global>
-      img {
-        content-visibility: auto;
-      }
-    </style>
   </body>
 </html>

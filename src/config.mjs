@@ -8,7 +8,7 @@ const CONFIG = {
   title: 'David D Lawson',
   description: '🚀 Customer Experience professional with a passion for people & tech',
 
-  defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  defaultTheme: 'system',
 
   umamiId: 'a42e4c62-cd7c-48db-84c7-037290ac367c',
 

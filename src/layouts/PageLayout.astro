@@ -13,7 +13,12 @@ import Header from '@/components/Header.astro';
     >Skip to main content</a
   >
   <Header />
-  <main id="main">
+  <main id="main" class="background-grid background-grid--fade-out">
+    <!-- <div
+      class="absolute inset-0 z-0 h-[80%] w-full bg-transparent bg-gradient-to-b from-primary-50 via-primary-50 to-transparent patterns-diagonal"
+
+    </div>
+        > -->
     <slot />
   </main>
 </BaseLayout>

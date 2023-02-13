@@ -1,7 +1,7 @@
 ---
-title: A test post about Astro
+title: My first test post which references the awesome Astro.Build Framework
 publishDate: '2023-02-07 19:16:00'
-description: Astro.JS is fantastic
+description: Astro.JS is a fantastic Javascript framework for novices and veterans alike
 draft: false
 ---
 

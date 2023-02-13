@@ -1,6 +1,8 @@
 const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
+const svgToDataUri = require('mini-svg-data-uri');
+const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 const { tailwindcssPaletteGenerator } = require('@bobthered/tailwindcss-palette-generator');
 
 /** @type {import('tailwindcss').Config} */
@@ -9,13 +11,17 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: tailwindcssPaletteGenerator({
-        colors: ['#273c75', '#353b48'],
-        names: ['primary', 'secondary'],
-      }),
+      colors: {
+        primary: colors.sky,
+        secondary: colors.emerald,
+      },
+      // tailwindcssPaletteGenerator({
+      //   colors: ['#273c75', '#353b48'],
+      //   names: ['old-primary', 'old-secondary'],
+      // }),
       fontFamily: {
-        serif: ['Besley', ...defaultTheme.fontFamily.serif],
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        primary: ['Gantari', ...defaultTheme.fontFamily.sans],
+        // sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         '8xl': '90rem',
@@ -45,12 +51,43 @@ module.exports = {
           },
         },
       },
+      animation: {
+        blob: 'blob 7s infinite',
+      },
+      keyframes: {
+        blob: {
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(30px, -10px) scale(1.1)',
+          },
+          '66%': {
+            transform: 'translate(-20px, 20px) scale(0.9)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+        },
+      },
     },
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'bg-grid': (value) => ({
+            backgroundImage: `url("${svgToDataUri(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}" stroke-dasharray="5 3" transform="scale(1, -1)"><path d="M0 .5H31.5V32"/></svg>`
+            )}")`,
+          }),
+        },
+        { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
+      );
+    },
     plugin(function ({ addUtilities }) {
       const utilBgPatterns = {
         '.pattern-dots-sm': {
@@ -69,8 +106,11 @@ module.exports = {
           'background-image': 'radial-gradient(currentColor 2px, transparent 2px)',
           'background-size': 'calc(10 * 2px) calc(10 * 2px)',
         },
+        '.patterns-diagonal': {
+          'background-image': 'repeating-linear-gradient(45deg, #444cf7 0, #444cf7 1px, #e5e5f7 0, #e5e5f7 50%);',
+          'background-size': '10px 10px;',
+        },
       };
-
       addUtilities(utilBgPatterns);
     }),
     plugin(function ({ addUtilities }) {

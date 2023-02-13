@@ -22,16 +22,18 @@ const { Content } = await entry.render();
         <!-- <div class="text-sm uppercase font-bold tracking-wider mb-1 text-primary-700">
           Category
         </div> -->
-        <h2 class="mb-4 text-3xl font-extrabold md:text-4xl">
+        <h2 class="mb-4 text-7xl font-extrabold md:text-4xl">
           {entry.data.title}
         </h2>
-        <h3 class="text-lg font-medium text-gray-600 md:text-xl md:leading-relaxed">
-          <a href="javascript:void(0)" class="text-primary-600 hover:text-primary-400">{entry.data.author}</a> on
+        <h3 class="text-lg font-medium text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
+          <a href="javascript:void(0)" class="text-primary-600 hover:text-primary-400 dark:text-primary-100"
+            >{entry.data.author}</a
+          > on
           <span class="font-semibold">{getFormattedDate(entry.data.publishDate)}</span> · 5 min read
         </h3>
       </div>
 
-      <article class="prose prose-lg prose-indigo">
+      <article class="prose prose-lg prose-slate dark:prose-invert">
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>
