@@ -22,36 +22,41 @@ const CONFIG = {
     timeZone: 'GMT',
   }),
 
-  blog: {
-    disabled: false,
-    postsPerPage: 4,
-
-    post: {
-      permalink: '/%slug%', // Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      noindex: false,
-      disabled: false,
+  navItems: [
+    {
+      name: 'Home',
+      href: '/',
     },
-
-    list: {
-      pathname: 'blog', // Blog main path, you can change this to "articles" (/articles)
-      noindex: false,
-      disabled: false,
+    // {
+    //   name: 'Projects',
+    //   href: '/projects',
+    // },
+    {
+      name: 'Blog',
+      href: '/blog',
     },
+  ],
 
-    category: {
-      pathname: 'category', // Category main path /category/some-category
-      noindex: true,
-      disabled: false,
+  socialShares: [
+    {
+      name: 'tabler:brand-linkedin',
+      link: 'https://www.linkedin.com/in/ddlawson/',
+      ariaLabel: 'LinkedIn',
     },
-
-    tag: {
-      pathname: 'tag', // Tag main path /tag/some-tag
-      noindex: true,
-      disabled: false,
+    {
+      name: 'tabler:brand-github',
+      link: 'https://www.github.com/DDiran',
+      ariaLabel: 'GitHub',
     },
-  },
+    {
+      name: 'tabler:brand-twitter',
+      link: 'https://twitter.com/ddlaws0n',
+      ariaLabel: 'Twitter',
+    },
+  ],
 };
 
 export const SITE = { ...CONFIG, blog: undefined };
-export const BLOG = CONFIG.blog;
+export const NAV = CONFIG.navItems;
+export const SOCIAL = CONFIG.socialShares;
 export const DATE_FORMATTER = CONFIG.dateFormatter;

@@ -2,9 +2,10 @@
 import ToggleTheme from '@/components/ToggleTheme.astro';
 import { Icon } from 'astro-icon';
 
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1); // remove the first "/"
-const isActive = currentPath === '' ? 'active' : '';
+const isActive = (navPath: string) => {
+  const pathname = new URL(Astro.request.url).pathname;
+  return pathname === navPath ? 'active-nav' : '';
+};
 
 const navItems = [
   {
@@ -12,8 +13,8 @@ const navItems = [
     href: '/',
   },
   // {
-  //   name: 'About',
-  //   href: '/about',
+  //   name: 'Projects',
+  //   href: '/projects',
   // },
   {
     name: 'Blog',
@@ -40,7 +41,7 @@ const socialShares = [
 ];
 ---
 
-<header id="page-header" class="bg-transparent">
+<header id="page-header">
   <div class="flex flex-none items-center py-6">
     <div
       class="container mx-auto flex flex-col space-y-6 px-4 text-center sm:flex-row sm:items-center sm:justify-between sm:space-y-0 lg:px-10 xl:max-w-7xl"
@@ -50,7 +51,7 @@ const socialShares = [
           navItems.map(({ name, href }) => (
             <a
               href={href}
-              class:list={['font-semibold text-gray-900 hover:text-primary-600 dark:text-white', isActive]}
+              class:list={['font-semibold text-slate-900 hover:text-primary-600 dark:text-white', isActive(href)]}
             >
               <span>{name}</span>
             </a>
@@ -64,7 +65,7 @@ const socialShares = [
             <a
               href={link}
               target="_blank"
-              class="hover:bg-primary-50 hover:text-primary-600 inline-block cursor-alias rounded-lg p-2.5 text-sm text-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+              class="hover:bg-primary-50 hover:text-primary-600 inline-block cursor-alias rounded-lg p-2.5 text-sm text-slate-500 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 dark:focus:ring-slate-700"
               aria-label={ariaLabel}
             >
               <Icon name={name} class="h-6 w-6" />
@@ -76,8 +77,8 @@ const socialShares = [
   </div>
 </header>
 
-<!-- <style>
-    .active {
-      @apply text-primary-600
-    }
-  </style> -->
+<style is:global>
+  .active-nav {
+    @apply text-primary-600;
+  }
+</style>

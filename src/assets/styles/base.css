@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-
   ::selection {
-    @apply bg-secondary-300/80 dark:bg-secondary-800
+    @apply bg-secondary-300/80 dark:bg-secondary-800;
   }
 
   /* .cursor-newtab {
@@ -63,42 +62,3 @@
       @apply bg-primary-300/50 dark:bg-gradient-to-tr dark:from-primary-300 dark:to-primary-400 dark:bg-clip-text dark:text-transparent;
     } */
 }
-
-@layer components {
-
-  .background-grid {
-    @apply relative z-0 bg-slate-100;
-    @apply dark:bg-[#0c1222];
-
-    &::before {
-      @apply bg-grid-slate-200/80 absolute inset-0 z-[-1] content-[''];
-      @apply dark:bg-grid-slate-50/[.025];
-
-      mask-image: linear-gradient(transparent, black, transparent);
-    }
-
-    &--fade-in {
-      @apply bg-transparent bg-gradient-to-t from-slate-100 via-slate-100;
-      @apply dark:bg-transparent dark:from-[#0c1222] dark:via-[#0c1222];
-
-      &::before {
-        @apply bg-left-bottom;
-
-        mask-image: linear-gradient(transparent, black, black);
-      }
-    }
-
-    &--fade-out {
-      @apply bg-transparent bg-gradient-to-b from-slate-100 via-slate-100;
-      @apply dark:bg-transparent dark:from-[#0c1222] dark:via-[#0c1222];
-
-      &::before {
-        mask-image: linear-gradient(black, black, transparent);
-      }
-    }
-  }
-}
-
-
-
-

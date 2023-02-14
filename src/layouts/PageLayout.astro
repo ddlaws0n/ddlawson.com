@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
-// export interface Props {
-//   title: string;
-// }
+export interface Props {
+  polkaHeight: string;
+}
 
-// const { title } = Astro.props;
+const { polkaHeight = 'h-[30%]' } = Astro.props;
 ---
 
 <BaseLayout>
@@ -13,12 +13,8 @@ import Header from '@/components/Header.astro';
     >Skip to main content</a
   >
   <Header />
-  <main id="main" class="background-grid background-grid--fade-out">
-    <!-- <div
-      class="absolute inset-0 z-0 h-[80%] w-full bg-transparent bg-gradient-to-b from-primary-50 via-primary-50 to-transparent patterns-diagonal"
-
-    </div>
-        > -->
+  <main id="main">
+    <div class={`absolute inset-0 -z-1 w-full ${polkaHeight} opacity-30 polka-light dark:polka-dark`}></div>
     <slot />
   </main>
 </BaseLayout>

@@ -1,7 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
 import HomeArticles from '@/components/HomeArticles.astro';
-import About from '@/components/About.astro';
 import Button from '@/components/Button.astro';
 
 import { Image } from '@astrojs/image/components';
@@ -9,60 +8,18 @@ import Icon from 'astro-icon';
 import HeroImage from '@/assets/images/David D Lawson Profile.png';
 ---
 
-<PageLayout>
+<PageLayout polkaHeight="h-full">
   <section class="overflow-hidden">
     <div class="container relative mx-auto py-24 px-4 lg:px-8 xl:max-w-7xl">
-      <!-- <div
-        class="absolute -bottom-64 -left-12 h-48 w-64 -translate-y-12 -translate-x-16 -rotate-3 transform text-slate-300 pattern-dots-xl dark:text-slate-700 md:h-96"
-      >
-      </div>
-      <div
-        class="absolute bottom-0 right-0 h-44 w-32 translate-y-12 translate-x-16 rotate-3 transform text-slate-300 patterns-diagonal dark:text-slate-700 md:-right-10 md:h-96"
-      >
-      </div> -->
-      <div class="grid grid-cols-2">
-        <div class="col-span-1">
-          <!-- <div class="mb-2 inline-flex rounded bg-slate-200 px-2 py-1 text-sm font-semibold leading-4 text-slate-700">
-            v2.0 Latest Version
-          </div> -->
-          <span class="text-lg font-bold text-slate-900 dark:text-slate-100 md:text-xl md:leading-relaxed"
-            >Hey <span aria-label="wave" role="img">👋</span> I'm</span
-          >
-          <h1 class="mb-4 font-serif text-5xl font-extrabold md:text-6xl lg:text-7xl">
-            <span
-              class="bg-gradient-to-br from-primary-300/40 via-primary-300/40 to-primary-500/40 text-slate-900 transition-colors dark:from-primary-100 dark:to-primary-400 dark:bg-clip-text dark:text-transparent"
-              >David</span
-            >
-          </h1>
-          <h2 class="mx-auto font-sans text-lg text-slate-500 dark:text-slate-200 md:text-xl md:leading-relaxed">
-            I believe every problem presents an opportunity.<br class="" />
-            I'm a <strong>Customer Experience</strong> professional, specialized in B2B SaaS with a passion for people &
-            technology. Currently helping secure the world's software @ <a
-              class="cursor-alias text-primary-600 hover:underline hover:underline-offset-4 dark:text-primary-200"
-              href="https://www.veracode.com">Veracode</a
-            >
-          </h2>
-          <div
-            class="flex flex-col space-y-2 pt-10 pb-16 sm:flex-row sm:items-center sm:justify-center sm:space-y-0 sm:space-x-2 md:items-start md:justify-start"
-          >
-            <Button link="/blog" title="Read Blog" icon="tabler:news" />
-            <Button
-              link="https://www.linkedin.com/in/ddlawson/"
-              title="View Profile"
-              icon="tabler:brand-linkedin"
-              primary={false}
-              target="_blank"
-            />
-          </div>
-        </div>
-        <div class="col-span-1 place-self-center">
-          <div class="relative mx-auto mb-14 w-72">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="col-span-1 place-self-center md:order-last">
+          <div class="relative mx-auto mb-20 w-56 md:mb-14 lg:w-72">
             <div
-              class="absolute top-0 -left-8 h-96 w-96 animate-blob rounded-full bg-secondary-300 opacity-90 blur-2xl filter dark:hidden"
+              class="absolute top-0 -left-8 h-56 w-56 animate-blob rounded-full bg-secondary-300 opacity-90 blur-2xl filter dark:hidden lg:h-96 lg:w-96"
             >
             </div>
             <div
-              class="absolute top-0 -right-8 h-96 w-96 animate-blob rounded-full bg-primary-300 opacity-90 blur-2xl filter delay-1000 dark:hidden"
+              class="absolute top-0 -right-8 h-56 w-56 animate-blob rounded-full bg-primary-300 opacity-90 blur-2xl filter delay-1000 dark:hidden lg:h-96 lg:w-96"
             >
             </div>
             <div
@@ -84,7 +41,57 @@ import HeroImage from '@/assets/images/David D Lawson Profile.png';
             />
           </div>
         </div>
+        <div class="col-span-1">
+          <!-- <div class="mb-2 inline-flex rounded bg-slate-200 px-2 py-1 text-sm font-semibold leading-4 text-slate-700">
+            v2.0 Latest Version
+          </div> -->
+          <div class="text-center md:text-left">
+            <span class="text-lg font-bold text-slate-900 dark:text-slate-100 md:text-xl md:leading-relaxed"
+              >Hey <span aria-label="wave" role="img">👋</span> I'm</span
+            >
+            <h1 class="my-4 font-serif text-5xl font-extrabold md:text-6xl lg:text-7xl">
+              <span
+                class="bg-gradient-to-br from-primary-300/40 via-primary-300/40 to-primary-500/40 text-slate-900 transition-colors dark:from-primary-100 dark:to-primary-400 dark:bg-clip-text dark:text-transparent"
+                >David</span
+              >
+            </h1>
+          </div>
+          <h2
+            class="text-md mx-auto px-12 font-sans text-slate-500 dark:text-slate-200 md:px-0 md:text-xl md:leading-relaxed"
+          >
+            I believe every problem presents an opportunity.<br class="" />
+            I'm a <strong>Customer Experience</strong> professional, specialized in B2B SaaS with a passion for people &
+            technology. Currently helping secure the world's software @ <a
+              class="cursor-alias text-primary-600 hover:underline hover:underline-offset-4 dark:text-primary-200"
+              href="https://www.veracode.com">Veracode</a
+            >
+          </h2>
+          <div
+            class="flex flex-col space-y-2 pt-10 pb-16 sm:flex-row sm:items-center sm:justify-center sm:space-y-0 sm:space-x-2 md:items-start md:justify-start"
+          >
+            <Button link="/blog" title="Read Blog" icon="tabler:news" />
+            <Button
+              link="https://www.linkedin.com/in/ddlawson/"
+              title="View Profile"
+              icon="tabler:brand-linkedin"
+              primary={false}
+              target="_blank"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
+  <!-- <section class="py-28">
+    <div class="container mx-auto text-left">
+      <p class="">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod voluptate. Quisquam, quod voluptate.
+        Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate.
+        Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate.
+        Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate.
+        Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate.
+        Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate. Quisquam, quod voluptate.
+      </p>
+    </div>
+  </section> -->
 </PageLayout>
