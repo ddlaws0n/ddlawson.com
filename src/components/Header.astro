@@ -1,4 +1,5 @@
 ---
+import { NAV, SOCIAL } from '@/config.mjs';
 import ToggleTheme from '@/components/ToggleTheme.astro';
 import { Icon } from 'astro-icon';
 
@@ -6,39 +7,6 @@ const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
   return pathname === navPath ? 'active-nav' : '';
 };
-
-const navItems = [
-  {
-    name: 'Home',
-    href: '/',
-  },
-  // {
-  //   name: 'Projects',
-  //   href: '/projects',
-  // },
-  {
-    name: 'Blog',
-    href: '/blog',
-  },
-];
-
-const socialShares = [
-  {
-    name: 'tabler:brand-linkedin',
-    link: 'https://www.linkedin.com/in/ddlawson/',
-    ariaLabel: 'LinkedIn',
-  },
-  {
-    name: 'tabler:brand-github',
-    link: 'https://www.github.com/DDiran',
-    ariaLabel: 'GitHub',
-  },
-  {
-    name: 'tabler:brand-twitter',
-    link: 'https://twitter.com/ddlaws0n',
-    ariaLabel: 'Twitter',
-  },
-];
 ---
 
 <header id="page-header">
@@ -48,7 +16,7 @@ const socialShares = [
     >
       <nav class="space-x-4 sm:space-x-6" aria-label="Main navigation">
         {
-          navItems.map(({ name, href }) => (
+          NAV.map(({ name, href }) => (
             <a
               href={href}
               class:list={['font-semibold text-slate-900 hover:text-primary-600 dark:text-white', isActive(href)]}
@@ -61,7 +29,7 @@ const socialShares = [
       <div class="flex items-center justify-center">
         <ToggleTheme iconClass="h-6 w-6" />
         {
-          socialShares.map(({ name, link, ariaLabel }) => (
+          SOCIAL.map(({ name, link, ariaLabel }) => (
             <a
               href={link}
               target="_blank"

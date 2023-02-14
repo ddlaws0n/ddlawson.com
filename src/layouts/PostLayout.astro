@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 export interface Props {
-  polkaHeight: string;
+  polkaHeight?: string;
 }
 
 const { polkaHeight = 'h-[50%]' } = Astro.props;
