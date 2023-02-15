@@ -1,7 +1,8 @@
 ---
-title: The Ugly Truth About Defining KPIs for Customer Communities in B2B SaaS Companies
-publishDate: '2023-02-07 19:16:00'
+title: The challenge in defining KPIs for a B2B SaaS Customer Community
+publishDate: '2023-02-15 19:12:00'
 description: In this post, we'll explore some of the challenges that B2B SaaS companies face when trying to define KPIs for their customer communities.
+draft: true
 ---
 
 If you work in a B2B SaaS company, chances are you've heard about the importance of building a customer community. Having a group of loyal users who engage with your product, share their feedback and help other customers can lead to better retention, word-of-mouth marketing and even product innovation. But how do you measure the success of your community efforts? What are the key performance indicators (KPIs) that matter? And why is it so hard to define them?

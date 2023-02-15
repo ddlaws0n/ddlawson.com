@@ -7,15 +7,15 @@ import Button from '@/components/Button.astro';
   <div class="flex min-h-full flex-col bg-primary-50 pt-16 pb-12 dark:bg-slate-900">
     <main class="mx-auto flex w-full max-w-7xl flex-grow flex-col justify-center justify-items-center px-6 lg:px-8">
       <div class="text-center">
-        <p class="text-base font-semibold text-primary-600">404</p>
-        <h1 class="text-7xl font-bold tracking-tight text-gray-900 sm:text-5xl">Oops.</h1>
+        <p class="text-base font-semibold text-primary-600 dark:text-primary-100">404</p>
+        <h1 class="text-7xl font-bold tracking-tight text-slate-900 dark:text-slate-200 sm:text-5xl">Oops.</h1>
         <p class="mt-4 text-xl text-slate-500">Looks like I couldn't find the page you're looking for, sorry!</p>
         <div class="mt-12">
           <!-- <a href="/" class="text-base font-medium text-primary-600 hover:text-primary-500">
             Take me home
             <span aria-hidden="true"> &rarr;</span>
           </a> -->
-          <Button title="Take me home" href="/" icon="tabler:home" primary={false} />
+          <Button title="Take me home" link="/" icon="tabler:home" primary={false} />
         </div>
       </div>
     </main>

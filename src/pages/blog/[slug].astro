@@ -1,6 +1,7 @@
 ---
 import PostLayout from '@/layouts/PostLayout.astro';
 import { getFormattedDate } from '@/utils/utils';
+import { getReadingTime } from '@/utils/readingtime';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -22,16 +23,19 @@ const { Content } = await entry.render();
         <!-- <div class="text-sm uppercase font-bold tracking-wider mb-1 text-primary-700">
           Category
         </div> -->
-        <h2 class="mb-4 text-7xl font-extrabold md:text-4xl">
+        <h2 class="mb-4 text-3xl font-extrabold text-slate-900 dark:text-slate-100 md:text-4xl lg:text-5xl">
           {entry.data.title}
         </h2>
-        <h3 class="text-lg font-medium text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
-          <span class="text-secondary-600 dark:text-secondary-100">{entry.data.author}</span> on
-          <span class="font-semibold">{getFormattedDate(entry.data.publishDate)}</span> · 5 min read
+        <h3 class="text-md font-medium text-slate-600 dark:text-slate-200 md:text-lg md:leading-loose lg:text-xl">
+          <span class="font-bold">{entry.data.author}</span> on
+          <span class="font-semibold">{getFormattedDate(entry.data.publishDate)}</span> · {getReadingTime(entry.body)} min
+          read
         </h3>
       </div>
 
-      <article class="prose prose-lg prose-slate text-justify dark:prose-invert">
+      <article
+        class="prose prose-lg prose-slate text-justify prose-a:text-primary-600 prose-a:hover:text-primary-500 prose-lead:leading-relaxed dark:prose-invert"
+      >
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>

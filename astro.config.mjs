@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 import image from '@astrojs/image';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
+import prefetch from '@astrojs/prefetch';
 
 // Fonts
 import '@fontsource/gantari';
@@ -17,8 +18,13 @@ export default defineConfig({
   site: SITE.origin,
   base: SITE.basePathname,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+  markdown: {
+    drafts: true,
+    syntaxHighlight: 'prism',
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
+    prefetch(),
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),

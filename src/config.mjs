@@ -1,20 +1,24 @@
 const CONFIG = {
+  // Basics
   name: 'David D Lawson',
-
   origin: 'https://ddlawson.com',
   basePathname: '/',
   trailingSlash: false,
 
+  // SEO
   title: 'David D Lawson',
   description: '🚀 Customer Experience professional with a passion for people & tech',
-
-  defaultTheme: 'system',
-
-  umamiId: 'a42e4c62-cd7c-48db-84c7-037290ac367c',
-
   language: 'en',
   textDirection: 'ltr',
 
+  // Appearance
+  defaultTheme: 'system',
+
+  // Analytics
+  umamiId: 'a42e4c62-cd7c-48db-84c7-037290ac367c',
+
+  // Blog
+  words_per_minute: 200,
   dateFormatter: new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
     month: 'long',
@@ -22,6 +26,7 @@ const CONFIG = {
     timeZone: 'GMT',
   }),
 
+  // Navigation & Social
   navItems: [
     {
       name: 'Home',
