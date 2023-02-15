@@ -2,7 +2,6 @@
 title: My first test post which references the awesome Astro.Build Framework
 publishDate: '2023-02-07 19:16:00'
 description: Astro.JS is a fantastic Javascript framework for novices and veterans alike
-draft: false
 ---
 
 ## Astro.js is a powerful and easy-to-use JavaScript framework that is quickly gaining momentum in the web development industry.

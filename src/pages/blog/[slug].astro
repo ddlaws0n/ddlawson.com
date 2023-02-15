@@ -26,14 +26,12 @@ const { Content } = await entry.render();
           {entry.data.title}
         </h2>
         <h3 class="text-lg font-medium text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
-          <a href="javascript:void(0)" class="text-primary-600 hover:text-primary-400 dark:text-primary-100"
-            >{entry.data.author}</a
-          > on
+          <span class="text-secondary-600 dark:text-secondary-100">{entry.data.author}</span> on
           <span class="font-semibold">{getFormattedDate(entry.data.publishDate)}</span> · 5 min read
         </h3>
       </div>
 
-      <article class="prose prose-lg prose-slate dark:prose-invert">
+      <article class="prose prose-lg prose-slate text-justify dark:prose-invert">
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>
