@@ -7,6 +7,9 @@ import { getCollection } from 'astro:content';
 
 const blogPosts = await getCollection('blog', ({ data }) => {
   return !data.draft && data.publishDate < new Date();
+}).then((blogPosts) => {
+  blogPosts.sort((a, b) => b.data.publishDate - a.data.publishDate);
+  return blogPosts;
 });
 ---
 
