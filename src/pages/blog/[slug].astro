@@ -14,9 +14,18 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const meta = {
+  title: entry.data.title,
+  description: entry.data.description,
+  canonical: entry.canonical,
+  // image: await findImage(post.image),
+  // noindex: BLOG?.post?.noindex,
+  ogType: 'article',
+};
 ---
 
-<PostLayout>
+<PostLayout {meta}>
   <div class="">
     <div class="container mx-auto space-y-16 px-4 py-8 lg:px-8 lg:py-16 xl:max-w-7xl">
       <div>
@@ -34,7 +43,7 @@ const { Content } = await entry.render();
       </div>
 
       <article
-        class="prose prose-lg prose-slate text-justify prose-a:text-primary-600 prose-lead:leading-relaxed dark:prose-invert"
+        class="prose-md prose prose-slate text-justify prose-a:text-primary-600 prose-lead:leading-relaxed dark:prose-invert md:prose-lg"
       >
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />

@@ -1,12 +1,19 @@
 ---
+import { SITE } from '@/config.mjs';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Button from '@/components/Button.astro';
 
 import { Image } from '@astrojs/image/components';
 import HeroImage from '@/assets/images/David D Lawson Profile.png';
+
+const meta = {
+  title: SITE.title,
+  description: SITE.description,
+  dontUseTitleTemplate: true,
+};
 ---
 
-<PageLayout polkaHeight="h-full">
+<PageLayout {meta} polkaHeight="h-full">
   <section class="overflow-hidden">
     <div class="container relative mx-auto py-24 px-4 lg:px-8 xl:max-w-7xl">
       <div class="grid grid-cols-1 md:grid-cols-2">

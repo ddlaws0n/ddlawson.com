@@ -1,0 +1,71 @@
+---
+import { AstroSeo } from '@astrolib/seo';
+import { getImage } from '@astrojs/image';
+import { SITE } from '@/config.mjs';
+import type { MetaSEO } from '@/types';
+import defaultImage from '@/assets/images/David D Lawson Profile.png';
+import { getRelativeUrlByFilePath } from '@/utils/directories';
+export interface Props extends MetaSEO {
+  dontUseTitleTemplate?: boolean;
+}
+const {
+  title = SITE.name,
+  description = SITE.description,
+  image: _image = defaultImage,
+  canonical = Astro.url.pathname,
+  noindex = false,
+  nofollow = false,
+  ogTitle = title,
+  ogType = 'website',
+  dontUseTitleTemplate = false,
+} = Astro.props;
+const image =
+  typeof _image === 'string'
+    ? new URL(_image, Astro.site)
+    : _image && typeof _image['src'] !== 'undefined'
+    ? // @ts-ignore
+      new URL(getRelativeUrlByFilePath(_image.src), Astro.site)
+    : null;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<AstroSeo
+  title={title}
+  titleTemplate={dontUseTitleTemplate ? '%s' : `%s — ${SITE.name}`}
+  description={description}
+  canonical={String(canonical)}
+  noindex={noindex}
+  nofollow={nofollow}
+  openGraph={{
+    url: String(canonical),
+    title: ogTitle,
+    description: description,
+    type: ogType,
+    images: image
+      ? [
+          {
+            url: image.toString(),
+            alt: ogTitle,
+          },
+        ]
+      : undefined,
+    site_name: 'David D Lawson',
+  }}
+  twitter={{
+    handle: '@ddlawson',
+    // site: '@site',
+    cardType: image ? 'summary_large_image' : undefined,
+  }}
+/>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<!-- NEED TO ADD PROPER FAVICONS HERE -->
+<!-- Umami Analytics -->
+{
+  import.meta.env.PROD && (
+    <script async defer data-website-id={SITE.umamiId} src="https://analytics.ddlawson.com/umami.js" />
+  )
+}
+<script defer src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>

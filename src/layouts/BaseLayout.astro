@@ -1,12 +1,12 @@
 ---
 import '@/assets/styles/base.css';
-// import MetaTags from '~/components/common/MetaTags.astro';
+import MetaTags from '@/components/MetaTags.astro';
 import BasicScripts from '@/components/BasicScripts.astro';
-// import { MetaSEO } from '~/types';
+import type { MetaSEO } from '@/types';
 import { SITE } from '@/config.mjs';
-// export interface Props {
-//   meta?: MetaSEO;
-// }
+export interface Props {
+  meta?: MetaSEO;
+}
 const { meta = {} } = Astro.props;
 const { language = 'en-gb' } = SITE;
 ---
@@ -14,20 +14,7 @@ const { language = 'en-gb' } = SITE;
 <!DOCTYPE html>
 <html lang={language} dir="ltr" class="scroll-smooth motion-reduce:scroll-auto">
   <head>
-    <!-- <MetaTags {...meta} /> -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{SITE.title}</title>
-    <meta name="description" content={SITE.description} />
-    <!-- Umami Analytics -->
-    {
-      import.meta.env.PROD && (
-        <script async defer data-website-id={SITE.umamiId} src="https://analytics.ddlawson.com/umami.js" />
-      )
-    }
-    <script defer src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>
+    <MetaTags {...meta} />
   </head>
 
   <body class="h-full bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">

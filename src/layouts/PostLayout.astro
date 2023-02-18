@@ -2,14 +2,16 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import type { MetaSEO } from '@/types';
 export interface Props {
   polkaHeight?: string;
+  meta?: MetaSEO;
 }
 
-const { polkaHeight = 'h-[50%]' } = Astro.props;
+const { meta, polkaHeight = 'h-[30%]' } = Astro.props;
 ---
 
-<BaseLayout>
+<BaseLayout {meta}>
   <a href="#main" class="absolute left-[-9999px] z-100 bg-primary-800 p-6 text-white focus:left-0 focus:translate-x-1/2"
     >Skip to main content</a
   >

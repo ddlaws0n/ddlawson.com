@@ -1,45 +1,86 @@
 ---
 title: Coding with ChatGPT, for non programmers
-publishDate: '2023-02-15 19:07:54'
+publishDate: '2023-02-17 19:07:54'
 description: How (almost) anyone can leverage the power of AI with ChatGPT to create some pretty incredible things. No coding skills required.
-draft: false
+draft: true
 ---
 
-## Outline
+ChatGPT has taken the world by storm.
 
-- ChatGPT has taken the world by storm.
-- Brief paragraph about the history of ChatGPT and the impact it has had on the world
-- A lot of people use it for fun. Some people use it for work, creating emails, blog posts, and countless other things.
-- What most people don't realize is that it has had a huge impact on coding.
-- The early adoption community within software engineering use it extensively
-- What even fewer people realise is that even non-coders can use ChatGPT to code
-- We'll run through three examples of the types of things you can do (two of which I have used personally)
-- Example one: understanding how things work.
-- Example two: automating tasks, such as sending that report to your boss every week
-- Example three: cron jobs.
-- Short paragraph about how there are almost endless possibilities
+Launching in November 2022 (only a few months ago at the time of writing), it’s gained a mind-numbing 100 million monthly active users.
 
-## Post
+For context, the previous hyper growth champion in the consumer application space, TikTok, took nine and a half months to reach the same volume, hitting the milestone in 2020. Before that? Instagram, which took two and a half years to get there.
 
-Have you heard of ChatGPT? If you haven't, you're missing out on one of the coolest technological innovations of the past few years. ChatGPT is a language model developed by OpenAI that has taken the world by storm.
+I can envision a future not too far from today when the next viral hit will only take a couple of weeks to reach this milestone, which is both a scary and fascinating thought for several reasons. None of which I will go into today.
 
-At its core, ChatGPT is an advanced AI system that can generate human-like responses to a wide range of prompts. This has made it a popular tool for everything from customer service chatbots to virtual assistants. But what most people don't realize is that ChatGPT has also had a huge impact on the world of coding.
+Out of the millions of daily users, many people experiment with ChatGPT, trying to push it to the technical limitations of today's generative language models (a classic example being AI hallucinations). Others use it for work, crafting everything from business plans to blog posts.
 
-Let's take a quick look at the history of ChatGPT and how it has influenced the world of technology. First introduced in 2020, ChatGPT quickly became a sensation. People loved chatting with this "smart" language model, and it wasn't long before businesses began to take notice. With its advanced AI capabilities, ChatGPT could generate everything from emails to blog posts, making it a valuable tool for research and analysis.
+But what really sets ChatGPT apart is its impact on the world of coding.
 
-But what really sets ChatGPT apart is its impact on the world of coding. While it's certainly popular for recreational use, like chatting with a "smart" language model, it has also had significant applications in the professional world. One area where ChatGPT has particularly influenced the world of coding is in the development of "low-code" or "no-code" solutions. These platforms aim to make software development more accessible by allowing users to create applications without needing to write code. With ChatGPT, these tools can generate code based on natural language instructions, making it easier for non-coders to develop software.
+Software developers have already had a taste for how AI can impact their workflow.
 
-So how can you use ChatGPT for coding? There are a multitude of possibilities! Here are just a few examples:
+GitHub Copilot, released by Microsoft in June last year, integrates into developers environments, and acts as an experienced and meteorically fast programmer sitting by their side. It will constantly give them prompts, suggestions and alternative solutions to the problems they might be facing. It will also translate their “create a nice-looking button” comment into fully functioning code. Oh, and did I mention it's also powered by OpenAI, the same company behind ChatGPT?
 
-Example one: understanding how things work
-With its advanced language generation capabilities, ChatGPT can be a great resource for learning about programming concepts. You can ask it to explain a particular function or method, or to give an overview of a programming language or framework. It's like having a personal tutor right at your fingertips.
+Well, ChatGPT takes this concept to a whole new level.
 
-Example two: automating tasks
-Another way to use ChatGPT for coding is to automate repetitive tasks. For instance, you could write a natural language prompt for ChatGPT to generate a script that sends a weekly report to your boss. Once you have the script, you can schedule it to run automatically using a tool like Cron or Windows Task Scheduler.
+Programmers now have access to an always-available, seemingly super-intelligent chatbot which they can ask to help explain code they don't understand, debug issues that would have taken hours of research to do beforehand, and generate pretty solid starting templates for any projects they might be working on.
 
-Example three: Cron jobs
-Speaking of Cron jobs, ChatGPT can also be used to generate Cron job schedules. If you're not familiar with Cron, it's a tool for scheduling and automating tasks on Unix-based systems. With ChatGPT, you can generate a natural language prompt for your desired schedule (e.g. "run this script every day at 3pm"), and then use the output to set up a Cron job.
+What many people don’t realize, though, is that ChatGPT can help you with technical and complex tasks even if you don’t know how to code.
 
-The possibilities for using ChatGPT for coding are nearly endless. Whether you're looking to automate tasks, build simple applications, or just learn more about programming concepts, ChatGPT can be a valuable tool for non-coders and coders alike.
+In this article, I’ll be going over three use cases for non-technical people to use ChatGPT for work and play.
 
-So why not give ChatGPT a try? Whether you're a seasoned coder or a total newbie, this "smart" language model is sure to open up a world of possibilities. And who knows, you might just be surprised by what you can create.
+## Use Case #1: Automating menial tasks on your computer
+
+Let’s say that every Monday morning, you email your boss Greg with the latest and greatest sales stats from your company.
+
+Being the savvy and top-notch employee that you are, you put this report together on a Friday afternoon before heading off to Happy Hour at the local pub.
+
+If you break down the steps involved in actually doing this on a Monday morning, you’ll quickly realize that it’s a pretty trivial and monotonous task, which also happens to be very repeatable. A perfect candidate for automation.
+
+Let’s dive in:
+
+1. You open finder/explorer.
+2. You navigate to the folder where you store your reports.
+3. You find the report. Let’s call this ‘2023-02-16 - Sales Report for Greg.xlsx’ (_because you should always use the YYYY-MM-DD date 4. format to avoid the day/month, month/day confusion that still happens in 2023 because one very influential country decided to say screw the other 194 countries in the world, I’m going to be different! /rant_)
+4. You’ll probably either open the report and share it from there, right-click it and share, or just drag-and-drop it onto an email.
+5. Finally, you’ll draft up the same old email to Greg (or copy and paste the template from somewhere if you’re smart) and that’s you done for that first drudgerous task on a Monday morning.
+
+Let’s see what ChatGPT has to say about this.
+
+[!IMAGE]()
+
+Wow! You’ve just received some pretty detailed, personalized and accurate steps that you can simply follow. You follow the steps, copy-paste the prompts it gave you, and voilà. The email is sent on your behalf.
+
+Not bad for a few minutes of work, right? If it took you 3 minutes to do this every week, that’s two and a half hours saved in a year, or just over a day of your life saved over a decade. On sending the same email, the same report, week in, week out.
+
+A week goes by, but there’s a problem. Greg emails you asking why you sent him last weeks’ report.
+
+[!IMAGE]()
+
+Because you were just copying and pasting earlier, you failed to realize that the date was hard-coded in the Task Scheduler. The computer was just doing what it was told and sending Greg the ‘2023-02-17 - Sales Report for Greg.xlsx’
+
+You now know that you can use something called a variable to tell the computer to just use today’s date to find the right report on a Monday morning. Thanks for elaborating on that, ChatGPT! The day is saved.
+
+## Use Case #2: Automating not-so-menial tasks on your computer
+
+You’ve taken your first steps in automation with ChatGPT. You feel empowered. You feel excited. Ready to take on the world.
+
+You may start thinking… “Wait a minute, if all it took was a couple of minutes to automate this, I wonder how long it would take to automate creating the report itself?”
+
+After all, it takes you a good couple of hours to pull the right reports from the business tools in which they reside, bring them all in together and actually work that Excel magic you do every Friday.
+
+Back to ChatGPT.
+
+[!IMAGE]()
+
+Hmm… Python, dataframes, merging… This all seems way too complicated.
+
+## Use Case #3: Learning how things work (including how to code)
+
+If you haven’t already realized from the detailed explanations after every instruction above, ChatGPT not only tells you how to do the thing, but it provides just the right level of context about that thing so that you understand why.
+
+## Conclusion
+
+ChatGPT might not be ready to replace Search just yet, but boy can it provide you with just the right amount of hyper-contextualised information at just the right time so that you can absorb everything without the 2000 extra words of unrelated, search engine optimized fluff you’ll find on the first page of Google these days.
+
+That’s one of the benefits of large language models. Because they’ve scoured through a large swathe of human knowledge, they’re excellent at cutting out the noise and getting to the point of what you need to know or do. Kind of like an expensive consultant.
