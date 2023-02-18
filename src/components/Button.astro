@@ -6,9 +6,10 @@ export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   primary?: boolean;
   link: string;
   icon: string;
+  umami?: string;
 }
 
-const { link, title, primary = true, icon, ...props } = Astro.props;
+const { link, title, umami, primary = true, icon, ...props } = Astro.props;
 
 const primaryStyles =
   'border-primary-700 bg-primary-700 text-white ' +
@@ -30,6 +31,7 @@ const secondaryStyles =
   class:list={[
     'inline-flex items-center justify-center space-x-2 rounded border px-6 py-4 font-semibold leading-6',
     `${primary ? primaryStyles : secondaryStyles}`,
+    `${umami ? `umami--click--${umami}` : ''}`,
   ]}
   {...props}
 >
