@@ -2,7 +2,6 @@
 import { NAV, SOCIAL } from '@/config.mjs';
 import ToggleTheme from '@/components/ToggleTheme.astro';
 import { Icon } from 'astro-icon';
-
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
   return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/') ? 'active-nav' : '';
