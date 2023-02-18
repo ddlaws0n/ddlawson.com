@@ -1,0 +1,24 @@
+---
+import '@/assets/styles/base.css';
+import MetaTags from '@/components/MetaTags.astro';
+import BasicScripts from '@/components/BasicScripts.astro';
+import type { MetaSEO } from '@/types';
+import { SITE } from '@/config.mjs';
+export interface Props {
+  meta?: MetaSEO;
+}
+const { meta = {} } = Astro.props;
+const { language = 'en-gb' } = SITE;
+---
+
+<!DOCTYPE html>
+<html lang={language} dir="ltr" class="scroll-smooth motion-reduce:scroll-auto">
+  <head>
+    <MetaTags {...meta} />
+  </head>
+
+  <body class="h-full bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
+    <slot />
+    <BasicScripts />
+  </body>
+</html>

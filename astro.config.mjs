@@ -6,9 +6,11 @@ import tailwind from '@astrojs/tailwind';
 import image from '@astrojs/image';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
+import prefetch from '@astrojs/prefetch';
 
 // Fonts
-import '@fontsource/besley';
+import '@fontsource/gantari';
+import '@fontsource/nunito';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -16,8 +18,13 @@ export default defineConfig({
   site: SITE.origin,
   base: SITE.basePathname,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+  markdown: {
+    drafts: true,
+    syntaxHighlight: 'prism',
+  },
   integrations: [
-    tailwind(),
+    tailwind({ applyBaseStyles: false }),
+    prefetch(),
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),

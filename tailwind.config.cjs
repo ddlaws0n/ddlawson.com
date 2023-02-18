@@ -1,7 +1,8 @@
 const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
-const { tailwindcssPaletteGenerator } = require('@bobthered/tailwindcss-palette-generator');
+const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
+// const { tailwindcssPaletteGenerator } = require('@bobthered/tailwindcss-palette-generator');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,13 +10,16 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: tailwindcssPaletteGenerator({
-        colors: ['#273c75', '#353b48'],
-        names: ['primary', 'secondary'],
-      }),
+      colors: {
+        primary: colors.sky,
+        secondary: colors.emerald,
+      },
+      // tailwindcssPaletteGenerator({
+      //   colors: ['#273c75', '#353b48'],
+      //   names: ['old-primary', 'old-secondary'],
+      // }),
       fontFamily: {
-        serif: ['Besley', ...defaultTheme.fontFamily.serif],
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        primary: ['Gantari', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         '8xl': '90rem',
@@ -45,6 +49,25 @@ module.exports = {
           },
         },
       },
+      animation: {
+        blob: 'blob 7s infinite',
+      },
+      keyframes: {
+        blob: {
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(30px, -10px) scale(1.1)',
+          },
+          '66%': {
+            transform: 'translate(-20px, 20px) scale(0.9)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+        },
+      },
     },
   },
   plugins: [
@@ -69,8 +92,22 @@ module.exports = {
           'background-image': 'radial-gradient(currentColor 2px, transparent 2px)',
           'background-size': 'calc(10 * 2px) calc(10 * 2px)',
         },
+        '.polka-light': {
+          'background-image':
+            'radial-gradient(rgba(0,116,139,1) 1px, transparent 1px), radial-gradient(rgba(0,116,139,1) 1px, rgba(240, 249, 255, 1) 1px);',
+          'background-size': '20px 20px',
+          'background-position': '0 0, 10px 10px;',
+          mask: 'linear-gradient(to bottom,rgba(240, 249, 255, 1),rgba(240, 249, 255, 0.1))',
+        },
+        // Having a dark variant here is an ugly, temporary workaround which I'll get to resolving at some point!
+        '.polka-dark': {
+          'background-image':
+            'radial-gradient(rgba(0,116,139,1) 1px, transparent 1px), radial-gradient(rgba(0,116,139,1) 1px, rgba(15, 23, 42, 1) 1px);',
+          'background-size': '20px 20px',
+          'background-position': '0 0, 10px 10px;',
+          mask: 'linear-gradient(to bottom,rgba(15, 23, 42, 1),rgba(15, 23, 42, 0.1))',
+        },
       };
-
       addUtilities(utilBgPatterns);
     }),
     plugin(function ({ addUtilities }) {

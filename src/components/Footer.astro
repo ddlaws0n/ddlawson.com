@@ -1,0 +1,55 @@
+---
+import { NAV, SOCIAL } from '@/config.mjs';
+import { Icon } from 'astro-icon';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="">
+  <div class="mx-auto max-w-7xl overflow-hidden py-12 px-6 sm:py-16 lg:px-8">
+    <nav class="-mb-6 flex justify-center space-x-12" aria-label="Footer">
+      {
+        NAV.map(({ name, href }) => (
+          <div class="pb-6">
+            <a
+              href={href}
+              class="hover:text-primary-600 text-sm leading-6 text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
+            >
+              {name}
+            </a>
+          </div>
+        ))
+      }
+      <div class="pb-6">
+        <button class="cursor-not-allowed text-sm leading-6 text-slate-400 dark:text-slate-600" disabled
+          >Projects</button
+        >
+        <span
+          class="inline rounded-full border py-1 px-2 text-[.6125rem] uppercase leading-4 text-gray-400 dark:border-gray-700 dark:text-gray-500"
+          >Soon</span
+        >
+      </div>
+    </nav>
+    <div class="mt-10 flex justify-center space-x-10">
+      {
+        SOCIAL.map(({ name, link, ariaLabel }) => (
+          <a
+            href={link}
+            aria-label={ariaLabel}
+            class="hover:text-primary-600 dark:hover:text-primary-300 text-gray-400"
+          >
+            <span class="sr-only">{name}</span>
+            <Icon name={name} class="h-6 w-6" />
+          </a>
+        ))
+      }
+    </div>
+    <p class="mt-10 text-center text-xs leading-5 text-slate-500 dark:text-slate-300">
+      &copy; {currentYear} David D Lawson. Got any feedback? <span
+        data-feedback-fish
+        class="cursor-pointer text-primary-600 hover:text-primary-500 dark:text-primary-300 dark:hover:text-primary-200"
+        >Let me know!</span
+      >
+    </p>
+  </div>
+</footer>
