@@ -50,7 +50,7 @@ const CONFIG = {
     },
     {
       name: 'tabler:brand-github',
-      link: 'https://www.github.com/DDiran',
+      link: 'https://www.github.com/ddlaws0n',
       ariaLabel: 'GitHub',
     },
     {
