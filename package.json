@@ -11,6 +11,7 @@
     "astro": "astro",
     "format": "prettier -w ."
   },
+  "packageManager": "yarn@1.22.19",
   "devDependencies": {
     "@astrojs/image": "^0.14.0",
     "@astrojs/prefetch": "^0.1.2",
