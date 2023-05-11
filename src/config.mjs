@@ -7,7 +7,7 @@ const CONFIG = {
 
   // SEO
   title: 'David D Lawson',
-  description: '🚀 Customer Experience professional with a passion for people & tech',
+  description: '🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.',
   language: 'en',
   textDirection: 'ltr',
 
