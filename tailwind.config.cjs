@@ -92,21 +92,6 @@ module.exports = {
           'background-image': 'radial-gradient(currentColor 2px, transparent 2px)',
           'background-size': 'calc(10 * 2px) calc(10 * 2px)',
         },
-        '.polka-light': {
-          'background-image':
-            'radial-gradient(rgba(0,116,139,1) 1px, transparent 1px), radial-gradient(rgba(0,116,139,1) 1px, rgba(240, 249, 255, 1) 1px);',
-          'background-size': '20px 20px',
-          'background-position': '0 0, 10px 10px;',
-          mask: 'linear-gradient(to bottom,rgba(240, 249, 255, 1),rgba(240, 249, 255, 0.1))',
-        },
-        // Having a dark variant here is an ugly, temporary workaround which I'll get to resolving at some point!
-        '.polka-dark': {
-          'background-image':
-            'radial-gradient(rgba(0,116,139,1) 1px, transparent 1px), radial-gradient(rgba(0,116,139,1) 1px, rgba(15, 23, 42, 1) 1px);',
-          'background-size': '20px 20px',
-          'background-position': '0 0, 10px 10px;',
-          mask: 'linear-gradient(to bottom,rgba(15, 23, 42, 1),rgba(15, 23, 42, 0.1))',
-        },
       };
       addUtilities(utilBgPatterns);
     }),

@@ -3,11 +3,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import type { MetaSEO } from '@/env';
 export interface Props {
-  polkaHeight?: string;
   meta?: MetaSEO;
 }
 
-const { meta, polkaHeight = 'h-[30%]' } = Astro.props;
+const { meta } = Astro.props;
 ---
 
 <BaseLayout {meta}>
@@ -16,7 +15,6 @@ const { meta, polkaHeight = 'h-[30%]' } = Astro.props;
   >
   <Header />
   <main id="main">
-    <div class={`absolute inset-0 -z-1 w-full ${polkaHeight} opacity-30 polka-light dark:polka-dark`}></div>
     <slot />
   </main>
 </BaseLayout>
