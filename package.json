@@ -31,7 +31,7 @@
     "astro-compress": "^1.1.29",
     "astro-icon": "^0.8.0",
     "autoprefixer": "^10.4.13",
-    "postcss": "8.0.9",
+    "postcss": "8.4.23",
     "postcss-import": "^15.1.0",
     "prettier": "^2.8.3",
     "prettier-plugin-astro": "^0.8.0",
