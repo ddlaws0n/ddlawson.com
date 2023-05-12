@@ -33,15 +33,13 @@ export default defineConfig({
       // customPages: ['https://analytics.ddlawson.com/']
     }),
     compress({
-      css: true,
+      css: false,
       html: {
         removeAttributeQuotes: false,
       },
       img: true,
       js: true,
       svg: false,
-
-      logger: 1,
     }),
     svelte(),
   ],
