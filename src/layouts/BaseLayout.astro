@@ -2,7 +2,7 @@
 import '@/assets/styles/base.css';
 import MetaTags from '@/components/MetaTags.astro';
 import BasicScripts from '@/components/BasicScripts.astro';
-import BackgroundBlur from '@/components/BackgroundBlur.astro'
+import BackgroundBlur from '@/components/BackgroundBlur.astro';
 import { SITE } from '@/config';
 import type { MetaSEO } from '@/env';
 export interface Props {
@@ -13,12 +13,12 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!DOCTYPE html>
-<html lang={language} dir="ltr" class="scroll-smooth motion-reduce:scroll-auto">
+<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
   <head>
     <MetaTags {...meta} />
   </head>
 
-  <body class="h-full bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
+  <body class="flex min-h-screen flex-col bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
     <BackgroundBlur />
     <slot />
     <BasicScripts />
