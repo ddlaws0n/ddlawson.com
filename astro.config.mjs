@@ -7,6 +7,7 @@ import image from '@astrojs/image';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
 import prefetch from '@astrojs/prefetch';
+import svelte from '@astrojs/svelte';
 
 // Fonts
 import '@fontsource/gantari';
@@ -42,6 +43,7 @@ export default defineConfig({
 
       logger: 1,
     }),
+    svelte(),
   ],
   vite: {
     resolve: {
