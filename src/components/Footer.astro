@@ -1,19 +1,19 @@
 ---
-import { NAV, SOCIAL } from '@/config.mjs';
+import { NAV, SOCIAL } from '@/config';
 import { Icon } from 'astro-icon';
 
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="">
-  <div class="mx-auto max-w-7xl overflow-hidden py-12 px-6 sm:py-16 lg:px-8">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
     <nav class="-mb-6 flex justify-center space-x-12" aria-label="Footer">
       {
         NAV.map(({ name, href }) => (
           <div class="pb-6">
             <a
               href={href}
-              class="hover:text-primary-600 text-sm leading-6 text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
+              class="text-sm leading-6 text-slate-600 hover:text-primary-600 dark:text-slate-200 dark:hover:text-slate-100"
             >
               {name}
             </a>
@@ -25,7 +25,7 @@ const currentYear = new Date().getFullYear();
           >Projects</button
         >
         <span
-          class="inline rounded-full border py-1 px-2 text-[.6125rem] uppercase leading-4 text-gray-400 dark:border-gray-700 dark:text-gray-500"
+          class="inline rounded-full border px-2 py-1 text-[.6125rem] uppercase leading-4 text-gray-400 dark:border-gray-700 dark:text-gray-500"
           >Soon</span
         >
       </div>
@@ -36,7 +36,7 @@ const currentYear = new Date().getFullYear();
           <a
             href={link}
             aria-label={ariaLabel}
-            class="hover:text-primary-600 dark:hover:text-primary-300 text-gray-400"
+            class="text-gray-400 hover:text-primary-600 dark:hover:text-primary-300"
           >
             <span class="sr-only">{name}</span>
             <Icon name={name} class="h-6 w-6" />

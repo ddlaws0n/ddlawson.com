@@ -1,5 +1,5 @@
 ---
-import { SITE } from '@/config.mjs';
+import { SITE } from '@/config';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Button from '@/components/Button.astro';
 import { Image } from '@astrojs/image/components';
@@ -8,21 +8,22 @@ const meta = {
   title: SITE.title,
   description: SITE.description,
   dontUseTitleTemplate: true,
+  canonical: SITE.origin,
 };
 ---
 
 <PageLayout {meta} polkaHeight="h-full">
   <section class="overflow-hidden">
-    <div class="container relative mx-auto py-24 px-4 lg:px-8 xl:max-w-7xl">
+    <div class="container relative mx-auto px-4 py-24 lg:px-8 xl:max-w-7xl">
       <div class="grid grid-cols-1 md:grid-cols-2">
         <div class="col-span-1 place-self-center md:order-last">
           <div class="relative mx-auto mb-20 w-56 md:mb-14 lg:w-72">
             <div
-              class="absolute top-0 -left-8 h-56 w-56 animate-blob rounded-full bg-secondary-300 opacity-90 blur-2xl filter dark:hidden lg:h-96 lg:w-96"
+              class="absolute -left-8 top-0 h-56 w-56 animate-blob rounded-full bg-secondary-300 opacity-90 blur-2xl filter dark:hidden lg:h-96 lg:w-96"
             >
             </div>
             <div
-              class="absolute top-0 -right-8 h-56 w-56 animate-blob rounded-full bg-primary-300 opacity-90 blur-2xl filter delay-1000 dark:hidden lg:h-96 lg:w-96"
+              class="absolute -right-8 top-0 h-56 w-56 animate-blob rounded-full bg-primary-300 opacity-90 blur-2xl filter delay-1000 dark:hidden lg:h-96 lg:w-96"
             >
             </div>
             <div
@@ -33,15 +34,9 @@ const meta = {
               class="absolute inset-0 -m-4 -rotate-2 transform rounded-xl bg-primary-300 bg-opacity-50 transition-all duration-500 dark:bg-primary-800"
             >
             </div>
-            <Image
-              src={HeroImage}
-              alt="David D Lawson Profile Image"
-              format="webp"
-              class="relative rounded-lg mx-auto shadow-lg"
-              width={512}
-              height={512}
-              loading="eager"
-            />
+            <div class="relative mx-auto rounded-lg shadow-lg">
+              <Image src={HeroImage} alt="David D Lawson Profile Image" format="webp" width={512} height={512} />
+            </div>
           </div>
         </div>
         <div class="col-span-1">
@@ -70,7 +65,7 @@ const meta = {
             >
           </h2>
           <div
-            class="flex flex-col space-y-2 pt-10 pb-16 sm:flex-row sm:items-center sm:justify-center sm:space-y-0 sm:space-x-2 md:items-start md:justify-start"
+            class="flex flex-col space-y-2 pb-16 pt-10 sm:flex-row sm:items-center sm:justify-center sm:space-x-2 sm:space-y-0 md:items-start md:justify-start"
           >
             <Button link="/blog" title="Read Blog" icon="tabler:news" umami="blog-button" />
             <Button

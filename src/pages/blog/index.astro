@@ -15,8 +15,9 @@ const blogPosts = await getCollection('blog', ({ data }) => {
 
 const meta = {
   title: 'Blog',
-  description: 'I publish new content, sometimes&trade;. It\' mostly a combination of random rambling and (recently) AI-related thoughts.',
-  canonical: SITE.basePathname + 'blog',
+  description:
+    "I publish new content, sometimes&trade;. It' mostly a combination of random rambling and (recently) AI-related thoughts.",
+  canonical: SITE.origin + '/blog',
   // image: await findImage(post.image),
   // noindex: BLOG?.post?.noindex,
 };
@@ -86,7 +87,7 @@ const meta = {
             <p class="mb-2 text-sm leading-relaxed text-slate-500 dark:text-slate-100">{post.data.description}</p>
             <a
               href={`/blog/${post.slug}`}
-              class="text-primary-600 hover:text-primary-500 dark:text-primary-300 dark:hover:text-primary-200 text-sm font-medium"
+              class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-300 dark:hover:text-primary-200"
             >
               Read More
             </a>

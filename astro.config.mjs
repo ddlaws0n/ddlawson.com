@@ -1,7 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'astro/config';
-import { SITE } from './src/config.mjs';
+import { SITE } from './src/config';
 import tailwind from '@astrojs/tailwind';
 import image from '@astrojs/image';
 import compress from 'astro-compress';

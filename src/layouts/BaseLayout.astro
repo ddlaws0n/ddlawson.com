@@ -2,8 +2,8 @@
 import '@/assets/styles/base.css';
 import MetaTags from '@/components/MetaTags.astro';
 import BasicScripts from '@/components/BasicScripts.astro';
-import type { MetaSEO } from '@/types';
-import { SITE } from '@/config.mjs';
+import { SITE } from '@/config';
+import type { MetaSEO } from '@/env';
 export interface Props {
   meta?: MetaSEO;
 }

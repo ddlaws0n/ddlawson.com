@@ -1,4 +1,4 @@
-import { SITE } from '@/config.mjs';
+import { SITE } from '@/config.js';
 
 export function getReadingTime(content: string) {
   if (!content) return;

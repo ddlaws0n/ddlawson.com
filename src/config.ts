@@ -1,4 +1,20 @@
-const CONFIG = {
+export interface Config {
+  name: string;
+  origin: string;
+  basePathname: string;
+  trailingSlash: boolean;
+  title: string;
+  description: string;
+  language: string;
+  defaultTheme: string;
+  umamiId: string;
+  words_per_minute: number;
+  dateFormatter: Intl.DateTimeFormat;
+  navItems: Array<{ name: string; href: string }>;
+  socialShares: Array<{ name: string; link: string; ariaLabel: string }>;
+}
+
+const CONFIG: Config = {
   // Basics
   name: 'David D Lawson',
   origin: 'https://ddlawson.com',
@@ -7,9 +23,9 @@ const CONFIG = {
 
   // SEO
   title: 'David D Lawson',
-  description: '🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.',
+  description:
+    '🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.',
   language: 'en',
-  textDirection: 'ltr',
 
   // Appearance
   defaultTheme: 'system',
@@ -61,7 +77,7 @@ const CONFIG = {
   ],
 };
 
-export const SITE = { ...CONFIG, blog: undefined };
+export const SITE = { ...CONFIG };
 export const NAV = CONFIG.navItems;
 export const SOCIAL = CONFIG.socialShares;
 export const DATE_FORMATTER = CONFIG.dateFormatter;

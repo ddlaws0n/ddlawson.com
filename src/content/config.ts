@@ -9,7 +9,7 @@ const blog = defineCollection({
     lastUpdatedDate: z
       .string()
       .optional()
-      .transform((str) => new Date(str)),
+      .transform((str) => (str ? new Date(str) : undefined)),
     // tags: z.array(z.string()),
     image: z.string().optional(),
     draft: z.boolean().default(true),
