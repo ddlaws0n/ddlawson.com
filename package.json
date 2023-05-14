@@ -16,6 +16,7 @@
   "packageManager": "yarn@1.22.19",
   "devDependencies": {
     "@astrojs/image": "^0.14.0",
+    "@astrojs/mdx": "^0.19.1",
     "@astrojs/prefetch": "^0.1.2",
     "@astrojs/sitemap": "^1.0.1",
     "@astrojs/svelte": "^2.1.1",
