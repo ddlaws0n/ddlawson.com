@@ -1,6 +1,6 @@
 ---
 import { NAV, SOCIAL } from '@/config';
-import ToggleTheme from '@/components/ToggleTheme.svelte';
+import ToggleTheme from '@/components/ToggleTheme.astro';
 import { Icon } from 'astro-icon';
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
@@ -26,7 +26,7 @@ const isActive = (navPath: string) => {
         }
       </nav>
       <div class="flex items-center justify-center">
-        <ToggleTheme client:load iconClass="h-6 w-6" />
+        <ToggleTheme iconClass="h-6 w-6" />
         {
           SOCIAL.map(({ name, link, ariaLabel }) => (
             <a
