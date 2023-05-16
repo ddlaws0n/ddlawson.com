@@ -1,6 +1,6 @@
 [build]
   publish = "dist"
-  command = "yarn tinacms build && astro build"
+  command = "yarn build"
 [[headers]]
   for = "/assets/*"
   [headers.values]
