@@ -24,7 +24,7 @@ export default defineConfig({
         name: 'post',
         label: 'Posts',
         path: 'src/content/blog',
-        format: 'mdx',
+        format: 'md', // mdx
         defaultItem: () => {
           return {
             author: 'David D Lawson',
@@ -100,6 +100,33 @@ export default defineConfig({
             name: 'body',
             label: 'Body',
             isBody: true,
+            // templates: [
+            //   {
+            //     name: 'Image',
+            //     label: 'Image',
+            //     fields: [
+            //       {
+            //         name: 'src',
+            //         label: 'Image Source',
+            //         type: 'string',
+            //       },
+            //       {
+            //         name: 'alt',
+            //         label: 'Image Alt Text',
+            //         type: 'string',
+            //       },
+            //       {
+            //         name: 'format',
+            //         label: 'Image Format',
+            //         type: 'string',
+            //         options: ['webp', 'avif', 'png', 'jpg', 'jpeg'],
+            //         ui: {
+            //           component: 'select',
+            //         },
+            //       },
+            //     ],
+            //   },
+            // ],
           },
         ],
       },

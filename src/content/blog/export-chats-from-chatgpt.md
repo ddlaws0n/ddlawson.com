@@ -5,9 +5,6 @@ description: Solving for what is probably the biggest feature limitation of the 
 draft: false
 ---
 
-import { Image } from '@astrojs/image/components';
-import ExportScreenshot from '@/assets/images/export-chats-from-chatgpt.png';
-
 As of February 2023, the ChatGPT interface is **extremely** basic.
 
 If you’ve used any modern messaging tool in the past few years, you’ve most likely noticed that ChatGPT is bare-bones in comparison.
@@ -26,7 +23,7 @@ I’d like to be able to store that chat somewhere, so I can reference it in fut
 
 Well, thanks to this handy script with Tampermonkey, now I can:
 
-<Image src={ExportScreenshot} alt="ChatGPT Exporter Screenshot" format="webp" />
+![ChatGPT Exporter Screenshot](/img/export-chats-from-chatgpt.png 'image_tooltip')
 
 ## Enter Tampermonkey
 
