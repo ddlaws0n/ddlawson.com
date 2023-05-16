@@ -4,9 +4,9 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "tinacms dev -c 'astro dev'",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
@@ -17,7 +17,7 @@
   "devDependencies": {
     "@astrojs/image": "^0.14.0",
     "@astrojs/mdx": "^0.19.1",
-    "@astrojs/prefetch": "^0.1.2",
+    "@astrojs/prefetch": "^0.2.1",
     "@astrojs/sitemap": "^1.0.1",
     "@astrojs/svelte": "^2.1.1",
     "@astrojs/tailwind": "^3.0.1",
@@ -28,6 +28,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@unlighthouse/vite": "^0.7.4",
     "add": "^2.0.6",
     "astro": "^2.0.5",
     "astro-compress": "^1.1.29",
@@ -37,13 +38,17 @@
     "postcss-import": "^15.1.0",
     "prettier": "^2.8.3",
     "prettier-plugin-astro": "^0.8.0",
-    "prettier-plugin-tailwindcss": "^0.2.2",
-    "sharp": "^0.31.3",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "sharp": "^0.32.1",
     "svelte": "^3.59.1",
     "svgo": "2.8.0",
     "tailwindcss": "^3.0.24",
     "typescript": "^5.0.4",
     "vitest": "^0.31.0",
     "yarn": "^1.22.19"
+  },
+  "dependencies": {
+    "@tinacms/cli": "^1.5.12",
+    "tinacms": "^1.5.5"
   }
 }
