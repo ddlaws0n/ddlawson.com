@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'astro/config';
 import { SITE } from './src/config';
+import Unlighthouse from '@unlighthouse/vite';
 import tailwind from '@astrojs/tailwind';
 import image from '@astrojs/image';
 import mdx from '@astrojs/mdx';
@@ -46,6 +47,17 @@ export default defineConfig({
     svelte(),
   ],
   vite: {
+    plugins: [
+      Unlighthouse({
+        site: SITE.origin,
+        scanner: {
+          samples: 3,
+          device: 'desktop',
+          throttle: true,
+        },
+        debug: false,
+      }),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
