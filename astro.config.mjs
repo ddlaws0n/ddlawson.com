@@ -49,7 +49,7 @@ export default defineConfig({
   vite: {
     plugins: [
       Unlighthouse({
-        site: SITE.origin,
+        site: 'localhost:3000', // SITE.origin,
         scanner: {
           samples: 3,
           device: 'desktop',
