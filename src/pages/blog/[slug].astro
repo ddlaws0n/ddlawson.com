@@ -1,4 +1,5 @@
 ---
+import { SITE } from '@/config';
 import PageLayout from '@/layouts/PageLayout.astro';
 import { getFormattedDate } from '@/utils/utils';
 import { getReadingTime } from '@/utils/readingtime';
@@ -18,7 +19,7 @@ const { Content } = await entry.render();
 const meta = {
   title: entry.data.title,
   description: entry.data.description,
-  canonical: entry.canonical,
+  canonical: SITE.origin + `/blog/${entry.slug}`,
   // image: await findImage(post.image),
   // noindex: BLOG?.post?.noindex,
   ogType: 'article',
