@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@tinacms/cli": "^1.5.39",
+    "preline": "^2.0.3",
     "tinacms": "^1.5.28"
   }
 }
