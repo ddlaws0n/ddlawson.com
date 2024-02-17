@@ -69,14 +69,14 @@ const CONFIG: Config = {
       ariaLabel: 'LinkedIn',
     },
     {
+      name: 'tabler:brand-x',
+      link: 'https://twitter.com/ddlaws0n',
+      ariaLabel: 'Twitter',
+    },
+    {
       name: 'tabler:brand-github',
       link: 'https://www.github.com/ddlaws0n',
       ariaLabel: 'GitHub',
-    },
-    {
-      name: 'tabler:brand-twitter',
-      link: 'https://twitter.com/ddlaws0n',
-      ariaLabel: 'Twitter',
     },
   ],
 };

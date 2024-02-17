@@ -4,12 +4,10 @@ import { defineConfig } from 'astro/config';
 import { SITE } from './src/config';
 import Unlighthouse from '@unlighthouse/vite';
 import tailwind from '@astrojs/tailwind';
-import image from '@astrojs/image';
 import mdx from '@astrojs/mdx';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
-import prefetch from '@astrojs/prefetch';
-import svelte from '@astrojs/svelte';
+import icon from 'astro-icon';
 
 // Fonts
 import '@fontsource/gantari';
@@ -27,10 +25,7 @@ export default defineConfig({
   },
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    prefetch(),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
-    }),
+    icon(),
     sitemap({
       // customPages: ['https://analytics.ddlawson.com/']
     }),
@@ -44,7 +39,6 @@ export default defineConfig({
       js: true,
       svg: false,
     }),
-    svelte(),
   ],
   vite: {
     plugins: [

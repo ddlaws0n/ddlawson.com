@@ -2,7 +2,7 @@
 import { SITE } from '@/config';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Button from '@/components/Button.astro';
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 import HeroImage from '@/assets/images/David D Lawson Profile.png';
 const meta = {
   title: 'About',
@@ -24,10 +24,9 @@ const meta = {
     <div class="flex max-w-3xl flex-col">
       <div class="text-md mx-auto space-y-6 font-sans text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
         <p>
-          Hey, I'm David. I currently work as the <strong>Customer Experience & Enablement</strong> manager at Veracode,
-          where I lead our community team. I focus on educating developers and security practitioners on DevSecOps and secure
-          coding best practices. I also champion the Voice of the Customer and take an uncompromisingly data-driven approach
-          to improving the digital customer experience.
+          Hey, I'm David. I currently work as the <strong>Customer Success</strong> manager at Wiz, where my focus is on
+          helping customers maximise the return on their efforts to secure their cloud estate. I also champion the Voice
+          of the Customer and take an uncompromisingly data-driven approach to improving the overall customer experience.
         </p>
         <p>
           Outside of work, I have a keen interest in many different creative pursuits, from music and filmography to

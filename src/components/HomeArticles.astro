@@ -1,5 +1,5 @@
 ---
-import { Image } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 import testOne from '@/assets/images/astro-website-blog.png';
 import testTwo from '@/assets/images/light-in-the-dark.png';
 import testThree from '@/assets/images/thinking-in-code.png';
@@ -15,7 +15,7 @@ import testThree from '@/assets/images/thinking-in-code.png';
           data-test="article-card"
         >
           <Image src={testOne} alt="Introducing Astro: Ship Less JavaScript" format="webp" />
-          <div class="py-6 px-8 dark:bg-slate-700">
+          <div class="px-8 py-6 dark:bg-slate-700">
             <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">06-08-2021</p>
             <h2 class="text-2xl font-bold leading-tight dark:text-white">Introducing Astro: Ship Less JavaScript</h2>
           </div>
@@ -28,7 +28,7 @@ import testThree from '@/assets/images/thinking-in-code.png';
         >
           <Image src={testTwo} alt="Installing Go on a Mac" />
 
-          <div class="py-6 px-8 dark:bg-slate-700">
+          <div class="px-8 py-6 dark:bg-slate-700">
             <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">02-01-2020</p>
             <h2 class="text-2xl font-bold leading-tight dark:text-white">Installing Go on a Mac, a beginners guide</h2>
           </div>
@@ -41,7 +41,7 @@ import testThree from '@/assets/images/thinking-in-code.png';
         >
           <Image src={testThree} alt="How to compare dates in JavaScript" />
 
-          <div class="py-6 px-8 dark:bg-slate-700">
+          <div class="px-8 py-6 dark:bg-slate-700">
             <p class="mb-4 flex items-center text-xs text-gray-600 dark:text-slate-50">01-28-2020</p>
             <h2 class="text-2xl font-bold leading-tight dark:text-white">How to compare dates in JavaScript</h2>
           </div>
