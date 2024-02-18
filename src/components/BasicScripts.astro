@@ -1,5 +1,7 @@
 ---
 import { SITE } from '@/config';
+import { Analytics } from '@vercel/analytics/react';
+import SpeedInsights from '@vercel/speed-insights/astro';
 ---
 
 <script is:inline define:vars={{ defaultTheme: SITE.defaultTheme }}>
@@ -34,6 +36,9 @@ import { SITE } from '@/config';
     });
   };
 </script>
+
+<Analytics />
+<SpeedInsights />
 
 <script>
   import 'preline/dist/preline.js';

@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/fc1f7af6-8c72-4f2e-96e7-29193e2a7081/deploy-status)](https://app.netlify.com/sites/ddlawson/deploys)
+![Vercel Deploy](https://therealsujitk-vercel-badge.vercel.app/?app=ddlawson-com&style=flat-square)
 
 # 🖥️ ddlawson.com
 
@@ -12,10 +12,10 @@ Revival of my [old website](https://web.archive.org/web/20190805185139/http://dd
 
 🖥️ **Client:** AstroJS, TailwindCSS
 
-🗄️ **Server:** Netlify Hosting & CDN
+🗄️ **Server:** Vercel Hosting & CDN
 
-📈 **Analytics:** Railway (Umami)
+📈 **Analytics:** Vercel Analytics
 
-## Roadmap 
+## Roadmap
 
 🚧 Migrating to Github Projects

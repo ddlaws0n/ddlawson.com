@@ -47,6 +47,8 @@
   },
   "dependencies": {
     "@tinacms/cli": "^1.5.39",
+    "@vercel/analytics": "^1.2.0",
+    "@vercel/speed-insights": "^1.0.10",
     "preline": "^2.0.3",
     "tinacms": "^1.5.28"
   }
