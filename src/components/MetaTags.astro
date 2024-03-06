@@ -1,9 +1,8 @@
 ---
 import { AstroSeo } from '@astrolib/seo';
-import { getImage } from '@astrojs/image';
 import { SITE } from '@/config';
 import type { MetaSEO } from '@/env';
-import defaultImage from '@/assets/images/David D Lawson Profile.png';
+import defaultImage from '@/assets/images/david-d-lawson-ai-profile.png';
 import { getRelativeUrlByFilePath } from '@/utils/directories';
 export interface Props extends MetaSEO {
   dontUseTitleTemplate?: boolean;
@@ -64,9 +63,9 @@ const image =
 <link rel="sitemap" href="/sitemap-index.xml" />
 <!-- NEED TO ADD PROPER FAVICONS HERE -->
 <!-- Umami Analytics -->
-{
+<!-- {
   import.meta.env.PROD && (
     <script async defer data-website-id={SITE.umamiId} src="https://analytics.ddlawson.com/umami.js" />
   )
-}
+} -->
 <script defer src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>
