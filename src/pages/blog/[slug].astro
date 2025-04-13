@@ -7,6 +7,8 @@ import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
+import type { BlogPost } from '@/types.d.ts';
+
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map((entry) => ({
@@ -15,7 +17,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
+const { entry } = Astro.props as { entry: BlogPost };
 const { Content } = await entry.render();
 
 const meta = {

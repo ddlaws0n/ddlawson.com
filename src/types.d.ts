@@ -22,6 +22,34 @@ export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+// Define interface for the blog collection schema that matches content/config.ts
+export interface BlogSchema {
+  title: string;
+  author: string;
+  description: string;
+  publishDate: Date;
+  lastUpdatedDate?: Date;
+  image?: string;
+  draft: boolean;
+}
+
+// Define interface for Astro content collection entries
+export interface ContentEntryType<T> {
+  id: string;
+  slug: string;
+  body: string;
+  collection: string;
+  data: T;
+  render: () => Promise<{
+    Content: any;
+    headings: Array<{ depth: number; slug: string; text: string }>;
+  }>;
+}
+
+// Define BlogPost type based on the content collection entry
+export type BlogPost = ContentEntryType<BlogSchema>;
+
+// Legacy Post interface (keeping for backward compatibility)
 export interface Post {
   // Core metadata
   id: string;
@@ -31,8 +59,7 @@ export interface Post {
   author?: string;
 
   // Content
-  Content: astro.MarkdownInstance<{}>;
-  content?: string;
+  body?: string;
   excerpt?: string;
 
   // Publishing metadata
@@ -48,6 +75,11 @@ export interface Post {
   image?: string;
   canonical?: string | URL;
   permalink?: string;
+
+  status?: 'published' | 'draft' | 'archived';
+  lastUpdatedDate?: Date;
+  lastUpdatedBy?: string;
+  lastUpdatedByName?: string;
 }
 
 export interface MetaSEO {
