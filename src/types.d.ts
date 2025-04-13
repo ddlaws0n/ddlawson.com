@@ -8,7 +8,7 @@ export interface Config {
   language: string;
   defaultTheme: string;
   umamiId: string;
-  words_per_minute: number & { __brand: 'PositiveInteger' };
+  words_per_minute: number;
   dateFormatter: Intl.DateTimeFormat;
   navItems: Array<{ name: string; href: string }>;
   socialShares: Array<{ name: string; link: string; ariaLabel: string }>;
