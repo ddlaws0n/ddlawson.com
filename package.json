@@ -4,10 +4,8 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "dev": "tinacms dev -c 'astro dev'",
-    "start": "astro dev",
+    "dev": "astro dev",
     "build": "astro build",
-    "build:tina": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
@@ -45,11 +43,9 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^7.3.1",
-    "@tinacms/cli": "^1.5.39",
     "@vercel/analytics": "^1.2.0",
     "@vercel/speed-insights": "^1.0.10",
-    "preline": "^2.0.3",
-    "tinacms": "^1.5.28"
+    "preline": "^2.0.3"
   },
   "packageManager": "pnpm@10.8.0"
 }
