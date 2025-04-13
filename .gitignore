@@ -10,10 +10,10 @@ dist/
 .temp/
 
 # Dependencies
-node_modules/
+node_modules
 .pnpm-store/
-.yarn/
-.unlighthouse/
+.yarn
+.unlighthouse
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
@@ -33,8 +33,8 @@ pnpm-debug.log*
 !.env.example
 
 # Editor directories and files
-.vscode/
-.idea/
+.vscode
+.idea
 *.suo
 *.ntvs*
 *.njsproj
@@ -54,6 +54,3 @@ coverage/
 *.tmp
 *.temp
 .cache/
-
-# VSCode
-.vscode/
