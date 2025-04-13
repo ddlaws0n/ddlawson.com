@@ -14,7 +14,6 @@
     "coverage": "vitest --coverage",
     "format": "prettier -w ."
   },
-  "packageManager": "yarn@1.22.19",
   "devDependencies": {
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/sitemap": "^3.0.5",
@@ -51,5 +50,6 @@
     "@vercel/speed-insights": "^1.0.10",
     "preline": "^2.0.3",
     "tinacms": "^1.5.28"
-  }
+  },
+  "packageManager": "pnpm@10.8.0"
 }
