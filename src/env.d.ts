@@ -1,51 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../.astro/types.d.ts" />
+/// <reference types="astro/client" />
 /// <reference types="@astrojs/image/client" />
-
-// export interface ImportMetaEnv {
-//     readonly : string;
-//     readonly PUBLIC_POKEAPI: string;
-//     // more env variables...
-//   }
-
-//   export interface ImportMeta {
-//     readonly env: ImportMetaEnv;
-//   }
-
-export interface Post {
-  id: string;
-  slug: string;
-
-  publishDate: Date;
-  title: string;
-  description?: string;
-
-  image?: string;
-
-  canonical?: string | URL;
-  permalink?: string;
-
-  draft?: boolean;
-
-  excerpt?: string;
-  category?: string;
-  tags?: Array<string>;
-  author?: string;
-
-  Content: unknown;
-  content?: string;
-
-  readingTime?: number;
-}
-
-export interface MetaSEO {
-  title?: string;
-  description?: string;
-  image?: string;
-
-  canonical?: string | URL;
-  noindex?: boolean;
-  nofollow?: boolean;
-
-  ogTitle?: string;
-  ogType?: string;
-}
+/// <reference types="vite/client" />
+/// <reference types="../vendor/integration/types.d.ts" />
