@@ -1,0 +1,30 @@
+# Documentation Reference: https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-commit:
+  commands:
+    format:
+      glob: 'src/**/*.{ts,tsx,js,jsx,css}'
+      run: pnpm prettier --write {staged_files} && git update-index --again && echo "Code formatted successfully."
+
+pre-push:
+  commands:
+    debug:
+      run: echo "----- Running pre-push hook -----" && which node && node --version
+    lint:
+      tags: lint
+      files: git diff --name-only HEAD @{push}
+      glob: 'src/**/*.{js,ts,jsx,tsx}'
+      run: pnpm run lint --fix && echo "Linting completed successfully."
+
+    types:
+      tags: typecheck
+      files: git diff --name-only HEAD @{push}
+      glob: 'src/**/*.{ts,tsx}'
+      run: tsc --noEmit && echo "Types checked successfully."
+
+    update-env-example:
+      tags: prepare:env-file
+      run: |
+        cp .env .env.example || cp .env.local .env.example
+        sed -i '' 's/=\(.*\)/=""/' .env.example
+        echo "Updated .env.example successfully."
