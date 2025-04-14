@@ -1,11 +1,13 @@
-const plugin = require('tailwindcss/plugin');
-const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
-// const { tailwindcssPaletteGenerator } = require('@bobthered/tailwindcss-palette-generator');
+import plugin from 'tailwindcss/plugin';
+import defaultTheme from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+// import { tailwindcssPaletteGenerator } from '@bobthered/tailwindcss-palette-generator';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'class',
   theme: {
@@ -52,9 +54,9 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    aspectRatio,
+    forms,
+    typography,
     plugin(function ({ addUtilities }) {
       const utilBgPatterns = {
         '.pattern-dots-sm': {
