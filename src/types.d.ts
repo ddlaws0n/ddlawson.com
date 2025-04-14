@@ -41,7 +41,7 @@ export interface ContentEntryType<T> {
   collection: string;
   data: T;
   render: () => Promise<{
-    Content: any;
+    Content: () => astroHTML;
     headings: Array<{ depth: number; slug: string; text: string }>;
   }>;
 }
