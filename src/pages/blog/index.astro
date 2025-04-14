@@ -1,6 +1,5 @@
 ---
 import { SITE } from '@/config';
-import type { BlogPost } from '@/types.d.ts';
 import PageLayout from '@/layouts/PageLayout.astro';
 import { getFormattedDate } from '@/utils/utils';
 import { getReadingTime } from '@/utils/readingtime';
@@ -9,7 +8,7 @@ import { getCollection } from 'astro:content';
 const blogPosts = await getCollection('blog', ({ data }) => {
   return !data.draft && data.publishDate < new Date();
 }).then((blogPosts) => {
-  blogPosts.sort((a: BlogPost, b: BlogPost) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+  blogPosts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
   return blogPosts;
 });
 
@@ -79,16 +78,14 @@ const meta = {
             <h4 class="mb-2 text-lg font-bold sm:text-xl">
               <a
                 href={`/blog/${post.slug}`}
-                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
-              >
+                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100">
                 {post.data.title}
               </a>
             </h4>
             <p class="mb-2 text-sm leading-relaxed text-slate-600 dark:text-slate-100">{post.data.description}</p>
             <a
               href={`/blog/${post.slug}`}
-              class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-300 dark:hover:text-primary-200"
-            >
+              class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-300 dark:hover:text-primary-200">
               Read More
             </a>
           </div>

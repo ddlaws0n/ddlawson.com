@@ -7,7 +7,8 @@ import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
-import type { BlogPost } from '@/types.d.ts';
+import type { CollectionEntry } from 'astro:content';
+import type { MetaSEO } from '@/types.d.ts';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -17,16 +18,17 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props as { entry: BlogPost };
+// Use Astro's built-in type instead of custom BlogPost type
+const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
 const { Content } = await entry.render();
 
-const meta = {
+const meta: MetaSEO = {
   title: entry.data.title,
   description: entry.data.description,
   canonical: SITE.origin + `/blog/${entry.slug}`,
   // image: await findImage(post.image),
   // noindex: BLOG?.post?.noindex,
-  ogType: 'article',
+  ogTitle: entry.data.title, // Use ogTitle instead of ogType
 };
 ---
 
@@ -46,14 +48,14 @@ const meta = {
             datetime={entry.data.publishDate instanceof Date
               ? entry.data.publishDate.toISOString()
               : entry.data.publishDate}
-            class="font-semibold">{getFormattedDate(entry.data.publishDate)}</time
+            class="font-semibold"
+            >{getFormattedDate(entry.data.publishDate)}</time
           > · {getReadingTime(entry.body)} min read
         </p>
       </div>
 
       <article
-        class="prose-md prose prose-slate text-justify dark:prose-invert md:prose-lg prose-a:text-primary-600 prose-lead:leading-relaxed"
-      >
+        class="prose-md prose prose-slate text-justify dark:prose-invert md:prose-lg prose-a:text-primary-600 prose-lead:leading-relaxed">
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>
