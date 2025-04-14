@@ -9,7 +9,6 @@ const formatter =
     timeZone: 'UTC',
   });
 
- 
 export const getFormattedDate = (date: Date) => (date ? formatter.format(date) : '');
 
 export const trim = (str = '', ch?: string) => {
