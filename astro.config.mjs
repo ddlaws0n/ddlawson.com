@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from 'astro/config';
 import { SITE } from './src/config';
 import vercel from '@astrojs/vercel/serverless';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from "@tailwindcss/vite";
 import mdx from '@astrojs/mdx';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
@@ -33,9 +33,7 @@ export default defineConfig({
     syntaxHighlight: 'prism',
   },
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
+    tailwindcss(),
     icon(),
     sitemap({
       // customPages: ['https://analytics.ddlawson.com/']
