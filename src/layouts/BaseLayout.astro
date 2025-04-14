@@ -4,7 +4,7 @@ import MetaTags from '@/components/MetaTags.astro';
 import BasicScripts from '@/components/BasicScripts.astro';
 import BackgroundBlur from '@/components/BackgroundBlur.astro';
 import { SITE } from '@/config';
-import type { MetaSEO } from '@/env';
+import type { MetaSEO } from '@/types.d.ts';
 export interface Props {
   meta?: MetaSEO;
 }
@@ -13,7 +13,10 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!doctype html>
-<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
+<html
+  lang={language}
+  dir="ltr"
+  class="h-full scroll-smooth motion-reduce:scroll-auto">
   <head>
     <MetaTags {...meta} />
   </head>
