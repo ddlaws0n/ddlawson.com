@@ -3,15 +3,15 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from 'astro/config';
 import { SITE } from './src/config';
 import vercel from '@astrojs/vercel/serverless';
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
 // Fonts
-import '@fontsource/gantari';
-import '@fontsource/nunito';
+import '@fontsource-variable/noto-sans';
+import '@fontsource-variable/open-sans';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

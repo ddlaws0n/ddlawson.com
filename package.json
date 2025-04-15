@@ -25,6 +25,8 @@
     "@astrojs/sitemap": "^3.3.0",
     "@astrolib/seo": "1.0.0-beta.8",
     "@bobthered/tailwindcss-palette-generator": "^4.0.0",
+    "@fontsource-variable/noto-sans": "^5.2.6",
+    "@fontsource-variable/open-sans": "^5.2.5",
     "@fontsource/gantari": "^5.2.5",
     "@fontsource/nunito": "^5.2.5",
     "@iconify-json/tabler": "^1.2.17",

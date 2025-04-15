@@ -33,6 +33,12 @@ importers:
       '@bobthered/tailwindcss-palette-generator':
         specifier: ^4.0.0
         version: 4.0.0
+      '@fontsource-variable/noto-sans':
+        specifier: ^5.2.6
+        version: 5.2.6
+      '@fontsource-variable/open-sans':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@fontsource/gantari':
         specifier: ^5.2.5
         version: 5.2.5
@@ -423,6 +429,12 @@ packages:
   '@eslint/plugin-kit@0.2.8':
     resolution: {integrity: sha512-ZAoA40rNMPwSm+AeHpCq8STiNAwzWLJuP8Xv4CHIc9wv/PSuExjMrmjfYNj682vW0OOiZ1HKxzvjQr9XZIisQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource-variable/noto-sans@5.2.6':
+    resolution: {integrity: sha512-50Fqbqxctchje/HIbzNMy3h8RATVyQY3BkjPeUNvKIq2vKTOR5KxF728kpDT9CZInEyPtfAGy80ex/omLAxz1A==}
+
+  '@fontsource-variable/open-sans@5.2.5':
+    resolution: {integrity: sha512-++xRfkZAxNP4e1Spm5W11iVcoYfXcNVTV5MDit60t7grRk10hy9C7XQd/jv+0TDFIfHbK9EzyBp3M3CHPesroA==}
 
   '@fontsource/gantari@5.2.5':
     resolution: {integrity: sha512-tSViLEbtFHWezsR6LWvPidYW51BmakEJbXrA23IarmbRRvRAAcO9it+KttSNe+Xc2TzwtmKDNxp+HnrP/I3VqA==}
@@ -3994,6 +4006,10 @@ snapshots:
     dependencies:
       '@eslint/core': 0.13.0
       levn: 0.4.1
+
+  '@fontsource-variable/noto-sans@5.2.6': {}
+
+  '@fontsource-variable/open-sans@5.2.5': {}
 
   '@fontsource/gantari@5.2.5': {}
 
