@@ -5,56 +5,61 @@ import { Icon } from 'astro-icon/components';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-auto">
-  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
+<footer class="mt-auto border-t border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-8">
     <nav
-      class="-mb-6 flex justify-center space-x-12"
+      class="mb-10 flex flex-wrap justify-center gap-x-10 gap-y-4"
       aria-label="Footer">
       {
         NAV.map(({ name, href }) => (
-          <div class="pb-6">
+          <div>
             <a
               href={href}
-              class="text-sm leading-6 text-slate-600 hover:text-sky-600 dark:text-slate-200 dark:hover:text-slate-100">
+              class="text-sm leading-6 font-medium text-slate-600 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-300">
               {name}
             </a>
           </div>
         ))
       }
-      <div class="pb-6">
+      <div>
         <button
-          class="cursor-not-allowed text-sm leading-6 text-slate-400 dark:text-slate-600"
+          class="cursor-not-allowed text-sm leading-6 font-medium text-slate-400 dark:text-slate-600"
           disabled
           >Projects</button
         >
         <span
-          class="inline rounded-full border px-2 py-1 text-[.6125rem] leading-4 text-gray-400 uppercase dark:border-gray-700 dark:text-gray-500"
+          class="ml-2 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[.6125rem] font-medium text-slate-500 uppercase dark:bg-slate-800 dark:text-slate-400"
           >Soon</span
         >
       </div>
     </nav>
-    <div class="mt-10 flex justify-center space-x-10">
+
+    <div class="mt-8 flex justify-center space-x-8">
       {
         SOCIAL.map(({ name, link, ariaLabel }) => (
           <a
             href={link}
+            target="_blank"
             aria-label={ariaLabel}
-            class="text-gray-400 hover:text-sky-600 dark:hover:text-sky-300">
-            <span class="sr-only">{name}</span>
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-sky-100 hover:text-sky-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-sky-300">
+            <span class="sr-only">{ariaLabel}</span>
             <Icon
               name={name}
-              class="h-6 w-6"
+              class="h-5 w-5"
             />
           </a>
         ))
       }
     </div>
-    <p class="mt-10 text-center text-xs leading-5 text-slate-600 dark:text-slate-300">
-      &copy; {currentYear} David D Lawson. Got any feedback? <span
-        data-feedback-fish
-        class="cursor-pointer text-sky-600 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
-        >Let me know!</span
-      >
-    </p>
+
+    <div class="mt-10 border-t border-slate-200 pt-8 dark:border-slate-800">
+      <p class="text-center text-sm text-slate-500 dark:text-slate-400">
+        &copy; {currentYear} David D Lawson. Got any feedback? <span
+          data-feedback-fish
+          class="cursor-pointer font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
+          >Let me know!</span
+        >
+      </p>
+    </div>
   </div>
 </footer>
