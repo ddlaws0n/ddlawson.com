@@ -27,12 +27,15 @@ import SpeedInsights from '@vercel/speed-insights/astro';
       });
     }
   }
-  window.onload = function () {
+  document.addEventListener('DOMContentLoaded', function () {
     attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
       document.documentElement.classList.toggle('dark');
       localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+
+      // Dispatch a custom event that can be listened to by other scripts
+      document.dispatchEvent(new CustomEvent('theme-changed'));
     });
-  };
+  });
 </script>
 
 <SpeedInsights />
