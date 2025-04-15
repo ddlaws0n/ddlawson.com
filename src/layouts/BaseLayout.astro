@@ -13,12 +13,15 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!doctype html>
-<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
+<html
+  lang={language}
+  dir="ltr"
+  class="h-full scroll-smooth motion-reduce:scroll-auto">
   <head>
     <MetaTags {...meta} />
   </head>
 
-  <body class="flex min-h-screen flex-col bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
+  <body class="flex min-h-screen flex-col bg-sky-50 antialiased dark:bg-slate-900 dark:text-sky-50">
     <BackgroundBlur />
     <slot />
     <BasicScripts />

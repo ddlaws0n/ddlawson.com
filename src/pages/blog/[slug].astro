@@ -36,26 +36,26 @@ const meta: MetaSEO = {
   <div class="">
     <div class="container mx-auto space-y-16 px-4 py-8 lg:px-8 lg:py-16 xl:max-w-7xl">
       <div>
-        <!-- <div class="text-sm uppercase font-bold tracking-wider mb-1 text-primary-700">
+        <!-- <div class="text-sm uppercase font-bold tracking-wider mb-1 text-sky-700">
           Category
         </div> -->
-        <h1 class="mb-4 text-3xl font-extrabold text-slate-900 dark:text-slate-100 md:text-4xl lg:text-5xl">
+        <h1 class="mb-4 text-3xl font-extrabold text-slate-900 md:text-4xl lg:text-5xl dark:text-slate-100">
           {entry.data.title}
         </h1>
-        <p class="text-md font-medium text-slate-600 dark:text-slate-200 md:text-lg md:leading-loose lg:text-xl">
+        <p class="text-md font-medium text-slate-600 md:text-lg md:leading-loose lg:text-xl dark:text-slate-200">
           <span class="font-bold">{entry.data.author}</span> on
           <time
             datetime={entry.data.publishDate instanceof Date
               ? entry.data.publishDate.toISOString()
               : entry.data.publishDate}
-            class="font-semibold">{getFormattedDate(entry.data.publishDate)}</time
+            class="font-semibold"
+            >{getFormattedDate(entry.data.publishDate)}</time
           > · {getReadingTime(entry.body)} min read
         </p>
       </div>
 
       <article
-        class="prose-md prose prose-slate text-justify dark:prose-invert md:prose-lg prose-a:text-primary-600 prose-lead:leading-relaxed"
-      >
+        class="prose-md prose prose-slate dark:prose-invert md:prose-lg prose-a:text-sky-600 prose-lead:leading-relaxed text-justify">
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>

@@ -1,13 +1,89 @@
 @import 'tailwindcss';
 
+@plugin '@tailwindcss/typography';
+
 /* 
   Tailwind CSS v4 configuration
   This replaces the previous JavaScript configuration (tailwind.config.mjs)
 */
-@theme {
-  /* Font families */
-  --font-primary: 'Noto Sans', ui-sans-serif, system-ui, sans-serif;
 
-  /* Dark mode */
+/* Define theme variables */
+@theme {
+  /* Enable dark mode using the 'class' strategy */
   --dark-mode: class;
+
+  /* Define font family */
+  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /*
+   * Define primary color palette by mapping to Tailwind sky colors
+   * To change the primary color to a different Tailwind color:
+   * 1. Replace all instances of 'sky' below with another color name (e.g., 'blue', 'indigo', 'emerald')
+   * 2. All components using primary-* classes will automatically use the new color
+   */
+  /* --color-primary-50: var(--color-sky-50, #f0f9ff);
+  --color-primary-100: var(--color-sky-100, #e0f2fe);
+  --color-primary-200: var(--color-sky-200, #bae6fd);
+  --color-primary-300: var(--color-sky-300, #7dd3fc);
+  --color-primary-400: var(--color-sky-400, #38bdf8);
+  --color-primary-500: var(--color-sky-500, #0ea5e9);
+  --color-primary-600: var(--color-sky-600, #0284c7);
+  --color-primary-700: var(--color-sky-700, #0369a1);
+  --color-primary-800: var(--color-sky-800, #075985);
+  --color-primary-900: var(--color-sky-900, #0c4a6e);
+  --color-primary-950: var(--color-sky-950, #082f49); */
+
+  /* Main primary color for backward compatibility */
+  /* --color-primary: var(--color-primary-500, #0ea5e9); */
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility custom-scroll {
+  &::-webkit-scrollbar {
+    @apply right-0! block! size-2! bg-zinc-800!;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-md! bg-zinc-600!;
+  }
+  &::-webkit-scrollbar-corner {
+    @apply bg-zinc-800!;
+  }
+}
+
+/*
+ * Utility class for generating color variants
+ * Usage: .bg-primary-variant-hover:hover { @apply bg-primary-variant; }
+ */
+/* @utility primary-variant {
+  @apply text-primary-600 dark:text-primary-300;
+} */
+
+@utility tooltip-scroll {
+  &::-webkit-scrollbar {
+    @apply right-0! block! size-1.5! bg-white!;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-md! bg-zinc-300!;
+  }
+
+  &::-webkit-scrollbar-corner {
+    @apply bg-zinc-300!;
+  }
+}
+
+@layer components {
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: auto;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
