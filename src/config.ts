@@ -38,13 +38,17 @@ const CONFIG: Config = {
       name: 'About',
       href: '/about',
     },
-    // {
-    //   name: 'Projects',
-    //   href: '/projects',
-    // },
     {
-      name: 'Blog',
-      href: '/blog',
+      name: 'Work',
+      href: '/work',
+    },
+    {
+      name: 'Projects',
+      href: '/projects',
+    },
+    {
+      name: 'Writing',
+      href: '/writing',
     },
   ],
 
