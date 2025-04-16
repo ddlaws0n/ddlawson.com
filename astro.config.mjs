@@ -21,6 +21,7 @@ export default defineConfig({
   base: SITE.basePathname,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
   output: 'server',
+  prefetch: true,
   adapter: vercel({
     webAnalytics: {
       enabled: true,
@@ -36,7 +37,7 @@ export default defineConfig({
     tailwindcss(),
     icon(),
     sitemap({
-      // customPages: ['https://analytics.ddlawson.com/']
+      customPages: ['https://analytics.ddlawson.com/'],
     }),
     mdx(),
     compress({
