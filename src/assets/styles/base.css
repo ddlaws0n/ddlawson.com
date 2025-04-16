@@ -11,11 +11,9 @@
 
 /* Define theme variables */
 @theme {
-  /* Enable dark mode using the 'class' strategy */
-  --dark-mode: class;
-
   /* Define font family */
-  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Open Sans', sans-serif;
+  --font-body: 'Noto Sans', sans-serif;
 
   /*
    * Define primary color palette by mapping to Tailwind sky colors

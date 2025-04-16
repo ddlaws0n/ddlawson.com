@@ -42,13 +42,17 @@ const CONFIG: Config = {
       name: 'Work',
       href: '/work',
     },
-    {
-      name: 'Projects',
-      href: '/projects',
-    },
+    // {
+    //   name: 'Projects',
+    //   href: '/projects',
+    // },
     {
       name: 'Writing',
       href: '/writing',
+    },
+    {
+      name: 'Contact',
+      href: '/contact',
     },
   ],
 
