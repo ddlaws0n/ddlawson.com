@@ -1,6 +1,8 @@
 ---
 import { SITE } from '@/config';
 import PageLayout from '@/layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+import HeroImage from '@/assets/images/david-d-lawson-profile-full.png';
 const meta = {
   title: 'About',
   description: SITE.description,
@@ -9,31 +11,49 @@ const meta = {
 ---
 
 <PageLayout {meta}>
-  <div class="container mx-auto space-y-12 px-4 py-16 lg:px-8 lg:py-32 xl:max-w-7xl">
-    <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:space-y-0">
-      <div class="text-center lg:w-1/2 lg:text-left">
-        <h1 class="mb-4 text-3xl font-extrabold md:text-4xl lg:text-5xl">About Me</h1>
-        <!-- <p class="text-lg font-medium text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
-          I publish new content, sometimes&trade;
-        </p> -->
+  <section class="relative overflow-hidden">
+    <!-- Background gradient overlay, matching index.astro -->
+
+    <div class="container mx-auto px-4 py-16 lg:px-8 lg:py-24 xl:max-w-7xl">
+      <div class="relative flex flex-col-reverse overflow-hidden lg:flex-row">
+        <!-- Text Section -->
+        <div class="flex w-full flex-col items-center justify-center px-6 py-10 lg:w-1/2 lg:items-start lg:py-0">
+          <div class="w-full max-w-xl rounded-2xl p-8">
+            <h1 class="mb-6 text-3xl font-extrabold text-slate-900 md:text-4xl lg:text-5xl dark:text-slate-100">
+              About Me
+            </h1>
+            <div class="text-md space-y-6 font-sans text-slate-700 md:text-xl md:leading-relaxed dark:text-slate-200">
+              <p>
+                Hey, I'm David. I currently work as the <strong>Customer Success</strong> manager at Wiz, where my focus
+                is on helping customers maximise the return on their efforts to secure their cloud estate. I also champion
+                the Voice of the Customer and take an uncompromisingly data-driven approach to improving the overall customer
+                experience.
+              </p>
+              <p>
+                Outside of work, I have a keen interest in many different creative pursuits, from music and filmography
+                to writing and building things (both physical and digital). I’m an avid traveller and occasional fitness
+                enthusiast.
+              </p>
+              <p>
+                I’m also <strong>passionate</strong> about generative AI, LLMs and transformer technologies and their potential
+                to positively impact the world 🌍
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Image Section -->
+        <div class="relative flex h-80 w-full items-center justify-center lg:h-full lg:w-1/2">
+          <div class="absolute inset-0 bg-gradient-to-tr from-sky-300 to-sky-600 opacity-10 dark:opacity-10"></div>
+          <Image
+            src={HeroImage}
+            alt="David D Lawson Profile Photo"
+            format="webp"
+            width={640}
+            height={960}
+            class="h-full w-full rounded-2xl object-cover object-center"
+          />
+        </div>
       </div>
     </div>
-    <div class="flex max-w-3xl flex-col">
-      <div class="text-md mx-auto space-y-6 font-sans text-slate-600 dark:text-slate-200 md:text-xl md:leading-relaxed">
-        <p>
-          Hey, I'm David. I currently work as the <strong>Customer Success</strong> manager at Wiz, where my focus is on
-          helping customers maximise the return on their efforts to secure their cloud estate. I also champion the Voice
-          of the Customer and take an uncompromisingly data-driven approach to improving the overall customer experience.
-        </p>
-        <p>
-          Outside of work, I have a keen interest in many different creative pursuits, from music and filmography to
-          writing and building things (both physical and digital). I’m an avid traveller and occasional fitness
-          enthusiast.
-        </p><p>
-          I’m also <strong>passionate</strong> about generative AI, LLMs and transformer technologies and their potential
-          to positively impact the world 🌍
-        </p>
-      </div>
-    </div>
-  </div>
+  </section>
 </PageLayout>
