@@ -11,9 +11,7 @@ const isActive = (navPath: string) => {
   <div class="flex flex-none items-center py-8">
     <div class="container mx-auto px-4 lg:px-10 xl:max-w-7xl">
       <div class="flex items-center justify-center">
-        <nav
-          class="flex items-center space-x-8 text-center md:space-x-10"
-          aria-label="Main navigation">
+        <nav class="flex items-center space-x-8 text-center md:space-x-10" aria-label="Main navigation">
           {
             NAV.map(({ name, href }) => (
               <a
@@ -21,7 +19,8 @@ const isActive = (navPath: string) => {
                 class:list={[
                   'md:text-md relative text-base font-medium',
                   `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
-                ]}>
+                ]}
+              >
                 <span>{name}</span>
                 <span
                   class:list={[

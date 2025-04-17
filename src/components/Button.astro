@@ -67,7 +67,8 @@ const Tag = link ? 'a' : 'button';
 <Tag
   href={link}
   class:list={[button({ variant, size, class: className }), umami && `umami--click--${umami}`]}
-  {...props}>
+  {...props}
+>
   {icon && <Icon name={icon} />}
   {title && <span>{title}</span>}
   <slot />

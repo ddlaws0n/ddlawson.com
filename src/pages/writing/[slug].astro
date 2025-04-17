@@ -48,14 +48,14 @@ const meta: MetaSEO = {
             datetime={entry.data.publishDate instanceof Date
               ? entry.data.publishDate.toISOString()
               : entry.data.publishDate}
-            class="font-semibold"
-            >{getFormattedDate(entry.data.publishDate)}</time
+            class="font-semibold">{getFormattedDate(entry.data.publishDate)}</time
           > · {getReadingTime(entry.body)} min read
         </p>
       </div>
 
       <article
-        class="prose-md prose prose-slate dark:prose-invert md:prose-lg prose-a:text-sky-600 prose-lead:leading-relaxed text-justify">
+        class="prose-md prose prose-slate dark:prose-invert md:prose-lg prose-a:text-sky-600 prose-lead:leading-relaxed text-justify"
+      >
         <!-- <img src="https://cdn.tailkit.com/media/placeholders/photo-m_HRfLhgABo-800x400.jpg" alt="Featured Image of blog post"> -->
         <Content />
       </article>
