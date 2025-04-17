@@ -12,8 +12,7 @@
 /* Define theme variables */
 @theme {
   /* Define font family */
-  --font-heading: 'Open Sans', sans-serif;
-  --font-body: 'Noto Sans', sans-serif;
+  --font-sans: var(--font-switzer), system-ui, sans-serif;
 
   /*
    * Define primary color palette by mapping to Tailwind sky colors

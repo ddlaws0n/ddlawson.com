@@ -1,6 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import { SITE } from './src/config';
 import vercel from '@astrojs/vercel/serverless';
 import tailwindcss from '@tailwindcss/vite';
@@ -33,11 +33,22 @@ export default defineConfig({
     drafts: true,
     syntaxHighlight: 'prism',
   },
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.fontsource(),
+        name: 'Switzer',
+        display: 'swap',
+        weights: ['400', '500', '600', '700'],
+        cssVariable: '--font-switzer',
+      },
+    ],
+  },
   integrations: [
     tailwindcss(),
     icon(),
     sitemap({
-      customPages: ['https://analytics.ddlawson.com/'],
+      customPages: ['https://analytics.lawson.dev/'],
     }),
     mdx(),
     compress({

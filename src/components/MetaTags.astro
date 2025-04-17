@@ -1,5 +1,6 @@
 ---
 import { AstroSeo } from '@astrolib/seo';
+import { Font } from 'astro:assets';
 import { SITE } from '@/config';
 import type { MetaSEO } from '@/types.d.ts';
 import defaultImage from '@/assets/images/david-d-lawson-profile.png';
@@ -30,6 +31,11 @@ const image =
 <meta
   name="viewport"
   content="width=device-width"
+/>
+
+<Font
+  cssVariable="--font-switzer"
+  preload
 />
 
 <AstroSeo
