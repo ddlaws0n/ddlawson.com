@@ -5,3 +5,7 @@
 /// <reference types="@astrojs/image/client" />
 /// <reference types="vite/client" />
 /// <reference types="../vendor/integration/types.d.ts" />
+
+interface Window {
+  Alpine: import('alpinejs').Alpine;
+}

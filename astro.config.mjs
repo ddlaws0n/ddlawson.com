@@ -1,12 +1,17 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { defineConfig, fontProviders } from 'astro/config';
+
+// Core configs
 import { SITE } from './src/config';
-import vercel from '@astrojs/vercel/serverless';
-import tailwindcss from '@tailwindcss/vite';
+
+// Integrations
+import vercel from '@astrojs/vercel';
 import mdx from '@astrojs/mdx';
-import compress from 'astro-compress';
 import sitemap from '@astrojs/sitemap';
+import alpinejs from '@astrojs/alpinejs';
+import tailwindcss from '@tailwindcss/vite';
+import compress from 'astro-compress';
 import icon from 'astro-icon';
 
 // Fonts
@@ -15,13 +20,17 @@ import '@fontsource-variable/open-sans';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// https://astro.build/config
 export default defineConfig({
+  // Site Configuration
   site: SITE.origin,
   base: SITE.basePathname,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+
+  // Build Configuration
   output: 'server',
   prefetch: true,
+
+  // Adapter Configuration
   adapter: vercel({
     webAnalytics: {
       enabled: true,
@@ -29,10 +38,14 @@ export default defineConfig({
       devImageService: 'squoosh',
     },
   }),
+
+  // Markdown Configuration
   markdown: {
     drafts: true,
     syntaxHighlight: 'prism',
   },
+
+  // Font Configuration
   experimental: {
     fonts: [
       {
@@ -44,6 +57,8 @@ export default defineConfig({
       },
     ],
   },
+
+  // Integrations
   integrations: [
     tailwindcss(),
     icon(),
@@ -60,7 +75,10 @@ export default defineConfig({
       js: true,
       svg: false,
     }),
+    alpinejs(),
   ],
+
+  // Vite Configuration
   vite: {
     resolve: {
       alias: {
