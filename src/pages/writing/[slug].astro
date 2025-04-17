@@ -11,7 +11,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { MetaSEO } from '@/types.d.ts';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
+  const blogEntries = await getCollection('writing');
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
@@ -19,13 +19,13 @@ export async function getStaticPaths() {
 }
 
 // Use Astro's built-in type instead of custom BlogPost type
-const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
+const { entry } = Astro.props as { entry: CollectionEntry<'writing'> };
 const { Content } = await entry.render();
 
 const meta: MetaSEO = {
   title: entry.data.title,
   description: entry.data.description,
-  canonical: SITE.origin + `/blog/${entry.slug}`,
+  canonical: SITE.origin + `/writing/${entry.slug}`,
   // image: await findImage(post.image),
   // noindex: BLOG?.post?.noindex,
   ogTitle: entry.data.title, // Use ogTitle instead of ogType

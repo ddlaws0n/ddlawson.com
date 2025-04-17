@@ -1,12 +1,9 @@
 ---
 import { NAV } from '@/config';
 import ToggleTheme from '@/components/ToggleTheme.astro';
-import { Icon } from 'astro-icon/components';
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
-  return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/')
-    ? 'text-sky-600 dark:text-sky-200 '
-    : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200';
+  return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/');
 };
 ---
 
@@ -22,19 +19,17 @@ const isActive = (navPath: string) => {
               <a
                 href={href}
                 class:list={[
-                  'relative text-base font-semibold transition-colors duration-200 md:text-lg',
-                  isActive(href),
-                  isActive(href) ? 'after:w-full' : 'after:w-0 hover:after:w-full',
+                  'md:text-md relative text-base font-medium',
+                  `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
                 ]}>
-                {href === '/' ? (
-                  <Icon
-                    name="tabler:home"
-                    class="size-6"
-                  />
-                ) : (
-                  <span>{name}</span>
-                )}
-                <span class="absolute -bottom-1 left-0 h-0.5 bg-sky-500 transition-all duration-300 after:left-0 after:h-0.5 dark:bg-sky-400" />
+                <span>{name}</span>
+                <span
+                  class:list={[
+                    'custom-cubic-bezier pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-sky-500 transition-all dark:bg-sky-400',
+                    `${isActive(href) ? 'w-full' : 'w-0'}`,
+                  ]}
+                  aria-hidden="true"
+                />
               </a>
             ))
           }

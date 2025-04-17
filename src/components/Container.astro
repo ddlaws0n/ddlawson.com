@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const { title, subtitle, divider, icon, class: className, ...props } = Astro.props;
+---
+
+<div class="relative overflow-hidden">
+  <div
+    {...props}
+    class:list={['container mx-auto py-12 lg:py-24 xl:max-w-7xl', className]}>
+    {
+      (title || subtitle || icon) && (
+        <div class="mb-12 text-center">
+          {icon && (
+            <div class="flex justify-center">
+              <div class="mb-4 rounded-lg border border-sky-500 bg-gradient-to-br from-sky-100 to-indigo-200 p-2 dark:from-sky-900 dark:to-indigo-900">
+                <Icon
+                  name={icon}
+                  class="size-6 text-sky-600 dark:text-sky-400"
+                />
+              </div>
+            </div>
+          )}
+          {title && (
+            <h1 class="mb-4 text-4xl font-extrabold text-slate-900 md:text-5xl lg:text-6xl dark:text-slate-100">
+              {title}
+            </h1>
+          )}
+          {subtitle && <p class="mx-auto max-w-3xl text-xl text-slate-600 dark:text-slate-300">{subtitle}</p>}
+        </div>
+      )
+    }
+    {divider && <hr class="my-18 h-px border-none bg-gradient-to-r from-transparent via-slate-300 to-transparent" />}
+    <slot />
+  </div>
+</div>
