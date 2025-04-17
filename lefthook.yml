@@ -10,17 +10,12 @@ pre-push:
   commands:
     debug:
       run: echo "----- Running pre-push hook -----" && which node && node --version
-    lint:
-      tags: lint
-      files: git diff --name-only HEAD @{push}
-      glob: 'src/**/*.{js,ts,jsx,tsx}'
-      run: pnpm run lint --fix && echo "Linting completed successfully."
 
-    types:
-      tags: typecheck
-      files: git diff --name-only HEAD @{push}
-      glob: 'src/**/*.{ts,tsx}'
-      run: tsc --noEmit && echo "Types checked successfully."
+    check:
+      tags: lint
+      files: git diff --name-only $(git merge-base origin/main HEAD)
+      glob: 'src/**/*.{js,jsx,ts,tsx}'
+      run: pnpm run check && echo "Types checked successfully."
 
     update-env-example:
       tags: prepare:env-file
