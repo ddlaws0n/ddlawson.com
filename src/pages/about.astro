@@ -12,15 +12,18 @@ const meta = {
 ---
 
 <PageLayout {meta}>
-  <Container class="relative flex flex-col-reverse overflow-hidden lg:flex-row">
+  <Container
+    variant="tight"
+    class="flex flex-col-reverse overflow-hidden lg:flex-row">
     <!-- Text Section -->
-    <div class="flex w-full flex-col items-center justify-center px-6 py-10 lg:w-1/2 lg:items-start lg:py-0">
-      <div class="w-full rounded-2xl p-8">
+    <div class="flex w-full flex-col items-center justify-center px-6 md:py-10 lg:w-1/2 lg:items-start lg:py-0">
+      <div class="w-full rounded-2xl py-8">
         <h1
-          class="mb-6 text-center text-4xl font-extrabold text-slate-950 md:text-4xl lg:text-left lg:text-6xl dark:text-slate-100">
+          class="mb-6 text-center text-4xl font-extrabold text-slate-950 md:text-5xl lg:text-left lg:text-6xl dark:text-slate-100">
           About Me
         </h1>
-        <div class="text-md space-y-6 font-sans text-slate-950/75 md:text-xl md:leading-relaxed dark:text-slate-200">
+        <div
+          class="text-md mx-auto space-y-6 text-slate-950/75 md:mx-0 md:text-xl md:leading-relaxed dark:text-slate-300">
           <p>
             Hey, I'm David. I currently work as the <strong>Customer Success</strong> manager at Wiz, where my focus is on
             helping customers maximise the return on their efforts to secure their cloud estate. I also champion the Voice
