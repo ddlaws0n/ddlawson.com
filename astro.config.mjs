@@ -61,7 +61,7 @@ export default defineConfig({
   // Integrations
   integrations: [
     tailwindcss(),
-    icon(),
+    icon({ iconDir: 'src/assets/icons' }),
     sitemap({
       customPages: ['https://analytics.lawson.dev/'],
     }),
