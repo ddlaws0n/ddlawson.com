@@ -11,8 +11,7 @@ const isActive = (navPath: string) => {
   <div class="flex flex-none items-center py-6 lg:py-8">
     <div class="container mx-auto xl:max-w-7xl">
       <nav
-        x-data="{ mobileMenuIsOpen: false }"
-        x-on:click.away="mobileMenuIsOpen = false"
+        id="main-nav"
         class="relative flex items-center justify-between"
         aria-label="Main navigation">
         <!-- Site Title/Logo (if needed) -->
@@ -53,14 +52,13 @@ const isActive = (navPath: string) => {
 
           <!-- Mobile Menu Button -->
           <button
-            x-on:click="mobileMenuIsOpen = !mobileMenuIsOpen"
-            x-bind:aria-expanded="mobileMenuIsOpen"
+            id="mobile-menu-toggle"
             type="button"
             class="text-slate-600 md:hidden dark:text-slate-400"
-            aria-label="mobile menu">
+            aria-label="mobile menu"
+            aria-expanded="false">
             <svg
-              x-cloak
-              x-show="!mobileMenuIsOpen"
+              id="mobile-menu-open-icon"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               aria-hidden="true"
@@ -75,8 +73,8 @@ const isActive = (navPath: string) => {
               ></path>
             </svg>
             <svg
-              x-cloak
-              x-show="mobileMenuIsOpen"
+              id="mobile-menu-close-icon"
+              style="display: none;"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               aria-hidden="true"
@@ -95,15 +93,9 @@ const isActive = (navPath: string) => {
 
         <!-- Mobile Menu -->
         <div
-          x-cloak
-          x-show="mobileMenuIsOpen"
-          x-transition:enter="transition ease-out duration-200"
-          x-transition:enter-start="opacity-0 -translate-y-4"
-          x-transition:enter-end="opacity-100 translate-y-0"
-          x-transition:leave="transition ease-in duration-150"
-          x-transition:leave-start="opacity-100 translate-y-0"
-          x-transition:leave-end="opacity-0 -translate-y-4"
-          class="absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white p-4 shadow-lg md:hidden dark:bg-slate-800">
+          id="mobile-menu"
+          hidden
+          class="mobile-menu absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white p-4 shadow-lg md:hidden dark:bg-slate-800">
           <div class="flex flex-col space-y-4">
             {
               NAV.map(({ name, href }) => (
@@ -125,8 +117,75 @@ const isActive = (navPath: string) => {
 </header>
 
 <style>
-  /* Add to ensure Alpine.js x-cloak works properly */
-  [x-cloak] {
+  .mobile-menu[hidden] {
     display: none !important;
   }
+  .mobile-menu {
+    opacity: 0;
+    transform: translateY(-1rem);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  .mobile-menu.show {
+    display: block !important;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 </style>
+
+<script>
+  // Vanilla JS mobile menu logic with TS safety
+  const nav = document.getElementById('main-nav');
+  const toggleBtn = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('mobile-menu-open-icon');
+  const closeIcon = document.getElementById('mobile-menu-close-icon');
+  let mobileMenuIsOpen = false;
+
+  function setMenuState(open: boolean) {
+    mobileMenuIsOpen = open;
+    if (!menu || !toggleBtn || !openIcon || !closeIcon) return;
+    if (mobileMenuIsOpen) {
+      menu.hidden = false;
+      menu.classList.add('show');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      openIcon.style.display = 'none';
+      closeIcon.style.display = '';
+      // Trap focus inside menu if needed
+    } else {
+      menu.classList.remove('show');
+      setTimeout(() => {
+        if (menu) menu.hidden = true;
+      }, 200);
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      openIcon.style.display = '';
+      closeIcon.style.display = 'none';
+    }
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (_e) => {
+      setMenuState(!mobileMenuIsOpen);
+    });
+  }
+
+  // Click outside to close
+  document.addEventListener('click', (e) => {
+    if (!nav || !nav.contains(e.target as Node)) {
+      if (mobileMenuIsOpen) setMenuState(false);
+    }
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenuIsOpen) {
+      setMenuState(false);
+    }
+  });
+</script>
