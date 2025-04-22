@@ -57,19 +57,26 @@ export default defineConfig({
   },
 
   // Integrations
-  integrations: [icon({ iconDir: 'src/assets/icons' }), sitemap({
-    customPages: ['https://analytics.lawson.dev/'],
-  }), mdx(), Sonda({
-    server: true,
-  }), compress({
-    css: false,
-    html: {
-      removeAttributeQuotes: false,
-    },
-    img: false,
-    js: true,
-    svg: false,
-  }), vtbot()],
+  integrations: [
+    icon({ iconDir: 'src/assets/icons' }),
+    sitemap({
+      customPages: ['https://analytics.lawson.dev/'],
+    }),
+    mdx(),
+    Sonda({
+      server: true,
+    }),
+    compress({
+      css: false,
+      html: {
+        removeAttributeQuotes: false,
+      },
+      img: false,
+      js: true,
+      svg: false,
+    }),
+    vtbot(),
+  ],
 
   // Vite Configuration
   vite: {

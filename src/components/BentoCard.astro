@@ -21,10 +21,10 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
         {title && (
           <div class="flex items-center gap-2">
             {icon && <Icon name={icon} class="h-5 w-5 text-blue-500" aria-hidden="true" />}
-            <h3 class="text-lg font-semibold tracking-tight text-gray-900">{title}</h3>
+            <h3 class="text-lg font-semibold tracking-tight text-slate-900">{title}</h3>
           </div>
         )}
-        {content && <p class="mt-2 text-sm text-gray-600">{content}</p>}
+        {content && <p class="mt-2 text-sm text-slate-600">{content}</p>}
         <slot />
       </div>
 
@@ -38,7 +38,7 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
         </div>
       )}
 
-      {footer && <div class="relative z-10 px-6 pb-6 text-sm text-gray-500">{footer}</div>}
+      {footer && <div class="relative z-10 px-6 pb-6 text-sm text-slate-500">{footer}</div>}
 
       <div
         class="animate-glow pointer-events-none absolute inset-0 z-0 opacity-5 transition-all duration-500 ease-in-out group-hover:opacity-10"
@@ -55,10 +55,10 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
         {title && (
           <div class="flex items-center gap-2">
             {icon && <Icon name={icon} class="h-5 w-5 text-blue-500" aria-hidden="true" />}
-            <h3 class="text-lg font-semibold tracking-tight text-gray-900">{title}</h3>
+            <h3 class="text-lg font-semibold tracking-tight text-slate-900">{title}</h3>
           </div>
         )}
-        {content && <p class="mt-2 text-sm text-gray-600">{content}</p>}
+        {content && <p class="mt-2 text-sm text-slate-600">{content}</p>}
         <slot />
       </div>
 
@@ -72,7 +72,7 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
         </div>
       )}
 
-      {footer && <div class="relative z-10 px-6 pb-6 text-sm text-gray-500">{footer}</div>}
+      {footer && <div class="relative z-10 px-6 pb-6 text-sm text-slate-500">{footer}</div>}
 
       <div
         class="animate-glow pointer-events-none absolute inset-0 z-0 opacity-5 transition-all duration-500 ease-in-out group-hover:opacity-10"

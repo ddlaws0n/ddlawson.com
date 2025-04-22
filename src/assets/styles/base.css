@@ -1,15 +1,12 @@
 @import 'tailwindcss';
 
-/* 
-  Tailwind CSS v4 configuration
-  This replaces the previous JavaScript configuration (tailwind.config.mjs)
-*/
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Define theme variables */
 @theme {
-  /* Define font family */
   --font-sans: var(--font-switzer), system-ui, sans-serif;
 
   /*
@@ -61,17 +58,24 @@
     animation: background-move 18s ease-in-out infinite alternate;
     will-change: transform, opacity;
   }
+
+  /* New utility for header-constrained background animation */
+  .animate-header-background-move {
+    /* Apply the same animation - Positioning is handled by the component */
+    animation: background-move 18s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
 }
 
 @utility custom-scroll {
   &::-webkit-scrollbar {
-    @apply right-0! block! size-2! bg-zinc-800!;
+    @apply right-0! block! size-2! bg-slate-800!;
   }
   &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-zinc-600!;
+    @apply rounded-md! bg-slate-600!;
   }
   &::-webkit-scrollbar-corner {
-    @apply bg-zinc-800!;
+    @apply bg-slate-800!;
   }
 }
 
@@ -94,11 +98,11 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-zinc-300!;
+    @apply rounded-md! bg-slate-300!;
   }
 
   &::-webkit-scrollbar-corner {
-    @apply bg-zinc-300!;
+    @apply bg-slate-300!;
   }
 }
 

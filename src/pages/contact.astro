@@ -46,17 +46,16 @@ const submittedData = isError ? await Astro.request.formData() : null;
 ---
 
 <PageLayout {meta}>
-  <Container
-    title="Let's Connect"
-    subtitle="I'd love to hear from you!"
-    icon="tabler:mail">
+  <Container title="Let's Connect" subtitle="I'd love to hear from you!" icon="tabler:mail">
     <div class="mx-auto max-w-3xl">
       <div
-        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-sky-800/50">
+        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-sky-800/50"
+      >
         <!-- Subtle pattern overlay -->
         <div
           class="absolute inset-0 -z-10 rounded-2xl opacity-5 dark:opacity-10"
-          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');">
+          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');"
+        >
         </div>
 
         <p class="mb-8 text-center text-slate-600 dark:text-slate-300">
@@ -68,7 +67,8 @@ const submittedData = isError ? await Astro.request.formData() : null;
           method="POST"
           action="/contact?_action=submitContactForm"
           class="space-y-6"
-          autocomplete="off">
+          autocomplete="off"
+        >
           {/* Display Success/Error Messages */}
           {
             statusMessage && (
@@ -78,7 +78,8 @@ const submittedData = isError ? await Astro.request.formData() : null;
                   { 'text-green-600 dark:text-green-400': isSuccess },
                   { 'text-red-600 dark:text-red-400': isError },
                   { 'text-sky-600 dark:text-sky-400': !isSuccess && !isError }, // Default/info style if needed
-                ]}>
+                ]}
+              >
                 {statusMessage}
               </div>
             )
@@ -87,17 +88,12 @@ const submittedData = isError ? await Astro.request.formData() : null;
           <div class="space-y-4">
             <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-4">
               <div>
-                <label
-                  for="name"
-                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label for="name" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                   Name
                 </label>
                 <div class="relative">
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon
-                      name="tabler:user"
-                      class="size-5 text-slate-400"
-                    />
+                    <Icon name="tabler:user" class="size-5 text-slate-400" />
                   </div>
                   <input
                     type="text"
@@ -116,17 +112,12 @@ const submittedData = isError ? await Astro.request.formData() : null;
               </div>
 
               <div>
-                <label
-                  for="email"
-                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label for="email" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                   Email
                 </label>
                 <div class="relative">
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon
-                      name="tabler:mail"
-                      class="size-5 text-slate-400"
-                    />
+                    <Icon name="tabler:mail" class="size-5 text-slate-400" />
                   </div>
                   <input
                     type="email"
@@ -146,17 +137,12 @@ const submittedData = isError ? await Astro.request.formData() : null;
             </div>
 
             <div>
-              <label
-                for="message"
-                class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label for="message" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Message
               </label>
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
-                  <Icon
-                    name="tabler:message"
-                    class="my-1 size-5 text-slate-400"
-                  />
+                  <Icon name="tabler:message" class="my-1 size-5 text-slate-400" />
                 </div>
                 <textarea
                   id="message"
@@ -167,31 +153,21 @@ const submittedData = isError ? await Astro.request.formData() : null;
                     errors?.message ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
                   ]}
                   placeholder="Type your message here..."
-                  required
-                  >{isSuccess ? '' : String(submittedData?.get('message') ?? '')}</textarea
+                  required>{isSuccess ? '' : String(submittedData?.get('message') ?? '')}</textarea
                 >
               </div>
               {errors?.message && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
             </div>
 
             <div class="hidden">
-              <label
-                for="captcha"
-                class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label for="captcha" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 {captchaQuestion}
               </label>
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Icon
-                    name="tabler:shield-check"
-                    class="size-5 text-slate-400"
-                  />
+                  <Icon name="tabler:shield-check" class="size-5 text-slate-400" />
                 </div>
-                <input
-                  type="hidden"
-                  name="captchaAnswer"
-                  value={captchaAnswer}
-                />
+                <input type="hidden" name="captchaAnswer" value={captchaAnswer} />
                 <input
                   type="text"
                   id="captcha"
@@ -209,16 +185,8 @@ const submittedData = isError ? await Astro.request.formData() : null;
           </div>
 
           <div class="flex justify-end">
-            <Button
-              type="submit"
-              variant="outline"
-              size="md"
-              title="Send Message"
-              class="w-full md:w-auto">
-              <Icon
-                name="tabler:send"
-                class="size-4"
-              />
+            <Button type="submit" variant="outline" size="md" title="Send Message" class="w-full md:w-auto">
+              <Icon name="tabler:send" class="size-4" />
             </Button>
           </div>
         </form>

@@ -43,26 +43,23 @@ const container = tv({
   {...rest}
   class:list={[container({ variant }), customClass]}
   role="region"
-  aria-labelledby={title ? 'container-title' : undefined}>
+  aria-labelledby={title ? 'container-title' : undefined}
+>
   {
     (title || subtitle || icon) && (
       <header class="space-y-4 pb-12 text-center">
         {icon && (
           <div class="flex items-center justify-center">
             <div class="rounded-lg border border-sky-500 bg-gradient-to-br from-sky-100 to-indigo-200 p-3 dark:from-sky-900 dark:to-indigo-900">
-              <Icon
-                name={icon}
-                class="size-7 text-sky-600 dark:text-sky-400"
-                aria-hidden="true"
-                focusable="false"
-              />
+              <Icon name={icon} class="size-7 text-sky-600 dark:text-sky-400" aria-hidden="true" focusable="false" />
             </div>
           </div>
         )}
         {title && (
           <h1
             id="container-title"
-            class="text-4xl font-extrabold text-slate-900 md:text-5xl lg:text-6xl dark:text-slate-100">
+            class="text-4xl font-extrabold text-slate-900 md:text-5xl lg:text-6xl dark:text-slate-100"
+          >
             {title}
           </h1>
         )}

@@ -123,7 +123,7 @@ const meta = {
         content="London, United Kingdom 🇬🇧"
         icon="tabler:map-pin">
         <div
-          class="mt-4 text-sm text-gray-500"
+          class="mt-4 text-sm text-slate-500"
           x-data="{ time: new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' }) }"
           x-init="setInterval(() => time = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' }), 1000)">
           Local time: <span x-text="time"></span>
