@@ -10,19 +10,53 @@ const meta = {
   description: SITE.description,
   canonical: SITE.origin + '/contact',
 };
+
+// Generate captcha numbers server-side (remains here for the form)
+const num1 = Math.floor(Math.random() * 10);
+const num2 = Math.floor(Math.random() * 10);
+const captchaAnswer = num1 + num2;
+const captchaQuestion = `What is ${num1} + ${num2}?`;
+
+// Access form errors if they exist (populated by Astro Actions on validation failure)
+const errors = Astro.locals.errors ?? {};
+
+// Determine if the form was submitted successfully (e.g., no errors after POST)
+// A simple check: if it's a POST request and there are no errors, assume success.
+// A more robust way might involve checking specific success flags if the action returns them,
+// but Astro Actions often just re-render or redirect on success.
+const isPost = Astro.request.method === 'POST';
+const hasErrors = Object.keys(errors).length > 0;
+const isSuccess = isPost && !hasErrors;
+
+// Get the success message if applicable (could be set by the action or a default one)
+// For simplicity, let's use a generic success message if isSuccess is true.
+// The action itself returns a message, but accessing it directly here without
+// specific state management (like redirects with flash messages) is complex.
+// We'll display a static success message for now.
+const statusMessage = isSuccess
+  ? "Your message has been sent successfully! I'll get back to you soon."
+  : hasErrors
+    ? 'Please correct the errors below.'
+    : null;
+const isError = isPost && hasErrors;
+
+// Get submitted form data to repopulate fields on error
+// We need to await formData() only if it's a POST request with errors
+const submittedData = isError ? await Astro.request.formData() : null;
 ---
 
 <PageLayout {meta}>
-  <Container title="Let's Connect" subtitle="I'd love to hear from you!" icon="tabler:mail">
+  <Container
+    title="Let's Connect"
+    subtitle="I'd love to hear from you!"
+    icon="tabler:mail">
     <div class="mx-auto max-w-3xl">
       <div
-        class="bg-opacity-80 dark:bg-opacity-30 relative rounded-2xl bg-white p-8 shadow-sm backdrop-blur-sm dark:bg-slate-800"
-      >
+        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-sky-800/50">
         <!-- Subtle pattern overlay -->
         <div
           class="absolute inset-0 -z-10 rounded-2xl opacity-5 dark:opacity-10"
-          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');"
-        >
+          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');">
         </div>
 
         <p class="mb-8 text-center text-slate-600 dark:text-slate-300">
@@ -31,213 +65,162 @@ const meta = {
 
         <form
           id="contact-form"
+          method="POST"
+          action="/contact?_action=submitContactForm"
           class="space-y-6"
-          autocomplete="off"
-          x-data="{
-            formData: {
-              name: '',
-              email: '',
-              message: '',
-              captcha: ''
-            },
-            captchaQuestion: '',
-            captchaAnswer: 0,
-            status: '',
-            statusType: '',
-            submitting: false,
-            errors: {},
-            
-            init() {
-              this.generateCaptcha();
-            },
-            
-            generateCaptcha() {
-              const num1 = Math.floor(Math.random() * 10);
-              const num2 = Math.floor(Math.random() * 10);
-              this.captchaQuestion = `What is ${num1} + ${num2}?`;
-              this.captchaAnswer = num1 + num2;
-              document.getElementById('captcha-question').innerText = this.captchaQuestion;
-            },
-            
-            validateEmail(email) {
-              return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            },
-            
-            validate() {
-              this.errors = {};
-              
-              if (!this.formData.name.trim()) {
-                this.errors.name = 'Name is required';
-              }
-              
-              if (!this.formData.email.trim()) {
-                this.errors.email = 'Email is required';
-              } else if (!this.validateEmail(this.formData.email)) {
-                this.errors.email = 'Please enter a valid email';
-              }
-              
-              if (!this.formData.message.trim()) {
-                this.errors.message = 'Message is required';
-              }
-              
-              if (!this.formData.captcha.trim()) {
-                this.errors.captcha = 'Please answer the captcha';
-              } else if (parseInt(this.formData.captcha) !== this.captchaAnswer) {
-                this.errors.captcha = 'Incorrect answer';
-              }
-              
-              return Object.keys(this.errors).length === 0;
-            },
-            
-            async submitForm() {
-              if (!this.validate()) {
-                return;
-              }
-              
-              this.submitting = true;
-              this.status = 'Sending...';
-              this.statusType = 'info';
-              
-              try {
-                const response = await fetch('/api/contact', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(this.formData)
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok) {
-                  this.status = 'Message sent successfully! I\'ll get back to you soon.';
-                  this.statusType = 'success';
-                  this.formData = { name: '', email: '', message: '', captcha: '' };
-                  this.generateCaptcha();
-                } else {
-                  this.status = result.message || 'Something went wrong. Please try again.';
-                  this.statusType = 'error';
-                }
-              } catch (error) {
-                this.status = 'Something went wrong. Please try again.';
-                this.statusType = 'error';
-              } finally {
-                this.submitting = false;
-              }
-            }
-          }"
-          @submit.prevent="submitForm"
-        >
+          autocomplete="off">
+          {/* Display Success/Error Messages */}
+          {
+            statusMessage && (
+              <div
+                class:list={[
+                  'mt-4 text-center text-sm font-medium',
+                  { 'text-green-600 dark:text-green-400': isSuccess },
+                  { 'text-red-600 dark:text-red-400': isError },
+                  { 'text-sky-600 dark:text-sky-400': !isSuccess && !isError }, // Default/info style if needed
+                ]}>
+                {statusMessage}
+              </div>
+            )
+          }
+
           <div class="space-y-4">
-            <div>
-              <label for="name" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300"> Name </label>
-              <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Icon name="tabler:user" class="size-5 text-slate-400" />
+            <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-4">
+              <div>
+                <label
+                  for="name"
+                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Name
+                </label>
+                <div class="relative">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <Icon
+                      name="tabler:user"
+                      class="size-5 text-slate-400"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class:list={[
+                      'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
+                      errors?.name ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                    ]}
+                    placeholder="Your name"
+                    required
+                    value={isSuccess ? '' : String(submittedData?.get('name') ?? '')}
+                  />
                 </div>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  x-model="formData.name"
-                  class="block w-full rounded-md border border-slate-300 bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400"
-                  placeholder="Your name"
-                  required
-                />
+                {errors?.name && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
               </div>
-              <p x-show="errors.name" x-text="errors.name" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
+
+              <div>
+                <label
+                  for="email"
+                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Email
+                </label>
+                <div class="relative">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <Icon
+                      name="tabler:mail"
+                      class="size-5 text-slate-400"
+                    />
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class:list={[
+                      'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
+                      errors?.email ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                    ]}
+                    placeholder="you@example.com"
+                    required
+                    value={isSuccess ? '' : String(submittedData?.get('email') ?? '')}
+                  />
+                </div>
+                {errors?.email && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
+              </div>
             </div>
 
             <div>
-              <label for="email" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                Email
-              </label>
-              <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Icon name="tabler:mail" class="size-5 text-slate-400" />
-                </div>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  x-model="formData.email"
-                  class="block w-full rounded-md border border-slate-300 bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400"
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
-              <p x-show="errors.email" x-text="errors.email" class="mt-1 text-sm text-red-600 dark:text-red-400"></p>
-            </div>
-
-            <div>
-              <label for="message" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label
+                for="message"
+                class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Message
               </label>
               <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pt-3 pl-3">
-                  <Icon name="tabler:message" class="size-5 text-slate-400" />
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
+                  <Icon
+                    name="tabler:message"
+                    class="my-1 size-5 text-slate-400"
+                  />
                 </div>
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
-                  x-model="formData.message"
-                  class="block w-full rounded-md border border-slate-300 bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400"
+                  rows="2"
+                  class:list={[
+                    'block max-h-48 w-full resize-y rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
+                    errors?.message ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                  ]}
                   placeholder="Type your message here..."
-                  required></textarea>
+                  required
+                  >{isSuccess ? '' : String(submittedData?.get('message') ?? '')}</textarea
+                >
               </div>
-              <p x-show="errors.message" x-text="errors.message" class="mt-1 text-sm text-red-600 dark:text-red-400">
-              </p>
+              {errors?.message && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
             </div>
 
-            <div>
-              <label for="captcha" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                <span id="captcha-question"></span>
+            <div class="hidden">
+              <label
+                for="captcha"
+                class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                {captchaQuestion}
               </label>
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Icon name="tabler:shield-check" class="size-5 text-slate-400" />
+                  <Icon
+                    name="tabler:shield-check"
+                    class="size-5 text-slate-400"
+                  />
                 </div>
+                <input
+                  type="hidden"
+                  name="captchaAnswer"
+                  value={captchaAnswer}
+                />
                 <input
                   type="text"
                   id="captcha"
                   name="captcha"
-                  x-model="formData.captcha"
-                  class="block w-full rounded-md border border-slate-300 bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400"
+                  class:list={[
+                    'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
+                    errors?.captcha ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                  ]}
                   placeholder="Your answer"
                   required
+                  value={isSuccess ? '' : String(submittedData?.get('captcha') ?? '')}
                 />
               </div>
-              <p x-show="errors.captcha" x-text="errors.captcha" class="mt-1 text-sm text-red-600 dark:text-red-400">
-              </p>
+              {errors?.captcha && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.captcha}</p>}
             </div>
           </div>
 
           <div class="flex justify-end">
             <Button
               type="submit"
-              variant="sky"
+              variant="ghost"
               size="lg"
               title="Send Message"
-              class="w-full md:w-auto"
-              x-bind:disabled="submitting"
-            >
-              <Icon name="tabler:send" class="size-5" />
-              <span x-text="submitting ? 'Sending...' : 'Send Message'"></span>
+              class="w-full md:w-auto">
+              <Icon
+                name="tabler:send"
+                class="size-5"
+              />
             </Button>
-          </div>
-
-          <div
-            x-show="status"
-            x-text="status"
-            x-transition
-            x-bind:class="{
-              'text-green-600 dark:text-green-400': statusType === 'success',
-              'text-red-600 dark:text-red-400': statusType === 'error',
-              'text-sky-600 dark:text-sky-400': statusType === 'info'
-            }"
-            class="mt-4 text-center text-sm font-medium"
-          >
           </div>
         </form>
       </div>
@@ -246,6 +229,7 @@ const meta = {
 </PageLayout>
 
 <style>
+  /* Keep existing styles, remove Alpine-specific if any (none seem present) */
   .dark .contact-form input,
   .dark .contact-form textarea {
     background-color: rgba(30, 41, 59, 0.5);
@@ -253,6 +237,7 @@ const meta = {
   }
 
   @keyframes form-success {
+    /* This animation might not be triggered easily without JS */
     0%,
     100% {
       transform: translateX(0);

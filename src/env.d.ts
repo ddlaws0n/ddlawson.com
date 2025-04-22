@@ -6,6 +6,12 @@
 /// <reference types="vite/client" />
 /// <reference types="../vendor/integration/types.d.ts" />
 
+declare namespace App {
+  interface Locals {
+    errors?: Record<string, string>; // Add errors property for Astro Actions
+  }
+}
+
 interface Window {
   Alpine: import('alpinejs').Alpine;
 }
