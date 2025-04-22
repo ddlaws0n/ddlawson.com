@@ -11,7 +11,3 @@ declare namespace App {
     errors?: Record<string, string>; // Add errors property for Astro Actions
   }
 }
-
-interface Window {
-  Alpine: import('alpinejs').Alpine;
-}
