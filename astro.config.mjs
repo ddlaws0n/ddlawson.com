@@ -55,7 +55,6 @@ export default defineConfig({
 
   // Integrations
   integrations: [
-    tailwindcss(),
     icon({ iconDir: 'src/assets/icons' }),
     sitemap({
       customPages: ['https://analytics.lawson.dev/'],
@@ -79,5 +78,6 @@ export default defineConfig({
         '@': path.resolve(__dirname, './src'),
       },
     },
+    plugins: [tailwindcss()],
   },
 });
