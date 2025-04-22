@@ -9,14 +9,9 @@ import { SITE } from './src/config';
 import vercel from '@astrojs/vercel';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import alpinejs from '@astrojs/alpinejs';
 import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import icon from 'astro-icon';
-
-// Fonts
-import '@fontsource-variable/noto-sans';
-import '@fontsource-variable/open-sans';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -75,7 +70,6 @@ export default defineConfig({
       js: true,
       svg: false,
     }),
-    alpinejs(),
   ],
 
   // Vite Configuration

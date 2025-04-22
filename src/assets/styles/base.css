@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@plugin '@tailwindcss/typography';
-
 /* 
   Tailwind CSS v4 configuration
   This replaces the previous JavaScript configuration (tailwind.config.mjs)
