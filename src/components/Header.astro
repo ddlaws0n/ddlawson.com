@@ -10,15 +10,10 @@ const isActive = (navPath: string) => {
 <header id="page-header">
   <div class="flex flex-none items-center py-6 lg:py-8">
     <div class="container mx-auto xl:max-w-7xl">
-      <nav
-        id="main-nav"
-        class="relative flex items-center justify-between"
-        aria-label="Main navigation">
+      <nav id="main-nav" class="relative flex items-center justify-between" aria-label="Main navigation">
         <!-- Site Title/Logo (if needed) -->
         <div class="text-2xl font-bold text-slate-900 dark:text-white">
-          <a
-            href="/"
-            class="flex items-center">
+          <a href="/" class="flex items-center">
             <span class="sr-only">David D Lawson</span>
           </a>
         </div>
@@ -32,7 +27,8 @@ const isActive = (navPath: string) => {
                 class:list={[
                   'md:text-md relative text-base font-medium',
                   `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
-                ]}>
+                ]}
+              >
                 <span>{name}</span>
                 <span
                   class:list={[
@@ -56,7 +52,8 @@ const isActive = (navPath: string) => {
             type="button"
             class="text-slate-600 md:hidden dark:text-slate-400"
             aria-label="mobile menu"
-            aria-expanded="false">
+            aria-expanded="false"
+          >
             <svg
               id="mobile-menu-open-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -65,11 +62,9 @@ const isActive = (navPath: string) => {
               viewBox="0 0 24 24"
               stroke-width="2"
               stroke="currentColor"
-              class="size-6">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              class="size-6"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
               ></path>
             </svg>
             <svg
@@ -81,12 +76,9 @@ const isActive = (navPath: string) => {
               viewBox="0 0 24 24"
               stroke-width="2"
               stroke="currentColor"
-              class="size-6">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              ></path>
+              class="size-6"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
@@ -95,7 +87,8 @@ const isActive = (navPath: string) => {
         <div
           id="mobile-menu"
           hidden
-          class="mobile-menu absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white p-4 shadow-lg md:hidden dark:bg-slate-800">
+          class="mobile-menu absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white p-4 shadow-lg md:hidden dark:bg-slate-800"
+        >
           <div class="flex flex-col space-y-4">
             {
               NAV.map(({ name, href }) => (
@@ -104,7 +97,8 @@ const isActive = (navPath: string) => {
                   class:list={[
                     'relative block py-2 text-base font-medium',
                     `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
-                  ]}>
+                  ]}
+                >
                   <span>{name}</span>
                 </a>
               ))

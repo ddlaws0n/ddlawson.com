@@ -18,19 +18,14 @@ const container = tv({
 const { title, subtitle, divider, icon, variant, class: className, ...props } = Astro.props;
 ---
 
-<div
-  {...props}
-  class:list={[container({ variant }), className]}>
+<div {...props} class:list={[container({ variant }), className]}>
   {
     (title || subtitle || icon) && (
       <div class="mb-12 text-center">
         {icon && (
           <div class="flex justify-center">
             <div class="mb-4 rounded-lg border border-sky-500 bg-gradient-to-br from-sky-100 to-indigo-200 p-2 dark:from-sky-900 dark:to-indigo-900">
-              <Icon
-                name={icon}
-                class="size-6 text-sky-600 dark:text-sky-400"
-              />
+              <Icon name={icon} class="size-6 text-sky-600 dark:text-sky-400" />
             </div>
           </div>
         )}

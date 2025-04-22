@@ -15,17 +15,12 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
       href={href}
       class={`group relative block overflow-hidden rounded-2xl bg-white shadow ring-1 ring-black/5 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl hover:ring-black/10 focus:ring-2 focus:ring-sky-400 focus:outline-none ${className}`}
       tabindex="0"
-      aria-label={title}>
+      aria-label={title}
+    >
       <div class="relative z-10 p-6 sm:p-8">
         {title && (
           <div class="flex items-center gap-2">
-            {icon && (
-              <Icon
-                name={icon}
-                class="h-5 w-5 text-blue-500"
-                aria-hidden="true"
-              />
-            )}
+            {icon && <Icon name={icon} class="h-5 w-5 text-blue-500" aria-hidden="true" />}
             <h3 class="text-lg font-semibold tracking-tight text-gray-900">{title}</h3>
           </div>
         )}
@@ -54,17 +49,12 @@ const { title, content, image, footer, icon = 'tabler:star', href, className = '
     <div
       class={`group relative overflow-hidden rounded-2xl bg-white shadow ring-1 ring-black/5 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl hover:ring-black/10 focus:ring-2 focus:ring-sky-400 focus:outline-none ${className}`}
       tabindex="0"
-      aria-label={title}>
+      aria-label={title}
+    >
       <div class="relative z-10 p-6 sm:p-8">
         {title && (
           <div class="flex items-center gap-2">
-            {icon && (
-              <Icon
-                name={icon}
-                class="h-5 w-5 text-blue-500"
-                aria-hidden="true"
-              />
-            )}
+            {icon && <Icon name={icon} class="h-5 w-5 text-blue-500" aria-hidden="true" />}
             <h3 class="text-lg font-semibold tracking-tight text-gray-900">{title}</h3>
           </div>
         )}

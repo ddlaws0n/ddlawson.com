@@ -7,6 +7,7 @@
   "useTabs": false,
   "astroAllowShorthand": false,
   "plugins": ["prettier-plugin-astro", "prettier-plugin-astro-organize-imports", "prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/assets/styles/base.css",
   "overrides": [
     {
       "files": "*.astro",

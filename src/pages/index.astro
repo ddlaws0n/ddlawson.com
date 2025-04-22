@@ -23,7 +23,8 @@ const meta = {
         <div class="relative mx-auto">
           <div class="aspect-square overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-slate-800">
             <div
-              class="absolute inset-0 rounded-full bg-gradient-to-tr via-none from-sky-200 to-sky-400 opacity-10 md:size-full dark:opacity-10">
+              class="absolute inset-0 rounded-full bg-gradient-to-tr via-none from-sky-200 to-sky-400 opacity-10 md:size-full dark:opacity-10"
+            >
             </div>
             <Image
               src={HeroImage}
@@ -40,16 +41,14 @@ const meta = {
         <div class="space-y-6 text-center md:text-left">
           <div>
             <span class="text-lg font-medium text-slate-800 md:text-xl md:leading-relaxed dark:text-slate-100">
-              Hey <span
-                aria-label="wave"
-                role="img"
-                >👋</span
-              > I'm
+              Hey <span aria-label="wave" role="img">👋</span> I'm
             </span>
             <h1
-              class="my-4 font-sans text-6xl font-medium tracking-tight text-balance md:text-7xl/[0.7] lg:text-8xl/[0.8] xl:text-8xl">
+              class="my-4 font-sans text-6xl font-medium tracking-tight text-balance md:text-7xl/[0.7] lg:text-8xl/[0.8] xl:text-8xl"
+            >
               <span
-                class="bg-gradient-to-br from-sky-300 via-cyan-300 to-teal-300 text-slate-950 dark:bg-gradient-to-r dark:via-none dark:from-sky-100 dark:to-indigo-500 dark:bg-clip-text dark:text-transparent">
+                class="bg-gradient-to-br from-sky-300 via-cyan-300 to-teal-300 text-slate-950 dark:bg-gradient-to-r dark:via-none dark:from-sky-100 dark:to-indigo-500 dark:bg-clip-text dark:text-transparent"
+              >
                 David Lawson
               </span>
             </h1>
@@ -61,12 +60,12 @@ const meta = {
           </p>
 
           <p
-            class="text-md mx-auto font-sans text-slate-950/75 md:mx-0 md:text-lg md:leading-relaxed dark:text-slate-300">
+            class="text-md mx-auto font-sans text-slate-950/75 md:mx-0 md:text-lg md:leading-relaxed dark:text-slate-300"
+          >
             I'm a <strong>Customer Success</strong> professional, specialized in B2B SaaS with a passion for people & technology.
             Currently helping secure the world's cloud @ <a
               class="cursor-pointer text-sky-600 after:content-['_↗'] hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
-              href="https://www.wiz.io"
-              >Wiz</a
+              href="https://www.wiz.io">Wiz</a
             >
           </p>
         </div>
@@ -93,11 +92,9 @@ const meta = {
                   href={link}
                   target="_blank"
                   class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-800 hover:bg-sky-100 hover:text-sky-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-sky-300"
-                  aria-label={ariaLabel}>
-                  <Icon
-                    name={name}
-                    class="h-5 w-5"
-                  />
+                  aria-label={ariaLabel}
+                >
+                  <Icon name={name} class="h-5 w-5" />
                 </a>
               ))
             }
