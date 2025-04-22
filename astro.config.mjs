@@ -13,7 +13,6 @@ import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import icon from 'astro-icon';
 import Sonda from 'sonda/astro';
-
 import vtbot from 'astro-vtbot';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
