@@ -12,6 +12,9 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import icon from 'astro-icon';
+import Sonda from 'sonda/astro';
+
+import vtbot from 'astro-vtbot';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -54,22 +57,19 @@ export default defineConfig({
   },
 
   // Integrations
-  integrations: [
-    icon({ iconDir: 'src/assets/icons' }),
-    sitemap({
-      customPages: ['https://analytics.lawson.dev/'],
-    }),
-    mdx(),
-    compress({
-      css: false,
-      html: {
-        removeAttributeQuotes: false,
-      },
-      img: false,
-      js: true,
-      svg: false,
-    }),
-  ],
+  integrations: [icon({ iconDir: 'src/assets/icons' }), sitemap({
+    customPages: ['https://analytics.lawson.dev/'],
+  }), mdx(), Sonda({
+    server: true,
+  }), compress({
+    css: false,
+    html: {
+      removeAttributeQuotes: false,
+    },
+    img: false,
+    js: true,
+    svg: false,
+  }), vtbot()],
 
   // Vite Configuration
   vite: {
@@ -77,6 +77,9 @@ export default defineConfig({
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
+    },
+    build: {
+      sourcemap: true,
     },
     plugins: [tailwindcss()],
   },
