@@ -20,9 +20,6 @@ importers:
       '@vercel/speed-insights':
         specifier: ^1.2.0
         version: 1.2.0(svelte@4.2.19)
-      astro-vtbot:
-        specifier: ^2.1.2
-        version: 2.1.2
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.4
@@ -1182,21 +1179,6 @@ packages:
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
 
-  '@vtbag/cam-shaft@1.0.6':
-    resolution: {integrity: sha512-Xy1bmJJLXuCqxmY2agwPfhGNv1XZViqh54H0VGK4mouGsItFsh8Mz/wWAP6mZwAOEuu9bEOJ1mJ+oNoaczZ1zw==}
-
-  '@vtbag/element-crossing@1.1.0':
-    resolution: {integrity: sha512-1YL609KPwhHUKRrVNfoogQCVJPfFrE5DubOLcCJZLHVCjWZ2ZAPcaq1wR2OP6nXD0Ok9JLX41YsEtYBYzw6CxQ==}
-
-  '@vtbag/inspection-chamber@1.0.21':
-    resolution: {integrity: sha512-7TWv9W7Nx5Dkp6Uak9gcLuaF3v10ErEuCcSiUbkN8GTvgjuAIHuV5EKTg+dI1wd7JRoWU840Jf4Avxa+yNyUmw==}
-
-  '@vtbag/turn-signal@1.3.1':
-    resolution: {integrity: sha512-6rWkG+ik3U+KQGI94yNOrOh5QedB9zmP/8H51X5WQwrJz8m2MAU5YwGRRcweO/dJ6wW/Bn7OsgC1vRURnwrvCg==}
-
-  '@vtbag/utensil-drawer@1.2.4':
-    resolution: {integrity: sha512-UUTrH+IlJqbFRPB8n8L9e0Q9TqUpYGBHIrLpLbU8d0cFgaIrMgs14HWbRMTRkHc6s6f5ugOjcZmUr9LxCW9uiA==}
-
   abbrev@3.0.1:
     resolution: {integrity: sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==}
     engines: {node: ^18.17.0 || >=20.5.0}
@@ -1282,9 +1264,6 @@ packages:
 
   astro-icon@1.1.5:
     resolution: {integrity: sha512-CJYS5nWOw9jz4RpGWmzNQY7D0y2ZZacH7atL2K9DeJXJVaz7/5WrxeyIxO8KASk1jCM96Q4LjRx/F3R+InjJrw==}
-
-  astro-vtbot@2.1.2:
-    resolution: {integrity: sha512-AllukRCW37Gs7JCpGF6BdZxbs4LISFLGLj4pFxrbxpJlo7L+8Vx4lVtyXkdcgEGp615YprcMVxHGJadUNG5Qfg==}
 
   astro@5.7.4:
     resolution: {integrity: sha512-h+pndGOyoYbsBd0YvP7bL3gotUSlyltp8OLpcYg062w0n5c96wJ9xt/RmwwXzGbdcUjWFtw0c5z4zCA92NDmlA==}
@@ -4813,16 +4792,6 @@ snapshots:
 
   '@vscode/l10n@0.0.18': {}
 
-  '@vtbag/cam-shaft@1.0.6': {}
-
-  '@vtbag/element-crossing@1.1.0': {}
-
-  '@vtbag/inspection-chamber@1.0.21': {}
-
-  '@vtbag/turn-signal@1.3.1': {}
-
-  '@vtbag/utensil-drawer@1.2.4': {}
-
   abbrev@3.0.1: {}
 
   acorn-import-attributes@1.9.5(acorn@8.14.1):
@@ -4958,14 +4927,6 @@ snapshots:
     transitivePeerDependencies:
       - debug
       - supports-color
-
-  astro-vtbot@2.1.2:
-    dependencies:
-      '@vtbag/cam-shaft': 1.0.6
-      '@vtbag/element-crossing': 1.1.0
-      '@vtbag/inspection-chamber': 1.0.21
-      '@vtbag/turn-signal': 1.3.1
-      '@vtbag/utensil-drawer': 1.2.4
 
   astro@5.7.4(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.40.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1):
     dependencies:
