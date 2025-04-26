@@ -13,46 +13,16 @@ const {
     className = 'inline-block rounded-lg p-2.5 text-sm text-slate-500 hover:bg-sky-100 hover:text-sky-500 focus:outline-hidden focus:ring-4 focus:ring-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 dark:focus:ring-slate-700',
   iconClass = 'w-6 h-6',
 } = Astro.props;
-
-// We'll use client-side JavaScript to dynamically change the icon based on the current theme
 ---
 
-<script>
-  // Function to update the icon based on the current theme
-  function updateThemeIcon() {
-    const isDark = document.documentElement.classList.contains('dark');
-    const themeIcon = document.getElementById('theme-icon');
-
-    if (themeIcon) {
-      // Change the icon name based on the current theme
-      themeIcon.setAttribute('name', isDark ? 'tabler:sun' : 'tabler:moon');
-    }
-  }
-
-  // Update the icon when the page loads
-  document.addEventListener('DOMContentLoaded', () => {
-    updateThemeIcon();
-  });
-
-  // Update the icon when the theme changes
-  document.addEventListener('theme-changed', () => {
-    // Update the icon when the theme changes
-    updateThemeIcon();
-  });
-</script>
-
-<button type="button" class={className} aria-label={label} data-aw-toggle-color-scheme>
-  <Icon id="theme-icon" name="tabler:moon" class={iconClass} />
+<button
+  type="button"
+  class={className}
+  aria-label={label}
+  data-aw-toggle-color-scheme>
+  <Icon
+    id="theme-icon"
+    name="tabler:moon"
+    class={iconClass}
+  />
 </button>
-
-<!-- Initialize the icon based on the current theme -->
-<script is:inline>
-  // Set the initial icon based on the current theme
-  document.addEventListener('DOMContentLoaded', function () {
-    const isDark = document.documentElement.classList.contains('dark');
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) {
-      themeIcon.setAttribute('name', isDark ? 'tabler:sun' : 'tabler:moon');
-    }
-  });
-</script>
