@@ -24,7 +24,10 @@ const meta = {
 ---
 
 <PageLayout {meta}>
-  <Container title="Latest Posts" subtitle="I publish new content, sometimes™" divider="{true}">
+  <Container
+    title="Latest Posts"
+    subtitle="I publish new content, sometimes™"
+    divider={true}>
     <!-- <div class="text-center lg:w-1/2 lg:text-right">
           <form onsubmit="return false;" class="lg:inline-block lg:w-72">
             <div class="relative">
@@ -68,16 +71,14 @@ const meta = {
             <h4 class="mb-2 text-lg font-bold sm:text-xl">
               <a
                 href={`/writing/${post.slug}`}
-                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
-              >
+                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100">
                 {post.data.title}
               </a>
             </h4>
             <p class="mb-2 text-sm leading-relaxed text-slate-600 dark:text-slate-100">{post.data.description}</p>
             <a
               href={`/writing/${post.slug}`}
-              class="text-sm font-medium text-sky-600 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
-            >
+              class="text-sm font-medium text-sky-600 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200">
               Read More
             </a>
           </div>
