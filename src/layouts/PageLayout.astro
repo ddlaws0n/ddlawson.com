@@ -2,7 +2,7 @@
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import type { MetaSEO } from '@/types.d.ts';
+import type { MetaSEO } from '@/types';
 export interface Props {
   meta?: MetaSEO;
 }
@@ -11,11 +11,15 @@ const { meta } = Astro.props;
 ---
 
 <BaseLayout {meta}>
-  <a href="#main" class="absolute left-[-9999px] z-100 bg-sky-800 p-6 text-white focus:left-0 focus:translate-x-1/2"
+  <a
+    href="#main"
+    class="absolute left-[-9999px] z-100 bg-sky-800 p-6 text-white focus:left-0 focus:translate-x-1/2"
     >Skip to main content</a
   >
   <Header />
-  <main id="main" class="relative overflow-hidden">
+  <main
+    id="main"
+    class="relative overflow-hidden">
     <slot />
   </main>
   <Footer />

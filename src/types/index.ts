@@ -14,14 +14,6 @@ export interface Config {
   socialShares: Array<{ name: string; link: string; ariaLabel: string }>;
 }
 
-export interface ImportMetaEnv {
-  readonly NODE_ENV: 'development' | 'production' | 'test';
-}
-
-export interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 // Define interface for the blog collection schema that matches content/config.ts
 export interface BlogSchema {
   title: string;
@@ -41,7 +33,7 @@ export interface ContentEntryType<T> {
   collection: string;
   data: T;
   render: () => Promise<{
-    Content: () => astroHTML;
+    Content: () => astroHTML.JSX.Element;
     headings: Array<{ depth: number; slug: string; text: string }>;
   }>;
 }

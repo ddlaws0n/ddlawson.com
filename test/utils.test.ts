@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { getFormattedDate, trim } from '@/utils/utils';
+import { getFormattedDate, trim } from '@/utils';
 
 test('getFormattedDate', () => {
   const date = new Date(Date.UTC(2023, 4, 12)); // May 12, 2023

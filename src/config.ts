@@ -1,4 +1,4 @@
-import type { Config } from '@/types.d.ts';
+import type { Config } from '@/types';
 
 const CONFIG: Config = {
   // Basics
