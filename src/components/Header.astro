@@ -1,6 +1,6 @@
 ---
-import { NAV } from '@/config';
 import ToggleTheme from '@/components/ToggleTheme.astro';
+import { NAV } from '@/config';
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
   return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/');
