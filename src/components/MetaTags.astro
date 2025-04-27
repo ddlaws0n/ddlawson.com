@@ -1,7 +1,7 @@
 ---
 import defaultImage from '@/assets/images/david-d-lawson-profile.png';
 import { SITE } from '@/config';
-import type { MetaSEO } from '@/types.d.ts';
+import type { MetaSEO } from '@/types';
 import { getRelativeUrlByFilePath } from '@/utils/directories';
 import { AstroSeo } from '@astrolib/seo';
 import { Font } from 'astro:assets';
@@ -30,9 +30,15 @@ const image =
 ---
 
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
+<meta
+  name="viewport"
+  content="width=device-width"
+/>
 
-<Font cssVariable="--font-switzer" preload />
+<Font
+  cssVariable="--font-switzer"
+  preload
+/>
 
 <AstroSeo
   title={title}
@@ -63,9 +69,42 @@ const image =
   }}
 />
 
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="alternate" type="application/rss+xml" title=`${SITE.name} RSS Feed` href={new URL('rss.xml', Astro.site)} />
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href="/favicon.ico"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="/apple-touch-icon.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/favicon-32x32.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="/favicon-16x16.png"
+/>
+<link
+  rel="manifest"
+  href="/site.webmanifest"
+/>
+<link
+  rel="sitemap"
+  href="/sitemap-index.xml"
+/>
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title=`${SITE.name} RSS Feed`
+  href={new URL('rss.xml', Astro.site)}
+/>
 
 <!-- TODO: NEED TO ADD PROPER FAVICONS HERE -->
 
@@ -127,9 +166,19 @@ const image =
 <!-- Umami Analytics -->
 {
   import.meta.env.PROD && (
-    <script async defer is:inline data-website-id={SITE.umamiId} src="https://cloud.umami.is/script.js" />
+    <script
+      async
+      defer
+      is:inline
+      data-website-id={SITE.umamiId}
+      src="https://cloud.umami.is/script.js"
+    />
   )
 }
 
 <!-- FeedbackFish -->
-<script defer is:inline src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>
+<script
+  defer
+  is:inline
+  src="https://feedback.fish/ff.js?pid=e8f83126219490"
+></script>
