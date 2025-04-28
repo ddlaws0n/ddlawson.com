@@ -4,6 +4,7 @@ import Container from '@/components/Container.astro';
 import { SITE } from '@/config';
 import PageLayout from '@/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
+import { actions } from 'astro:actions'; // <-- Step 1: Import actions
 
 const meta = {
   title: 'Contact',
@@ -11,51 +12,50 @@ const meta = {
   canonical: SITE.origin + '/contact',
 };
 
-// Generate captcha numbers server-side (remains here for the form)
-const num1 = Math.floor(Math.random() * 10);
-const num2 = Math.floor(Math.random() * 10);
-const captchaAnswer = num1 + num2;
-const captchaQuestion = `What is ${num1} + ${num2}?`;
+// Step 2: Get the result from the previous action call
+const result = Astro.getActionResult(actions.submitContactForm);
 
-// Access form errors if they exist (populated by Astro Actions on validation failure)
-const errors = Astro.locals.errors ?? {};
+// Step 4: Determine status based on the action result
+const isSuccess = !!result && !result.error;
+const isError = !!result && !!result.error;
 
-// Determine if the form was submitted successfully (e.g., no errors after POST)
-// A simple check: if it's a POST request and there are no errors, assume success.
-// A more robust way might involve checking specific success flags if the action returns them,
-// but Astro Actions often just re-render or redirect on success.
-const isPost = Astro.request.method === 'POST';
-const hasErrors = Object.keys(errors).length > 0;
-const isSuccess = isPost && !hasErrors;
+// Get Zod field errors (Astro puts them here)
+// Initialize with the correct type
+let fieldErrors: Record<string, string[] | undefined> = {};
+// Assign if fields exist and are not null/undefined
+if (result?.error && 'fields' in result.error && result.error.fields) {
+  // Assert the type here as we've confirmed 'fields' exists
+  fieldErrors = result.error.fields as Record<string, string[] | undefined>;
+}
 
-// Get the success message if applicable (could be set by the action or a default one)
-// For simplicity, let's use a generic success message if isSuccess is true.
-// The action itself returns a message, but accessing it directly here without
-// specific state management (like redirects with flash messages) is complex.
-// We'll display a static success message for now.
-const statusMessage = isSuccess
-  ? "Your message has been sent successfully! I'll get back to you soon."
-  : hasErrors
-    ? 'Please correct the errors below.'
-    : null;
-const isError = isPost && hasErrors;
+// Get general server error message (from thrown ActionError or other errors)
+const generalErrorMessage = result?.error?.message;
 
-// Get submitted form data to repopulate fields on error
-// We need to await formData() only if it's a POST request with errors
-const submittedData = isError ? await Astro.request.formData() : null;
+// Determine overall status message for display
+let statusMessage: string | null = null;
+if (isSuccess) {
+  statusMessage = "Your message has been sent successfully! I'll get back to you soon.";
+} else if (generalErrorMessage) {
+  // Prioritize the general server error message from ActionError
+  statusMessage = generalErrorMessage;
+} else if (isError && Object.keys(fieldErrors).length > 0) {
+  // Fallback for Zod errors if no general message exists
+  statusMessage = 'Please correct the errors highlighted below.';
+}
 ---
 
 <PageLayout {meta}>
-  <Container title="Let's Connect" subtitle="I'd love to hear from you!" icon="tabler:mail">
+  <Container
+    title="Let's Connect"
+    subtitle="I'd love to hear from you!"
+    icon="tabler:mail">
     <div class="mx-auto max-w-3xl">
       <div
-        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-sky-800/50"
-      >
+        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-md dark:drop-shadow-sky-800/50">
         <!-- Subtle pattern overlay -->
         <div
           class="absolute inset-0 -z-10 rounded-2xl opacity-5 dark:opacity-10"
-          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');"
-        >
+          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');">
         </div>
 
         <p class="mb-8 text-center text-slate-600 dark:text-slate-300">
@@ -67,8 +67,7 @@ const submittedData = isError ? await Astro.request.formData() : null;
           method="POST"
           action="/contact?_action=submitContactForm"
           class="space-y-6"
-          autocomplete="off"
-        >
+          autocomplete="off">
           {/* Display Success/Error Messages */}
           {
             statusMessage && (
@@ -76,10 +75,11 @@ const submittedData = isError ? await Astro.request.formData() : null;
                 class:list={[
                   'mt-4 text-center text-sm font-medium',
                   { 'text-green-600 dark:text-green-400': isSuccess },
+                  // Use red for any error, including the general form error
                   { 'text-red-600 dark:text-red-400': isError },
-                  { 'text-sky-600 dark:text-sky-400': !isSuccess && !isError }, // Default/info style if needed
-                ]}
-              >
+                  { 'text-sky-600 dark:text-sky-400': !isSuccess && !isError },
+                ]}>
+                {/* Display the determined status message */}
                 {statusMessage}
               </div>
             )
@@ -88,12 +88,17 @@ const submittedData = isError ? await Astro.request.formData() : null;
           <div class="space-y-4">
             <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-4">
               <div>
-                <label for="name" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label
+                  for="name"
+                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                   Name
                 </label>
                 <div class="relative">
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon name="tabler:user" class="size-5 text-slate-400" />
+                    <Icon
+                      name="tabler:user"
+                      class="size-5 text-slate-400"
+                    />
                   </div>
                   <input
                     type="text"
@@ -101,23 +106,36 @@ const submittedData = isError ? await Astro.request.formData() : null;
                     name="name"
                     class:list={[
                       'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                      errors?.name ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                      // Apply error border if 'name' field error exists
+                      fieldErrors.name
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600',
                     ]}
                     placeholder="Your name"
                     required
-                    value={isSuccess ? '' : String(submittedData?.get('name') ?? '')}
+                    transition:persist
                   />
                 </div>
-                {errors?.name && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
+                {/* Display name errors if they exist */}
+                {
+                  fieldErrors.name && (
+                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.name.join(', ')}</p>
+                  )
+                }
               </div>
 
               <div>
-                <label for="email" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                <label
+                  for="email"
+                  class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                   Email
                 </label>
                 <div class="relative">
                   <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon name="tabler:mail" class="size-5 text-slate-400" />
+                    <Icon
+                      name="tabler:mail"
+                      class="size-5 text-slate-400"
+                    />
                   </div>
                   <input
                     type="email"
@@ -125,24 +143,37 @@ const submittedData = isError ? await Astro.request.formData() : null;
                     name="email"
                     class:list={[
                       'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                      errors?.email ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                      // Apply error border if 'email' field error exists
+                      fieldErrors.email
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600',
                     ]}
                     placeholder="you@example.com"
                     required
-                    value={isSuccess ? '' : String(submittedData?.get('email') ?? '')}
+                    transition:persist
                   />
                 </div>
-                {errors?.email && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
+                {/* Display email errors if they exist */}
+                {
+                  fieldErrors.email && (
+                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.email.join(', ')}</p>
+                  )
+                }
               </div>
             </div>
 
             <div>
-              <label for="message" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label
+                for="message"
+                class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Message
               </label>
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
-                  <Icon name="tabler:message" class="my-1 size-5 text-slate-400" />
+                  <Icon
+                    name="tabler:message"
+                    class="my-1 size-5 text-slate-400"
+                  />
                 </div>
                 <textarea
                   id="message"
@@ -150,45 +181,111 @@ const submittedData = isError ? await Astro.request.formData() : null;
                   rows="2"
                   class:list={[
                     'block max-h-48 w-full resize-y rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                    errors?.message ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
+                    // Apply error border if 'message' field error exists
+                    fieldErrors.message
+                      ? 'border-red-500 dark:border-red-400'
+                      : 'border-slate-300 dark:border-slate-600',
                   ]}
                   placeholder="Type your message here..."
-                  required>{isSuccess ? '' : String(submittedData?.get('message') ?? '')}</textarea
-                >
+                  required
+                  transition:persist
+                ></textarea>
               </div>
-              {errors?.message && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
+              {/* Display message errors if they exist */}
+              {
+                fieldErrors.message && (
+                  <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.message.join(', ')}</p>
+                )
+              }
             </div>
 
-            <div class="hidden">
-              <label for="captcha" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                {captchaQuestion}
-              </label>
-              <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Icon name="tabler:shield-check" class="size-5 text-slate-400" />
-                </div>
-                <input type="hidden" name="captchaAnswer" value={captchaAnswer} />
-                <input
-                  type="text"
-                  id="captcha"
-                  name="captcha"
-                  class:list={[
-                    'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                    errors?.captcha ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-slate-600',
-                  ]}
-                  placeholder="Your answer"
-                  value={isSuccess ? '' : String(submittedData?.get('captcha') ?? '')}
-                />
+            <div class="mb-6">
+              <div
+                id="turnstile-widget"
+                class="my-2"
+                data-sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
+                transition:persist="turnstile-widget">
               </div>
-              {errors?.captcha && <p class="mt-1 text-sm text-red-600 dark:text-red-400">{errors.captcha}</p>}
+              <input
+                type="hidden"
+                name="captchaToken"
+                id="captchaToken"
+                transition:persist
+              />
+              {/* Captcha errors are now handled by the general statusMessage */}
             </div>
+            {/* Turnstile Widget Loader Script */}
+            <script is:inline>
+              // Cloudflare Turnstile widget loader
+              // Use astro:page-load for View Transitions compatibility
+              document.addEventListener('astro:page-load', () => {
+                // Check if the Turnstile API script needs to be loaded
+                if (!window.turnstile) {
+                  // Avoid adding duplicate scripts if already loading/loaded
+                  if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
+                    const script = document.createElement('script');
+                    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                    script.async = true;
+                    script.defer = true;
+                    // Append to head to avoid potential body manipulation issues during transitions
+                    document.head.appendChild(script);
+                    // Wait for the script to load before rendering
+                    script.onload = renderTurnstile;
+                  }
+                  // If script is already loading/loaded but turnstile object not yet ready,
+                  // renderTurnstile will be called by its onload or is already called.
+                  // If turnstile object *is* ready, the else block handles it.
+                } else {
+                  // If Turnstile API is already loaded, render the widget directly
+                  renderTurnstile();
+                }
+
+                function renderTurnstile() {
+                  const widgetContainer = document.getElementById('turnstile-widget');
+                  // Ensure the container exists and doesn't already have a widget rendered inside
+                  if (window.turnstile && widgetContainer && !widgetContainer.querySelector('.cf-turnstile')) {
+                    window.turnstile.render('#turnstile-widget', {
+                      sitekey: widgetContainer.dataset.sitekey,
+                      callback: function (token) {
+                        const tokenInput = document.getElementById('captchaToken');
+                        if (tokenInput) {
+                          tokenInput.value = token;
+                        }
+                      },
+                      // Add error handling
+                      'error-callback': function () {
+                        console.error('Turnstile error: Failed to render widget.');
+                        // Optionally display a message to the user
+                      },
+                      // Add expired callback if needed
+                      'expired-callback': function () {
+                        // Reset token or prompt user
+                        const tokenInput = document.getElementById('captchaToken');
+                        if (tokenInput) {
+                          tokenInput.value = '';
+                        }
+                      },
+                    });
+                  }
+                }
+              });
+            </script>
           </div>
 
           <div class="flex justify-end">
-            <Button type="submit" variant="outline" size="md" title="Send Message" class="w-full md:w-auto">
-              <Icon name="tabler:send" class="size-4" />
+            <Button
+              type="submit"
+              variant="outline"
+              size="md"
+              title="Send Message"
+              class="w-full md:w-auto">
+              <Icon
+                name="tabler:send"
+                class="size-4"
+              />
             </Button>
           </div>
+          {/* Removed redundant client-side fetch script; data-astro-reload handles submission */}
         </form>
       </div>
     </div>
