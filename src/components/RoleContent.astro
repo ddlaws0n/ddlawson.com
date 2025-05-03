@@ -17,9 +17,7 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
 ---
 
 {/* Root element for the role content - give it an ID based on containerId for easier selection */}
-<div
-  id={`content-${containerId}`}
-  class="role-content-island">
+<div id={`content-${containerId}`} class="role-content-island">
   <h3 class="role-title mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">
     {initialRole.title}
   </h3>
@@ -33,11 +31,7 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
       initialRole.responsibilities && initialRole.responsibilities.length > 0 && (
         <div class="role-responsibilities content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
           <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-            <Icon
-              name="tabler:list-details"
-              class="size-5 flex-shrink-0 opacity-70"
-              aria-hidden="true"
-            />
+            <Icon name="tabler:list-details" class="size-5 flex-shrink-0 opacity-70" aria-hidden="true" />
             <span>Responsibilities</span>
           </h4>
           <ul class="role-responsibilities-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
@@ -53,11 +47,7 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
       initialRole.achievements && initialRole.achievements.length > 0 && (
         <div class="role-achievements content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
           <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-            <Icon
-              name="tabler:star"
-              class="size-5 flex-shrink-0 opacity-70"
-              aria-hidden="true"
-            />
+            <Icon name="tabler:star" class="size-5 flex-shrink-0 opacity-70" aria-hidden="true" />
             <span>Key Achievements</span>
           </h4>
           <ul class="role-achievements-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">

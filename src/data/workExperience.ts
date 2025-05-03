@@ -9,7 +9,7 @@ export const workExperienceData: WorkExperience[] = [
     company: 'Wiz',
     companyId: 'wiz',
     location: 'London, United Kingdom',
-    logoUrl: wizLogo,
+    logoUrl: wizLogo.src,
     roles: [
       {
         title: 'Manager, Technical Account Management EMEA',
@@ -60,7 +60,7 @@ export const workExperienceData: WorkExperience[] = [
     company: 'Veracode',
     companyId: 'veracode',
     location: 'London, United Kingdom',
-    logoUrl: veracodeLogo,
+    logoUrl: veracodeLogo.src,
     roles: [
       {
         title: 'Manager, Customer Experience & Enablement',
@@ -126,7 +126,7 @@ export const workExperienceData: WorkExperience[] = [
     company: 'Lacework',
     companyId: 'lacework',
     location: 'London, United Kingdom',
-    logoUrl: laceworkLogo,
+    logoUrl: laceworkLogo.src,
     roles: [
       {
         title: 'Senior Customer Success Manager',
@@ -145,7 +145,7 @@ export const workExperienceData: WorkExperience[] = [
     company: 'Finalsite',
     companyId: 'finalsite',
     location: 'London, United Kingdom',
-    logoUrl: finalsiteLogo,
+    logoUrl: finalsiteLogo.src,
     roles: [
       {
         title: 'Digital Project Manager',

@@ -1,47 +1,49 @@
 ---
 import ToggleTheme from '@/components/ToggleTheme.astro';
-import { NAV } from '@/config';
+import { NAV } from '@/site.config';
+import { Icon } from 'astro-icon/components';
+
+interface NavItem {
+  name: string;
+  href: string;
+}
 
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
-  return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/');
+  return pathname === navPath || (navPath !== '/' && pathname.startsWith(navPath));
 };
 ---
 
 <header id="page-header">
   <div class="flex flex-none items-center py-6 lg:py-8">
     <div class="container mx-auto xl:max-w-7xl">
-      <nav
-        id="main-nav"
-        class="relative flex items-center justify-between"
-        aria-label="Main navigation">
+      <nav id="main-nav" class="relative flex items-center justify-between" aria-label="Main navigation">
         <div class="text-2xl font-bold text-slate-900 dark:text-white">
-          <a
-            href="/"
-            class="flex items-center">
+          <a href="/" class="flex items-center" aria-label="Homepage">
             <span
               class="mx-4 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-sky-700 text-lg font-extrabold text-white shadow-md ring-2 ring-sky-200 md:hidden dark:from-sky-400 dark:to-sky-600 dark:ring-sky-700"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               dl
             </span>
             <span class="sr-only">David D Lawson</span>
           </a>
         </div>
 
-        <!-- Desktop Menu -->
         <div class="hidden items-center justify-center space-x-8 md:flex md:space-x-10">
           {
-            NAV.map(({ name, href }) => (
+            NAV.map(({ name, href }: NavItem) => (
               <a
                 href={href}
                 class:list={[
                   'md:text-md relative text-base font-medium',
                   `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
-                ]}>
+                ]}
+              >
                 <span>{name}</span>
                 <span
                   class:list={[
-                    'custom-cubic-bezier pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-sky-500 transition-all dark:bg-sky-400',
+                    'custom-cubic-bezier transition-width pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-sky-500 dark:bg-sky-400',
                     `${isActive(href) ? 'w-full' : 'w-0'}`,
                   ]}
                   aria-hidden="true"
@@ -51,65 +53,39 @@ const isActive = (navPath: string) => {
           }
         </div>
 
-        <!-- Theme Toggle and Mobile Menu Button -->
-        <div class="flex items-center space-x-4 px-4">
+        <div class="flex items-center space-x-2 px-4">
           <ToggleTheme iconClass="size-6" />
 
-          <!-- Mobile Menu Button -->
           <button
             id="mobile-menu-toggle"
             type="button"
-            class="text-slate-600 md:hidden dark:text-slate-400"
+            class="rounded p-2 text-slate-600 md:hidden dark:text-slate-400"
             aria-label="mobile menu"
-            aria-expanded="false">
-            <svg
-              id="mobile-menu-open-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="size-6">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              ></path>
-            </svg>
-            <svg
-              id="mobile-menu-close-icon"
-              style="display: none;"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class="size-6">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              ></path>
-            </svg>
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <Icon name="tabler:menu-2" id="mobile-menu-open-icon" class="size-6" />
+            <Icon name="tabler:x" id="mobile-menu-close-icon" class="size-6" style="display: none;" />
           </button>
         </div>
 
-        <!-- Mobile Menu -->
         <div
           id="mobile-menu"
           hidden
-          class="mobile-menu absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right rounded-md bg-white p-4 shadow-lg md:hidden dark:bg-slate-800">
-          <div class="flex flex-col space-y-4">
+          class="mobile-menu pointer-events-none absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right -translate-y-4 transform rounded-md bg-white p-4 opacity-0 shadow-lg transition-transform duration-200 ease-in-out md:hidden dark:bg-slate-800"
+          data-state="closed"
+        >
+          <div class="flex flex-col space-y-1">
             {
-              NAV.map(({ name, href }) => (
+              NAV.map(({ name, href }: NavItem) => (
                 <a
                   href={href}
+                  tabindex="-1"
                   class:list={[
-                    'relative block py-2 text-base font-medium',
-                    `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
-                  ]}>
+                    'relative block rounded px-3 py-2 text-base font-medium',
+                    `${isActive(href) ? 'bg-sky-100 text-sky-700 dark:bg-sky-700 dark:text-sky-100' : 'text-slate-900 hover:bg-slate-100 hover:text-sky-600 dark:text-white dark:hover:bg-slate-700 dark:hover:text-sky-200'}`,
+                  ]}
+                >
                   <span>{name}</span>
                 </a>
               ))
@@ -121,76 +97,110 @@ const isActive = (navPath: string) => {
   </div>
 </header>
 
-<style>
-  .mobile-menu[hidden] {
-    display: none !important;
-  }
-  .mobile-menu {
-    opacity: 0;
-    transform: translateY(-1rem);
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-  }
-  .mobile-menu.show {
-    display: block !important;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-</style>
-
 <script>
-  // Vanilla JS mobile menu logic with TS safety
-  const nav = document.getElementById('main-nav');
-  const toggleBtn = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
+  const nav = document.getElementById('main-nav') as HTMLElement | null;
+  const toggleBtn = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
   const openIcon = document.getElementById('mobile-menu-open-icon');
   const closeIcon = document.getElementById('mobile-menu-close-icon');
   let mobileMenuIsOpen = false;
+  let focusableElements: HTMLElement[] = [];
+  let firstFocusableElement: HTMLElement | null = null;
+  let lastFocusableElement: HTMLElement | null = null;
+
+  function getFocusableElements() {
+    if (!menu) return [];
+    return Array.from(
+      menu.querySelectorAll<HTMLElement>(
+        'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'
+      )
+    );
+  }
+
+  function updateFocusableElements() {
+    focusableElements = getFocusableElements();
+    firstFocusableElement = focusableElements[0] || null;
+    lastFocusableElement = focusableElements[focusableElements.length - 1] || null;
+    focusableElements.forEach((el) => el.setAttribute('tabindex', mobileMenuIsOpen ? '0' : '-1'));
+  }
+
+  function handleFocusTrap(e: KeyboardEvent) {
+    if (!mobileMenuIsOpen || e.key !== 'Tab' || !focusableElements.length) return;
+
+    if (e.shiftKey) {
+      if (document.activeElement === toggleBtn || document.activeElement === firstFocusableElement) {
+        e.preventDefault();
+        lastFocusableElement?.focus();
+      }
+    } else {
+      if (document.activeElement === lastFocusableElement) {
+        e.preventDefault();
+        firstFocusableElement?.focus();
+      }
+    }
+  }
 
   function setMenuState(open: boolean) {
     mobileMenuIsOpen = open;
     if (!menu || !toggleBtn || !openIcon || !closeIcon) return;
+
     if (mobileMenuIsOpen) {
       menu.hidden = false;
-      menu.classList.add('show');
+      requestAnimationFrame(() => {
+        menu.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
+        menu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        menu.dataset.state = 'open';
+      });
       toggleBtn.setAttribute('aria-expanded', 'true');
       openIcon.style.display = 'none';
       closeIcon.style.display = '';
-      // Trap focus inside menu if needed
+      updateFocusableElements();
+      firstFocusableElement?.focus();
+      document.addEventListener('keydown', handleFocusTrap);
     } else {
-      menu.classList.remove('show');
+      menu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      menu.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
+      menu.dataset.state = 'closed';
+
+      const handleTransitionEnd = () => {
+        if (menu && menu.dataset.state === 'closed') {
+          menu.hidden = true;
+        }
+        menu?.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      menu.addEventListener('transitionend', handleTransitionEnd);
+
       setTimeout(() => {
-        if (menu) menu.hidden = true;
-      }, 200);
+        if (menu && menu.dataset.state === 'closed') menu.hidden = true;
+      }, 250);
+
       toggleBtn.setAttribute('aria-expanded', 'false');
       openIcon.style.display = '';
       closeIcon.style.display = 'none';
+      updateFocusableElements();
+      document.removeEventListener('keydown', handleFocusTrap);
     }
   }
 
   if (toggleBtn) {
-    toggleBtn.addEventListener('click', (_e) => {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       setMenuState(!mobileMenuIsOpen);
     });
   }
 
-  // Click outside to close
   document.addEventListener('click', (e) => {
-    if (!nav || !nav.contains(e.target as Node)) {
-      if (mobileMenuIsOpen) setMenuState(false);
-    }
-  });
-
-  // ESC to close
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenuIsOpen) {
+    if (mobileMenuIsOpen && nav && !nav.contains(e.target as Node) && e.target !== toggleBtn) {
       setMenuState(false);
     }
   });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenuIsOpen) {
+      setMenuState(false);
+      toggleBtn?.focus();
+    }
+  });
+
+  updateFocusableElements();
 </script>

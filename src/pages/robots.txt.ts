@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { SITE } from '@/config';
+import { SITE } from '@/site.config';
 
 export const GET: APIRoute = async () => {
   return new Response(

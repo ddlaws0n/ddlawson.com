@@ -1,6 +1,3 @@
-// Using 'any' for logoUrl type temporarily to resolve import issues
-// and focus on rendering logic. A more specific type might be needed.
-
 export interface Config {
   name: string;
   origin: string;

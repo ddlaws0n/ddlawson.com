@@ -2,7 +2,7 @@
 import '@/assets/styles/base.css';
 import BackgroundBlur from '@/components/BackgroundBlur.astro';
 import MetaTags from '@/components/MetaTags.astro';
-import { SITE } from '@/config';
+import { SITE } from '@/site.config';
 import type { MetaSEO } from '@/types';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import { ClientRouter } from 'astro:transitions';
@@ -14,10 +14,7 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!doctype html>
-<html
-  lang={language}
-  dir="ltr"
-  class="h-full scroll-smooth motion-reduce:scroll-auto">
+<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
   <head>
     <MetaTags {...meta} />
     <ClientRouter />

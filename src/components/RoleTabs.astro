@@ -23,7 +23,8 @@ const { roles } = Astro.props;
           },
         ]}
         data-role-index={roleIndex}
-        aria-selected={roleIndex === 0 ? 'true' : 'false'}>
+        aria-selected={roleIndex === 0 ? 'true' : 'false'}
+      >
         {role.title}
       </button>
     ))

@@ -1,6 +1,6 @@
 ---
 import defaultImage from '@/assets/images/david-d-lawson-profile.png';
-import { SITE } from '@/config';
+import { SITE } from '@/site.config';
 import type { MetaSEO } from '@/types';
 import { getRelativeUrlByFilePath } from '@/utils/directories';
 import { AstroSeo } from '@astrolib/seo';
@@ -35,15 +35,9 @@ const appleTouchIcon = {
 ---
 
 <meta charset="UTF-8" />
-<meta
-  name="viewport"
-  content="width=device-width"
-/>
+<meta name="viewport" content="width=device-width" />
 
-<Font
-  cssVariable="--font-switzer"
-  preload
-/>
+<Font cssVariable="--font-switzer" preload />
 
 <AstroSeo
   title={title}
@@ -75,59 +69,27 @@ const appleTouchIcon = {
 />
 
 <!-- Dynamic SVG Favicon (light/dark mode switching via JS) -->
-<link
-  id="favicon-svg"
-  rel="icon"
-  href="/favicon.svg"
-  type="image/svg+xml"
-/>
+<link id="favicon-svg" rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-<link
-  rel="apple-touch-icon"
-  href={appleTouchIcon.src}
-/>
-<meta
-  name="apple-mobile-web-app-title"
-  content="D Lawson"
-/>
-<link
-  rel="manifest"
-  href="/manifest.json"
-/>
+<link rel="apple-touch-icon" href={appleTouchIcon.src} />
+<meta name="apple-mobile-web-app-title" content="D Lawson" />
+<link rel="manifest" href="/manifest.json" />
 
 <!-- Sitemap -->
-<link
-  rel="sitemap"
-  href="/sitemap-index.xml"
-/>
+<link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- RSS Feed -->
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title=`${SITE.name} RSS Feed`
-  href={new URL('rss.xml', Astro.site)}
-/>
+<link rel="alternate" type="application/rss+xml" title=`${SITE.name} RSS Feed` href={new URL('rss.xml', Astro.site)} />
 
 <!-- Light/dark mode & Favicon Switching -->
-<script src="../scripts/theme-handler.ts"></script>
+<script src="../utils/theme-handler.ts"></script>
 
 <!-- Umami Analytics -->
 {
   import.meta.env.PROD && (
-    <script
-      async
-      defer
-      is:inline
-      data-website-id={SITE.umamiId}
-      src="https://cloud.umami.is/script.js"
-    />
+    <script async defer is:inline data-website-id={SITE.umamiId} src="https://cloud.umami.is/script.js" />
   )
 }
 
 <!-- FeedbackFish -->
-<script
-  defer
-  is:inline
-  src="https://feedback.fish/ff.js?pid=e8f83126219490"
-></script>
+<script defer is:inline src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>

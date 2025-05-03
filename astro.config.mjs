@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // Core configs
-import { SITE } from './src/config';
+import { SITE } from './src/site.config';
 
 // Integrations
 import vercel from '@astrojs/vercel';

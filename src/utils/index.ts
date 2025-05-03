@@ -1,5 +1,5 @@
-import { DATE_FORMATTER } from '@/config';
-import { SITE } from '@/config.js';
+import { DATE_FORMATTER } from '@/site.config';
+import { SITE } from '@/site.config.js';
 
 const formatter =
   DATE_FORMATTER ||

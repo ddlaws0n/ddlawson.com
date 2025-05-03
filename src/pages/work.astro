@@ -2,9 +2,9 @@
 import Button from '@/components/Button.astro'; // Import Button component
 import Container from '@/components/Container.astro';
 import TimelineItem from '@/components/TimelineItem.astro';
-import { SITE } from '@/config';
 import { workExperienceData } from '@/data/workExperience'; // Import data
 import PageLayout from '@/layouts/PageLayout.astro';
+import { SITE } from '@/site.config';
 
 const meta = {
   title: 'Work Experience',
@@ -18,13 +18,13 @@ const workExperience = workExperienceData;
 <PageLayout {meta}>
   <Container
     title="Professional Journey"
-    subtitle="My career path and professional experiences across various organizations">
-    <div
-      id="timeline-container"
-      class="relative mx-auto max-w-5xl px-4 pl-16">
+    subtitle="My career path and professional experiences across various organizations"
+  >
+    <div id="timeline-container" class="relative mx-auto max-w-5xl px-4 pl-16">
       <div
         id="timeline-line"
-        class="absolute top-0 left-8 h-10 w-2 -translate-x-1/2 transform bg-sky-200 dark:bg-sky-800">
+        class="absolute top-0 left-8 h-10 w-2 -translate-x-1/2 transform bg-sky-200 dark:bg-sky-800"
+      >
         {/* Changed w-1 to w-2, removed transition classes */}
       </div>
       {
