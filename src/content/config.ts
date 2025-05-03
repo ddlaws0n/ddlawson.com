@@ -1,21 +1,23 @@
 import { z, defineCollection } from 'astro:content';
 
-const writing = defineCollection({
+const writingCollection = defineCollection({
   schema: z.object({
     title: z.string(),
-    author: z.string().default('David D Lawson'),
     description: z.string(),
+    author: z.string().default('David D Lawson'),
+    authorAvatar: z.string().optional(),
+    category: z.string().default('Writing'),
     publishDate: z.string().transform((str) => new Date(str)),
     lastUpdatedDate: z
       .string()
       .optional()
       .transform((str) => (str ? new Date(str) : undefined)),
-    // tags: z.array(z.string()),
+    tags: z.array(z.string()).optional(),
     image: z.string().optional(),
     draft: z.boolean().default(true),
   }),
 });
 
 export const collections = {
-  writing,
+  writing: writingCollection,
 };
