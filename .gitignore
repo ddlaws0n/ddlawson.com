@@ -55,4 +55,6 @@ coverage/
 *.temp
 .cache/
 
+# Build artifacts
 public/rss/styles.xsl
+sonda-*.html
