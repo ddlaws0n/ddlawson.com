@@ -17,7 +17,7 @@ const CONFIG: Config = {
   defaultTheme: 'system',
 
   // Analytics
-  umamiId: 'a42e4c62-cd7c-48db-84c7-037290ac367c',
+  umamiId: '9b7d8646-6556-4e06-8cb1-c6114fb4828d',
 
   // Blog
   words_per_minute: 200,

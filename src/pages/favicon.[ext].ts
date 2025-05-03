@@ -1,8 +1,7 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+// Removed fs, path, getProjectRootDir imports
 import type { APIRoute } from 'astro';
 import sharp from 'sharp';
-import { getProjectRootDir } from '@/utils/directories';
+import baseSvgContent from '@/assets/icons/badge.svg?raw';
 
 const darkColors = {
   stopColor1: '#0369a1', // sky-700
@@ -10,8 +9,6 @@ const darkColors = {
   textColor: '#bae6fd', // sky-200
   borderColor: '#e0f2fe', // sky-100
 };
-
-const svgFilePath = path.join(getProjectRootDir(), 'src', 'assets/icons/badge.svg');
 
 export const GET: APIRoute = async ({ params, url }) => {
   const { ext } = params;
@@ -24,7 +21,6 @@ export const GET: APIRoute = async ({ params, url }) => {
   }
 
   try {
-    const baseSvgContent = await fs.readFile(svgFilePath, 'utf-8');
     let svgContent = baseSvgContent;
 
     if (theme === 'dark') {
