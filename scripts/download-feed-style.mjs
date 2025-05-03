@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const xslUrl = 'https://raw.githubusercontent.com/genmon/aboutfeeds/blob/main/tools/pretty-feed-v3.xsl';
+const xslUrl = 'https://raw.githubusercontent.com/genmon/aboutfeeds/refs/heads/main/tools/pretty-feed-v3.xsl';
 
 const targetPath = path.resolve(__dirname, '../public/rss/styles.xsl');
 const targetDir = path.dirname(targetPath);
