@@ -2,8 +2,7 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import { SITE } from '@/site.config';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function GET(context: { site: any }) {
+export async function GET(context: { site: string }) {
   const posts = await getCollection('writing');
   return rss({
     title: SITE.title,
@@ -13,5 +12,6 @@ export async function GET(context: { site: any }) {
       ...post.data,
       link: `/writing/${post.slug}/`,
     })),
+    customData: `<?xml-stylesheet href="/rss/styles.xsl" type="text/xsl"?>`,
   });
 }
