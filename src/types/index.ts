@@ -1,3 +1,6 @@
+// Using 'any' for logoUrl type temporarily to resolve import issues
+// and focus on rendering logic. A more specific type might be needed.
+
 export interface Config {
   name: string;
   origin: string;
@@ -85,4 +88,23 @@ export interface MetaSEO {
 
   ogTitle?: string;
   ogType?: 'website' | 'article' | 'profile' | 'book';
+}
+
+// Define interface for individual roles within a company
+export interface Role {
+  title: string;
+  start_date: string; // Keep as string for now, parsing handled in component
+  end_date: string; // Keep as string for now, parsing handled in component
+  responsibilities?: string[]; // Optional array of key responsibilities
+  achievements?: string[]; // Optional array of key achievements/highlights
+}
+
+// Define interface for the work experience entries
+export interface WorkExperience {
+  company: string;
+  companyId: string; // Unique ID for targeting elements (e.g., 'wiz', 'veracode')
+  location: string;
+  logoUrl?: string | null; // Allow string URL or null.
+  // summary: string; // Company-level summary might become less prominent or removed
+  roles: Role[]; // Use the Role interface
 }

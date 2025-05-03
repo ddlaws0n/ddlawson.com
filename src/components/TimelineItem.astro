@@ -1,0 +1,308 @@
+---
+import type { WorkExperience } from '@/types';
+import { getLogoPlaceholder, parseDate } from '@/utils';
+import { Image } from 'astro:assets';
+import RoleContent from './RoleContent.astro';
+import RoleTabs from './RoleTabs.astro';
+
+interface Props {
+  experience: WorkExperience;
+}
+
+const { experience } = Astro.props;
+
+// const formatDisplayDate = (dateStr: string): string => {
+//   if (dateStr.toLowerCase() === 'present') {
+//     return 'Present';
+//   }
+//   try {
+//     // Parse YYYY-MM. Note: new Date('YYYY-MM') is UTC.
+//     const date = new Date(dateStr);
+//     if (!isNaN(date.getTime())) {
+//       // Format to 'Mon YYYY' using UTC month/year
+//       return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+//     }
+//   } catch (e) {
+//     console.error(`Error formatting display date "${dateStr}":`, e);
+//   }
+//   return dateStr;
+// };
+
+let minStartDate: Date | null = null;
+let maxEndDate: Date | typeof Infinity | null = null;
+
+experience.roles.forEach((role) => {
+  const startDate = parseDate(role.start_date);
+  const endDate = parseDate(role.end_date);
+
+  // Update minimum start date
+  if (startDate instanceof Date && (!minStartDate || startDate < minStartDate)) {
+    minStartDate = startDate;
+  }
+
+  // Update maximum end date
+  if (endDate === Infinity) {
+    maxEndDate = Infinity; // If any role is 'Present', the max end date is 'Present'
+  } else if (endDate instanceof Date) {
+    // Only update if maxEndDate is not already Infinity and the current endDate is later
+    if (maxEndDate !== Infinity && (!maxEndDate || endDate > maxEndDate)) {
+      maxEndDate = endDate;
+    }
+  }
+});
+
+// Format the overall date range string
+let minStartDateStr = 'Unknown Start';
+// Check for null, then cast to Date
+if (minStartDate !== null) {
+  // Cast to Date after confirming it's not null
+  minStartDateStr = (minStartDate as Date).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+// Format the end date part of the range more explicitly for TS
+let maxEndDateDisplayStr = 'Unknown End';
+if (maxEndDate === Infinity) {
+  maxEndDateDisplayStr = 'Present';
+} else if (maxEndDate !== null) {
+  // If it's not Infinity and not null, cast to Date
+  maxEndDateDisplayStr = (maxEndDate as Date).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+// If maxEndDate was initially null, it remains 'Unknown End'
+
+const overallDateRange = `${minStartDateStr} - ${maxEndDateDisplayStr}`;
+
+// Initial role to display (assuming roles array is never empty)
+const initialRole = experience.roles[0];
+// const initialStartDateDisplay = formatDisplayDate(initialRole.start_date);
+// const initialEndDateDisplay = formatDisplayDate(initialRole.end_date);
+
+const componentId = `timeline-item-${experience.companyId}`;
+const contentAreaId = `role-content-${experience.companyId}`;
+---
+
+<div
+  id={componentId}
+  class={`timeline-item-interactive relative mb-16 rounded-xl border border-slate-200 bg-white p-4 shadow-lg shadow-sky-300/20 last:mb-0 sm:p-6 dark:border-slate-700 dark:bg-slate-800 dark:shadow-lg dark:shadow-sky-900/50`}
+  data-testid={`timeline-item-${experience.companyId}`}
+  data-timeline-item>
+  <!-- Ensure this attribute exists for the page animation script -->
+
+  <!-- NEW: Timeline Marker (Absolute Positioned relative to this card) -->
+  <!-- Its final horizontal position depends on the parent layout padding in work.astro -->
+  <!-- The 'top-6' aligns it roughly with the top content, adjust as needed -->
+  <div
+    class="timeline-marker absolute top-6 -left-8 z-20 h-4 w-4 -translate-x-1/2 transform rounded-full border-2 border-white bg-sky-500 dark:border-slate-800 dark:bg-sky-400"
+    aria-hidden="true">
+  </div>
+
+  <!-- Main Grid Container (Mobile: Stacked, Desktop: Grid) -->
+  <div class="flex flex-col lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+    <!-- Left Column: Logo + Company Info + Role Tabs (Desktop) -->
+    <div class="lg:col-span-4">
+      <!-- Logo and Company Info (Flex container for alignment) -->
+      <div class="flex items-start gap-4">
+        <div class="relative z-10 -mt-4 -ml-4 flex-shrink-0 pt-1 sm:-mt-6 sm:-ml-6 lg:mt-0 lg:ml-0">
+          <div
+            class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-4 border-sky-200 bg-white p-2 shadow-md sm:h-20 sm:w-20 dark:border-sky-800 dark:bg-slate-700">
+            {/* Use Astro Image component directly with the imported logo asset */}
+            {
+              experience.logoUrl ? (
+                <Image
+                  src={experience.logoUrl}
+                  alt={`${experience.company} logo`}
+                  width={60}
+                  height={60}
+                  class="object-contain p-1"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="logo-placeholder-bg flex h-full w-full items-center justify-center rounded-full text-2xl font-bold text-white">
+                  {getLogoPlaceholder(experience.company)}
+                </div>
+              )
+            }
+          </div>
+        </div>
+        <div class="flex-grow pt-4 sm:pt-0">
+          <div class="mb-1 flex items-center gap-1.5 text-sm font-medium tracking-wider text-sky-600 dark:text-sky-400">
+            <span>{overallDateRange}</span>
+          </div>
+          <h2 class="mb-0.5 text-2xl font-bold text-slate-900 md:text-3xl dark:text-white">{experience.company}</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">{experience.location}</p>
+        </div>
+      </div>
+
+      <!-- Role Tabs Section (Mobile: Horizontal below header, Desktop: Vertical in left col) -->
+      <!-- Replaced with RoleTabs component -->
+      <RoleTabs roles={experience.roles} />
+    </div>
+
+    <!-- Right Column: Dynamic Content Area (Desktop) -->
+    <div class="lg:col-span-8">
+      <!-- Dynamic Content Area (Mobile: Below tabs, Desktop: Right column) -->
+      <div
+        id={contentAreaId}
+        class="role-content-area relative mt-4 overflow-hidden p-0 lg:mt-0"
+        data-experience={JSON.stringify(experience)}>
+        <!-- Initial Content (Replaced with RoleContent component) -->
+        <RoleContent role={initialRole} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ componentId, contentAreaId }}>
+  // --- Interaction Logic ---
+  const componentElement = document.getElementById(componentId);
+  if (!componentElement) {
+    console.error(`Timeline item element not found: #${componentId}`);
+  } else {
+    const tabsContainer = componentElement.querySelector('.role-tabs-container');
+    const contentArea = componentElement.querySelector(`#${contentAreaId}`);
+    const experienceDataString = contentArea?.dataset.experience;
+
+    if (!tabsContainer || !contentArea || !experienceDataString) {
+      console.error('Required elements or data missing for timeline item:', componentId);
+    } else {
+      let activeRoleIndex = 0; // Initially 0 (most recent role)
+      let experience = null; // No type annotation in client-side script
+
+      try {
+        experience = JSON.parse(experienceDataString);
+        if (!experience || !Array.isArray(experience.roles) || experience.roles.length === 0) {
+          throw new Error('Invalid experience data structure');
+        }
+      } catch (e) {
+        console.error('Failed to parse or validate experience data:', e, experienceDataString);
+        experience = null; // Ensure experience is null on error
+      }
+
+      if (!experience) {
+        console.error('Experience data is invalid or missing for', componentId);
+        // Optionally disable interaction or show an error message in the UI
+        if (tabsContainer) tabsContainer.innerHTML = '<p class="text-red-500">Error loading role details.</p>';
+        if (contentArea) contentArea.innerHTML = '';
+      } else {
+        // Proceed only if experience data is valid
+        const allTabs = tabsContainer.querySelectorAll('.role-tab');
+
+        const formatDisplayDateClient = (dateStr) => {
+          if (!dateStr) return '';
+          if (dateStr.toLowerCase() === 'present') {
+            return 'Present';
+          }
+          try {
+            // Basic check for YYYY-MM format
+            if (!/^\d{4}-\d{2}$/.test(dateStr)) {
+              throw new Error('Invalid format');
+            }
+            // Parse YYYY-MM as UTC
+            const [year, month] = dateStr.split('-').map(Number);
+            // JavaScript months are 0-indexed
+            const date = new Date(Date.UTC(year, month - 1));
+            if (!isNaN(date.getTime())) {
+              // Format to 'Mon YYYY' using UTC month/year
+              return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+            }
+          } catch (e) {
+            console.error(`Error formatting display date (client) "${dateStr}":`, e);
+          }
+          return dateStr;
+        };
+
+        const updateContent = (roleIndex) => {
+          // No type annotation
+          // Check if roleIndex is valid for the parsed experience data
+          if (!experience?.roles?.[roleIndex]) {
+            console.warn(`Invalid role index ${roleIndex} requested for ${componentId}`);
+            return;
+          }
+
+          const role = experience.roles[roleIndex];
+          const startDateDisplay = formatDisplayDateClient(role.start_date);
+          const endDateDisplay = formatDisplayDateClient(role.end_date);
+
+          // Update content immediately without animation/delay
+          if (!contentArea) return; // Re-check contentArea existence
+
+          // Reconstruct HTML mirroring RoleContent.astro structure
+          let responsibilitiesHTML = '';
+          if (role.responsibilities && role.responsibilities.length > 0) {
+            const listItems = role.responsibilities.map((item) => `<li>${item}</li>`).join('');
+            responsibilitiesHTML = `
+              <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+                <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 12l.01 0" /><path d="M13 12l.01 0" /><path d="M17 12l.01 0" /><path d="M9 16l.01 0" /><path d="M13 16l.01 0" /><path d="M17 16l.01 0" /></svg>
+                  Responsibilities
+                </h4>
+                <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+                  ${listItems}
+                </ul>
+              </div>
+            `;
+          }
+
+          let achievementsHTML = '';
+          if (role.achievements && role.achievements.length > 0) {
+            const listItems = role.achievements.map((item) => `<li>${item}</li>`).join('');
+            achievementsHTML = `
+              <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+                <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+                   Key Achievements
+                </h4>
+                <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+                  ${listItems}
+                </ul>
+              </div>
+            `;
+          }
+
+          // Set innerHTML of the content area
+          contentArea.innerHTML = `
+            <h3 class="mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">${role.title}</h3>
+            <p class="mb-4 text-sm font-medium tracking-wider text-slate-500 dark:text-slate-400">
+              ${startDateDisplay} – ${endDateDisplay}
+            </p>
+            <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
+              ${responsibilitiesHTML}
+              ${achievementsHTML}
+            </div>
+          `;
+        };
+
+        // Event listener for tab clicks (using event delegation)
+        tabsContainer.addEventListener('click', (event) => {
+          const target = event.target;
+          // Use standard JS check for element type if needed, closest returns Element | null
+          const clickedTab = target instanceof Element ? target.closest('.role-tab') : null;
+
+          if (clickedTab?.dataset.roleIndex !== undefined) {
+            const newIndex = parseInt(clickedTab.dataset.roleIndex, 10);
+
+            if (newIndex !== activeRoleIndex) {
+              allTabs.forEach((tab, index) => {
+                const isActive = index === newIndex;
+                // ONLY toggle the 'active-tab' class and aria-selected
+                // Styling is now handled entirely by CSS variables based on this class
+                tab.classList.toggle('active-tab', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+              });
+
+              activeRoleIndex = newIndex;
+              updateContent(activeRoleIndex);
+            }
+          }
+        });
+      }
+    }
+  }
+</script>

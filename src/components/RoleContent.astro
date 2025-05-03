@@ -1,0 +1,84 @@
+---
+// src/components/RoleContent.astro
+import type { Role } from '@/types';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  role: Role;
+}
+
+const { role } = Astro.props;
+
+// Date formatting function (similar to the one in InteractiveTimelineItem)
+const formatDisplayDate = (dateStr: string): string => {
+  if (!dateStr) return ''; // Handle potential undefined/null dates
+  if (dateStr.toLowerCase() === 'present') {
+    return 'Present';
+  }
+  try {
+    // Attempt to parse YYYY-MM format as UTC date
+    const date = new Date(dateStr);
+    if (!isNaN(date.getTime())) {
+      // Format to 'Mon YYYY' using UTC month/year
+      return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+    }
+  } catch (e) {
+    console.error(`Error formatting display date "${dateStr}":`, e);
+  }
+  return dateStr; // Fallback if parsing/formatting fails
+};
+
+const startDateDisplay = formatDisplayDate(role.start_date);
+const endDateDisplay = formatDisplayDate(role.end_date);
+---
+
+{/* Root element for the role content */}
+<div>
+  <h3 class="mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">{role.title}</h3>
+  <p class="mb-4 text-sm font-medium tracking-wider text-slate-500 dark:text-slate-400">
+    {startDateDisplay} – {endDateDisplay}
+  </p>
+
+  <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
+    {/* Responsibilities Section - Conditionally Rendered */}
+    {
+      role.responsibilities && role.responsibilities.length > 0 && (
+        <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+            <Icon
+              name="tabler:list-details"
+              class="size-5 flex-shrink-0 opacity-70"
+              aria-hidden="true"
+            />
+            <span>Responsibilities</span>
+          </h4>
+          <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            {role.responsibilities.map((item) => (
+              <li set:html={item} />
+            ))}
+          </ul>
+        </div>
+      )
+    }
+    {/* Achievements Section - Conditionally Rendered */}
+    {
+      role.achievements && role.achievements.length > 0 && (
+        <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+            <Icon
+              name="tabler:star"
+              class="size-5 flex-shrink-0 opacity-70"
+              aria-hidden="true"
+            />
+            <span>Key Achievements</span>
+          </h4>
+          <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            {role.achievements.map((item) => (
+              <li set:html={item} />
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</div>
