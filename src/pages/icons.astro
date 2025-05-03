@@ -1,0 +1,51 @@
+---
+import Container from '@/components/Container.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { SITE } from '@/site.config';
+
+// Import SVG icons as raw strings
+import finalsiteIcon from '@/assets/icons/finalsite.svg?raw';
+import laceworkIcon from '@/assets/icons/lacework.svg?raw';
+import veracodeIcon from '@/assets/icons/veracode.svg?raw';
+import wizIcon from '@/assets/icons/wiz.svg?raw';
+
+const meta = {
+  title: 'Icons',
+  description: 'SVG Icons used on the site',
+  canonical: SITE.origin + '/icons',
+};
+
+const icons = [
+  { name: 'Finalsite', svg: finalsiteIcon },
+  { name: 'Lacework', svg: laceworkIcon },
+  { name: 'Veracode', svg: veracodeIcon },
+  { name: 'Wiz', svg: wizIcon },
+];
+---
+
+<PageLayout {meta}>
+  <Container title="Site Icons" subtitle="A collection of SVG icons used across the website.">
+    <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4">
+      {
+        icons.map((icon) => (
+          <div class="flex flex-col items-center justify-center rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <div class="mb-4 flex h-16 w-16 items-center justify-center" set:html={icon.svg} />
+            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">{icon.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</PageLayout>
+
+<style>
+  /* Add basic styling for the SVG container if needed, */
+  /* although Tailwind classes handle most of it. */
+  /* Ensure SVGs scale correctly if they don't have explicit width/height */
+  .icon-item div > svg {
+    width: 100%;
+    height: 100%;
+    max-width: 4rem; /* 64px */
+    max-height: 4rem; /* 64px */
+  }
+</style>

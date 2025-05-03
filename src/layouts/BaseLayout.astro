@@ -1,10 +1,11 @@
 ---
 import '@/assets/styles/base.css';
-import MetaTags from '@/components/MetaTags.astro';
-import BasicScripts from '@/components/BasicScripts.astro';
 import BackgroundBlur from '@/components/BackgroundBlur.astro';
-import { SITE } from '@/config';
-import type { MetaSEO } from '@/env';
+import MetaTags from '@/components/MetaTags.astro';
+import { SITE } from '@/site.config';
+import type { MetaSEO } from '@/types';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import { ClientRouter } from 'astro:transitions';
 export interface Props {
   meta?: MetaSEO;
 }
@@ -16,11 +17,12 @@ const { language = 'en-gb' } = SITE;
 <html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
   <head>
     <MetaTags {...meta} />
+    <ClientRouter />
   </head>
 
-  <body class="flex min-h-screen flex-col bg-primary-50 antialiased dark:bg-slate-900 dark:text-primary-50">
+  <body class="flex min-h-screen flex-col bg-slate-50 antialiased dark:bg-slate-950 dark:text-slate-50">
     <BackgroundBlur />
     <slot />
-    <BasicScripts />
+    <SpeedInsights />
   </body>
 </html>

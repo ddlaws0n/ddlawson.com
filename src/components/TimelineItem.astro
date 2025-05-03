@@ -1,0 +1,183 @@
+---
+import type { WorkExperience } from '@/types';
+import { formatDateRange, getLogoPlaceholder } from '@/utils'; // Import formatDateRange, remove parseDate
+import { Image } from 'astro:assets';
+import RoleContent from './RoleContent.astro';
+import RoleTabs from './RoleTabs.astro';
+
+interface Props {
+  experience: WorkExperience;
+}
+
+const { experience } = Astro.props;
+
+// --- Calculate Overall Date Range using the new utility ---
+let overallStartDateStr: string | null = null;
+let overallEndDateStr: string | null = null; // Can be 'YYYY-MM' or 'Present'
+
+if (experience.roles && experience.roles.length > 0) {
+  // Initialize with the first role's dates
+  overallStartDateStr = experience.roles[0].start_date;
+  overallEndDateStr = experience.roles[0].end_date;
+  let hasPresent = overallEndDateStr === 'Present';
+
+  // Iterate through all roles to find the earliest start and latest end date
+  for (const role of experience.roles) {
+    // Find earliest start date (lexicographical comparison works for YYYY-MM)
+    if (overallStartDateStr === null || role.start_date < overallStartDateStr) {
+      overallStartDateStr = role.start_date;
+    }
+
+    // Find latest end date, prioritizing 'Present'
+    if (role.end_date === 'Present') {
+      hasPresent = true;
+      overallEndDateStr = 'Present'; // 'Present' overrides any specific date
+    } else if (!hasPresent && role.end_date) {
+      // If we haven't found 'Present' yet, compare dates
+      if (overallEndDateStr === null || role.end_date > overallEndDateStr) {
+        // Update if current role's end date is later
+        overallEndDateStr = role.end_date;
+      }
+    }
+    // If overallEndDateStr is already 'Present', we don't need to compare further dates.
+  }
+}
+
+// Use the new utility function to format the range
+const overallDateRange =
+  overallStartDateStr && overallEndDateStr
+    ? formatDateRange(overallStartDateStr, overallEndDateStr)
+    : 'Date range unavailable'; // Fallback if dates couldn't be determined
+
+// Note: Initial role's specific date range is now handled within RoleContent island
+
+const componentId = `timeline-item-${experience.companyId}`;
+const contentAreaId = `role-content-${experience.companyId}`;
+---
+
+<div
+  id={componentId}
+  class={`timeline-item-interactive relative mb-16 rounded-xl border border-slate-200 bg-white p-4 shadow-lg shadow-sky-300/20 last:mb-0 sm:p-6 dark:border-slate-700 dark:bg-slate-800 dark:shadow-lg dark:shadow-sky-900/50`}
+  data-testid={`timeline-item-${experience.companyId}`}
+  data-timeline-item
+>
+  <!-- Ensure this attribute exists for the page animation script -->
+
+  <!-- NEW: Timeline Marker (Absolute Positioned relative to this card) -->
+  <!-- Its final horizontal position depends on the parent layout padding in work.astro -->
+  <!-- The 'top-6' aligns it roughly with the top content, adjust as needed -->
+  <div
+    class="timeline-marker absolute top-6 -left-8 z-20 h-4 w-4 -translate-x-1/2 transform rounded-full border-2 border-white bg-sky-500 dark:border-slate-800 dark:bg-sky-400"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Main Grid Container (Mobile: Stacked, Desktop: Grid) -->
+  <div class="flex flex-col lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
+    <!-- Left Column: Logo + Company Info + Role Tabs (Desktop) -->
+    <div class="lg:col-span-4">
+      <!-- Logo and Company Info (Flex container for alignment) -->
+      <div class="flex items-start gap-4">
+        <div class="relative z-10 -mt-4 -ml-4 flex-shrink-0 pt-1 sm:-mt-6 sm:-ml-6 lg:mt-0 lg:ml-0">
+          <div
+            class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border-4 border-sky-200 bg-white p-2 shadow-md sm:h-20 sm:w-20 dark:border-sky-800 dark:bg-slate-700"
+          >
+            {/* Use Astro Image component directly with the imported logo asset */}
+            {
+              experience.logoUrl ? (
+                <Image
+                  src={experience.logoUrl}
+                  alt={`${experience.company} logo`}
+                  width={60}
+                  height={60}
+                  class="object-contain p-1"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="logo-placeholder-bg flex h-full w-full items-center justify-center rounded-full text-2xl font-bold text-white">
+                  {getLogoPlaceholder(experience.company)}
+                </div>
+              )
+            }
+          </div>
+        </div>
+        <div class="flex-grow pt-4 sm:pt-0">
+          <div class="mb-1 flex items-center gap-1.5 text-sm font-medium tracking-wider text-sky-600 dark:text-sky-400">
+            <span>{overallDateRange}</span>
+          </div>
+          <h2 class="mb-0.5 text-2xl font-bold text-slate-900 md:text-3xl dark:text-white">{experience.company}</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400">{experience.location}</p>
+        </div>
+      </div>
+
+      <!-- Role Tabs Section (Mobile: Horizontal below header, Desktop: Vertical in left col) -->
+      <!-- Replaced with RoleTabs component -->
+      <RoleTabs roles={experience.roles} />
+    </div>
+
+    <!-- Right Column: Dynamic Content Area (Desktop) -->
+    <div class="lg:col-span-8">
+      <!-- Dynamic Content Area (Mobile: Below tabs, Desktop: Right column) -->
+      <div id={contentAreaId} class="role-content-area relative mt-4 overflow-hidden p-0 lg:mt-0">
+        {/* Render RoleContent as an Island, passing all roles and the container ID */}
+        <RoleContent roles={experience.roles} containerId={contentAreaId} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ componentId, contentAreaId }}>
+  // --- Interaction Logic ---
+  const componentElement = document.getElementById(componentId);
+  if (!componentElement) {
+    console.error(`Timeline item element not found: #${componentId}`);
+  } else {
+    const tabsContainer = componentElement.querySelector('.role-tabs-container');
+    // Get the container where the RoleContent island lives
+    const contentArea = componentElement.querySelector(`#${contentAreaId}`);
+
+    // Check if essential elements are present
+    if (!tabsContainer || !contentArea) {
+      console.error('Required elements (tabs container or content area) missing for timeline item:', componentId);
+    } else {
+      let activeRoleIndex = 0; // Track the currently active tab index
+      const allTabs = tabsContainer.querySelectorAll('.role-tab');
+
+      // Event listener for tab clicks (using event delegation)
+      tabsContainer.addEventListener('click', (event) => {
+        const target = event.target;
+        // Find the closest ancestor tab element that was clicked
+        const clickedTab = target instanceof Element ? target.closest('.role-tab') : null;
+
+        // Check if a tab was clicked and it has a role index
+        if (clickedTab?.dataset.roleIndex !== undefined) {
+          const newIndex = parseInt(clickedTab.dataset.roleIndex, 10);
+
+          // Only proceed if a *different* tab was clicked
+          if (!isNaN(newIndex) && newIndex !== activeRoleIndex) {
+            // Update the visual state of all tabs
+            allTabs.forEach((tab, index) => {
+              const isActive = index === newIndex;
+              tab.classList.toggle('active-tab', isActive);
+              tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            // Update the active index
+            activeRoleIndex = newIndex;
+
+            // Dispatch a custom event on the content area container
+            // The RoleContent island will listen for this event
+            console.log(`TimelineItem (${componentId}) dispatching role-change event:`, { roleIndex: activeRoleIndex });
+            contentArea.dispatchEvent(
+              new CustomEvent('role-change', {
+                bubbles: true, // Allow event to bubble up if needed (optional)
+                composed: true, // Allow event to cross shadow DOM boundaries (optional)
+                detail: { roleIndex: activeRoleIndex },
+              })
+            );
+          }
+        }
+      });
+    }
+  }
+</script>

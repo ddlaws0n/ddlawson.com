@@ -1,26 +1,32 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { defineConfig } from 'astro/config';
-import { SITE } from './src/config';
-import vercel from '@astrojs/vercel/serverless';
-import tailwind from '@astrojs/tailwind';
-import mdx from '@astrojs/mdx';
-import compress from 'astro-compress';
-import sitemap from '@astrojs/sitemap';
-import icon from 'astro-icon';
+import { defineConfig, fontProviders } from 'astro/config';
 
-// Fonts
-import '@fontsource/gantari';
-import '@fontsource/nunito';
+// Core configs
+import { SITE } from './src/site.config';
+
+// Integrations
+import vercel from '@astrojs/vercel';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+import compress from 'astro-compress';
+import icon from 'astro-icon';
+import Sonda from 'sonda/astro';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// https://astro.build/config
 export default defineConfig({
+  // Site Configuration
   site: SITE.origin,
   base: SITE.basePathname,
   trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+
+  // Build Configuration
   output: 'server',
+  prefetch: true,
+
+  // Adapter Configuration
   adapter: vercel({
     webAnalytics: {
       enabled: true,
@@ -28,19 +34,36 @@ export default defineConfig({
       devImageService: 'squoosh',
     },
   }),
+
+  // Markdown Configuration
   markdown: {
     drafts: true,
     syntaxHighlight: 'prism',
   },
+
+  // Font Configuration
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.fontsource(),
+        name: 'Switzer',
+        display: 'swap',
+        weights: ['400', '500', '600', '700'],
+        cssVariable: '--font-switzer',
+      },
+    ],
+  },
+
+  // Integrations
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    icon(),
+    icon({ iconDir: 'src/assets/icons' }),
     sitemap({
-      // customPages: ['https://analytics.ddlawson.com/']
+      customPages: ['https://analytics.lawson.dev/'],
     }),
     mdx(),
+    Sonda({
+      server: true,
+    }),
     compress({
       css: false,
       html: {
@@ -51,11 +74,17 @@ export default defineConfig({
       svg: false,
     }),
   ],
+
+  // Vite Configuration
   vite: {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
       },
     },
+    build: {
+      sourcemap: true,
+    },
+    plugins: [tailwindcss()],
   },
 });

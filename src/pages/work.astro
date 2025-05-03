@@ -1,0 +1,154 @@
+---
+import Button from '@/components/Button.astro'; // Import Button component
+import Container from '@/components/Container.astro';
+import TimelineItem from '@/components/TimelineItem.astro';
+import { workExperienceData } from '@/data/workExperience'; // Import data
+import PageLayout from '@/layouts/PageLayout.astro';
+import { SITE } from '@/site.config';
+
+const meta = {
+  title: 'Work Experience',
+  description: 'Professional experience and career journey of David D Lawson',
+  canonical: SITE.origin + '/work',
+};
+
+const workExperience = workExperienceData;
+---
+
+<PageLayout {meta}>
+  <Container
+    title="Professional Journey"
+    subtitle="My career path and professional experiences across various organizations"
+  >
+    <div id="timeline-container" class="relative mx-auto max-w-5xl px-4 pl-16">
+      <div
+        id="timeline-line"
+        class="absolute top-0 left-8 h-10 w-2 -translate-x-1/2 transform bg-sky-200 dark:bg-sky-800"
+      >
+        {/* Changed w-1 to w-2, removed transition classes */}
+      </div>
+      {
+        workExperience.map((company) => {
+          return <TimelineItem experience={company} />;
+        })
+      }
+      {/* LinkedIn Callout Section */}
+      <div class="mt-16 text-center">
+        <p class="mb-4 text-lg text-slate-700 dark:text-slate-300">Interested in my full professional background?</p>
+        <Button
+          title="Connect on LinkedIn"
+          link={SITE.socialShares.find((s) => s.name === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/'}
+          variant="primary"
+          size="lg"
+          icon="tabler:brand-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+          umami="linkedin-connect-work"
+        />
+      </div>
+    </div>
+  </Container>
+</PageLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const timelineContainer = document.getElementById('timeline-container');
+    const timelineLine = document.getElementById('timeline-line') as HTMLElement | null;
+    const timelineItems = document.querySelectorAll<HTMLElement>('[data-timeline-item]'); // Type assertion
+
+    if (!timelineContainer || !timelineLine || timelineItems.length === 0) {
+      // console.warn('Timeline elements for animation not found.'); // Removed log
+      return;
+    }
+    const minHeight = 40; // Minimum height for the line
+    timelineLine.style.height = `${minHeight}px`; // Set initial height
+
+    // --- Scroll-based Line Drawing Animation ---
+    let ticking = false; // Removed unused lastScrollY
+
+    const updateLineHeight = () => {
+      // const currentScroll = window.scrollY; // Removed unused variable
+
+      // Find the first and last item's marker position relative to the container
+      const firstItem = timelineItems[0];
+      const lastItem = timelineItems[timelineItems.length - 1];
+
+      if (!firstItem || !lastItem) return; // Should not happen if check passed earlier
+
+      const firstMarker = firstItem.querySelector('.timeline-marker') as HTMLElement | null;
+      const lastMarker = lastItem.querySelector('.timeline-marker') as HTMLElement | null;
+
+      if (!firstMarker || !lastMarker) {
+        // console.warn('Timeline markers not found within items.'); // Removed log
+        return;
+      }
+      // Calculate marker positions relative to the container for height calculation
+      const firstMarkerContainerTop = firstItem.offsetTop + firstMarker.offsetTop + firstMarker.offsetHeight / 2;
+      const lastMarkerContainerTop = lastItem.offsetTop + lastMarker.offsetTop + lastMarker.offsetHeight / 2;
+      const totalLineTravel = lastMarkerContainerTop - firstMarkerContainerTop; // This is the max height relative to container
+
+      // Calculate marker positions relative to the viewport for progress calculation
+      const firstMarkerRect = firstMarker.getBoundingClientRect();
+      const lastMarkerRect = lastMarker.getBoundingClientRect(); // Need last marker rect now
+      const viewportHeight = window.innerHeight;
+      const viewportCenterY = viewportHeight / 2;
+
+      // Center positions relative to viewport top
+      const firstMarkerViewportCenterY = firstMarkerRect.top + firstMarkerRect.height / 2;
+      const lastMarkerViewportCenterY = lastMarkerRect.top + lastMarkerRect.height / 2;
+
+      // Total distance between markers as they appear on screen (can be negative if last is above first)
+      const totalMarkerViewportDistance = lastMarkerViewportCenterY - firstMarkerViewportCenterY;
+
+      // Distance the first marker is above the viewport center (increases as you scroll down past the center)
+      const firstMarkerDistAboveCenter = viewportCenterY - firstMarkerViewportCenterY;
+
+      // Calculate progress: how much of the total marker distance has passed the viewport center?
+      let progress = 0;
+      // Ensure total distance is positive before dividing
+      if (totalMarkerViewportDistance > 0) {
+        progress = Math.max(0, Math.min(1, firstMarkerDistAboveCenter / totalMarkerViewportDistance));
+      } else if (firstMarkerDistAboveCenter > 0) {
+        // If markers are stacked or inverted order but first is below center, progress is 1
+        progress = 1;
+      } // Otherwise progress remains 0
+
+      // Calculate the target height based on the marker positions *within the container* and the *new progress*
+      const targetHeight = firstMarkerContainerTop + totalLineTravel * progress;
+
+      // Apply the calculated height, ensuring it doesn't go below the minimum
+      timelineLine.style.height = `${Math.max(minHeight, targetHeight)}px`;
+
+      // --- Logging Removed ---
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      // Removed assignment to lastScrollY as it's unused
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // console.log('requestAnimationFrame fired'); // Removed log
+          updateLineHeight();
+          // Ticking is now set to false *inside* updateLineHeight
+        });
+        ticking = true; // Set ticking to true immediately to prevent multiple rAF calls
+      }
+    };
+
+    // Initial calculation
+    updateLineHeight();
+
+    // Add scroll listener
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Cleanup listener on navigation
+    document.addEventListener(
+      'astro:before-preparation',
+      () => {
+        window.removeEventListener('scroll', onScroll);
+      },
+      { once: true }
+    );
+  });
+</script>

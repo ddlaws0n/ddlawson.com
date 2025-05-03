@@ -1,0 +1,13 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#bae6fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="500" fill="url(#gradient)" stroke="#082f49" stroke-width="50" />
+  <text x="50" y="450" dominant-baseline="auto" text-anchor="start" font-family="sans-serif" font-size="365"
+    fill="#0c4a6e">
+    dl
+  </text>
+</svg>

@@ -1,51 +1,206 @@
 ---
-import { NAV, SOCIAL } from '@/config';
 import ToggleTheme from '@/components/ToggleTheme.astro';
+import { NAV } from '@/site.config';
 import { Icon } from 'astro-icon/components';
+
+interface NavItem {
+  name: string;
+  href: string;
+}
+
 const isActive = (navPath: string) => {
   const pathname = new URL(Astro.request.url).pathname;
-  return pathname === navPath || (pathname.startsWith(navPath) && navPath !== '/') ? 'active-nav' : '';
+  return pathname === navPath || (navPath !== '/' && pathname.startsWith(navPath));
 };
 ---
 
 <header id="page-header">
-  <div class="flex flex-none items-center py-6">
-    <div
-      class="container mx-auto flex flex-col space-y-6 px-4 text-center sm:flex-row sm:items-center sm:justify-between sm:space-y-0 lg:px-10 xl:max-w-7xl"
-    >
-      <nav class="space-x-4 sm:space-x-6" aria-label="Main navigation">
-        {
-          NAV.map(({ name, href }) => (
-            <a
-              href={href}
-              class:list={['font-semibold text-slate-900 hover:text-primary-600 dark:text-white', isActive(href)]}
+  <div class="flex flex-none items-center py-6 lg:py-8">
+    <div class="container mx-auto xl:max-w-7xl">
+      <nav id="main-nav" class="relative flex items-center justify-between" aria-label="Main navigation">
+        <div class="text-2xl font-bold text-slate-900 dark:text-white">
+          <a href="/" class="flex items-center" aria-label="Homepage">
+            <span
+              class="mx-4 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-sky-700 text-lg font-extrabold text-white shadow-md ring-2 ring-sky-200 md:hidden dark:from-sky-400 dark:to-sky-600 dark:ring-sky-700"
+              aria-hidden="true"
             >
-              <span>{name}</span>
-            </a>
-          ))
-        }
+              dl
+            </span>
+            <span class="sr-only">David D Lawson</span>
+          </a>
+        </div>
+
+        <div class="hidden items-center justify-center space-x-8 md:flex md:space-x-10">
+          {
+            NAV.map(({ name, href }: NavItem) => (
+              <a
+                href={href}
+                class:list={[
+                  'md:text-md relative text-base font-medium',
+                  `${isActive(href) ? 'text-sky-600 dark:text-sky-200' : 'text-slate-900 hover:text-sky-600 dark:text-white dark:hover:text-sky-200'}`,
+                ]}
+              >
+                <span>{name}</span>
+                <span
+                  class:list={[
+                    'custom-cubic-bezier transition-width pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-sky-500 dark:bg-sky-400',
+                    `${isActive(href) ? 'w-full' : 'w-0'}`,
+                  ]}
+                  aria-hidden="true"
+                />
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="flex items-center space-x-2 px-4">
+          <ToggleTheme iconClass="size-6" />
+
+          <button
+            id="mobile-menu-toggle"
+            type="button"
+            class="rounded p-2 text-slate-600 md:hidden dark:text-slate-400"
+            aria-label="mobile menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <Icon name="tabler:menu-2" id="mobile-menu-open-icon" class="size-6" />
+            <Icon name="tabler:x" id="mobile-menu-close-icon" class="size-6" style="display: none;" />
+          </button>
+        </div>
+
+        <div
+          id="mobile-menu"
+          hidden
+          class="mobile-menu pointer-events-none absolute top-full right-0 left-0 z-20 mt-2 w-full origin-top-right -translate-y-4 transform rounded-md bg-white p-4 opacity-0 shadow-lg transition-transform duration-200 ease-in-out md:hidden dark:bg-slate-800"
+          data-state="closed"
+        >
+          <div class="flex flex-col space-y-1">
+            {
+              NAV.map(({ name, href }: NavItem) => (
+                <a
+                  href={href}
+                  tabindex="-1"
+                  class:list={[
+                    'relative block rounded px-3 py-2 text-base font-medium',
+                    `${isActive(href) ? 'bg-sky-100 text-sky-700 dark:bg-sky-700 dark:text-sky-100' : 'text-slate-900 hover:bg-slate-100 hover:text-sky-600 dark:text-white dark:hover:bg-slate-700 dark:hover:text-sky-200'}`,
+                  ]}
+                >
+                  <span>{name}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
       </nav>
-      <div class="flex items-center justify-center">
-        <ToggleTheme iconClass="h-6 w-6" />
-        {
-          SOCIAL.map(({ name, link, ariaLabel }) => (
-            <a
-              href={link}
-              target="_blank"
-              class="inline-block cursor-alias rounded-lg p-2.5 text-sm text-slate-600 hover:bg-primary-100 hover:text-primary-600 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-primary-300 dark:focus:ring-slate-700"
-              aria-label={ariaLabel}
-            >
-              <Icon name={name} class="h-6 w-6" />
-            </a>
-          ))
-        }
-      </div>
     </div>
   </div>
 </header>
 
-<style is:global>
-  .active-nav {
-    @apply text-primary-600 dark:text-primary-300;
+<script>
+  const nav = document.getElementById('main-nav') as HTMLElement | null;
+  const toggleBtn = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+  const openIcon = document.getElementById('mobile-menu-open-icon');
+  const closeIcon = document.getElementById('mobile-menu-close-icon');
+  let mobileMenuIsOpen = false;
+  let focusableElements: HTMLElement[] = [];
+  let firstFocusableElement: HTMLElement | null = null;
+  let lastFocusableElement: HTMLElement | null = null;
+
+  function getFocusableElements() {
+    if (!menu) return [];
+    return Array.from(
+      menu.querySelectorAll<HTMLElement>(
+        'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'
+      )
+    );
   }
-</style>
+
+  function updateFocusableElements() {
+    focusableElements = getFocusableElements();
+    firstFocusableElement = focusableElements[0] || null;
+    lastFocusableElement = focusableElements[focusableElements.length - 1] || null;
+    focusableElements.forEach((el) => el.setAttribute('tabindex', mobileMenuIsOpen ? '0' : '-1'));
+  }
+
+  function handleFocusTrap(e: KeyboardEvent) {
+    if (!mobileMenuIsOpen || e.key !== 'Tab' || !focusableElements.length) return;
+
+    if (e.shiftKey) {
+      if (document.activeElement === toggleBtn || document.activeElement === firstFocusableElement) {
+        e.preventDefault();
+        lastFocusableElement?.focus();
+      }
+    } else {
+      if (document.activeElement === lastFocusableElement) {
+        e.preventDefault();
+        firstFocusableElement?.focus();
+      }
+    }
+  }
+
+  function setMenuState(open: boolean) {
+    mobileMenuIsOpen = open;
+    if (!menu || !toggleBtn || !openIcon || !closeIcon) return;
+
+    if (mobileMenuIsOpen) {
+      menu.hidden = false;
+      requestAnimationFrame(() => {
+        menu.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
+        menu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        menu.dataset.state = 'open';
+      });
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      openIcon.style.display = 'none';
+      closeIcon.style.display = '';
+      updateFocusableElements();
+      firstFocusableElement?.focus();
+      document.addEventListener('keydown', handleFocusTrap);
+    } else {
+      menu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      menu.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
+      menu.dataset.state = 'closed';
+
+      const handleTransitionEnd = () => {
+        if (menu && menu.dataset.state === 'closed') {
+          menu.hidden = true;
+        }
+        menu?.removeEventListener('transitionend', handleTransitionEnd);
+      };
+      menu.addEventListener('transitionend', handleTransitionEnd);
+
+      setTimeout(() => {
+        if (menu && menu.dataset.state === 'closed') menu.hidden = true;
+      }, 250);
+
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      openIcon.style.display = '';
+      closeIcon.style.display = 'none';
+      updateFocusableElements();
+      document.removeEventListener('keydown', handleFocusTrap);
+    }
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenuState(!mobileMenuIsOpen);
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (mobileMenuIsOpen && nav && !nav.contains(e.target as Node) && e.target !== toggleBtn) {
+      setMenuState(false);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenuIsOpen) {
+      setMenuState(false);
+      toggleBtn?.focus();
+    }
+  });
+
+  updateFocusableElements();
+</script>

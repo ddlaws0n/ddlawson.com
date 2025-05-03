@@ -1,0 +1,58 @@
+---
+import Container from '@/components/Container.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { SITE } from '@/site.config';
+import { getFormattedDate, getReadingTime } from '@/utils';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const unsortedPosts = await getCollection('writing', ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+
+const blogPosts = unsortedPosts.sort(
+  (a: CollectionEntry<'writing'>, b: CollectionEntry<'writing'>) =>
+    b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+const meta = {
+  title: 'Writing',
+  description:
+    "I publish new content, sometimes&trade;. It' mostly a combination of random rambling and (recently) AI-related thoughts.",
+  canonical: SITE.origin + '/writing',
+};
+---
+
+<PageLayout {meta}>
+  <Container title="Latest Posts" subtitle="I publish new content, sometimes™" divider={true}>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      {
+        blogPosts.map((post) => (
+          <div class="flex flex-col">
+            <p class="mb-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+              <time datetime={new Date(post.data.publishDate).toISOString()}>
+                {getFormattedDate(post.data.publishDate)}
+              </time>{' '}
+              · {getReadingTime(post.body)} min read
+            </p>
+            <h4 class="mb-2 text-lg font-bold sm:text-xl">
+              <a
+                href={`/writing/${post.id}`}
+                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
+              >
+                {post.data.title}
+              </a>
+            </h4>
+            <p class="mb-2 text-sm leading-relaxed text-slate-600 dark:text-slate-100">{post.data.description}</p>
+            <a
+              href={`/writing/${post.id}`}
+              class="text-sm font-medium text-sky-600 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
+              aria-label={`Read more about ${post.data.title}`}
+            >
+              Read More
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</PageLayout>

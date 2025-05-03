@@ -1,12 +1,15 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
-import { SITE } from '@/config';
-import type { MetaSEO } from '@/env';
-import defaultImage from '@/assets/images/david-d-lawson-ai-profile.png';
+import defaultImage from '@/assets/images/david-d-lawson-profile.png';
+import { SITE } from '@/site.config';
+import type { MetaSEO } from '@/types';
 import { getRelativeUrlByFilePath } from '@/utils/directories';
+import { AstroSeo } from '@astrolib/seo';
+import { Font } from 'astro:assets';
+
 export interface Props extends MetaSEO {
   dontUseTitleTemplate?: boolean;
 }
+
 const {
   title = SITE.name,
   description = SITE.description,
@@ -18,17 +21,23 @@ const {
   ogType = 'website',
   dontUseTitleTemplate = false,
 } = Astro.props;
+
 const image =
   typeof _image === 'string'
     ? new URL(_image, Astro.site)
     : _image && typeof _image['src'] !== 'undefined'
-    ? // @ts-ignore
-      new URL(getRelativeUrlByFilePath(_image.src), Astro.site)
-    : null;
+      ? new URL(getRelativeUrlByFilePath(_image.src), Astro.site)
+      : null;
+
+const appleTouchIcon = {
+  src: new URL('/favicon.png?theme=dark&width=192&height=192', Astro.site),
+};
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
+
+<Font cssVariable="--font-switzer" preload />
 
 <AstroSeo
   title={title}
@@ -59,13 +68,28 @@ const image =
   }}
 />
 
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<!-- Dynamic SVG Favicon (light/dark mode switching via JS) -->
+<link id="favicon-svg" rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+<link rel="apple-touch-icon" href={appleTouchIcon.src} />
+<meta name="apple-mobile-web-app-title" content="D Lawson" />
+<link rel="manifest" href="/manifest.json" />
+
+<!-- Sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
-<!-- NEED TO ADD PROPER FAVICONS HERE -->
+
+<!-- RSS Feed -->
+<link rel="alternate" type="application/rss+xml" title=`${SITE.name} RSS Feed` href={new URL('rss.xml', Astro.site)} />
+
+<!-- Light/dark mode & Favicon Switching -->
+<script src="../utils/theme-handler.ts"></script>
+
 <!-- Umami Analytics -->
-<!-- {
+{
   import.meta.env.PROD && (
-    <script async defer data-website-id={SITE.umamiId} src="https://analytics.ddlawson.com/umami.js" />
+    <script async defer is:inline data-website-id={SITE.umamiId} src="https://cloud.umami.is/script.js" />
   )
-} -->
-<script defer src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>
+}
+
+<!-- FeedbackFish -->
+<script defer is:inline src="https://feedback.fish/ff.js?pid=e8f83126219490"></script>
