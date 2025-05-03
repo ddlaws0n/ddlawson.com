@@ -30,7 +30,7 @@ const image =
       : null;
 
 const appleTouchIcon = {
-  src: new URL('/favicon.png?theme=dark&height=192&width=192', Astro.site),
+  src: new URL('/favicon.png?theme=dark&width=192&height=192', Astro.site),
 };
 ---
 
@@ -110,72 +110,7 @@ const appleTouchIcon = {
 />
 
 <!-- Light/dark mode & Favicon Switching -->
-<script is:inline>
-  // Function to update favicon links based on theme
-  function updateFavicon(doc = document) {
-    const isDark = doc.documentElement.classList.contains('dark');
-    const svgLink = doc.getElementById('favicon-svg'); // Select only the SVG link
-
-    // Update href attribute based on the theme
-    if (svgLink) svgLink.href = isDark ? '/favicon.svg?theme=dark' : '/favicon.svg'; // Update SVG href with query param
-  }
-
-  // IIFE: Set initial theme class and call updateFavicon
-  (function () {
-    const theme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (theme === 'dark' || (!theme && prefersDark)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    updateFavicon(); // Set initial favicon based on theme
-  })();
-
-  // Update theme class and favicon before swapping pages (View Transitions)
-  document.addEventListener('astro:before-swap', (event) => {
-    // Ensure the new document inherits the current theme class
-    if (document.documentElement.classList.contains('dark')) {
-      event.newDocument.documentElement.classList.add('dark');
-    } else {
-      event.newDocument.documentElement.classList.remove('dark');
-    }
-    updateFavicon(event.newDocument); // Update favicon for the incoming page
-  });
-
-  // Function to update the theme toggle button icon (no changes needed here)
-  function updateThemeIcon() {
-    const isDark = document.documentElement.classList.contains('dark');
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) {
-      themeIcon.setAttribute('name', isDark ? 'tabler:sun' : 'tabler:moon');
-    }
-  }
-
-  // Function to attach the theme toggle click handler
-  function attachThemeToggleHandler() {
-    const toggle = document.querySelector('[data-aw-toggle-color-scheme]');
-    if (toggle) {
-      toggle.onclick = function () {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        updateThemeIcon(); // Update toggle button icon
-        updateFavicon(); // Update favicon when theme is toggled
-      };
-    }
-  }
-
-  // Function to initialize theme UI elements
-  function initializeThemeUI() {
-    updateThemeIcon();
-    attachThemeToggleHandler();
-    // Initial favicon update is handled in the IIFE above
-  }
-
-  // Event listeners to initialize theme UI on initial load and after page swaps
-  document.addEventListener('DOMContentLoaded', initializeThemeUI);
-  document.addEventListener('astro:after-swap', initializeThemeUI);
-</script>
+<script src="../scripts/theme-handler.ts"></script>
 
 <!-- Umami Analytics -->
 {
