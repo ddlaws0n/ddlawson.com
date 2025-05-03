@@ -1,49 +1,37 @@
 ---
 // src/components/RoleContent.astro
 import type { Role } from '@/types';
+import { formatDateRange } from '@/utils'; // Keep utility for server-side initial render
 import { Icon } from 'astro-icon/components';
 
 interface Props {
-  role: Role;
+  roles: Role[]; // Accept array of roles
+  containerId: string; // ID of the container div in TimelineItem
 }
 
-const { role } = Astro.props;
+const { roles, containerId } = Astro.props;
 
-// Date formatting function (similar to the one in InteractiveTimelineItem)
-const formatDisplayDate = (dateStr: string): string => {
-  if (!dateStr) return ''; // Handle potential undefined/null dates
-  if (dateStr.toLowerCase() === 'present') {
-    return 'Present';
-  }
-  try {
-    // Attempt to parse YYYY-MM format as UTC date
-    const date = new Date(dateStr);
-    if (!isNaN(date.getTime())) {
-      // Format to 'Mon YYYY' using UTC month/year
-      return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
-    }
-  } catch (e) {
-    console.error(`Error formatting display date "${dateStr}":`, e);
-  }
-  return dateStr; // Fallback if parsing/formatting fails
-};
-
-const startDateDisplay = formatDisplayDate(role.start_date);
-const endDateDisplay = formatDisplayDate(role.end_date);
+// Use the first role for initial server-side rendering
+const initialRole = roles[0];
+const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialRole.end_date);
 ---
 
-{/* Root element for the role content */}
-<div>
-  <h3 class="mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">{role.title}</h3>
-  <p class="mb-4 text-sm font-medium tracking-wider text-slate-500 dark:text-slate-400">
-    {startDateDisplay} – {endDateDisplay}
+{/* Root element for the role content - give it an ID based on containerId for easier selection */}
+<div
+  id={`content-${containerId}`}
+  class="role-content-island">
+  <h3 class="role-title mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">
+    {initialRole.title}
+  </h3>
+  <p class="role-date-range mb-4 text-sm font-medium tracking-wider text-slate-500 dark:text-slate-400">
+    {initialDateRangeDisplay}
   </p>
 
-  <div class="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
-    {/* Responsibilities Section - Conditionally Rendered */}
+  <div class="role-details-grid flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-6">
+    {/* Responsibilities Section - Conditionally Rendered (Initial State) */}
     {
-      role.responsibilities && role.responsibilities.length > 0 && (
-        <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+      initialRole.responsibilities && initialRole.responsibilities.length > 0 && (
+        <div class="role-responsibilities content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
           <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
             <Icon
               name="tabler:list-details"
@@ -52,18 +40,18 @@ const endDateDisplay = formatDisplayDate(role.end_date);
             />
             <span>Responsibilities</span>
           </h4>
-          <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
-            {role.responsibilities.map((item) => (
+          <ul class="role-responsibilities-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            {initialRole.responsibilities.map((item) => (
               <li set:html={item} />
             ))}
           </ul>
         </div>
       )
     }
-    {/* Achievements Section - Conditionally Rendered */}
+    {/* Achievements Section - Conditionally Rendered (Initial State) */}
     {
-      role.achievements && role.achievements.length > 0 && (
-        <div class="content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+      initialRole.achievements && initialRole.achievements.length > 0 && (
+        <div class="role-achievements content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
           <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
             <Icon
               name="tabler:star"
@@ -72,8 +60,8 @@ const endDateDisplay = formatDisplayDate(role.end_date);
             />
             <span>Key Achievements</span>
           </h4>
-          <ul class="list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
-            {role.achievements.map((item) => (
+          <ul class="role-achievements-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            {initialRole.achievements.map((item) => (
               <li set:html={item} />
             ))}
           </ul>
@@ -82,3 +70,91 @@ const endDateDisplay = formatDisplayDate(role.end_date);
     }
   </div>
 </div>
+
+<script define:vars={{ roles, containerId }}>
+  // Import the date utility client-side as well
+  // Note: Direct import from '@/utils' might not work in client script depending on setup.
+  // If it fails, we might need to pass the function or formatted dates differently.
+  // Let's try importing first.
+  import { formatDateRange } from '@/utils';
+
+  // Get the root element of this island instance
+  const islandRoot = document.getElementById(`content-${containerId}`);
+  if (!islandRoot) {
+    console.error(`RoleContent island root not found: #content-${containerId}`);
+  } else {
+    // Get references to the elements that need updating
+    const titleElement = islandRoot.querySelector('.role-title');
+    const dateRangeElement = islandRoot.querySelector('.role-date-range');
+    const detailsGridElement = islandRoot.querySelector('.role-details-grid');
+    // We'll query for responsibilities/achievements sections inside updateRoleContent
+
+    // Function to update the content based on a role index
+    const updateRoleContent = (roleIndex) => {
+      const role = roles[roleIndex];
+      if (!role || !titleElement || !dateRangeElement || !detailsGridElement) {
+        console.error('Missing role data or DOM elements for update in RoleContent', containerId);
+        return;
+      }
+
+      // Update title and date range
+      titleElement.textContent = role.title;
+      dateRangeElement.textContent = formatDateRange(role.start_date, role.end_date);
+
+      // --- Update Responsibilities ---
+      let responsibilitiesHTML = '';
+      if (role.responsibilities && role.responsibilities.length > 0) {
+        const listItems = role.responsibilities.map((item) => `<li>${item}</li>`).join('');
+        responsibilitiesHTML = `
+          <div class="role-responsibilities content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 12l.01 0" /><path d="M13 12l.01 0" /><path d="M17 12l.01 0" /><path d="M9 16l.01 0" /><path d="M13 16l.01 0" /><path d="M17 16l.01 0" /></svg>
+              <span>Responsibilities</span>
+            </h4>
+            <ul class="role-responsibilities-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+              ${listItems}
+            </ul>
+          </div>
+        `;
+      }
+
+      // --- Update Achievements ---
+      let achievementsHTML = '';
+      if (role.achievements && role.achievements.length > 0) {
+        const listItems = role.achievements.map((item) => `<li>${item}</li>`).join('');
+        achievementsHTML = `
+          <div class="role-achievements content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
+            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+              <span>Key Achievements</span>
+            </h4>
+            <ul class="role-achievements-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+              ${listItems}
+            </ul>
+          </div>
+        `;
+      }
+
+      // Update the grid content
+      detailsGridElement.innerHTML = responsibilitiesHTML + achievementsHTML;
+    };
+
+    // Listen for the custom event dispatched by the tabs script
+    // The event should be dispatched on the container element identified by `containerId`
+    const containerElement = document.getElementById(containerId);
+    if (containerElement) {
+      containerElement.addEventListener('role-change', (event) => {
+        // Make sure detail exists and roleIndex is a number
+        if (event.detail && typeof event.detail.roleIndex === 'number') {
+          console.log(`RoleContent (${containerId}) received role-change event:`, event.detail);
+          updateRoleContent(event.detail.roleIndex);
+        } else {
+          console.warn(`RoleContent (${containerId}) received role-change event with invalid detail:`, event.detail);
+        }
+      });
+      console.log(`RoleContent (${containerId}) event listener attached to #${containerId}`);
+    } else {
+      console.error(`RoleContent (${containerId}) could not find container #${containerId} to attach listener.`);
+    }
+  }
+</script>

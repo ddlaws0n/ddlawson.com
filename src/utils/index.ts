@@ -27,6 +27,25 @@ export function getReadingTime(content: string) {
   return Math.ceil(numberOfWords / SITE.words_per_minute);
 }
 
+// Helper function to format YYYY-MM to Mon YYYY
+const formatMonthYear = (dateStr: string): string => {
+  // Add a dummy day for parsing, treat as UTC
+  const date = new Date(dateStr + '-01T00:00:00Z');
+  if (isNaN(date.getTime())) {
+    console.warn(`Invalid date string for formatMonthYear: "${dateStr}"`);
+    return 'Invalid Date'; // Or handle error appropriately
+  }
+  // Format to 'Mon YYYY' using UTC
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+};
+
+// New utility function to format date ranges like "Mon YYYY - Mon YYYY" or "Mon YYYY - Present"
+export function formatDateRange(startDateStr: string, endDateStr: string | null | undefined): string {
+  const startDateFormatted = formatMonthYear(startDateStr);
+  const endDateFormatted = endDateStr === 'Present' || !endDateStr ? 'Present' : formatMonthYear(endDateStr);
+
+  return `${startDateFormatted} - ${endDateFormatted}`;
+}
 // --- Timeline Item Helpers ---
 
 // Months array for date parsing

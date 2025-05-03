@@ -55,13 +55,11 @@ const workExperience = workExperienceData;
     const timelineContainer = document.getElementById('timeline-container');
     const timelineLine = document.getElementById('timeline-line') as HTMLElement | null;
     const timelineItems = document.querySelectorAll<HTMLElement>('[data-timeline-item]'); // Type assertion
-    console.log('Timeline elements:', { timelineContainer, timelineLine, timelineItems }); // Add this line
 
     if (!timelineContainer || !timelineLine || timelineItems.length === 0) {
-      console.warn('Timeline elements for animation not found.');
+      // console.warn('Timeline elements for animation not found.'); // Removed log
       return;
     }
-
     const minHeight = 40; // Minimum height for the line
     timelineLine.style.height = `${minHeight}px`; // Set initial height
 
@@ -69,7 +67,7 @@ const workExperience = workExperienceData;
     let ticking = false; // Removed unused lastScrollY
 
     const updateLineHeight = () => {
-      const currentScroll = window.scrollY; // Keep currentScroll needed for logging
+      // const currentScroll = window.scrollY; // Removed unused variable
 
       // Find the first and last item's marker position relative to the container
       const firstItem = timelineItems[0];
@@ -81,10 +79,9 @@ const workExperience = workExperienceData;
       const lastMarker = lastItem.querySelector('.timeline-marker') as HTMLElement | null;
 
       if (!firstMarker || !lastMarker) {
-        console.warn('Timeline markers not found within items.');
+        // console.warn('Timeline markers not found within items.'); // Removed log
         return;
       }
-
       // Calculate marker positions relative to the container for height calculation
       const firstMarkerContainerTop = firstItem.offsetTop + firstMarker.offsetTop + firstMarker.offsetHeight / 2;
       const lastMarkerContainerTop = lastItem.offsetTop + lastMarker.offsetTop + lastMarker.offsetHeight / 2;
@@ -122,22 +119,7 @@ const workExperience = workExperienceData;
       // Apply the calculated height, ensuring it doesn't go below the minimum
       timelineLine.style.height = `${Math.max(minHeight, targetHeight)}px`;
 
-      // --- Logging (Keep for verification) ---
-      console.log('--- updateLineHeight (Viewport Center Logic) ---');
-      console.log('Scroll Y:', currentScroll);
-      console.log('Viewport Height:', viewportHeight);
-      console.log('Viewport Center Y:', viewportCenterY);
-      console.log('First Marker Viewport Center Y:', firstMarkerViewportCenterY);
-      console.log('Last Marker Viewport Center Y:', lastMarkerViewportCenterY);
-      console.log('Total Marker Viewport Distance:', totalMarkerViewportDistance);
-      console.log('First Marker Dist Above Center:', firstMarkerDistAboveCenter);
-      console.log('Progress (Viewport Center Logic):', progress);
-      console.log('First Marker Container Top:', firstMarkerContainerTop); // Should be constant
-      console.log('Last Marker Container Top:', lastMarkerContainerTop); // Should be constant
-      console.log('Total Line Travel (Container):', totalLineTravel); // Should be constant
-      console.log('Calculated Target Height:', targetHeight);
-      console.log('Applied Height:', timelineLine.style.height);
-      // --- End Logging ---
+      // --- Logging Removed ---
 
       ticking = false;
     };
@@ -146,9 +128,9 @@ const workExperience = workExperienceData;
       // Removed assignment to lastScrollY as it's unused
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          console.log('requestAnimationFrame fired'); // Add this line for rAF check
+          // console.log('requestAnimationFrame fired'); // Removed log
           updateLineHeight();
-          ticking = true; // Set ticking to true inside rAF callback
+          // Ticking is now set to false *inside* updateLineHeight
         });
         ticking = true; // Set ticking to true immediately to prevent multiple rAF calls
       }
