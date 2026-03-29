@@ -18,10 +18,10 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
 
 {/* Root element for the role content - give it an ID based on containerId for easier selection */}
 <div id={`content-${containerId}`} class="role-content-island">
-  <h3 class="role-title mb-1 text-xl font-semibold text-slate-800 lg:text-2xl dark:text-slate-100">
+  <h3 class="role-title mb-1 font-display text-xl font-semibold text-text lg:text-2xl">
     {initialRole.title}
   </h3>
-  <p class="role-date-range mb-4 text-sm font-medium tracking-wider text-slate-500 dark:text-slate-400">
+  <p class="role-date-range mb-4 font-display text-caption font-medium tracking-wider text-accent">
     {initialDateRangeDisplay}
   </p>
 
@@ -29,12 +29,15 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
     {/* Responsibilities Section - Conditionally Rendered (Initial State) */}
     {
       initialRole.responsibilities && initialRole.responsibilities.length > 0 && (
-        <div class="role-responsibilities content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
-          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-            <Icon name="tabler:list-details" class="size-5 flex-shrink-0 opacity-70" aria-hidden="true" />
+        <div class="role-responsibilities content-section rounded-lg border border-border bg-elevated p-6">
+          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-text lg:text-lg">
+            <Icon name="tabler:list-details" class="size-5 flex-shrink-0 text-accent opacity-80" aria-hidden="true" />
             <span>Responsibilities</span>
           </h4>
-          <ul class="role-responsibilities-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <ul
+            class="role-responsibilities-list space-y-3 pl-4 text-sm text-text-secondary"
+            style="list-style-type: disc;"
+          >
             {initialRole.responsibilities.map((item) => (
               <li set:html={item} />
             ))}
@@ -45,12 +48,12 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
     {/* Achievements Section - Conditionally Rendered (Initial State) */}
     {
       initialRole.achievements && initialRole.achievements.length > 0 && (
-        <div class="role-achievements content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
-          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-            <Icon name="tabler:star" class="size-5 flex-shrink-0 opacity-70" aria-hidden="true" />
+        <div class="role-achievements content-section rounded-lg border border-border bg-elevated p-6">
+          <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-text lg:text-lg">
+            <Icon name="tabler:star" class="size-5 flex-shrink-0 text-accent opacity-80" aria-hidden="true" />
             <span>Key Achievements</span>
           </h4>
-          <ul class="role-achievements-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <ul class="role-achievements-list space-y-3 pl-4 text-sm text-text-secondary" style="list-style-type: disc;">
             {initialRole.achievements.map((item) => (
               <li set:html={item} />
             ))}
@@ -96,12 +99,12 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
       if (role.responsibilities && role.responsibilities.length > 0) {
         const listItems = role.responsibilities.map((item) => `<li>${item}</li>`).join('');
         responsibilitiesHTML = `
-          <div class="role-responsibilities content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
-            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 12l.01 0" /><path d="M13 12l.01 0" /><path d="M17 12l.01 0" /><path d="M9 16l.01 0" /><path d="M13 16l.01 0" /><path d="M17 16l.01 0" /></svg>
+          <div class="role-responsibilities content-section rounded-lg border border-border bg-elevated p-6">
+            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-text lg:text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 text-accent opacity-80"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 12l.01 0" /><path d="M13 12l.01 0" /><path d="M17 12l.01 0" /><path d="M9 16l.01 0" /><path d="M13 16l.01 0" /><path d="M17 16l.01 0" /></svg>
               <span>Responsibilities</span>
             </h4>
-            <ul class="role-responsibilities-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            <ul class="role-responsibilities-list space-y-3 pl-4 text-sm text-text-secondary" style="list-style-type: disc;">
               ${listItems}
             </ul>
           </div>
@@ -113,12 +116,12 @@ const initialDateRangeDisplay = formatDateRange(initialRole.start_date, initialR
       if (role.achievements && role.achievements.length > 0) {
         const listItems = role.achievements.map((item) => `<li>${item}</li>`).join('');
         achievementsHTML = `
-          <div class="role-achievements content-section rounded-lg border border-slate-200 p-6 dark:border-slate-700">
-            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-slate-700 lg:text-lg dark:text-slate-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 opacity-70"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
+          <div class="role-achievements content-section rounded-lg border border-border bg-elevated p-6">
+            <h4 class="mb-2 flex items-center gap-2 text-base font-semibold text-text lg:text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-5 flex-shrink-0 text-accent opacity-80"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" /></svg>
               <span>Key Achievements</span>
             </h4>
-            <ul class="role-achievements-list list-disc space-y-3 pl-5 text-sm text-slate-700 dark:text-slate-300">
+            <ul class="role-achievements-list space-y-3 pl-4 text-sm text-text-secondary" style="list-style-type: disc;">
               ${listItems}
             </ul>
           </div>

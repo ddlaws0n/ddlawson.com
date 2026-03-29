@@ -1,9 +1,14 @@
 ---
 import HeroImage from '@/assets/images/david-d-lawson-profile-full.png';
-import Container from '@/components/Container.astro';
-import PageLayout from '@/layouts/PageLayout.astro';
+import Button from '@/components/Button.astro';
+import Divider from '@/components/Divider.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import SectionEyebrow from '@/components/SectionEyebrow.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
 import { Image } from 'astro:assets';
+
 const meta = {
   title: 'About',
   description: SITE.description,
@@ -11,52 +16,98 @@ const meta = {
 };
 ---
 
-<PageLayout {meta}>
-  <Container variant="tight" class="flex flex-col-reverse overflow-hidden lg:flex-row">
-    <!-- Text Section -->
-    <div class="flex w-full flex-col items-center justify-center px-6 md:py-10 lg:w-1/2 lg:items-start lg:py-0">
-      <div class="w-full rounded-2xl py-8">
-        <h1
-          class="mb-6 text-center text-4xl font-extrabold text-slate-950 md:text-5xl lg:text-left lg:text-6xl dark:text-slate-100"
+<BaseLayout {meta}>
+  <Header />
+
+  <!-- Hero -->
+  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <SectionEyebrow text="About" sideways />
+    <div
+      class="ml-6 grid grid-cols-[0.8fr_1.2fr] items-center gap-24 max-[900px]:ml-0 max-[900px]:grid-cols-1 max-[900px]:gap-12"
+    >
+      <!-- Display type -->
+      <div class="reveal">
+        <span
+          class="block font-display text-[clamp(5rem,10vw,11rem)] leading-[0.88] font-extrabold text-text opacity-[0.06]"
+          >The</span
         >
-          About Me
-        </h1>
-        <div
-          class="text-md mx-auto space-y-6 text-slate-950/75 md:mx-0 md:text-xl md:leading-relaxed dark:text-slate-300"
+        <span class="block font-display text-[clamp(5rem,10vw,11rem)] leading-[0.88] font-extrabold text-text"
+          >Story</span
         >
-          <p>
-            Hey, I'm David. I currently work as the <strong>Customer Success</strong> manager at Wiz, where my focus is on
-            helping customers maximise the return on their efforts to secure their cloud estate. I also champion the Voice
-            of the Customer and take an uncompromisingly data-driven approach to improving the overall customer experience.
-          </p>
-          <p>
-            Outside of work, I have a keen interest in many different creative pursuits, from music and filmography to
-            writing and building things (both physical and digital). I’m an avid traveller and occasional fitness
-            enthusiast.
-          </p>
-          <p>
-            I’m also <strong>passionate</strong> about generative AI, LLMs and transformer technologies and their potential
-            to positively impact the world 🌍
-          </p>
+      </div>
+      <!-- Image -->
+      <div class="reveal relative h-[480px] overflow-hidden rounded-xl lg:h-[600px]">
+        <div class="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent mix-blend-overlay"></div>
+        <Image
+          src={HeroImage}
+          alt="David D Lawson"
+          format="webp"
+          width={640}
+          height={960}
+          class="h-full w-full object-cover object-top"
+        />
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Bio -->
+  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <SectionEyebrow text="Background" sideways />
+    <div class="ml-6 max-w-[680px] max-[900px]:ml-0">
+      <SectionEyebrow text="Background" />
+      <div class="reveal space-y-6 font-body text-[1.05rem] leading-relaxed font-light text-text-secondary">
+        <p>
+          Hey, I'm David. I currently work as the <strong class="font-medium text-text">Customer Success</strong> manager
+          at
+          <strong class="font-medium text-text">Wiz</strong>, where my focus is on helping customers maximise the return
+          on their efforts to secure their cloud estate. I also champion the Voice of the Customer and take an
+          uncompromisingly data-driven approach to improving the overall customer experience.
+        </p>
+        <p>
+          Outside of work, I have a keen interest in many different creative pursuits, from music and filmography to
+          writing and building things — both physical and digital. I'm an avid traveller and occasional fitness
+          enthusiast.
+        </p>
+        <p>
+          I'm also <strong class="font-medium text-text">passionate</strong> about generative AI, LLMs and transformer technologies
+          and their potential to positively impact the world.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Work CTA -->
+  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <SectionEyebrow text="Experience" sideways />
+    <div class="ml-6 max-[900px]:ml-0">
+      <SectionEyebrow text="Experience" />
+      <div class="reveal flex flex-col items-start gap-8 max-[600px]:gap-6">
+        <p class="max-w-[520px] font-body text-[1.05rem] leading-relaxed font-light text-text-secondary">
+          A career built at the intersection of technology and human outcomes — from early-stage SaaS to enterprise
+          cloud security.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <Button title="View Work History" link="/work" variant="primary" size="lg" icon="tabler:briefcase" />
+          <Button
+            title="Connect on LinkedIn"
+            link={SITE.socialShares.find((s) => s.name === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/'}
+            variant="outline"
+            size="lg"
+            icon="tabler:brand-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            umami="linkedin-connect-about"
+          />
         </div>
       </div>
     </div>
-    <!-- Image Section -->
-    <div
-      class="relative flex h-[420px] items-center justify-center mask-r-from-95% mask-b-from-90% mask-l-from-95% mask-radial-[85%_95%] mask-radial-from-95% mask-alpha lg:h-full lg:w-1/2 lg:mask-t-from-90%"
-    >
-      <div
-        class="absolute inset-0 bg-gradient-to-tr from-sky-300 to-sky-600 opacity-10 mix-blend-overlay dark:from-sky-800 dark:via-sky-700 dark:to-sky-900 dark:opacity-10"
-      >
-      </div>
-      <Image
-        src={HeroImage}
-        alt="David D Lawson Profile Photo"
-        format="webp"
-        width={640}
-        height={960}
-        class="h-full w-full rounded-2xl object-contain object-top backdrop-blur-md lg:object-cover lg:object-center"
-      />
-    </div>
-  </Container>
-</PageLayout>
+  </section>
+
+  <Footer />
+
+  <script src="../scripts/reveal.ts"></script>
+</BaseLayout>

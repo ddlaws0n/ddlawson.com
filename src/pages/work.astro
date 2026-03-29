@@ -1,9 +1,12 @@
 ---
-import Button from '@/components/Button.astro'; // Import Button component
-import Container from '@/components/Container.astro';
+import Button from '@/components/Button.astro';
+import Divider from '@/components/Divider.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import SectionEyebrow from '@/components/SectionEyebrow.astro';
 import TimelineItem from '@/components/TimelineItem.astro';
-import { workExperienceData } from '@/data/workExperience'; // Import data
-import PageLayout from '@/layouts/PageLayout.astro';
+import { workExperienceData } from '@/data/workExperience';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
 
 const meta = {
@@ -15,26 +18,43 @@ const meta = {
 const workExperience = workExperienceData;
 ---
 
-<PageLayout {meta}>
-  <Container
-    title="Professional Journey"
-    subtitle="My career path and professional experiences across various organizations"
-  >
-    <div id="timeline-container" class="relative mx-auto max-w-5xl px-4 pl-16">
-      <div
-        id="timeline-line"
-        class="absolute top-0 left-8 h-10 w-2 -translate-x-1/2 transform bg-sky-200 dark:bg-sky-800"
-      >
-        {/* Changed w-1 to w-2, removed transition classes */}
+<BaseLayout {meta}>
+  <Header />
+
+  <!-- Page Header -->
+  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <SectionEyebrow text="Professional Journey" sideways />
+    <div class="ml-6 max-[900px]:ml-0">
+      <SectionEyebrow text="Professional Journey" />
+      <div class="reveal">
+        <span
+          class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text opacity-[0.06]"
+          >My</span
+        >
+        <span class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text">Work</span>
       </div>
+      <p class="reveal mt-6 max-w-[520px] font-body text-[1.05rem] leading-relaxed font-light text-text-secondary">
+        Career path and professional experiences across various organizations.
+      </p>
+    </div>
+  </section>
+
+  <Divider />
+
+  <!-- Timeline -->
+  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <div id="timeline-container" class="relative mx-auto max-w-5xl pl-12">
+      <div id="timeline-line" class="absolute top-0 left-4 h-10 w-0.5 -translate-x-1/2 transform bg-border"></div>
       {
         workExperience.map((company) => {
           return <TimelineItem experience={company} />;
         })
       }
-      {/* LinkedIn Callout Section */}
-      <div class="mt-16 text-center">
-        <p class="mb-4 text-lg text-slate-700 dark:text-slate-300">Interested in my full professional background?</p>
+      <!-- LinkedIn CTA -->
+      <div class="mt-16 flex flex-col items-start gap-4">
+        <p class="font-body text-[1.05rem] font-light text-text-secondary">
+          Interested in my full professional background?
+        </p>
         <Button
           title="Connect on LinkedIn"
           link={SITE.socialShares.find((s) => s.name === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/'}
@@ -47,8 +67,12 @@ const workExperience = workExperienceData;
         />
       </div>
     </div>
-  </Container>
-</PageLayout>
+  </section>
+
+  <Footer />
+
+  <script src="../scripts/reveal.ts"></script>
+</BaseLayout>
 
 <script>
   document.addEventListener('astro:page-load', () => {
