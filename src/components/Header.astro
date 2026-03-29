@@ -79,16 +79,24 @@ const isActive = (href: string) => {
 </div>
 
 <script>
-  const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
-  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+    const menu = document.getElementById('mobile-menu') as HTMLElement | null;
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    if (menu) menu.hidden = isOpen;
+    // Close menu on navigation
+    if (menu) menu.hidden = true;
+    toggle?.setAttribute('aria-expanded', 'false');
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      if (menu) menu.hidden = isOpen;
+    });
   });
 
   document.addEventListener('keydown', (e) => {
+    const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+    const menu = document.getElementById('mobile-menu') as HTMLElement | null;
     if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
       toggle.setAttribute('aria-expanded', 'false');
       if (menu) menu.hidden = true;
