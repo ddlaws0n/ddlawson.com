@@ -3,16 +3,9 @@ import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends HTMLAttributes<'div'> {
   class?: string;
-  /** @deprecated Legacy props — will be removed during page restyling */
-  title?: string;
-  subtitle?: string;
-  icon?: string;
-  variant?: string;
-  divider?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const { class: customClass, title, subtitle, icon, variant, divider, ...rest } = Astro.props;
+const { class: customClass, ...rest } = Astro.props;
 ---
 
 <div {...rest} class:list={['mx-auto w-full max-w-[1400px] px-6 sm:px-12', customClass]}>

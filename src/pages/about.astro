@@ -21,15 +21,16 @@ const meta = {
 
   <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
   <section class="relative min-h-screen overflow-hidden bg-bg">
-    <div class="grid h-full min-h-screen grid-cols-[1fr_1fr] max-[900px]:grid-cols-1">
+    <div class="grid h-full min-h-screen grid-cols-[1fr_1fr] max-lg:grid-cols-1">
       <!-- Photo side -->
-      <div class="relative min-h-[60vh] overflow-hidden max-[900px]:order-1 max-[900px]:h-[65vw] max-[900px]:min-h-0">
+      <div class="relative min-h-[60vh] overflow-hidden max-lg:order-1 max-lg:h-[65vw] max-lg:min-h-0">
         <!-- Blue glow underneath photo -->
-        <div class="absolute right-0 bottom-0 left-0 z-10 h-1/3 bg-gradient-to-t from-accent/20 to-transparent"></div>
+        <div class="z-raised absolute right-0 bottom-0 left-0 h-1/3 bg-gradient-to-t from-accent/20 to-transparent">
+        </div>
         <!-- Fade to bg at bottom -->
         <div class="absolute right-0 bottom-0 left-0 z-20 h-2/5 bg-gradient-to-t from-bg to-transparent"></div>
         <!-- Right edge fade -->
-        <div class="absolute inset-y-0 right-0 z-10 w-1/4 bg-gradient-to-l from-bg to-transparent max-[900px]:hidden">
+        <div class="z-raised absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-bg to-transparent max-lg:hidden">
         </div>
         <Image
           src={HeroImageFull}
@@ -43,9 +44,9 @@ const meta = {
 
       <!-- Text side -->
       <div
-        class="relative flex flex-col justify-center px-16 py-32 max-[900px]:order-2 max-[900px]:px-8 max-[900px]:py-16 max-sm:px-6 max-sm:py-12"
+        class="relative flex flex-col justify-center px-16 py-32 max-lg:order-2 max-lg:px-8 max-lg:py-16 max-sm:px-6 max-sm:py-12"
       >
-        <div class="relative z-10">
+        <div class="z-raised relative">
           <!-- Eyebrow -->
           <div class="animate-fade-up opacity-0" style="animation-delay: 100ms; animation-fill-mode: forwards;">
             <SectionEyebrow text="The Story So Far" />
@@ -81,11 +82,9 @@ const meta = {
   <Divider />
 
   <!-- ─── Bio ──────────────────────────────────────────────────────────── -->
-  <section class="relative bg-surface px-12 py-28 max-sm:px-6 max-sm:py-16">
+  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="Background" sideways />
-    <div
-      class="grid grid-cols-[1fr_1.4fr] items-start gap-20 pl-12 max-[900px]:grid-cols-1 max-[900px]:gap-10 max-[900px]:pl-0"
-    >
+    <div class="grid grid-cols-[1fr_1.4fr] items-start gap-20 pl-12 max-lg:grid-cols-1 max-lg:gap-10 max-lg:pl-0">
       <!-- Pull quote -->
       <div class="reveal">
         <blockquote class="font-display text-heading leading-snug font-bold text-text italic">
@@ -120,25 +119,23 @@ const meta = {
   <!-- ─── Stats ribbon ──────────────────────────────────────────────────── -->
   <section class="bg-bg py-16">
     <div class="px-12 max-sm:px-6">
-      <div
-        class="grid grid-cols-4 divide-x divide-border max-[700px]:grid-cols-2 max-[700px]:gap-y-10 max-[700px]:divide-x-0"
-      >
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-[700px]:px-4">
+      <div class="grid grid-cols-4 divide-x divide-border max-md:grid-cols-2 max-md:gap-y-10 max-md:divide-x-0">
+        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
           <span class="font-display text-heading font-extrabold text-text">10+</span>
           <span class="font-body text-caption tracking-widest text-text-muted uppercase">Years in SaaS</span>
         </div>
 
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-[700px]:px-4">
+        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
           <span class="font-display text-heading font-extrabold text-text">5</span>
           <span class="font-body text-caption tracking-widest text-text-muted uppercase">Companies</span>
         </div>
 
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-[700px]:px-4">
+        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
           <span class="font-display text-heading font-extrabold text-text">Cloud Security</span>
           <span class="font-body text-caption tracking-widest text-text-muted uppercase">Current Focus</span>
         </div>
 
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-[700px]:px-4">
+        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
           <span class="font-display text-heading font-extrabold text-text">London</span>
           <span class="font-body text-caption tracking-widest text-text-muted uppercase">Based In</span>
         </div>
@@ -149,10 +146,10 @@ const meta = {
   <Divider />
 
   <!-- ─── Interests ─────────────────────────────────────────────────────── -->
-  <section class="relative bg-surface px-12 py-28 max-sm:px-6 max-sm:py-16">
+  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="Beyond Work" sideways />
-    <div class="pl-12 max-[900px]:pl-0">
-      <div class="grid grid-cols-3 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
+    <div class="pl-12 max-lg:pl-0">
+      <div class="grid grid-cols-3 gap-12 max-lg:grid-cols-1 max-lg:gap-8">
         <div class="reveal">
           <span class="mb-4 block font-body text-caption font-semibold tracking-widest text-accent uppercase">01</span>
           <h3 class="font-display text-subheading font-bold text-text">AI & LLMs</h3>
@@ -186,8 +183,8 @@ const meta = {
   <Divider />
 
   <!-- ─── CTA ───────────────────────────────────────────────────────────── -->
-  <section class="relative bg-bg px-12 py-28 max-sm:px-6 max-sm:py-16">
-    <div class="reveal max-w-[700px] pl-12 max-[900px]:pl-0">
+  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <div class="reveal max-w-narrow pl-12 max-lg:pl-0">
       <h2 class="font-display text-display leading-[0.92] font-extrabold text-text">Let's Connect</h2>
       <div class="mt-6 h-px w-[100px] bg-accent"></div>
       <p class="mt-8 font-body text-body leading-relaxed font-light text-text-secondary">

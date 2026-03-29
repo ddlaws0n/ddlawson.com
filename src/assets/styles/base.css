@@ -46,6 +46,39 @@
   --tracking-label: 0.18em;
   --tracking-wide: 0.25em;
 
+  /* ——— Breakpoints ——— */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 900px;
+  --breakpoint-xl: 1200px;
+
+  /* ——— Z-index scale ——— */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-overlay: 50;
+  --z-nav: 100;
+  --z-modal: 200;
+
+  /* ——— Blur ——— */
+  --blur-nav: 14px;
+
+  /* ——— Opacity scale (ghost/watermark) ——— */
+  --opacity-ghost: 0.03;
+  --opacity-watermark: 0.06;
+  --opacity-subtle: 0.15;
+  --opacity-muted: 0.25;
+  --opacity-half: 0.5;
+
+  /* ——— Layout ——— */
+  --width-content: 1200px;
+  --width-narrow: 720px;
+  --width-prose: 65ch;
+
+  /* ——— Section spacing ——— */
+  --spacing-section-x: 3rem;
+  --spacing-section-y: 6rem;
+
   /* ——— Radius ——— */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;

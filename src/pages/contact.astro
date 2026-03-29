@@ -50,8 +50,7 @@ if (isSuccess) {
       <div class="signal-left relative flex flex-col justify-between overflow-hidden bg-bg p-6 md:p-12">
         {/* Ghost background text */}
         <span
-          class="pointer-events-none absolute -bottom-8 left-0 font-display leading-none font-extrabold text-text select-none"
-          style="font-size: clamp(6rem, 20vw, 14rem); opacity: 0.03; letter-spacing: -0.04em;"
+          class="pointer-events-none absolute -bottom-8 left-0 font-display text-ghost leading-none font-extrabold tracking-tighter text-text opacity-ghost select-none"
           aria-hidden="true"
         >
           HELLO
@@ -62,7 +61,7 @@ if (isSuccess) {
             <SectionEyebrow text="Get In Touch" />
 
             <div class="mt-6 flex flex-col">
-              <span class="font-display text-display leading-none font-extrabold text-text" style="opacity: 0.06;">
+              <span class="font-display text-display leading-none font-extrabold text-text opacity-watermark">
                 Say
               </span>
               <span class="font-display text-display leading-none font-extrabold text-text"> Hello. </span>
@@ -271,7 +270,7 @@ if (isSuccess) {
               Send Message
               <Icon name="tabler:send" class="size-4" />
             </button>
-            <p class="text-center font-body text-caption text-text-muted" style="opacity: 0.5;">
+            <p class="text-center font-body text-caption text-text-muted opacity-half">
               Protected by Cloudflare Turnstile
             </p>
           </div>
@@ -296,7 +295,7 @@ if (isSuccess) {
     height: 100vh;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 899px) {
     .signal-grid {
       grid-template-columns: 1fr;
     }

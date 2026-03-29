@@ -8,7 +8,7 @@ const isActive = (href: string) => {
 ---
 
 <header
-  class="sticky top-0 z-[100] flex items-center justify-between border-b border-border bg-bg/85 px-12 py-[1.1rem] backdrop-blur-[14px] max-[900px]:px-6"
+  class="z-nav sticky top-0 flex items-center justify-between border-b border-border bg-bg/85 px-12 py-[1.1rem] backdrop-blur-nav max-lg:px-6"
 >
   <a
     href="/"
@@ -18,7 +18,7 @@ const isActive = (href: string) => {
     DDL
   </a>
 
-  <ul class="m-0 hidden list-none gap-10 p-0 min-[901px]:flex" id="main-nav-links">
+  <ul class="m-0 hidden list-none gap-10 p-0 lg:flex" id="main-nav-links">
     {
       NAV.map(({ name, href }) => (
         <li>
@@ -36,14 +36,14 @@ const isActive = (href: string) => {
     }
   </ul>
 
-  <span class="hidden font-body text-caption font-light tracking-tight text-text-muted opacity-50 min-[901px]:block">
+  <span class="hidden font-body text-caption font-light tracking-tight text-text-muted opacity-50 lg:block">
     London, 2026
   </span>
 
   <button
     id="mobile-menu-toggle"
     type="button"
-    class="flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-1.5 text-text-muted min-[901px]:hidden"
+    class="flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-1.5 text-text-muted lg:hidden"
     aria-label="Toggle menu"
     aria-expanded="false"
     aria-controls="mobile-menu"
@@ -57,7 +57,7 @@ const isActive = (href: string) => {
 <div
   id="mobile-menu"
   hidden
-  class="fixed inset-x-0 top-[57px] z-[99] border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-[14px] min-[901px]:hidden"
+  class="z-nav fixed inset-x-0 top-[57px] border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-nav lg:hidden"
 >
   <ul class="m-0 flex list-none flex-col gap-4 p-0">
     {

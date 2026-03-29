@@ -30,18 +30,18 @@ const linkedInUrl =
 
   <!-- Hero Header -->
   <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-20">
-    <div class="relative mx-auto max-w-5xl">
+    <div class="max-w-content relative mx-auto">
       <SectionEyebrow text="Professional Journey" />
       <div class="reveal mt-4">
         <span
-          class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text opacity-[0.06]"
+          class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text opacity-watermark"
           >The</span
         >
         <span class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text"
           >Chronicle</span
         >
       </div>
-      <p class="reveal mt-8 max-w-[520px] font-body text-body leading-relaxed font-light text-text-secondary">
+      <p class="reveal max-w-narrow mt-8 font-body text-body leading-relaxed font-light text-text-secondary">
         A career built at the intersection of technology and human outcomes.
       </p>
     </div>
@@ -62,10 +62,10 @@ const linkedInUrl =
             isEven ? 'bg-surface' : 'bg-bg',
           ]}
         >
-          <div class="relative mx-auto max-w-5xl">
+          <div class="max-w-content relative mx-auto">
             {/* Ghost chapter number */}
             <span
-              class="pointer-events-none absolute -top-4 -left-4 font-display text-[clamp(6rem,14vw,14rem)] leading-none font-extrabold text-text opacity-[0.03] select-none"
+              class="pointer-events-none absolute -top-4 -left-4 font-display text-ghost leading-none font-extrabold text-text opacity-ghost select-none"
               aria-hidden="true"
             >
               {chapterNum}
@@ -135,7 +135,7 @@ const linkedInUrl =
 
   <!-- CTA Footer -->
   <section class="bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <div class="reveal mx-auto flex max-w-5xl flex-col items-start gap-6">
+    <div class="reveal max-w-content mx-auto flex flex-col items-start gap-6">
       <p class="font-display text-heading font-semibold text-text">Want the full picture?</p>
       <Button
         title="View LinkedIn Profile"

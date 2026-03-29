@@ -13,7 +13,7 @@ const { date, title, tag, href } = Astro.props;
   <span class="post-date font-display text-caption font-medium tracking-tight whitespace-nowrap text-text-muted"
     >{date}</span
   >
-  <span class="post-title font-body text-body-lg leading-[1.35] font-normal text-text-secondary">{title}</span>
+  <span class="post-title min-w-0 font-body text-body-lg leading-[1.35] font-normal text-text-secondary">{title}</span>
   {
     tag && (
       <span class="post-tag border border-border px-2.5 py-0.5 font-display text-caption font-bold tracking-label whitespace-nowrap text-text-muted uppercase">

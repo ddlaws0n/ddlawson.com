@@ -35,7 +35,7 @@ const meta = {
 
   <!-- Hero Header -->
   <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-16">
-    <div class="relative z-10 max-w-4xl">
+    <div class="max-w-content relative z-10">
       <SectionEyebrow text="The Archive" />
       <h1 class="mb-4 font-display text-display font-extrabold text-text">Writing</h1>
       <p class="max-w-[55ch] font-body text-body text-text-secondary">
@@ -48,13 +48,10 @@ const meta = {
   {
     featuredPost && (
       <section class="bg-surface px-12 py-16 max-sm:px-6 max-sm:py-10">
-        <div class="max-w-4xl">
+        <div class="max-w-content">
           <p class="mb-6 font-display text-caption font-semibold tracking-label text-text-muted uppercase">Latest</p>
           <a href={`/writing/${featuredPost.id}`} class="reveal group block border-l-2 border-accent pl-8 max-sm:pl-5">
-            <h2
-              class="mb-3 font-display leading-tight font-semibold text-text"
-              style="font-size: clamp(1.5rem, 3vw, 2.2rem);"
-            >
+            <h2 class="mb-3 font-display text-title leading-tight font-semibold text-text">
               {featuredPost.data.title}
             </h2>
             <p class="mb-4 font-body text-caption text-text-muted">
@@ -80,7 +77,7 @@ const meta = {
 
   <!-- Tag Filter -->
   <section class="border-b border-border bg-bg px-12 py-8 max-sm:px-6">
-    <div class="flex max-w-4xl flex-wrap gap-2" id="tag-filter">
+    <div class="max-w-content flex flex-wrap gap-2" id="tag-filter">
       <button
         data-tag="all"
         class="tag-pill active-pill rounded-sm px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap uppercase transition-colors"
@@ -102,7 +99,7 @@ const meta = {
 
   <!-- Post List -->
   <section class="bg-bg px-12 pb-24 max-sm:px-6 max-sm:pb-16">
-    <div class="max-w-4xl">
+    <div class="max-w-content">
       <div class="post-list">
         {
           remainingPosts.map((post) => {

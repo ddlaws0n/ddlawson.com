@@ -39,8 +39,8 @@ const meta = {
   <!-- Beliefs -->
   <section id="beliefs" class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="What I Believe" sideways />
-    <div class="pl-12 max-[900px]:pl-0">
-      <div class="grid grid-cols-2 max-[900px]:grid-cols-1">
+    <div class="pl-12 max-lg:pl-0">
+      <div class="grid grid-cols-2 max-lg:grid-cols-1">
         {beliefs.map((belief) => <BeliefCard {belief} />)}
       </div>
     </div>
@@ -51,10 +51,8 @@ const meta = {
   <!-- Projects -->
   <section id="projects" class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="What I'm Building" sideways />
-    <div class="pl-12 max-[900px]:pl-0">
-      <div
-        class="relative z-[2] -mt-8 grid grid-cols-[1.4fr_1fr] gap-px bg-border max-[900px]:mt-0 max-[900px]:grid-cols-1"
-      >
+    <div class="pl-12 max-lg:pl-0">
+      <div class="z-base relative -mt-8 grid grid-cols-[1.4fr_1fr] gap-px bg-border max-lg:mt-0 max-lg:grid-cols-1">
         {projects.map((project) => <ProjectCard {project} />)}
       </div>
     </div>
@@ -69,7 +67,7 @@ const meta = {
   <!-- Writing -->
   <section id="writing" class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="Recent Writing" sideways />
-    <div class="pl-12 max-[900px]:pl-0">
+    <div class="pl-12 max-lg:pl-0">
       <div class="flex flex-col">
         {
           recentPosts.map((post) => (
@@ -90,16 +88,14 @@ const meta = {
   <!-- About Teaser -->
   <section id="about" class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="About" sideways />
-    <div
-      class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-[900px]:grid-cols-1 max-[900px]:gap-12 max-[900px]:pl-0"
-    >
+    <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
       <div class="reveal">
-        <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-[0.06]">The</span>
-        <span class="block font-display text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.88] font-extrabold text-text"
-          >Story</span
+        <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-watermark"
+          >The</span
         >
+        <span class="block font-display text-display leading-[0.88] font-extrabold text-text">Story</span>
       </div>
-      <div class="reveal max-w-[520px]">
+      <div class="reveal max-w-narrow">
         <p class="font-body text-body leading-relaxed font-light text-text-secondary">
           Customer Success leader at <strong class="font-medium text-text">Wiz</strong> — the cloud security company rewriting
           how enterprises think about risk. Before that: navigating the messy, human side of B2B SaaS adoption at scale.
