@@ -1,10 +1,12 @@
 ---
 import Button from '@/components/Button.astro';
-import Container from '@/components/Container.astro';
-import PageLayout from '@/layouts/PageLayout.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import SectionEyebrow from '@/components/SectionEyebrow.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
 import { Icon } from 'astro-icon/components';
-import { actions } from 'astro:actions'; // <-- Step 1: Import actions
+import { actions } from 'astro:actions';
 
 const meta = {
   title: 'Contact',
@@ -12,19 +14,17 @@ const meta = {
   canonical: SITE.origin + '/contact',
 };
 
-// Step 2: Get the result from the previous action call
+// Get the result from the previous action call
 const result = Astro.getActionResult(actions.submitContactForm);
 
-// Step 4: Determine status based on the action result
+// Determine status based on the action result
 const isSuccess = !!result && !result.error;
 const isError = !!result && !!result.error;
 
-// Get Zod field errors (Astro puts them here)
 // Initialize with the correct type
 let fieldErrors: Record<string, string[] | undefined> = {};
 // Assign if fields exist and are not null/undefined
 if (result?.error && 'fields' in result.error && result.error.fields) {
-  // Assert the type here as we've confirmed 'fields' exists
   fieldErrors = result.error.fields as Record<string, string[] | undefined>;
 }
 
@@ -36,264 +36,219 @@ let statusMessage: string | null = null;
 if (isSuccess) {
   statusMessage = "Your message has been sent successfully! I'll get back to you soon.";
 } else if (generalErrorMessage) {
-  // Prioritize the general server error message from ActionError
   statusMessage = generalErrorMessage;
 } else if (isError && Object.keys(fieldErrors).length > 0) {
-  // Fallback for Zod errors if no general message exists
   statusMessage = 'Please correct the errors highlighted below.';
 }
 ---
 
-<PageLayout {meta}>
-  <Container title="Let's Connect" subtitle="I'd love to hear from you!" icon="tabler:mail">
-    <div class="mx-auto max-w-3xl">
-      <div
-        class="relative rounded-2xl bg-white p-8 py-14 drop-shadow-2xl drop-shadow-sky-300/50 backdrop-blur-sm dark:bg-slate-800 dark:drop-shadow-md dark:drop-shadow-sky-800/50"
+<BaseLayout {meta}>
+  <Header />
+
+  <main class="mx-auto w-full max-w-[1400px] grow px-6 py-24 md:px-12">
+    <div class="reveal mx-auto max-w-3xl">
+      <SectionEyebrow text="Get In Touch" />
+
+      <h1 class="mb-4 font-display text-heading font-bold text-text">Let's Connect</h1>
+      <p class="mb-14 font-body text-body text-text-secondary">
+        Have a question, feedback, or just want to say hello? Fill out the form below and I'll get back to you.
+      </p>
+
+      <form
+        id="contact-form"
+        method="POST"
+        action="/contact?_action=submitContactForm"
+        class="space-y-6"
+        autocomplete="off"
       >
-        <!-- Subtle pattern overlay -->
-        <div
-          class="absolute inset-0 -z-10 rounded-2xl opacity-5 dark:opacity-10"
-          style="background-image: url('data:image/svg+xml,%3Csvg width%3D%2260%22 height%3D%2260%22 viewBox%3D%220 0 60 60%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg fill%3D%22none%22 fill-rule%3D%22evenodd%22%3E%3Cg fill%3D%22%239C92AC%22 fill-opacity%3D%220.4%22%3E%3Cpath d%3D%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');"
-        >
+        {/* Display Success/Error Messages */}
+        {
+          statusMessage && (
+            <div
+              class:list={[
+                'rounded-md border px-4 py-3 text-sm font-medium',
+                { 'border-green-500/30 bg-green-500/10 text-green-400': isSuccess },
+                { 'border-red-500/30 bg-red-500/10 text-red-400': isError },
+                { 'border-accent/30 bg-accent/10 text-accent': !isSuccess && !isError },
+              ]}
+            >
+              {statusMessage}
+            </div>
+          )
+        }
+
+        <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-6">
+          <div>
+            <label
+              for="name"
+              class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
+            >
+              Name
+            </label>
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <Icon name="tabler:user" class="size-5 text-text-muted" />
+              </div>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class:list={[
+                  'block w-full rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
+                  fieldErrors.name ? 'border-red-500' : 'border-border',
+                ]}
+                placeholder="Your name"
+                required
+                transition:persist
+              />
+            </div>
+            {fieldErrors.name && <p class="mt-1 text-small text-red-400">{fieldErrors.name.join(', ')}</p>}
+          </div>
+
+          <div>
+            <label
+              for="email"
+              class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
+            >
+              Email
+            </label>
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <Icon name="tabler:mail" class="size-5 text-text-muted" />
+              </div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class:list={[
+                  'block w-full rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
+                  fieldErrors.email ? 'border-red-500' : 'border-border',
+                ]}
+                placeholder="you@example.com"
+                required
+                transition:persist
+              />
+            </div>
+            {fieldErrors.email && <p class="mt-1 text-small text-red-400">{fieldErrors.email.join(', ')}</p>}
+          </div>
         </div>
 
-        <p class="mb-8 text-center text-slate-600 dark:text-slate-300">
-          Have a question, feedback, or just want to say hello? Fill out the form below and I'll get back to you!
-        </p>
-
-        <form
-          id="contact-form"
-          method="POST"
-          action="/contact?_action=submitContactForm"
-          class="space-y-6"
-          autocomplete="off"
-        >
-          {/* Display Success/Error Messages */}
-          {
-            statusMessage && (
-              <div
-                class:list={[
-                  'mt-4 text-center text-sm font-medium',
-                  { 'text-green-600 dark:text-green-400': isSuccess },
-                  // Use red for any error, including the general form error
-                  { 'text-red-600 dark:text-red-400': isError },
-                  { 'text-sky-600 dark:text-sky-400': !isSuccess && !isError },
-                ]}
-              >
-                {/* Display the determined status message */}
-                {statusMessage}
-              </div>
-            )
-          }
-
-          <div class="space-y-4">
-            <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-4">
-              <div>
-                <label for="name" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Name
-                </label>
-                <div class="relative">
-                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon name="tabler:user" class="size-5 text-slate-400" />
-                  </div>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    class:list={[
-                      'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                      // Apply error border if 'name' field error exists
-                      fieldErrors.name
-                        ? 'border-red-500 dark:border-red-400'
-                        : 'border-slate-300 dark:border-slate-600',
-                    ]}
-                    placeholder="Your name"
-                    required
-                    transition:persist
-                  />
-                </div>
-                {/* Display name errors if they exist */}
-                {
-                  fieldErrors.name && (
-                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.name.join(', ')}</p>
-                  )
-                }
-              </div>
-
-              <div>
-                <label for="email" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Email
-                </label>
-                <div class="relative">
-                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon name="tabler:mail" class="size-5 text-slate-400" />
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class:list={[
-                      'block w-full rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                      // Apply error border if 'email' field error exists
-                      fieldErrors.email
-                        ? 'border-red-500 dark:border-red-400'
-                        : 'border-slate-300 dark:border-slate-600',
-                    ]}
-                    placeholder="you@example.com"
-                    required
-                    transition:persist
-                  />
-                </div>
-                {/* Display email errors if they exist */}
-                {
-                  fieldErrors.email && (
-                    <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.email.join(', ')}</p>
-                  )
-                }
-              </div>
+        <div>
+          <label
+            for="message"
+            class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
+          >
+            Message
+          </label>
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
+              <Icon name="tabler:message" class="my-1 size-5 text-text-muted" />
             </div>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              class:list={[
+                'block max-h-64 w-full resize-y rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
+                fieldErrors.message ? 'border-red-500' : 'border-border',
+              ]}
+              placeholder="Type your message here..."
+              required
+              transition:persist></textarea>
+          </div>
+          {fieldErrors.message && <p class="mt-1 text-small text-red-400">{fieldErrors.message.join(', ')}</p>}
+        </div>
 
-            <div>
-              <label for="message" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
-                Message
-              </label>
-              <div class="relative">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
-                  <Icon name="tabler:message" class="my-1 size-5 text-slate-400" />
-                </div>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="2"
-                  class:list={[
-                    'block max-h-48 w-full resize-y rounded-md border bg-white px-10 py-3 text-slate-900 shadow-sm ring-0 placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-sky-400 dark:focus:ring-sky-400',
-                    // Apply error border if 'message' field error exists
-                    fieldErrors.message
-                      ? 'border-red-500 dark:border-red-400'
-                      : 'border-slate-300 dark:border-slate-600',
-                  ]}
-                  placeholder="Type your message here..."
-                  required
-                  transition:persist></textarea>
-              </div>
-              {/* Display message errors if they exist */}
-              {
-                fieldErrors.message && (
-                  <p class="mt-1 text-sm text-red-600 dark:text-red-400">{fieldErrors.message.join(', ')}</p>
-                )
+        <div>
+          <div
+            id="turnstile-widget"
+            class="my-2"
+            data-sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
+            transition:persist="turnstile-widget"
+          >
+          </div>
+          <input type="hidden" name="captchaToken" id="captchaToken" transition:persist />
+        </div>
+
+        {/* Turnstile Widget Loader Script */}
+        <script is:inline>
+          // Cloudflare Turnstile widget loader
+          // Use astro:page-load for View Transitions compatibility
+          document.addEventListener('astro:page-load', () => {
+            // Check if the Turnstile API script needs to be loaded
+            if (!window.turnstile) {
+              // Avoid adding duplicate scripts if already loading/loaded
+              if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
+                const script = document.createElement('script');
+                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+                script.onload = renderTurnstile;
               }
-            </div>
+            } else {
+              renderTurnstile();
+            }
 
-            <div class="mb-6">
-              <div
-                id="turnstile-widget"
-                class="my-2"
-                data-sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
-                transition:persist="turnstile-widget"
-              >
-              </div>
-              <input type="hidden" name="captchaToken" id="captchaToken" transition:persist />
-              {/* Captcha errors are now handled by the general statusMessage */}
-            </div>
-            {/* Turnstile Widget Loader Script */}
-            <script is:inline>
-              // Cloudflare Turnstile widget loader
-              // Use astro:page-load for View Transitions compatibility
-              document.addEventListener('astro:page-load', () => {
-                // Check if the Turnstile API script needs to be loaded
-                if (!window.turnstile) {
-                  // Avoid adding duplicate scripts if already loading/loaded
-                  if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
-                    const script = document.createElement('script');
-                    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-                    script.async = true;
-                    script.defer = true;
-                    // Append to head to avoid potential body manipulation issues during transitions
-                    document.head.appendChild(script);
-                    // Wait for the script to load before rendering
-                    script.onload = renderTurnstile;
-                  }
-                  // If script is already loading/loaded but turnstile object not yet ready,
-                  // renderTurnstile will be called by its onload or is already called.
-                  // If turnstile object *is* ready, the else block handles it.
-                } else {
-                  // If Turnstile API is already loaded, render the widget directly
-                  renderTurnstile();
-                }
+            function renderTurnstile() {
+              const widgetContainer = document.getElementById('turnstile-widget');
+              if (window.turnstile && widgetContainer && !widgetContainer.querySelector('.cf-turnstile')) {
+                window.turnstile.render('#turnstile-widget', {
+                  sitekey: widgetContainer.dataset.sitekey,
+                  callback: function (token) {
+                    const tokenInput = document.getElementById('captchaToken');
+                    if (tokenInput) {
+                      tokenInput.value = token;
+                    }
+                  },
+                  'error-callback': function () {
+                    console.error('Turnstile error: Failed to render widget.');
+                  },
+                  'expired-callback': function () {
+                    const tokenInput = document.getElementById('captchaToken');
+                    if (tokenInput) {
+                      tokenInput.value = '';
+                    }
+                  },
+                });
+              }
+            }
+          });
+        </script>
 
-                function renderTurnstile() {
-                  const widgetContainer = document.getElementById('turnstile-widget');
-                  // Ensure the container exists and doesn't already have a widget rendered inside
-                  if (window.turnstile && widgetContainer && !widgetContainer.querySelector('.cf-turnstile')) {
-                    window.turnstile.render('#turnstile-widget', {
-                      sitekey: widgetContainer.dataset.sitekey,
-                      callback: function (token) {
-                        const tokenInput = document.getElementById('captchaToken');
-                        if (tokenInput) {
-                          tokenInput.value = token;
-                        }
-                      },
-                      // Add error handling
-                      'error-callback': function () {
-                        console.error('Turnstile error: Failed to render widget.');
-                        // Optionally display a message to the user
-                      },
-                      // Add expired callback if needed
-                      'expired-callback': function () {
-                        // Reset token or prompt user
-                        const tokenInput = document.getElementById('captchaToken');
-                        if (tokenInput) {
-                          tokenInput.value = '';
-                        }
-                      },
-                    });
-                  }
-                }
-              });
-            </script>
-          </div>
-
-          <div class="flex justify-end">
-            <Button type="submit" variant="outline" size="md" title="Send Message" class="w-full md:w-auto">
-              <Icon name="tabler:send" class="size-4" />
-            </Button>
-          </div>
-          {/* Removed redundant client-side fetch script; data-astro-reload handles submission */}
-        </form>
-      </div>
+        <div class="flex justify-end pt-2">
+          <Button type="submit" variant="primary" size="md" title="Send Message">
+            <Icon name="tabler:send" class="size-4" />
+          </Button>
+        </div>
+      </form>
     </div>
-  </Container>
-</PageLayout>
+  </main>
 
-<style>
-  .dark .contact-form input,
-  .dark .contact-form textarea {
-    background-color: rgba(30, 41, 59, 0.5);
-    border-color: rgba(51, 65, 85, 0.5);
-  }
+  <Footer />
+</BaseLayout>
 
-  @keyframes form-success {
-    /* This animation might not be triggered easily without JS */
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-      transform: translateX(-5px);
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-      transform: translateX(5px);
-    }
-  }
-
-  .form-success-animation {
-    animation: form-success 0.8s ease;
-  }
-</style>
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const revealEls = document.querySelectorAll<HTMLElement>('.reveal');
+    if (!revealEls.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).style.opacity = '1';
+            (entry.target as HTMLElement).style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    revealEls.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  });
+</script>
