@@ -12,7 +12,6 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import icon from 'astro-icon';
-import Sonda from 'sonda/astro';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -61,9 +60,6 @@ export default defineConfig({
       customPages: ['https://analytics.lawson.dev/'],
     }),
     mdx(),
-    Sonda({
-      server: true,
-    }),
     compress({
       CSS: false,
       HTML: true,

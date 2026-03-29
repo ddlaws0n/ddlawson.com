@@ -42,7 +42,6 @@
     "prettier-plugin-astro-organize-imports": "^0.4.11",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sharp": "0.34.1",
-    "sonda": "^0.7.1",
     "svgo": "3.3.2",
     "tailwind-variants": "^1.0.0",
     "tailwindcss": "^4.2.2",
