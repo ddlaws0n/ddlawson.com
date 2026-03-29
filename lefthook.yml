@@ -1,29 +1,28 @@
 # Documentation Reference: https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 
 pre-commit:
+  parallel: true
   commands:
     format:
-      glob: 'src/**/*.{ts,tsx,js,jsx,css}'
-      run: pnpm prettier --write {staged_files} && git update-index --again && echo "Code formatted successfully."
+      glob: '*.{ts,tsx,js,jsx,astro,css,md,json}'
+      run: pnpm prettier --write {staged_files} && git update-index --again
 
     lint:
-      glob: 'src/**/*.{ts,tsx,js,jsx,css}'
-      run: pnpm eslint --fix {staged_files} && git update-index --again && echo "Code linted successfully."
+      glob: '*.{ts,tsx,js,jsx,astro}'
+      run: pnpm eslint --fix {staged_files} && git update-index --again
 
-    update-env-example:
-      tags: prepare:env-file
-      run: |
-        cp .env .env.example || cp .env.local .env.example
-        sed -i '' 's/=\(.*\)/=""/' .env.example
-        echo "Updated .env.example successfully."
+    typecheck:
+      run: pnpm astro check
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm commitlint --edit {1}
 
 pre-push:
   commands:
-    debug:
-      run: echo "----- Running pre-push hook -----" && which node && node --version
-
     check:
       tags: lint
       files: git diff --name-only $(git merge-base origin/main HEAD)
-      glob: 'src/**/*.{js,jsx,ts,tsx}'
-      run: pnpm run check && echo "Types checked successfully."
+      glob: '*.{js,jsx,ts,tsx,astro}'
+      run: pnpm run check

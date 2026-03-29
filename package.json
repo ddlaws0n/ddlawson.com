@@ -24,6 +24,8 @@
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/sitemap": "^3.3.1",
     "@astrolib/seo": "1.0.0-beta.8",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@iconify-json/tabler": "^1.2.17",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
