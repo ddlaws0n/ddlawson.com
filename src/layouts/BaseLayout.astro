@@ -1,14 +1,16 @@
 ---
 import '@/assets/styles/base.css';
-import BackgroundBlur from '@/components/BackgroundBlur.astro';
+import GrainOverlay from '@/components/GrainOverlay.astro';
 import MetaTags from '@/components/MetaTags.astro';
 import { SITE } from '@/site.config';
 import type { MetaSEO } from '@/types';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import { ClientRouter } from 'astro:transitions';
+
 export interface Props {
   meta?: MetaSEO;
 }
+
 const { meta = {} } = Astro.props;
 const { language = 'en-gb' } = SITE;
 ---
@@ -20,8 +22,8 @@ const { language = 'en-gb' } = SITE;
     <ClientRouter />
   </head>
 
-  <body class="flex min-h-screen flex-col bg-slate-50 antialiased dark:bg-slate-950 dark:text-slate-50">
-    <BackgroundBlur />
+  <body class="flex min-h-screen flex-col antialiased">
+    <GrainOverlay />
     <slot />
     <SpeedInsights />
   </body>

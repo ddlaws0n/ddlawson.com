@@ -1,0 +1,15 @@
+---
+
+---
+
+<svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"></feTurbulence>
+    <feColorMatrix type="saturate" values="0"></feColorMatrix>
+  </filter>
+</svg>
+<div
+  aria-hidden="true"
+  style="position:fixed;inset:-50%;width:200%;height:200%;z-index:50;pointer-events:none;filter:url(#grain);opacity:0.03;"
+>
+</div>

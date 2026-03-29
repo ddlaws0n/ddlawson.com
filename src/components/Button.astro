@@ -14,29 +14,24 @@ const button = tv({
   variants: {
     variant: {
       primary: [
-        'border-sky-700 bg-sky-700 text-white',
-        'hover:border-sky-800 hover:bg-sky-800',
-        'focus-visible:outline-sky-500',
-        'dark:border-sky-300 dark:bg-sky-300 dark:text-slate-900',
-        'dark:hover:border-sky-400 dark:hover:bg-sky-400',
+        'border border-transparent bg-accent text-bg',
+        'hover:bg-accent-bright',
+        'focus-visible:outline-accent',
       ],
       secondary: [
-        'border border-slate-300 bg-white text-sky-700',
-        'hover:bg-slate-100 hover:text-slate-800',
-        'focus-visible:outline-slate-500',
-        'dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300',
-        'dark:hover:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-200',
+        'border border-border text-text-secondary',
+        'hover:border-border-hover hover:text-text',
+        'focus-visible:outline-border',
       ],
       outline: [
-        'border border-slate-300 bg-transparent text-slate-900',
-        'hover:bg-slate-100',
-        'dark:border-slate-700 dark:text-slate-300',
-        'dark:hover:bg-slate-800',
+        'border border-border bg-transparent text-text-secondary',
+        'hover:border-accent hover:text-accent',
+        'focus-visible:outline-border',
       ],
       ghost: [
-        'border-transparent bg-transparent text-slate-900',
-        'hover:bg-slate-100',
-        'dark:text-slate-300 dark:hover:bg-slate-800',
+        'border-transparent bg-transparent text-text-secondary',
+        'hover:text-text',
+        'focus-visible:outline-border',
       ],
     },
     size: {
@@ -47,7 +42,7 @@ const button = tv({
     },
   },
   defaultVariants: {
-    variant: 'primary',
+    variant: 'secondary',
     size: 'md',
   },
 });

@@ -1,0 +1,21 @@
+---
+interface Props {
+  text: string;
+  sideways?: boolean;
+}
+
+const { text, sideways = false } = Astro.props;
+---
+
+{
+  sideways ? (
+    <span
+      class="font-display text-[0.55rem] font-semibold tracking-[0.3em] whitespace-nowrap text-text-muted uppercase opacity-20"
+      style="position:absolute;left:0.75rem;top:6rem;writing-mode:vertical-rl;transform:rotate(180deg);"
+    >
+      {text}
+    </span>
+  ) : (
+    <p class="mb-14 font-display text-caption font-semibold tracking-[0.22em] text-text-muted uppercase">{text}</p>
+  )
+}

@@ -1,72 +1,20 @@
 ---
-import { Icon } from 'astro-icon/components';
 import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
 
-interface Props extends HTMLAttributes<'section'> {
+interface Props extends HTMLAttributes<'div'> {
+  class?: string;
+  /** @deprecated Legacy props — will be removed during page restyling */
   title?: string;
   subtitle?: string;
   icon?: string;
-  variant?: 'normal' | 'normal-with-icon' | 'tight';
+  variant?: string;
   divider?: boolean;
-  class?: string;
 }
 
-const {
-  title,
-  subtitle,
-  icon,
-  variant: propVariant,
-  divider = false,
-  class: customClass,
-  ...rest
-} = Astro.props as Props;
-
-const variant = icon ? 'normal-with-icon' : propVariant || 'normal';
-
-const container = tv({
-  base: 'container mx-auto max-w-2xl lg:max-w-6xl xl:max-w-7xl',
-  variants: {
-    variant: {
-      normal: 'py-12 lg:py-24',
-      'normal-with-icon': 'py-8 lg:py-16',
-      tight: 'py-0 md:py-2',
-    },
-  },
-  defaultVariants: {
-    variant: 'normal',
-  },
-});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { class: customClass, title, subtitle, icon, variant, divider, ...rest } = Astro.props;
 ---
 
-<section
-  {...rest}
-  class:list={[container({ variant }), customClass]}
-  role="region"
-  aria-labelledby={title ? 'container-title' : undefined}
->
-  {
-    (title || subtitle || icon) && (
-      <header class="space-y-4 pb-12 text-center">
-        {icon && (
-          <div class="flex items-center justify-center">
-            <div class="rounded-lg border border-sky-500 bg-gradient-to-br from-sky-100 to-indigo-200 p-3 dark:from-sky-900 dark:to-indigo-900">
-              <Icon name={icon} class="size-7 text-sky-600 dark:text-sky-400" aria-hidden="true" focusable="false" />
-            </div>
-          </div>
-        )}
-        {title && (
-          <h1
-            id="container-title"
-            class="text-4xl font-extrabold text-slate-900 md:text-5xl lg:text-6xl dark:text-slate-100"
-          >
-            {title}
-          </h1>
-        )}
-        {subtitle && <p class="mx-auto max-w-3xl text-xl text-slate-950/75 dark:text-slate-300">{subtitle}</p>}
-      </header>
-    )
-  }
-  {divider && <hr class="my-12 h-px border-none bg-gradient-to-r from-transparent via-slate-300 to-transparent" />}
+<div {...rest} class:list={['mx-auto w-full max-w-[1400px] px-6 sm:px-12', customClass]}>
   <slot />
-</section>
+</div>

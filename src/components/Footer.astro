@@ -1,60 +1,85 @@
 ---
-import { NAV, SOCIAL } from '@/site.config';
-import { Icon } from 'astro-icon/components';
+import { SOCIAL } from '@/site.config';
 
 const currentYear = new Date().getFullYear();
+
+const footerNav = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Writing', href: '/writing' },
+  { name: 'Contact', href: '/contact' },
+];
 ---
 
-<footer class="mt-auto border-t border-slate-200 dark:border-slate-800">
-  <div class="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-8">
-    <nav class="mb-10 flex flex-wrap justify-center gap-x-10 gap-y-4" aria-label="Footer">
-      {
-        NAV.map(({ name, href }) => (
-          <div>
-            <a
-              href={href}
-              class="text-sm leading-6 font-medium text-slate-600 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-300"
-            >
-              {name}
-            </a>
-          </div>
-        ))
-      }
-      <div>
-        <button class="cursor-not-allowed text-sm leading-6 font-medium text-slate-400 dark:text-slate-600" disabled
-          >Projects</button
-        >
-        <span
-          class="ml-2 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[.6125rem] font-medium text-slate-500 uppercase dark:bg-slate-800 dark:text-slate-400"
-          >Soon</span
-        >
-      </div>
-    </nav>
-
-    <div class="mt-8 flex justify-center space-x-8">
-      {
-        SOCIAL.map(({ name, link, ariaLabel }) => (
-          <a
-            href={link}
-            target="_blank"
-            aria-label={ariaLabel}
-            class="inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-sky-100 hover:text-sky-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-sky-300"
-          >
-            <span class="sr-only">{ariaLabel}</span>
-            <Icon name={name} class="h-5 w-5" />
-          </a>
-        ))
-      }
-    </div>
-
-    <div class="mt-10 border-t border-slate-200 pt-8 dark:border-slate-800">
-      <p class="text-center text-sm text-slate-500 dark:text-slate-400">
-        &copy; {currentYear} David D Lawson. Got any feedback? <span
-          data-feedback-fish
-          class="cursor-pointer font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
-          >Let me know!</span
-        >
+<footer class="border-t border-border">
+  <div class="mx-auto grid max-w-[1400px] gap-12 px-12 pt-16 pb-12" style="grid-template-columns: 1.5fr 1fr 1fr;">
+    <!-- Col 1: Brand -->
+    <div class="flex flex-col gap-3">
+      <span class="font-display text-[1.1rem] font-bold text-text opacity-15">David D. Lawson</span>
+      <p class="max-w-[28ch] font-body text-small leading-relaxed font-light text-text-muted opacity-50">
+        Building bridges between technology and the humans who need it.
       </p>
     </div>
+
+    <!-- Col 2: Navigate -->
+    <div>
+      <p class="mb-5 font-display text-[0.58rem] font-bold tracking-[0.2em] text-text-muted uppercase opacity-35">
+        Navigate
+      </p>
+      <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
+        {
+          footerNav.map(({ name, href }) => (
+            <li>
+              <a
+                href={href}
+                class="font-body text-small font-light text-text-muted no-underline transition-colors duration-200 hover:text-text"
+              >
+                {name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Col 3: Elsewhere -->
+    <div>
+      <p class="mb-5 font-display text-[0.58rem] font-bold tracking-[0.2em] text-text-muted uppercase opacity-35">
+        Elsewhere
+      </p>
+      <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
+        {
+          SOCIAL.map(({ link, ariaLabel }) => (
+            <li>
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={ariaLabel}
+                class="font-body text-small font-light text-text-muted no-underline transition-colors duration-200 hover:text-text"
+              >
+                {ariaLabel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Copyright -->
+    <p
+      class="mt-4 font-body text-caption font-light tracking-[0.08em] text-text-muted opacity-25"
+      style="grid-column: 1 / -1;"
+    >
+      &copy; {currentYear} David D. Lawson. All rights reserved.
+    </p>
   </div>
 </footer>
+
+<style>
+  @media (max-width: 640px) {
+    footer > div {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

@@ -3,115 +3,123 @@
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Define theme variables */
 @theme {
-  --font-sans: var(--font-body), system-ui, sans-serif;
+  /* ——— Colors (OKLCH) ——— */
+  --color-bg: oklch(10.5% 0.012 290);
+  --color-surface: oklch(14% 0.014 290);
+  --color-surface-hover: oklch(16.5% 0.013 290);
+  --color-elevated: oklch(19% 0.015 290);
 
-  /*
-   * Define primary color palette by mapping to Tailwind sky colors
-   * To change the primary color to a different Tailwind color:
-   * 1. Replace all instances of 'sky' below with another color name (e.g., 'blue', 'indigo', 'emerald')
-   * 2. All components using primary-* classes will automatically use the new color
-   */
-  /* --color-primary-50: var(--color-sky-50, #f0f9ff);
-  --color-primary-100: var(--color-sky-100, #e0f2fe);
-  --color-primary-200: var(--color-sky-200, #bae6fd);
-  --color-primary-300: var(--color-sky-300, #7dd3fc);
-  --color-primary-400: var(--color-sky-400, #38bdf8);
-  --color-primary-500: var(--color-sky-500, #0ea5e9);
-  --color-primary-600: var(--color-sky-600, #0284c7);
-  --color-primary-700: var(--color-sky-700, #0369a1);
-  --color-primary-800: var(--color-sky-800, #075985);
-  --color-primary-900: var(--color-sky-900, #0c4a6e);
-  --color-primary-950: var(--color-sky-950, #082f49); */
+  --color-text: oklch(93% 0.008 290);
+  --color-text-secondary: oklch(70% 0.015 290);
+  --color-text-muted: oklch(50% 0.014 290);
 
-  /* Main primary color for backward compatibility */
-  /* --color-primary: var(--color-primary-500, #0ea5e9); */
+  --color-accent: oklch(58% 0.14 255);
+  --color-accent-bright: oklch(65% 0.14 255);
+  --color-accent-muted: oklch(47% 0.12 255);
+  --color-accent-subtle: color-mix(in oklab, var(--color-accent) 8%, transparent);
+
+  --color-border: color-mix(in oklab, white 10%, transparent);
+  --color-border-hover: color-mix(in oklab, white 16%, transparent);
+
+  --color-ring: var(--color-accent);
+  --color-ring-offset: var(--color-bg);
+
+  /* ——— Typography ——— */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-sans: var(--font-body);
+
+  --text-hero: clamp(3.8rem, 9vw, 9rem);
+  --text-display: clamp(3rem, 6vw, 7rem);
+  --text-ghost: clamp(8rem, 14vw, 14rem);
+  --text-heading: clamp(1.3rem, 2.2vw, 1.8rem);
+  --text-subheading: 1.25rem;
+  --text-body: 1rem;
+  --text-small: 0.82rem;
+  --text-caption: 0.65rem;
+
+  /* ——— Radius ——— */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* ——— Animations ——— */
+  --animate-clip-reveal: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-up: fadeUp 0.7s ease forwards;
+  --animate-scale-in: scaleIn 0.5s ease forwards;
+  --animate-pulse-dot: pulse 2.5s ease-in-out infinite;
+  --animate-scan-sweep: scanSweep 4.5s 1.5s ease-in-out infinite;
+
+  @keyframes clipReveal {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(2.2);
+    }
+  }
+  @keyframes scanSweep {
+    0%,
+    100% {
+      top: -2%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    50% {
+      top: 102%;
+    }
+  }
 }
 
 @layer base {
+  body {
+    @apply bg-bg text-text antialiased;
+    font-family: var(--font-body);
+  }
+
+  *:focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-ring-offset outline-none;
+  }
+
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
-  }
-}
-
-/* --- Custom Keyframes for Background Blur Animation --- */
-@layer utilities {
-  @keyframes background-move {
-    0% {
-      transform: translateX(-50%) rotate(30deg) scale(1);
-      opacity: 0.3;
-    }
-    50% {
-      transform: translateX(-48%) rotate(32deg) scale(1.04);
-      opacity: 0.2;
-    }
-    100% {
-      transform: translateX(-52%) rotate(28deg) scale(0.98);
-      opacity: 0.4;
-    }
-  }
-  .animate-background-move {
-    animation: background-move 18s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-  }
-
-  /* New utility for header-constrained background animation */
-  .animate-header-background-move {
-    /* Apply the same animation - Positioning is handled by the component */
-    animation: background-move 18s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-  }
-}
-
-@utility custom-scroll {
-  &::-webkit-scrollbar {
-    @apply right-0! block! size-2! bg-slate-800!;
-  }
-  &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-slate-600!;
-  }
-  &::-webkit-scrollbar-corner {
-    @apply bg-slate-800!;
-  }
-}
-
-/*
- * Utility class for generating color variants
- * Usage: .bg-primary-variant-hover:hover { @apply bg-primary-variant; }
- */
-/* @utility primary-variant {
-  @apply text-primary-600 dark:text-primary-300;
-} */
-
-@utility tooltip-scroll {
-  &::-webkit-scrollbar {
-    @apply right-0! block! size-1.5! bg-white!;
-  }
-  @layer utilities {
-    .custom-cubic-bezier {
-      transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
-    }
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-slate-300!;
-  }
-
-  &::-webkit-scrollbar-corner {
-    @apply bg-slate-300!;
-  }
-}
-
-@layer components {
-  * {
-    -ms-overflow-style: none;
-    scrollbar-width: auto;
-  }
-  *::-webkit-scrollbar {
-    display: none;
   }
 }
