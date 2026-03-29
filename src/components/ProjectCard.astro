@@ -1,0 +1,69 @@
+---
+import type { Project } from '@/data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const Tag = project.url ? 'a' : 'div';
+const attrs = project.url ? { href: project.url } : {};
+---
+
+<Tag
+  {...attrs}
+  class:list={[
+    'project-card',
+    'flex flex-col justify-between border-l-[3px] border-border bg-surface px-12 py-10 transition-all duration-300',
+    { featured: project.featured },
+  ]}
+>
+  <div>
+    <p
+      class="project-tag mb-5 font-display text-[0.55rem] font-bold tracking-[0.2em] text-text-muted uppercase transition-colors duration-300"
+    >
+      {project.tag}
+    </p>
+    <h3
+      class:list={[
+        'mb-4 font-display leading-[1.3] font-semibold text-text',
+        project.featured ? 'text-[1.65rem]' : 'text-[1.3rem]',
+      ]}
+    >
+      {project.title}
+    </h3>
+    <p class="font-body text-[0.88rem] leading-relaxed font-light text-text-secondary">
+      {project.description}
+    </p>
+  </div>
+  <span
+    class="project-arrow mt-6 inline-block text-[1.2rem] text-text-muted transition-[transform,color] duration-[0.25s]"
+  >
+    &rarr;
+  </span>
+</Tag>
+
+<style>
+  .project-card.featured {
+    grid-row: span 2;
+    background: var(--color-elevated);
+    border-left-color: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-left-color: var(--color-accent);
+    background: var(--color-elevated);
+    box-shadow: -4px 0 20px color-mix(in oklab, var(--color-accent) 6%, transparent);
+  }
+
+  .project-card:hover .project-tag {
+    color: var(--color-accent);
+  }
+
+  .project-card:hover .project-arrow {
+    transform: translateX(6px);
+    color: var(--color-accent);
+  }
+</style>

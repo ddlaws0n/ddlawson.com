@@ -1,0 +1,25 @@
+---
+import type { Belief } from '@/data/beliefs';
+
+interface Props {
+  belief: Belief;
+}
+
+const { belief } = Astro.props;
+---
+
+<div
+  class="reveal relative overflow-hidden border border-border px-10 py-14 transition-[background,border-color] duration-[0.4s] hover:border-border-hover hover:bg-surface sm:px-[2.5rem]"
+>
+  <span
+    class="pointer-events-none absolute top-[-0.5rem] right-[-0.5rem] font-display text-ghost leading-[0.8] font-extralight tracking-tighter text-text opacity-[0.025]"
+  >
+    {belief.number}
+  </span>
+  <h3 class="relative mb-4 font-display text-heading leading-[1.25] font-semibold text-text">
+    {belief.titleParts.map((part) => (part.accent ? <span class="text-accent">{part.text}</span> : part.text))}
+  </h3>
+  <p class="relative font-body text-small leading-relaxed font-light text-text-secondary opacity-65">
+    {belief.body}
+  </p>
+</div>

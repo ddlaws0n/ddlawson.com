@@ -1,0 +1,164 @@
+---
+import heroPhoto from '@/assets/images/david-d-lawson-full.png';
+import { Image } from 'astro:assets';
+---
+
+<section class="hero">
+  <div class="hero-text">
+    <p
+      class="mb-8 animate-fade-up font-display text-caption font-semibold tracking-[0.25em] text-text-muted uppercase opacity-0"
+      style="animation-delay: 0.15s;"
+    >
+      Customer Success + AI
+    </p>
+
+    <h1 class="m-0 font-display text-hero leading-[0.92] font-extrabold tracking-tight text-text">
+      <span class="line line-1">David</span>
+      <span class="line line-2">D. Lawson</span>
+    </h1>
+
+    <div class="my-10 h-[2px] w-[100px] origin-left animate-scale-in bg-accent" style="animation-delay: 0.7s;"></div>
+
+    <p
+      class="max-w-[36ch] animate-fade-up font-body text-[1.1rem] leading-relaxed font-light text-text-secondary opacity-0"
+      style="animation-delay: 0.85s;"
+    >
+      Building bridges between technology and the humans who need it. Customer Success leader, AI practitioner, writer.
+    </p>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <Image
+      src={heroPhoto}
+      alt="David D. Lawson"
+      widths={[600, 900, 1200]}
+      sizes="(max-width: 900px) 100vw, 45vw"
+      loading="eager"
+      class="hero-img"
+    />
+    <div class="photo-glow"></div>
+    <div class="scan-line animate-scan-sweep"></div>
+    <div class="photo-fade-bottom"></div>
+    <div class="photo-fade-left"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-text {
+    padding: 0 4rem 6rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .line {
+    display: block;
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .line-1 {
+    animation-delay: 0.25s;
+  }
+  .line-2 {
+    animation-delay: 0.42s;
+  }
+
+  @keyframes clipReveal {
+    to {
+      clip-path: inset(0% 0 0 0);
+    }
+  }
+
+  .hero-photo-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .photo-glow {
+    position: absolute;
+    bottom: -10%;
+    left: 10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(74, 127, 212, 0.08) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 10%, var(--color-accent-bright, #6090e8), transparent 90%);
+    box-shadow:
+      0 0 15px 3px rgba(74, 127, 212, 0.1),
+      0 0 50px 6px rgba(74, 127, 212, 0.04);
+  }
+
+  .photo-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: linear-gradient(to top, var(--color-bg, #0e0c10), transparent);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .photo-fade-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    background: linear-gradient(to right, var(--color-bg, #0e0c10), transparent);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-text {
+      padding: 4rem 1.5rem 3rem;
+      order: 2;
+    }
+
+    .hero-photo-wrap {
+      order: 1;
+      max-height: 50vh;
+    }
+
+    .photo-fade-left {
+      display: none;
+    }
+  }
+</style>
