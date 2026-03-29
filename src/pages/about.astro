@@ -45,12 +45,6 @@ const meta = {
       <div
         class="relative flex flex-col justify-center px-16 py-32 max-[900px]:order-2 max-[900px]:px-8 max-[900px]:py-16 max-sm:px-6 max-sm:py-12"
       >
-        <!-- Ghost text backdrop -->
-        <span
-          class="pointer-events-none absolute top-1/2 right-0 -translate-y-1/2 font-display text-[clamp(8rem,18vw,18rem)] leading-none font-extrabold text-text opacity-[0.03] select-none max-[900px]:top-4 max-[900px]:translate-y-0"
-          aria-hidden="true">ABOUT</span
-        >
-
         <div class="relative z-10">
           <!-- Eyebrow -->
           <div class="animate-fade-up opacity-0" style="animation-delay: 100ms; animation-fill-mode: forwards;">
@@ -90,7 +84,7 @@ const meta = {
   <section class="relative bg-surface px-12 py-28 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="Background" sideways />
     <div
-      class="ml-6 grid grid-cols-[1fr_1.4fr] items-start gap-20 max-[900px]:ml-0 max-[900px]:grid-cols-1 max-[900px]:gap-10"
+      class="grid grid-cols-[1fr_1.4fr] items-start gap-20 pl-12 max-[900px]:grid-cols-1 max-[900px]:gap-10 max-[900px]:pl-0"
     >
       <!-- Pull quote -->
       <div class="reveal">
@@ -157,10 +151,7 @@ const meta = {
   <!-- ─── Interests ─────────────────────────────────────────────────────── -->
   <section class="relative bg-surface px-12 py-28 max-sm:px-6 max-sm:py-16">
     <SectionEyebrow text="Beyond Work" sideways />
-    <div class="ml-6 max-[900px]:ml-0">
-      <div class="mb-14">
-        <SectionEyebrow text="Beyond Work" />
-      </div>
+    <div class="pl-12 max-[900px]:pl-0">
       <div class="grid grid-cols-3 gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
         <div class="reveal">
           <span class="mb-4 block font-body text-caption font-semibold tracking-widest text-accent uppercase">01</span>
@@ -196,7 +187,7 @@ const meta = {
 
   <!-- ─── CTA ───────────────────────────────────────────────────────────── -->
   <section class="relative bg-bg px-12 py-28 max-sm:px-6 max-sm:py-16">
-    <div class="reveal ml-6 max-w-[700px] max-[900px]:ml-0">
+    <div class="reveal max-w-[700px] pl-12 max-[900px]:pl-0">
       <h2 class="font-display text-display leading-[0.92] font-extrabold text-text">Let's Connect</h2>
       <div class="mt-6 h-px w-[100px] bg-accent"></div>
       <p class="mt-8 font-body text-body leading-relaxed font-light text-text-secondary">

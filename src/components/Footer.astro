@@ -12,10 +12,12 @@ const footerNav = [
 ---
 
 <footer class="border-t border-border">
-  <div class="mx-auto grid max-w-[1400px] gap-12 px-12 pt-16 pb-12" style="grid-template-columns: 1.5fr 1fr 1fr;">
+  <div
+    class="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 px-12 pt-16 pb-12 max-sm:px-6 min-[641px]:grid-cols-[1.5fr_1fr_1fr]"
+  >
     <!-- Col 1: Brand -->
     <div class="flex flex-col gap-3">
-      <span class="font-display text-[1.1rem] font-bold text-text opacity-15">David D. Lawson</span>
+      <span class="font-display text-body-lg font-bold text-text opacity-15">David D. Lawson</span>
       <p class="max-w-[28ch] font-body text-small leading-relaxed font-light text-text-muted opacity-50">
         Building bridges between technology and the humans who need it.
       </p>
@@ -23,7 +25,7 @@ const footerNav = [
 
     <!-- Col 2: Navigate -->
     <div>
-      <p class="mb-5 font-display text-[0.58rem] font-bold tracking-[0.2em] text-text-muted uppercase opacity-35">
+      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase opacity-35">
         Navigate
       </p>
       <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
@@ -44,7 +46,7 @@ const footerNav = [
 
     <!-- Col 3: Elsewhere -->
     <div>
-      <p class="mb-5 font-display text-[0.58rem] font-bold tracking-[0.2em] text-text-muted uppercase opacity-35">
+      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase opacity-35">
         Elsewhere
       </p>
       <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
@@ -67,19 +69,8 @@ const footerNav = [
     </div>
 
     <!-- Copyright -->
-    <p
-      class="mt-4 font-body text-caption font-light tracking-[0.08em] text-text-muted opacity-25"
-      style="grid-column: 1 / -1;"
-    >
+    <p class="col-span-full mt-4 font-body text-caption font-light tracking-tight text-text-muted opacity-25">
       &copy; {currentYear} David D. Lawson. All rights reserved.
     </p>
   </div>
 </footer>
-
-<style>
-  @media (max-width: 640px) {
-    footer > div {
-      grid-template-columns: 1fr !important;
-    }
-  }
-</style>

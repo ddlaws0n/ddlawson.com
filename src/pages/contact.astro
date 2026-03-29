@@ -125,7 +125,7 @@ if (isSuccess) {
             <div>
               <label
                 for="name"
-                class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
+                class="mb-3 block font-display text-caption font-semibold tracking-label text-text-muted uppercase"
               >
                 Name
               </label>
@@ -152,7 +152,7 @@ if (isSuccess) {
             <div>
               <label
                 for="email"
-                class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
+                class="mb-3 block font-display text-caption font-semibold tracking-label text-text-muted uppercase"
               >
                 Email
               </label>
@@ -181,7 +181,7 @@ if (isSuccess) {
           <div>
             <label
               for="message"
-              class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
+              class="mb-3 block font-display text-caption font-semibold tracking-label text-text-muted uppercase"
             >
               Message
             </label>
@@ -308,27 +308,4 @@ if (isSuccess) {
   }
 </style>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const revealEls = document.querySelectorAll<HTMLElement>('.reveal');
-    if (!revealEls.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            (entry.target as HTMLElement).style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    revealEls.forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(el);
-    });
-  });
-</script>
+<script src="../scripts/reveal.ts"></script>

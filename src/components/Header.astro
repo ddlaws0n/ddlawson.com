@@ -8,24 +8,24 @@ const isActive = (href: string) => {
 ---
 
 <header
-  class="sticky top-0 z-[100] flex items-center justify-between border-b border-border bg-bg/85 px-12 py-[1.1rem] backdrop-blur-[14px]"
+  class="sticky top-0 z-[100] flex items-center justify-between border-b border-border bg-bg/85 px-12 py-[1.1rem] backdrop-blur-[14px] max-[900px]:px-6"
 >
   <a
     href="/"
-    class="font-display text-[1.3rem] font-extrabold tracking-wide text-text no-underline"
+    class="font-display text-subheading font-extrabold tracking-tight text-text no-underline"
     aria-label="Homepage"
   >
     DDL
   </a>
 
-  <ul class="m-0 hidden list-none gap-10 p-0 sm:flex" id="main-nav-links">
+  <ul class="m-0 hidden list-none gap-10 p-0 min-[901px]:flex" id="main-nav-links">
     {
       NAV.map(({ name, href }) => (
         <li>
           <a
             href={href}
             class:list={[
-              'font-body text-caption tracking-[0.1em] uppercase no-underline transition-colors duration-200',
+              'font-body text-caption tracking-label uppercase no-underline transition-colors duration-200',
               isActive(href) ? 'text-text' : 'text-text-muted hover:text-text',
             ]}
           >
@@ -36,28 +36,28 @@ const isActive = (href: string) => {
     }
   </ul>
 
-  <span class="hidden font-body text-[0.7rem] font-light tracking-[0.06em] text-text-muted opacity-50 sm:block">
+  <span class="hidden font-body text-caption font-light tracking-tight text-text-muted opacity-50 min-[901px]:block">
     London, 2026
   </span>
 
   <button
     id="mobile-menu-toggle"
     type="button"
-    class="flex flex-col gap-1.5 p-2 text-text-muted sm:hidden"
+    class="flex min-h-[44px] min-w-[44px] flex-col items-center justify-center gap-1.5 text-text-muted min-[901px]:hidden"
     aria-label="Toggle menu"
     aria-expanded="false"
     aria-controls="mobile-menu"
   >
-    <span class="block h-px w-5 bg-current transition-all" id="ham-top"></span>
-    <span class="block h-px w-5 bg-current transition-all" id="ham-mid"></span>
-    <span class="block h-px w-5 bg-current transition-all" id="ham-bot"></span>
+    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-top"></span>
+    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-mid"></span>
+    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-bot"></span>
   </button>
 </header>
 
 <div
   id="mobile-menu"
   hidden
-  class="fixed inset-x-0 top-[calc(var(--header-h,57px))] z-[99] border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-[14px] sm:hidden"
+  class="fixed inset-x-0 top-[57px] z-[99] border-b border-border bg-bg/95 px-6 py-4 backdrop-blur-[14px] min-[901px]:hidden"
 >
   <ul class="m-0 flex list-none flex-col gap-4 p-0">
     {
@@ -66,7 +66,7 @@ const isActive = (href: string) => {
           <a
             href={href}
             class:list={[
-              'font-body text-caption tracking-[0.1em] uppercase no-underline transition-colors duration-200',
+              'block min-h-[44px] py-2 font-body text-caption tracking-label uppercase no-underline transition-colors duration-200',
               isActive(href) ? 'text-text' : 'text-text-muted hover:text-text',
             ]}
           >

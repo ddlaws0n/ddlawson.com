@@ -1,6 +1,7 @@
 ---
 interface Props {
   text: string;
+  /** Show sideways label on desktop + inline fallback on mobile. Default: inline only. */
   sideways?: boolean;
 }
 
@@ -9,13 +10,20 @@ const { text, sideways = false } = Astro.props;
 
 {
   sideways ? (
-    <span
-      class="font-display text-[0.55rem] font-semibold tracking-[0.3em] whitespace-nowrap text-text-muted uppercase opacity-20"
-      style="position:absolute;left:0.75rem;top:6rem;writing-mode:vertical-rl;transform:rotate(180deg);"
-    >
-      {text}
-    </span>
+    <>
+      {/* Sideways label — desktop only */}
+      <span
+        class="absolute top-24 left-3 hidden font-display text-caption font-semibold tracking-wide whitespace-nowrap text-text-muted uppercase opacity-20 min-[901px]:block"
+        style="writing-mode: vertical-rl; transform: rotate(180deg);"
+      >
+        {text}
+      </span>
+      {/* Inline fallback — mobile only */}
+      <p class="mb-14 font-display text-caption font-semibold tracking-label text-text-muted uppercase min-[901px]:hidden">
+        {text}
+      </p>
+    </>
   ) : (
-    <p class="mb-14 font-display text-caption font-semibold tracking-[0.22em] text-text-muted uppercase">{text}</p>
+    <p class="mb-14 font-display text-caption font-semibold tracking-label text-text-muted uppercase">{text}</p>
   )
 }

@@ -34,10 +34,17 @@
   --text-display: clamp(3rem, 6vw, 7rem);
   --text-ghost: clamp(8rem, 14vw, 14rem);
   --text-heading: clamp(1.3rem, 2.2vw, 1.8rem);
+  --text-title: 1.65rem;
   --text-subheading: 1.25rem;
+  --text-body-lg: 1.1rem;
   --text-body: 1rem;
   --text-small: 0.82rem;
   --text-caption: 0.65rem;
+
+  /* ——— Letter spacing ——— */
+  --tracking-tight: 0.08em;
+  --tracking-label: 0.18em;
+  --tracking-wide: 0.25em;
 
   /* ——— Radius ——— */
   --radius-sm: 0.25rem;
@@ -49,7 +56,6 @@
   --animate-fade-up: fadeUp 0.7s ease forwards;
   --animate-scale-in: scaleIn 0.5s ease forwards;
   --animate-pulse-dot: pulse 2.5s ease-in-out infinite;
-  --animate-scan-sweep: scanSweep 4.5s 1.5s ease-in-out infinite;
 
   @keyframes clipReveal {
     from {
@@ -90,22 +96,20 @@
       transform: scale(2.2);
     }
   }
-  @keyframes scanSweep {
-    0%,
-    100% {
-      top: -2%;
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.6;
-    }
-    90% {
-      opacity: 0.6;
-    }
-    50% {
-      top: 102%;
-    }
-  }
+}
+
+/* ——— Reveal scroll animation (single source of truth) ——— */
+.reveal {
+  opacity: 0;
+  clip-path: inset(0 0 15% 0);
+  transition:
+    opacity 0.7s ease,
+    clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
 }
 
 @layer components {

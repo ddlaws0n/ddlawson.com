@@ -35,13 +35,6 @@ const meta = {
 
   <!-- Hero Header -->
   <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-16">
-    <span
-      class="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-ghost font-extrabold text-text select-none"
-      style="opacity:0.03;line-height:1;"
-      aria-hidden="true"
-    >
-      WRITING
-    </span>
     <div class="relative z-10 max-w-4xl">
       <SectionEyebrow text="The Archive" />
       <h1 class="mb-4 font-display text-display font-extrabold text-text">Writing</h1>
@@ -56,7 +49,7 @@ const meta = {
     featuredPost && (
       <section class="bg-surface px-12 py-16 max-sm:px-6 max-sm:py-10">
         <div class="max-w-4xl">
-          <p class="mb-6 font-display text-caption font-semibold tracking-[0.22em] text-text-muted uppercase">Latest</p>
+          <p class="mb-6 font-display text-caption font-semibold tracking-label text-text-muted uppercase">Latest</p>
           <a href={`/writing/${featuredPost.id}`} class="reveal group block border-l-2 border-accent pl-8 max-sm:pl-5">
             <h2
               class="mb-3 font-display leading-tight font-semibold text-text"
@@ -90,7 +83,7 @@ const meta = {
     <div class="flex max-w-4xl flex-wrap gap-2" id="tag-filter">
       <button
         data-tag="all"
-        class="tag-pill active-pill rounded-sm px-3 py-1 font-display text-[0.52rem] font-bold tracking-[0.15em] whitespace-nowrap uppercase transition-colors"
+        class="tag-pill active-pill rounded-sm px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap uppercase transition-colors"
       >
         All
       </button>
@@ -98,7 +91,7 @@ const meta = {
         allTags.map((tag) => (
           <button
             data-tag={tag}
-            class="tag-pill rounded-sm border border-border px-3 py-1 font-display text-[0.52rem] font-bold tracking-[0.15em] whitespace-nowrap text-text-muted uppercase transition-colors hover:text-text"
+            class="tag-pill rounded-sm border border-border px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap text-text-muted uppercase transition-colors hover:text-text"
           >
             {tag}
           </button>

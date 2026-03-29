@@ -10,13 +10,13 @@ const { date, title, tag, href } = Astro.props;
 ---
 
 <a href={href} class="post-list-item reveal">
-  <span class="post-date font-display text-caption font-medium tracking-[0.06em] whitespace-nowrap text-text-muted"
+  <span class="post-date font-display text-caption font-medium tracking-tight whitespace-nowrap text-text-muted"
     >{date}</span
   >
-  <span class="post-title font-body text-[1.1rem] leading-[1.35] font-normal text-text-secondary">{title}</span>
+  <span class="post-title font-body text-body-lg leading-[1.35] font-normal text-text-secondary">{title}</span>
   {
     tag && (
-      <span class="post-tag border border-border px-2.5 py-0.5 font-display text-[0.52rem] font-bold tracking-[0.15em] whitespace-nowrap text-text-muted uppercase">
+      <span class="post-tag border border-border px-2.5 py-0.5 font-display text-caption font-bold tracking-label whitespace-nowrap text-text-muted uppercase">
         {tag}
       </span>
     )
