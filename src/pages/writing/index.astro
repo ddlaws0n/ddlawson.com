@@ -32,7 +32,7 @@ const meta = {
               <time datetime={new Date(post.data.publishDate).toISOString()}>
                 {getFormattedDate(post.data.publishDate)}
               </time>{' '}
-              · {getReadingTime(post.body)} min read
+              · {getReadingTime(post.body ?? '')} min read
             </p>
             <h4 class="mb-2 text-lg font-bold sm:text-xl">
               <a

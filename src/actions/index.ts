@@ -77,9 +77,9 @@ export const server = {
         CAPTCHA_SECRET_KEY,
         N8N_WEBHOOK_URL,
         N8N_WEBHOOK_SECRET,
-        UPSTASH_REDIS_REST_URL, // Added
-        UPSTASH_REDIS_REST_TOKEN, // Added
-      } = import.meta.env;
+        UPSTASH_REDIS_REST_URL,
+        UPSTASH_REDIS_REST_TOKEN,
+      } = process.env;
 
       try {
         // 1. Initialize Redis client inside the handler using context variables

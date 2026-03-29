@@ -28,31 +28,31 @@ export default defineConfig({
 
   // Adapter Configuration
   adapter: vercel({
-    webAnalytics: {
-      enabled: false,
-      imageService: true,
-      devImageService: 'squoosh',
-    },
+    imageService: true,
   }),
 
   // Markdown Configuration
   markdown: {
-    drafts: true,
-    syntaxHighlight: 'prism',
+    syntaxHighlight: 'shiki',
   },
 
   // Font Configuration
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.fontsource(),
-        name: 'Switzer',
-        display: 'swap',
-        weights: ['400', '500', '600', '700'],
-        cssVariable: '--font-switzer',
-      },
-    ],
-  },
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Bricolage Grotesque',
+      display: 'swap',
+      weights: ['200', '600', '800'],
+      cssVariable: '--font-display',
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Outfit',
+      display: 'swap',
+      weights: ['300', '400', '500'],
+      cssVariable: '--font-body',
+    },
+  ],
 
   // Integrations
   integrations: [
@@ -65,13 +65,11 @@ export default defineConfig({
       server: true,
     }),
     compress({
-      css: false,
-      html: {
-        removeAttributeQuotes: false,
-      },
-      img: false,
-      js: true,
-      svg: false,
+      CSS: false,
+      HTML: true,
+      Image: false,
+      JavaScript: true,
+      SVG: false,
     }),
   ],
 
@@ -85,6 +83,7 @@ export default defineConfig({
     build: {
       sourcemap: true,
     },
-    plugins: [tailwindcss()],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    plugins: [tailwindcss() as any],
   },
 });

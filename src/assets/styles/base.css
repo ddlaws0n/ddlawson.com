@@ -7,7 +7,7 @@
 
 /* Define theme variables */
 @theme {
-  --font-sans: var(--font-switzer), system-ui, sans-serif;
+  --font-sans: var(--font-body), system-ui, sans-serif;
 
   /*
    * Define primary color palette by mapping to Tailwind sky colors
