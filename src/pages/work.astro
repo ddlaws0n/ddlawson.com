@@ -4,7 +4,6 @@ import Divider from '@/components/Divider.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import SectionEyebrow from '@/components/SectionEyebrow.astro';
-import TimelineItem from '@/components/TimelineItem.astro';
 import { workExperienceData } from '@/data/workExperience';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
@@ -15,57 +14,144 @@ const meta = {
   canonical: SITE.origin + '/work',
 };
 
-const workExperience = workExperienceData;
+function formatRoleDate(dateStr: string): string {
+  if (dateStr === 'Present') return 'Present';
+  const [year, month] = dateStr.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1);
+  return date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+}
+
+const linkedInUrl =
+  SITE.socialShares.find((s) => s.ariaLabel === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/';
 ---
 
 <BaseLayout {meta}>
   <Header />
 
-  <!-- Page Header -->
-  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="Professional Journey" sideways />
-    <div class="ml-6 max-[900px]:ml-0">
+  <!-- Hero Header -->
+  <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-20">
+    <!-- Ghost background text -->
+    <span
+      class="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[clamp(8rem,22vw,22rem)] leading-none font-extrabold text-text opacity-[0.03] select-none"
+      aria-hidden="true">WORK</span
+    >
+    <div class="relative mx-auto max-w-5xl">
       <SectionEyebrow text="Professional Journey" />
-      <div class="reveal">
+      <div class="reveal mt-4">
         <span
           class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text opacity-[0.06]"
-          >My</span
+          >The</span
         >
-        <span class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text">Work</span>
+        <span class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text"
+          >Chronicle</span
+        >
       </div>
-      <p class="reveal mt-6 max-w-[520px] font-body text-[1.05rem] leading-relaxed font-light text-text-secondary">
-        Career path and professional experiences across various organizations.
+      <p class="reveal mt-8 max-w-[520px] font-body text-body leading-relaxed font-light text-text-secondary">
+        A career built at the intersection of technology and human outcomes.
       </p>
     </div>
   </section>
 
   <Divider />
 
-  <!-- Timeline -->
-  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <div id="timeline-container" class="relative mx-auto max-w-5xl pl-12">
-      <div id="timeline-line" class="absolute top-0 left-4 h-10 w-0.5 -translate-x-1/2 transform bg-border"></div>
-      {
-        workExperience.map((company) => {
-          return <TimelineItem experience={company} />;
-        })
-      }
-      <!-- LinkedIn CTA -->
-      <div class="mt-16 flex flex-col items-start gap-4">
-        <p class="font-body text-[1.05rem] font-light text-text-secondary">
-          Interested in my full professional background?
-        </p>
-        <Button
-          title="Connect on LinkedIn"
-          link={SITE.socialShares.find((s) => s.name === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/'}
-          variant="primary"
-          size="lg"
-          icon="tabler:brand-linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          umami="linkedin-connect-work"
-        />
-      </div>
+  <!-- Company Chapters -->
+  {
+    workExperienceData.map((company, index) => {
+      const chapterNum = String(index + 1).padStart(2, '0');
+      const isEven = index % 2 === 1;
+
+      return (
+        <section
+          class:list={[
+            'reveal relative border-l-2 border-accent/20 px-12 py-24 max-sm:px-6 max-sm:py-16',
+            isEven ? 'bg-surface' : 'bg-bg',
+          ]}
+        >
+          <div class="relative mx-auto max-w-5xl">
+            {/* Ghost chapter number */}
+            <span
+              class="pointer-events-none absolute -top-4 -left-4 font-display text-[clamp(6rem,14vw,14rem)] leading-none font-extrabold text-text opacity-[0.03] select-none"
+              aria-hidden="true"
+            >
+              {chapterNum}
+            </span>
+
+            {/* Company header */}
+            <div class="relative mb-10 flex flex-wrap items-center gap-4">
+              {company.logoUrl && (
+                <img
+                  src={company.logoUrl}
+                  alt={`${company.company} logo`}
+                  class="h-8 w-auto object-contain opacity-80"
+                  loading="lazy"
+                />
+              )}
+              <div>
+                <h2 class="font-display text-heading font-semibold text-text">{company.company}</h2>
+                <p class="text-caption text-text-muted">{company.location}</p>
+              </div>
+            </div>
+
+            {/* Roles list */}
+            <div class="flex flex-col gap-6">
+              {company.roles.map((role) => (
+                <div class="rounded-lg border border-border bg-elevated p-8 max-sm:p-5">
+                  <div class="mb-4 flex flex-wrap items-start justify-between gap-2">
+                    <h3 class="font-display text-subheading font-semibold text-text">{role.title}</h3>
+                    <span class="shrink-0 text-caption text-accent">
+                      {formatRoleDate(role.start_date)} — {formatRoleDate(role.end_date)}
+                    </span>
+                  </div>
+
+                  {role.responsibilities && role.responsibilities.length > 0 && (
+                    <ul class="mb-5 flex flex-col gap-1.5">
+                      {role.responsibilities.map((item) => (
+                        <li class="flex gap-2 text-small text-text-secondary">
+                          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {role.achievements && role.achievements.length > 0 && (
+                    <div>
+                      <p class="mb-2 text-caption font-semibold tracking-widest text-text-muted uppercase">
+                        Key Achievements
+                      </p>
+                      <ul class="flex flex-col gap-1.5">
+                        {role.achievements.map((item) => (
+                          <li class="flex gap-2 text-small text-text-secondary">
+                            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                            <span set:html={item} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <!-- CTA Footer -->
+  <section class="bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
+    <div class="reveal mx-auto flex max-w-5xl flex-col items-start gap-6">
+      <p class="font-display text-heading font-semibold text-text">Want the full picture?</p>
+      <Button
+        title="View LinkedIn Profile"
+        link={linkedInUrl}
+        variant="primary"
+        size="lg"
+        icon="tabler:brand-linkedin"
+        target="_blank"
+        rel="noopener noreferrer"
+        umami="linkedin-connect-work"
+      />
     </div>
   </section>
 
@@ -73,106 +159,3 @@ const workExperience = workExperienceData;
 
   <script src="../scripts/reveal.ts"></script>
 </BaseLayout>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const timelineContainer = document.getElementById('timeline-container');
-    const timelineLine = document.getElementById('timeline-line') as HTMLElement | null;
-    const timelineItems = document.querySelectorAll<HTMLElement>('[data-timeline-item]'); // Type assertion
-
-    if (!timelineContainer || !timelineLine || timelineItems.length === 0) {
-      // console.warn('Timeline elements for animation not found.'); // Removed log
-      return;
-    }
-    const minHeight = 40; // Minimum height for the line
-    timelineLine.style.height = `${minHeight}px`; // Set initial height
-
-    // --- Scroll-based Line Drawing Animation ---
-    let ticking = false; // Removed unused lastScrollY
-
-    const updateLineHeight = () => {
-      // const currentScroll = window.scrollY; // Removed unused variable
-
-      // Find the first and last item's marker position relative to the container
-      const firstItem = timelineItems[0];
-      const lastItem = timelineItems[timelineItems.length - 1];
-
-      if (!firstItem || !lastItem) return; // Should not happen if check passed earlier
-
-      const firstMarker = firstItem.querySelector('.timeline-marker') as HTMLElement | null;
-      const lastMarker = lastItem.querySelector('.timeline-marker') as HTMLElement | null;
-
-      if (!firstMarker || !lastMarker) {
-        // console.warn('Timeline markers not found within items.'); // Removed log
-        return;
-      }
-      // Calculate marker positions relative to the container for height calculation
-      const firstMarkerContainerTop = firstItem.offsetTop + firstMarker.offsetTop + firstMarker.offsetHeight / 2;
-      const lastMarkerContainerTop = lastItem.offsetTop + lastMarker.offsetTop + lastMarker.offsetHeight / 2;
-      const totalLineTravel = lastMarkerContainerTop - firstMarkerContainerTop; // This is the max height relative to container
-
-      // Calculate marker positions relative to the viewport for progress calculation
-      const firstMarkerRect = firstMarker.getBoundingClientRect();
-      const lastMarkerRect = lastMarker.getBoundingClientRect(); // Need last marker rect now
-      const viewportHeight = window.innerHeight;
-      const viewportCenterY = viewportHeight / 2;
-
-      // Center positions relative to viewport top
-      const firstMarkerViewportCenterY = firstMarkerRect.top + firstMarkerRect.height / 2;
-      const lastMarkerViewportCenterY = lastMarkerRect.top + lastMarkerRect.height / 2;
-
-      // Total distance between markers as they appear on screen (can be negative if last is above first)
-      const totalMarkerViewportDistance = lastMarkerViewportCenterY - firstMarkerViewportCenterY;
-
-      // Distance the first marker is above the viewport center (increases as you scroll down past the center)
-      const firstMarkerDistAboveCenter = viewportCenterY - firstMarkerViewportCenterY;
-
-      // Calculate progress: how much of the total marker distance has passed the viewport center?
-      let progress = 0;
-      // Ensure total distance is positive before dividing
-      if (totalMarkerViewportDistance > 0) {
-        progress = Math.max(0, Math.min(1, firstMarkerDistAboveCenter / totalMarkerViewportDistance));
-      } else if (firstMarkerDistAboveCenter > 0) {
-        // If markers are stacked or inverted order but first is below center, progress is 1
-        progress = 1;
-      } // Otherwise progress remains 0
-
-      // Calculate the target height based on the marker positions *within the container* and the *new progress*
-      const targetHeight = firstMarkerContainerTop + totalLineTravel * progress;
-
-      // Apply the calculated height, ensuring it doesn't go below the minimum
-      timelineLine.style.height = `${Math.max(minHeight, targetHeight)}px`;
-
-      // --- Logging Removed ---
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      // Removed assignment to lastScrollY as it's unused
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // console.log('requestAnimationFrame fired'); // Removed log
-          updateLineHeight();
-          // Ticking is now set to false *inside* updateLineHeight
-        });
-        ticking = true; // Set ticking to true immediately to prevent multiple rAF calls
-      }
-    };
-
-    // Initial calculation
-    updateLineHeight();
-
-    // Add scroll listener
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Cleanup listener on navigation
-    document.addEventListener(
-      'astro:before-preparation',
-      () => {
-        window.removeEventListener('scroll', onScroll);
-      },
-      { once: true }
-    );
-  });
-</script>

@@ -37,7 +37,6 @@ import { Image } from 'astro:assets';
       class="hero-img"
     />
     <div class="photo-glow"></div>
-    <div class="scan-line animate-scan-sweep"></div>
     <div class="photo-fade-bottom"></div>
     <div class="photo-fade-left"></div>
   </div>
@@ -104,19 +103,6 @@ import { Image } from 'astro:assets';
     background: radial-gradient(ellipse, rgba(74, 127, 212, 0.08) 0%, transparent 70%);
     z-index: 1;
     pointer-events: none;
-  }
-
-  .scan-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(90deg, transparent 10%, var(--color-accent-bright, #6090e8), transparent 90%);
-    box-shadow:
-      0 0 15px 3px rgba(74, 127, 212, 0.1),
-      0 0 50px 6px rgba(74, 127, 212, 0.04);
   }
 
   .photo-fade-bottom {

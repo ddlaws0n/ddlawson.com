@@ -1,10 +1,9 @@
 ---
-import Button from '@/components/Button.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import SectionEyebrow from '@/components/SectionEyebrow.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { SITE } from '@/site.config';
+import { SITE, SOCIAL } from '@/site.config';
 import { Icon } from 'astro-icon/components';
 import { actions } from 'astro:actions';
 
@@ -45,28 +44,65 @@ if (isSuccess) {
 <BaseLayout {meta}>
   <Header />
 
-  <main class="mx-auto w-full max-w-[1400px] grow px-6 py-24 md:px-12">
-    <div class="reveal mx-auto max-w-3xl">
-      <SectionEyebrow text="Get In Touch" />
+  <main class="min-h-screen w-full">
+    <div class="signal-grid">
+      {/* Left — The Manifesto */}
+      <div class="signal-left relative flex flex-col justify-between overflow-hidden bg-bg p-6 md:p-12">
+        {/* Ghost background text */}
+        <span
+          class="pointer-events-none absolute -bottom-8 left-0 font-display leading-none font-extrabold text-text select-none"
+          style="font-size: clamp(6rem, 20vw, 14rem); opacity: 0.03; letter-spacing: -0.04em;"
+          aria-hidden="true"
+        >
+          HELLO
+        </span>
 
-      <h1 class="mb-4 font-display text-heading font-bold text-text">Let's Connect</h1>
-      <p class="mb-14 font-body text-body text-text-secondary">
-        Have a question, feedback, or just want to say hello? Fill out the form below and I'll get back to you.
-      </p>
+        <div class="reveal relative z-10 flex flex-col gap-10">
+          <div>
+            <SectionEyebrow text="Get In Touch" />
 
-      <form
-        id="contact-form"
-        method="POST"
-        action="/contact?_action=submitContactForm"
-        class="space-y-6"
-        autocomplete="off"
-      >
-        {/* Display Success/Error Messages */}
+            <div class="mt-6 flex flex-col">
+              <span class="font-display text-display leading-none font-extrabold text-text" style="opacity: 0.06;">
+                Say
+              </span>
+              <span class="font-display text-display leading-none font-extrabold text-text"> Hello. </span>
+            </div>
+
+            <div class="mt-8 h-0.5 w-[100px] bg-accent"></div>
+
+            <p class="mt-8 max-w-sm font-body text-body leading-relaxed font-light text-text-secondary">
+              Great things start with a conversation. Whether you have a question, an idea, or just want to connect —
+              I'd love to hear from you.
+            </p>
+          </div>
+
+          {/* Social links */}
+          <div class="flex flex-wrap gap-6">
+            {
+              SOCIAL.map(({ link, ariaLabel }) => (
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={ariaLabel}
+                  class="font-body text-caption text-text-muted transition-colors duration-200 hover:text-accent"
+                >
+                  {ariaLabel}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Right — The Form */}
+      <div class="reveal bg-surface p-6 md:p-12">
+        {/* Status message */}
         {
           statusMessage && (
             <div
               class:list={[
-                'rounded-md border px-4 py-3 text-sm font-medium',
+                'mb-8 rounded-md border px-4 py-3 text-sm font-medium',
                 { 'border-green-500/30 bg-green-500/10 text-green-400': isSuccess },
                 { 'border-red-500/30 bg-red-500/10 text-red-400': isError },
                 { 'border-accent/30 bg-accent/10 text-accent': !isSuccess && !isError },
@@ -77,156 +113,200 @@ if (isSuccess) {
           )
         }
 
-        <div class="flex flex-col max-md:space-y-6 md:grid md:grid-cols-2 md:gap-6">
+        <form
+          id="contact-form"
+          method="POST"
+          action="/contact?_action=submitContactForm"
+          class="space-y-6"
+          autocomplete="off"
+        >
+          {/* Name + Email grid */}
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div>
+              <label
+                for="name"
+                class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
+              >
+                Name
+              </label>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Icon name="tabler:user" class="size-5 text-text-muted" />
+                </div>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class:list={[
+                    'block w-full rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                    fieldErrors.name ? 'border-red-500' : 'border-border',
+                  ]}
+                  placeholder="Your name"
+                  required
+                  transition:persist
+                />
+              </div>
+              {fieldErrors.name && <p class="mt-1 text-small text-red-400">{fieldErrors.name.join(', ')}</p>}
+            </div>
+
+            <div>
+              <label
+                for="email"
+                class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
+              >
+                Email
+              </label>
+              <div class="relative">
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Icon name="tabler:mail" class="size-5 text-text-muted" />
+                </div>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class:list={[
+                    'block w-full rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                    fieldErrors.email ? 'border-red-500' : 'border-border',
+                  ]}
+                  placeholder="you@example.com"
+                  required
+                  transition:persist
+                />
+              </div>
+              {fieldErrors.email && <p class="mt-1 text-small text-red-400">{fieldErrors.email.join(', ')}</p>}
+            </div>
+          </div>
+
+          {/* Message */}
           <div>
             <label
-              for="name"
-              class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
+              for="message"
+              class="mb-3 block font-display text-caption font-semibold tracking-[0.15em] text-text-muted uppercase"
             >
-              Name
+              Message
             </label>
             <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Icon name="tabler:user" class="size-5 text-text-muted" />
+              <div class="pointer-events-none absolute top-3 left-0 flex items-start pt-1 pl-3">
+                <Icon name="tabler:message" class="size-5 text-text-muted" />
               </div>
-              <input
-                type="text"
-                id="name"
-                name="name"
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
                 class:list={[
-                  'block w-full rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
-                  fieldErrors.name ? 'border-red-500' : 'border-border',
+                  'block w-full resize-y rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                  fieldErrors.message ? 'border-red-500' : 'border-border',
                 ]}
-                placeholder="Your name"
+                placeholder="Type your message here..."
                 required
-                transition:persist
-              />
+                transition:persist></textarea>
             </div>
-            {fieldErrors.name && <p class="mt-1 text-small text-red-400">{fieldErrors.name.join(', ')}</p>}
+            {fieldErrors.message && <p class="mt-1 text-small text-red-400">{fieldErrors.message.join(', ')}</p>}
           </div>
 
+          {/* Turnstile */}
           <div>
-            <label
-              for="email"
-              class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
+            <div
+              id="turnstile-widget"
+              class="my-2"
+              data-sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
+              transition:persist="turnstile-widget"
             >
-              Email
-            </label>
-            <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Icon name="tabler:mail" class="size-5 text-text-muted" />
-              </div>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class:list={[
-                  'block w-full rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
-                  fieldErrors.email ? 'border-red-500' : 'border-border',
-                ]}
-                placeholder="you@example.com"
-                required
-                transition:persist
-              />
             </div>
-            {fieldErrors.email && <p class="mt-1 text-small text-red-400">{fieldErrors.email.join(', ')}</p>}
+            <input type="hidden" name="captchaToken" id="captchaToken" transition:persist />
           </div>
-        </div>
 
-        <div>
-          <label
-            for="message"
-            class="mb-2 block font-display text-caption font-semibold tracking-wide text-text-muted uppercase"
-          >
-            Message
-          </label>
-          <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-start pt-3 pl-3">
-              <Icon name="tabler:message" class="my-1 size-5 text-text-muted" />
-            </div>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              class:list={[
-                'block max-h-64 w-full resize-y rounded-md border bg-surface px-10 py-3 text-text transition-colors duration-200 placeholder:text-text-muted focus:border-accent focus:outline-none',
-                fieldErrors.message ? 'border-red-500' : 'border-border',
-              ]}
-              placeholder="Type your message here..."
-              required
-              transition:persist></textarea>
-          </div>
-          {fieldErrors.message && <p class="mt-1 text-small text-red-400">{fieldErrors.message.join(', ')}</p>}
-        </div>
-
-        <div>
-          <div
-            id="turnstile-widget"
-            class="my-2"
-            data-sitekey={import.meta.env.PUBLIC_CAPTCHA_SITE_KEY}
-            transition:persist="turnstile-widget"
-          >
-          </div>
-          <input type="hidden" name="captchaToken" id="captchaToken" transition:persist />
-        </div>
-
-        {/* Turnstile Widget Loader Script */}
-        <script is:inline>
-          // Cloudflare Turnstile widget loader
-          // Use astro:page-load for View Transitions compatibility
-          document.addEventListener('astro:page-load', () => {
-            // Check if the Turnstile API script needs to be loaded
-            if (!window.turnstile) {
-              // Avoid adding duplicate scripts if already loading/loaded
-              if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
-                const script = document.createElement('script');
-                script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-                script.async = true;
-                script.defer = true;
-                document.head.appendChild(script);
-                script.onload = renderTurnstile;
+          {/* Turnstile Widget Loader Script */}
+          <script is:inline>
+            // Cloudflare Turnstile widget loader
+            // Use astro:page-load for View Transitions compatibility
+            document.addEventListener('astro:page-load', () => {
+              // Check if the Turnstile API script needs to be loaded
+              if (!window.turnstile) {
+                // Avoid adding duplicate scripts if already loading/loaded
+                if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
+                  const script = document.createElement('script');
+                  script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+                  script.async = true;
+                  script.defer = true;
+                  document.head.appendChild(script);
+                  script.onload = renderTurnstile;
+                }
+              } else {
+                renderTurnstile();
               }
-            } else {
-              renderTurnstile();
-            }
 
-            function renderTurnstile() {
-              const widgetContainer = document.getElementById('turnstile-widget');
-              if (window.turnstile && widgetContainer && !widgetContainer.querySelector('.cf-turnstile')) {
-                window.turnstile.render('#turnstile-widget', {
-                  sitekey: widgetContainer.dataset.sitekey,
-                  callback: function (token) {
-                    const tokenInput = document.getElementById('captchaToken');
-                    if (tokenInput) {
-                      tokenInput.value = token;
-                    }
-                  },
-                  'error-callback': function () {
-                    console.error('Turnstile error: Failed to render widget.');
-                  },
-                  'expired-callback': function () {
-                    const tokenInput = document.getElementById('captchaToken');
-                    if (tokenInput) {
-                      tokenInput.value = '';
-                    }
-                  },
-                });
+              function renderTurnstile() {
+                const widgetContainer = document.getElementById('turnstile-widget');
+                if (window.turnstile && widgetContainer && !widgetContainer.querySelector('.cf-turnstile')) {
+                  window.turnstile.render('#turnstile-widget', {
+                    sitekey: widgetContainer.dataset.sitekey,
+                    callback: function (token) {
+                      const tokenInput = document.getElementById('captchaToken');
+                      if (tokenInput) {
+                        tokenInput.value = token;
+                      }
+                    },
+                    'error-callback': function () {
+                      console.error('Turnstile error: Failed to render widget.');
+                    },
+                    'expired-callback': function () {
+                      const tokenInput = document.getElementById('captchaToken');
+                      if (tokenInput) {
+                        tokenInput.value = '';
+                      }
+                    },
+                  });
+                }
               }
-            }
-          });
-        </script>
+            });
+          </script>
 
-        <div class="flex justify-end pt-2">
-          <Button type="submit" variant="primary" size="md" title="Send Message">
-            <Icon name="tabler:send" class="size-4" />
-          </Button>
-        </div>
-      </form>
+          {/* Submit */}
+          <div class="flex flex-col gap-3 pt-2">
+            <button
+              type="submit"
+              class="flex w-full items-center justify-center gap-2 rounded-md bg-accent px-8 py-3.5 font-display text-small font-semibold tracking-wide text-bg uppercase transition-colors duration-200 hover:bg-accent-bright"
+            >
+              Send Message
+              <Icon name="tabler:send" class="size-4" />
+            </button>
+            <p class="text-center font-body text-caption text-text-muted" style="opacity: 0.5;">
+              Protected by Cloudflare Turnstile
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<style>
+  .signal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    min-height: 100vh;
+  }
+
+  .signal-left {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+
+  @media (max-width: 900px) {
+    .signal-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .signal-left {
+      position: static;
+      height: auto;
+    }
+  }
+</style>
 
 <script>
   document.addEventListener('astro:page-load', () => {
