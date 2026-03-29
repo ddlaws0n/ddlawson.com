@@ -108,6 +108,21 @@
   }
 }
 
+@layer components {
+  .prose-anthem {
+    --tw-prose-body: var(--color-text-secondary);
+    --tw-prose-headings: var(--color-text);
+    --tw-prose-links: var(--color-accent);
+    --tw-prose-bold: var(--color-text);
+    --tw-prose-code: var(--color-accent-bright);
+    --tw-prose-pre-bg: var(--color-surface);
+    --tw-prose-pre-code: var(--color-text-secondary);
+    --tw-prose-quotes: var(--color-text-secondary);
+    --tw-prose-quote-borders: var(--color-accent-muted);
+    --tw-prose-hr: var(--color-border);
+  }
+}
+
 @layer base {
   body {
     @apply bg-bg text-text antialiased;

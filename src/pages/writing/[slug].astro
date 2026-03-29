@@ -1,10 +1,10 @@
 ---
-import AuthorProfile from '@/assets/images/david-d-lawson-profile.jpg';
-import PageLayout from '@/layouts/PageLayout.astro';
+import ArticleHeader from '@/components/ArticleHeader.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
-import { getFormattedDate, getReadingTime } from '@/utils';
-import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
+import { getReadingTime } from '@/utils';
 import { getCollection, render } from 'astro:content';
 export const prerender = true;
 
@@ -28,63 +28,26 @@ const meta: MetaSEO = {
   canonical: SITE.origin + `/writing/${entry.id}`,
   ogTitle: entry.data.title,
 };
+
+const readingTime = `${entry.body ? getReadingTime(entry.body) : '5'} min read`;
 ---
 
-<PageLayout {meta}>
-  <article class="container mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mb-16 text-center">
-      <span
-        class="inline-flex items-center rounded-full bg-gray-200 px-4 py-1.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-200"
-      >
-        {entry.data.category || 'Blogging'}
-      </span>
-    </div>
-
-    <h1
-      class="mb-12 text-center text-4xl leading-tight font-black text-gray-900 sm:text-5xl lg:text-6xl dark:text-gray-100"
-    >
-      {entry.data.title}
-    </h1>
-
-    <div class="mb-16 flex items-center justify-center space-x-6 text-gray-600 dark:text-gray-400">
-      <div class="flex items-center space-x-3">
-        {
-          entry.data.author == 'David D Lawson' && (
-            <Image
-              src={AuthorProfile}
-              alt={entry.data.author}
-              width={40}
-              height={40}
-              class="text-foreground bg-muted relative h-10 w-10 overflow-hidden rounded-full border-2 object-cover text-sm"
-            />
-          )
-        }
-        <span class="font-medium text-gray-900 dark:text-gray-100">
-          {entry.data.author}
-        </span>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <Icon name="tabler:calendar" class="h-5 w-5" />
-        <time
-          datetime={entry.data.publishDate instanceof Date
-            ? entry.data.publishDate.toISOString()
-            : entry.data.publishDate}
-        >
-          {getFormattedDate(entry.data.publishDate)}
-        </time>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <Icon name="tabler:clock" class="h-5 w-5" />
-        <span>{entry.body ? getReadingTime(entry.body) : '5'} min read</span>
-      </div>
-    </div>
-
-    <div
-      class="prose prose-lg max-w-none prose-gray dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-code:rounded prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:text-gray-800 dark:prose-code:bg-gray-800 dark:prose-code:text-gray-200 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-img:rounded-lg prose-img:shadow-md"
+<BaseLayout {meta}>
+  <Header />
+  <main>
+    <ArticleHeader
+      title={entry.data.title}
+      date={entry.data.publishDate}
+      readingTime={readingTime}
+      tags={entry.data.tags}
+    />
+    <article
+      class="prose-anthem mx-auto prose max-w-3xl px-12 py-16 prose-invert max-sm:px-6 prose-headings:text-text prose-p:text-text-secondary prose-a:text-accent prose-strong:text-text prose-code:text-accent-bright"
     >
       <Content />
-    </div>
-  </article>
-</PageLayout>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script src="../../scripts/reveal.ts"></script>

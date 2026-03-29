@@ -1,8 +1,11 @@
 ---
-import Container from '@/components/Container.astro';
-import PageLayout from '@/layouts/PageLayout.astro';
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import PostListItem from '@/components/PostListItem.astro';
+import SectionEyebrow from '@/components/SectionEyebrow.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
-import { getFormattedDate, getReadingTime } from '@/utils';
+import { getFormattedDate } from '@/utils';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 const unsortedPosts = await getCollection('writing', ({ data }) => {
@@ -22,37 +25,24 @@ const meta = {
 };
 ---
 
-<PageLayout {meta}>
-  <Container title="Latest Posts" subtitle="I publish new content, sometimes™" divider={true}>
-    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+<BaseLayout {meta}>
+  <Header />
+  <main class="min-h-screen px-12 py-24 max-sm:px-6">
+    <SectionEyebrow text="Writing" />
+    <div>
       {
         blogPosts.map((post) => (
-          <div class="flex flex-col">
-            <p class="mb-1 text-sm font-medium text-slate-600 dark:text-slate-300">
-              <time datetime={new Date(post.data.publishDate).toISOString()}>
-                {getFormattedDate(post.data.publishDate)}
-              </time>{' '}
-              · {getReadingTime(post.body ?? '')} min read
-            </p>
-            <h4 class="mb-2 text-lg font-bold sm:text-xl">
-              <a
-                href={`/writing/${post.id}`}
-                class="leading-7 text-slate-800 hover:text-slate-600 dark:text-slate-200 dark:hover:text-slate-100"
-              >
-                {post.data.title}
-              </a>
-            </h4>
-            <p class="mb-2 text-sm leading-relaxed text-slate-600 dark:text-slate-100">{post.data.description}</p>
-            <a
-              href={`/writing/${post.id}`}
-              class="text-sm font-medium text-sky-600 hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
-              aria-label={`Read more about ${post.data.title}`}
-            >
-              Read More
-            </a>
-          </div>
+          <PostListItem
+            date={getFormattedDate(post.data.publishDate)}
+            title={post.data.title}
+            tag={post.data.tags?.[0]}
+            href={`/writing/${post.id}`}
+          />
         ))
       }
     </div>
-  </Container>
-</PageLayout>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<script src="../../scripts/reveal.ts"></script>
