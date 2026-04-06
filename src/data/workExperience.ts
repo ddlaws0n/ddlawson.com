@@ -73,7 +73,7 @@ export const workExperienceData: WorkExperience[] = [
           'Analyzed customer feedback to drive product and process improvements.',
         ],
         achievements: [
-          'Achieved a **2x increase** in community engagement through targeted programs.',
+          'Achieved a <strong>2x increase</strong> in community engagement through targeted programs.',
           'Launched new partner enablement portal.',
           'Streamlined customer feedback loop resulting in faster issue resolution.',
         ],
