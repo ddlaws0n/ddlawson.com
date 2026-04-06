@@ -5,24 +5,21 @@ import { Image } from 'astro:assets';
 
 <section class="hero">
   <div class="hero-text">
-    <p
-      class="mb-8 animate-fade-up font-display text-caption font-semibold tracking-wide text-text-muted uppercase opacity-0"
-      style="animation-delay: 0.15s;"
-    >
+    <p class="hero-eyebrow mb-8 font-display text-caption font-semibold tracking-wide text-text-muted uppercase">
       Customer Success + AI
     </p>
 
-    <h1 class="m-0 font-display text-hero leading-[0.92] font-extrabold tracking-tight text-text">
+    <h1
+      class="m-0 font-display text-hero leading-[0.92] font-extrabold text-text"
+      style="letter-spacing: var(--tracking-hero);"
+    >
       <span class="line line-1">David</span>
       <span class="line line-2">D. Lawson</span>
     </h1>
 
-    <div class="my-10 h-0.5 w-[100px] origin-left animate-scale-in bg-accent" style="animation-delay: 0.7s;"></div>
+    <div class="hero-rule my-10 h-0.5 w-[100px] bg-accent"></div>
 
-    <p
-      class="max-w-[36ch] animate-fade-up font-body text-body-lg leading-relaxed font-light text-text-secondary opacity-0"
-      style="animation-delay: 0.85s;"
-    >
+    <p class="hero-desc max-w-[36ch] font-body text-body-lg leading-relaxed font-light text-text-secondary">
       Building bridges between technology and the humans who need it. Customer Success leader, AI practitioner, writer.
     </p>
   </div>
@@ -38,13 +35,13 @@ import { Image } from 'astro:assets';
     />
     <div class="photo-glow"></div>
     <div class="photo-fade-bottom"></div>
-    <div class="photo-fade-left"></div>
   </div>
 </section>
 
 <style>
   .hero {
     min-height: 100vh;
+    min-height: 100dvh;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     position: relative;
@@ -60,6 +57,12 @@ import { Image } from 'astro:assets';
     z-index: 2;
   }
 
+  .hero-eyebrow {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.15s;
+  }
+
   .line {
     display: block;
     clip-path: inset(100% 0 0 0);
@@ -69,14 +72,23 @@ import { Image } from 'astro:assets';
   .line-1 {
     animation-delay: 0.25s;
   }
+
   .line-2 {
     animation-delay: 0.42s;
   }
 
-  @keyframes clipReveal {
-    to {
-      clip-path: inset(0% 0 0 0);
-    }
+  .hero-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: scaleIn 0.5s ease forwards;
+    animation-delay: 0.7s;
+  }
+
+  .hero-desc {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.85s;
   }
 
   .hero-photo-wrap {
@@ -92,6 +104,8 @@ import { Image } from 'astro:assets';
     height: 100%;
     object-fit: cover;
     object-position: top center;
+    mask-image: linear-gradient(to right, transparent, black 25%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 25%);
   }
 
   .photo-glow {
@@ -111,18 +125,9 @@ import { Image } from 'astro:assets';
     left: 0;
     right: 0;
     height: 30%;
-    background: linear-gradient(to top, var(--color-bg, #0e0c10), transparent);
-    z-index: 4;
-    pointer-events: none;
-  }
-
-  .photo-fade-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 25%;
-    background: linear-gradient(to right, var(--color-bg, #0e0c10), transparent);
+    background-color: var(--color-bg);
+    mask-image: linear-gradient(to top, black, transparent);
+    -webkit-mask-image: linear-gradient(to top, black, transparent);
     z-index: 4;
     pointer-events: none;
   }
@@ -141,10 +146,6 @@ import { Image } from 'astro:assets';
     .hero-photo-wrap {
       order: 1;
       max-height: 50vh;
-    }
-
-    .photo-fade-left {
-      display: none;
     }
   }
 </style>
