@@ -1,0 +1,1166 @@
+---
+import heroPhoto from '@/assets/images/david-d-lawson-full.png';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+---
+
+<BaseLayout
+  meta={{
+    title: 'David D. Lawson — Anthem',
+    description: 'Building bridges between technology and the humans who need it.',
+    noindex: true,
+    nofollow: true,
+  }}
+>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Outfit:wght@200;300;400;500;600&display=swap');
+
+    :root {
+      --bg: #0e0c10;
+      --surface: #16131a;
+      --surface-hover: #1c1820;
+      --elevated: #201c26;
+      --blue: #4a7fd4;
+      --blue-bright: #6090e8;
+      --blue-muted: #365ea0;
+      --blue-subtle: rgba(74, 127, 212, 0.08);
+      --text: #e8e6ec;
+      --text-secondary: #9e98a5;
+      --text-muted: #625d68;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --body: 'Outfit', system-ui, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+    }
+
+    body.dark {
+      background-color: var(--bg) !important;
+      color: var(--text) !important;
+    }
+
+    .anthem-wrap {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ——— DIGITAL GRAIN ——— */
+    .a-grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 500;
+      pointer-events: none;
+      filter: url(#grain);
+      opacity: 0.03;
+    }
+
+    /* ——— NAV ——— */
+    .a-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(14, 12, 16, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .a-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .a-nav-monogram {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .a-nav-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--body);
+      font-size: 0.62rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .a-nav-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .a-nav-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--blue);
+      opacity: 0;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    .a-nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .a-nav-links a {
+      font-family: var(--body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .a-nav-links a:hover {
+      color: var(--text);
+    }
+
+    .a-nav-location {
+      font-family: var(--body);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      opacity: 0.5;
+      letter-spacing: 0.06em;
+    }
+
+    /* ——— HERO ——— */
+    .a-hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .a-hero-text {
+      padding: 0 4rem 6rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 2;
+    }
+
+    .a-hero-eyebrow {
+      font-family: var(--display);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: 0.15s;
+    }
+
+    .a-hero-name {
+      font-family: var(--display);
+      font-size: clamp(3.8rem, 9vw, 9rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .a-hero-name .line {
+      display: block;
+      clip-path: inset(100% 0 0 0);
+      animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .a-hero-name .line:nth-child(1) {
+      animation-delay: 0.25s;
+    }
+    .a-hero-name .line:nth-child(2) {
+      animation-delay: 0.42s;
+    }
+
+    .a-hero-rule {
+      width: 100px;
+      height: 2px;
+      background: var(--blue);
+      margin: 2.5rem 0;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: scaleIn 0.5s ease forwards;
+      animation-delay: 0.7s;
+    }
+
+    .a-hero-desc {
+      font-family: var(--body);
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 36ch;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: 0.85s;
+    }
+
+    .a-hero-photo-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .a-hero-photo-wrap :global(img) {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .a-hero-photo-glow {
+      position: absolute;
+      bottom: -10%;
+      left: 10%;
+      width: 80%;
+      height: 60%;
+      background: radial-gradient(ellipse, rgba(74, 127, 212, 0.08) 0%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .a-hero-scan {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      z-index: 3;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 10%, var(--blue-bright), transparent 90%);
+      box-shadow:
+        0 0 15px 3px rgba(74, 127, 212, 0.1),
+        0 0 50px 6px rgba(74, 127, 212, 0.04);
+      opacity: 0;
+      animation: scanSweep 4.5s 1.5s ease-in-out infinite;
+    }
+
+    .a-hero-photo-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 30%;
+      background: linear-gradient(to top, var(--bg), transparent);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .a-hero-photo-fade-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 25%;
+      background: linear-gradient(to right, var(--bg), transparent);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* ——— DIVIDER ——— */
+    .a-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ——— SECTION EYEBROW ——— */
+    .a-section-eyebrow {
+      font-family: var(--display);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3.5rem;
+    }
+
+    /* SIDEWAYS LABELS */
+    .a-section-with-label {
+      position: relative;
+    }
+
+    .a-sideways-label {
+      position: absolute;
+      left: 0.75rem;
+      top: 6rem;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--display);
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.2;
+      white-space: nowrap;
+    }
+
+    /* ——— BELIEFS ——— */
+    .a-beliefs {
+      background: var(--bg);
+      padding: 6rem 3rem 6rem 4.5rem;
+    }
+
+    .a-beliefs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .a-belief {
+      padding: 3.5rem;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition:
+        background 0.4s,
+        border-color 0.4s;
+    }
+
+    .a-belief:hover {
+      background: var(--surface);
+      border-color: var(--border-hover);
+    }
+
+    .a-belief-num {
+      font-family: var(--display);
+      font-size: clamp(8rem, 14vw, 14rem);
+      font-weight: 200;
+      line-height: 0.8;
+      color: var(--text);
+      opacity: 0.025;
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+      pointer-events: none;
+      letter-spacing: -0.04em;
+    }
+
+    .a-belief-title {
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--text);
+      position: relative;
+    }
+
+    .a-belief-title .accent {
+      color: var(--blue);
+    }
+
+    .a-belief-body {
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      opacity: 0.65;
+      position: relative;
+    }
+
+    /* ——— PROJECTS ——— */
+    .a-projects {
+      padding: 6rem 3rem 6rem 4.5rem;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .a-projects-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      margin-top: -2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .a-project-card {
+      background: var(--surface);
+      padding: 2.5rem 3rem;
+      border-left: 3px solid var(--border);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .a-project-card:hover {
+      transform: translateY(-2px);
+      border-left-color: var(--blue);
+      background: var(--elevated);
+      box-shadow: -4px 0 20px rgba(74, 127, 212, 0.06);
+    }
+
+    .a-project-card.featured {
+      grid-row: 1 / 3;
+      background: var(--elevated);
+      border-left-color: rgba(74, 127, 212, 0.2);
+    }
+
+    .a-project-tag {
+      font-family: var(--display);
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      transition: color 0.3s;
+    }
+
+    .a-project-card:hover .a-project-tag {
+      color: var(--blue);
+    }
+
+    .a-project-title {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+
+    .a-project-card.featured .a-project-title {
+      font-size: 1.65rem;
+    }
+
+    .a-project-desc {
+      font-family: var(--body);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .a-project-arrow {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      display: inline-block;
+      transition:
+        transform 0.25s,
+        color 0.25s;
+    }
+
+    .a-project-card:hover .a-project-arrow {
+      transform: translateX(6px);
+      color: var(--blue);
+    }
+
+    /* ——— PULL QUOTE ——— */
+    .a-pullquote {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+
+    .a-pullquote-text {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 2.8vw, 2.3rem);
+      font-weight: 500;
+      line-height: 1.45;
+      color: var(--text);
+      max-width: 38ch;
+      margin: 0 auto 1.5rem;
+    }
+
+    .a-pullquote-attr {
+      font-family: var(--body);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ——— WRITING ——— */
+    .a-writing {
+      background: var(--bg);
+      padding: 6rem 3rem 6rem 4.5rem;
+    }
+
+    .a-posts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .a-post {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s;
+      position: relative;
+      margin: 0 -1rem;
+    }
+
+    .a-post:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .a-post:hover {
+      background: var(--surface);
+    }
+
+    .a-post:hover .a-post-title {
+      color: var(--text);
+    }
+
+    .a-post:hover .a-post-date {
+      color: var(--blue);
+    }
+
+    .a-post-date {
+      font-family: var(--display);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: color 0.25s;
+    }
+
+    .a-post-title {
+      font-family: var(--body);
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--text-secondary);
+      transition: color 0.25s;
+    }
+
+    .a-post-tag {
+      font-family: var(--display);
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      white-space: nowrap;
+    }
+
+    /* ——— ABOUT ——— */
+    .a-about {
+      padding: 6rem 3rem 6rem 4.5rem;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .a-about-typo {
+      font-family: var(--display);
+      font-weight: 800;
+      line-height: 0.88;
+    }
+
+    .a-about-typo-muted {
+      display: block;
+      font-size: clamp(3rem, 6vw, 6rem);
+      color: var(--text);
+      opacity: 0.06;
+    }
+
+    .a-about-typo-bold {
+      display: block;
+      font-size: clamp(3.5rem, 7vw, 7.5rem);
+      color: var(--text);
+    }
+
+    .a-about-right {
+      max-width: 520px;
+    }
+
+    .a-about-body {
+      font-family: var(--body);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .a-about-body strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .a-about-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      font-family: var(--display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.2rem;
+      transition:
+        border-color 0.3s,
+        gap 0.3s,
+        color 0.3s,
+        transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    .a-about-cta:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      gap: 0.9rem;
+    }
+
+    /* ——— FOOTER ——— */
+    .a-footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 4rem 3rem 3rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .a-footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .a-footer-name {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      opacity: 0.15;
+    }
+
+    .a-footer-tagline {
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      opacity: 0.5;
+      max-width: 28ch;
+      line-height: 1.6;
+    }
+
+    .a-footer-col-title {
+      font-family: var(--display);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.35;
+      margin-bottom: 1.25rem;
+    }
+
+    .a-footer-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .a-footer-links a {
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .a-footer-links a:hover {
+      color: var(--text);
+    }
+
+    .a-footer-copy {
+      font-family: var(--body);
+      font-size: 0.62rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      opacity: 0.25;
+      margin-top: 3rem;
+      grid-column: 1 / -1;
+    }
+
+    /* ——— ANIMATIONS ——— */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes clipReveal {
+      from {
+        clip-path: inset(100% 0 0 0);
+      }
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.4;
+        transform: scale(2.5);
+      }
+    }
+
+    @keyframes scanSweep {
+      0% {
+        top: -2%;
+        opacity: 0;
+      }
+      5% {
+        opacity: 0.5;
+      }
+      45% {
+        opacity: 0.5;
+      }
+      50% {
+        top: 102%;
+        opacity: 0;
+      }
+      100% {
+        top: 102%;
+        opacity: 0;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      clip-path: inset(0 0 15% 0);
+      transition:
+        opacity 0.7s ease,
+        clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+
+    /* ——— RESPONSIVE ——— */
+    @media (max-width: 900px) {
+      .a-nav {
+        padding: 1rem 1.5rem;
+      }
+      .a-nav-location,
+      .a-nav-status {
+        display: none;
+      }
+      .a-sideways-label {
+        display: none;
+      }
+      .a-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .a-hero-text {
+        padding: 4rem 1.5rem 3rem;
+        order: 2;
+      }
+      .a-hero-photo-wrap {
+        order: 1;
+        max-height: 50vh;
+      }
+      .a-hero-photo-fade-left {
+        display: none;
+      }
+      .a-beliefs {
+        padding: 4rem 1.5rem;
+      }
+      .a-beliefs-grid {
+        grid-template-columns: 1fr;
+      }
+      .a-belief {
+        padding: 2.5rem 2rem;
+      }
+      .a-belief-num {
+        font-size: 7rem;
+      }
+      .a-projects {
+        padding: 4rem 1.5rem;
+      }
+      .a-projects-grid {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+      }
+      .a-project-card.featured {
+        grid-row: auto;
+      }
+      .a-pullquote {
+        padding: 3.5rem 1.5rem;
+      }
+      .a-writing {
+        padding: 4rem 1.5rem;
+      }
+      .a-post {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+        margin: 0;
+      }
+      .a-post-tag {
+        justify-self: start;
+      }
+      .a-about {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4rem 1.5rem;
+      }
+      .a-footer {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem 2rem;
+        gap: 2rem;
+      }
+      .a-footer-copy {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+
+  <div class="anthem-wrap">
+    <!-- SVG NOISE FILTER -->
+    <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"></feTurbulence>
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      </filter>
+    </svg>
+    <div class="a-grain" aria-hidden="true"></div>
+
+    <!-- NAV -->
+    <nav class="a-nav">
+      <div class="a-nav-left">
+        <a href="/" class="a-nav-monogram">DDL</a>
+      </div>
+      <ul class="a-nav-links">
+        <li><a href="#beliefs">Beliefs</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <span class="a-nav-location">London, 2026</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="a-hero">
+      <div class="a-hero-text">
+        <p class="a-hero-eyebrow">Customer Success + AI</p>
+        <h1 class="a-hero-name">
+          <span class="line">David</span>
+          <span class="line">D. Lawson</span>
+        </h1>
+        <div class="a-hero-rule"></div>
+        <p class="a-hero-desc">
+          Building bridges between technology and the humans who need it. Customer Success leader, AI practitioner,
+          writer.
+        </p>
+      </div>
+      <div class="a-hero-photo-wrap">
+        <Image
+          src={heroPhoto}
+          alt="David D. Lawson"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 900px) 100vw, 45vw"
+          loading="eager"
+        />
+        <div class="a-hero-photo-glow"></div>
+        <div class="a-hero-photo-fade"></div>
+        <div class="a-hero-photo-fade-left"></div>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="a-divider"></div>
+
+    <!-- BELIEFS -->
+    <section id="beliefs" class="a-beliefs a-section-with-label">
+      <span class="a-sideways-label">Beliefs</span>
+      <p class="a-section-eyebrow reveal">What I Believe</p>
+      <div class="a-beliefs-grid">
+        <div class="a-belief reveal">
+          <span class="a-belief-num">01</span>
+          <h3 class="a-belief-title">
+            Technology is only as good as the <span class="accent">human who wields it</span>
+          </h3>
+          <p class="a-belief-body">
+            The best security platform in the world fails if the team using it doesn't trust it. My job is that trust
+            layer — helping real teams adopt real tools that keep real companies safe.
+          </p>
+        </div>
+        <div class="a-belief reveal">
+          <span class="a-belief-num">02</span>
+          <h3 class="a-belief-title">AI won't replace curiosity. It will <span class="accent">amplify it</span></h3>
+          <p class="a-belief-body">
+            We're in the most interesting moment in software history. I experiment with LLMs constantly — not to
+            automate, but to think faster and build weirder, better things.
+          </p>
+        </div>
+        <div class="a-belief reveal">
+          <span class="a-belief-num">03</span>
+          <h3 class="a-belief-title"><span class="accent">Sharing openly</span> is a compounding advantage</h3>
+          <p class="a-belief-body">
+            Every post, every project, every half-baked idea written down creates a trail that compounds. The internet
+            is the most leveraged writing desk ever built.
+          </p>
+        </div>
+        <div class="a-belief reveal">
+          <span class="a-belief-num">04</span>
+          <h3 class="a-belief-title">The best customer success is <span class="accent">genuinely caring</span></h3>
+          <p class="a-belief-body">
+            Not playbooks, not QBRs. Radical investment in understanding what the customer is actually trying to do —
+            and removing every obstacle between here and there.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="a-divider"></div>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="a-projects a-section-with-label">
+      <span class="a-sideways-label">Projects</span>
+      <p class="a-section-eyebrow reveal">What I'm Building</p>
+      <div class="a-projects-grid reveal">
+        <a href="#" class="a-project-card featured">
+          <div>
+            <p class="a-project-tag">AI / Tooling</p>
+            <h3 class="a-project-title">LLM Prompt Patterns for B2B Teams</h3>
+            <p class="a-project-desc">
+              A living reference for Customer Success and Solutions teams learning to get real work done with AI &mdash;
+              beyond the hype, into the practical.
+            </p>
+          </div>
+          <span class="a-project-arrow">&rarr;</span>
+        </a>
+        <a href="#" class="a-project-card">
+          <div>
+            <p class="a-project-tag">Cloud Security</p>
+            <h3 class="a-project-title">CSPM Evaluation Playbook</h3>
+            <p class="a-project-desc">How enterprise security teams should actually evaluate cloud posture tools.</p>
+          </div>
+          <span class="a-project-arrow">&rarr;</span>
+        </a>
+        <a href="#" class="a-project-card">
+          <div>
+            <p class="a-project-tag">Writing System</p>
+            <h3 class="a-project-title">The Daily 500</h3>
+            <p class="a-project-desc">
+              500 words every day for a year. Tracking what changes when you write consistently.
+            </p>
+          </div>
+          <span class="a-project-arrow">&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- PULL QUOTE -->
+    <div class="a-pullquote reveal">
+      <p class="a-pullquote-text">
+        &ldquo;The gap between a great product and a successful customer is someone who gives a damn.&rdquo;
+      </p>
+      <p class="a-pullquote-attr">&mdash; DDL</p>
+    </div>
+
+    <!-- WRITING -->
+    <section id="writing" class="a-writing a-section-with-label">
+      <span class="a-sideways-label">Writing</span>
+      <p class="a-section-eyebrow reveal">Recent Writing</p>
+      <div class="a-posts">
+        <a href="/writing" class="a-post reveal">
+          <span class="a-post-date">Mar 2026</span>
+          <span class="a-post-title">Why AI will make great Customer Success managers irreplaceable</span>
+          <span class="a-post-tag">AI</span>
+        </a>
+        <a href="/writing" class="a-post reveal">
+          <span class="a-post-date">Feb 2026</span>
+          <span class="a-post-title">The QBR is dead. Long live the QBR.</span>
+          <span class="a-post-tag">Strategy</span>
+        </a>
+        <a href="/writing" class="a-post reveal">
+          <span class="a-post-date">Jan 2026</span>
+          <span class="a-post-title">How I use Claude as a thinking partner, not a writing crutch</span>
+          <span class="a-post-tag">AI</span>
+        </a>
+        <a href="/writing" class="a-post reveal">
+          <span class="a-post-date">Dec 2025</span>
+          <span class="a-post-title">Cloud security is a people problem pretending to be a tech problem</span>
+          <span class="a-post-tag">Security</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="a-divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about" class="a-about a-section-with-label">
+      <span class="a-sideways-label">About</span>
+      <div class="a-about-typo reveal">
+        <span class="a-about-typo-muted">The</span>
+        <span class="a-about-typo-bold">Story</span>
+      </div>
+      <div class="a-about-right reveal">
+        <p class="a-section-eyebrow">About</p>
+        <p class="a-about-body">
+          Customer Success leader at <strong>Wiz</strong> &mdash; the cloud security company rewriting how enterprises think
+          about risk. Before that: navigating the messy, human side of B2B SaaS adoption at scale.
+        </p>
+        <p class="a-about-body" style="margin-top: 1.25rem;">
+          Outside work, I chase the edges of what AI makes possible &mdash; building small tools, writing about what I
+          learn, and trying to leave something useful behind.
+        </p>
+        <a href="/about" class="a-about-cta magnetic-cta">Read the full story &rarr;</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="a-footer">
+      <div class="a-footer-brand">
+        <p class="a-footer-name">David D. Lawson</p>
+        <p class="a-footer-tagline">Building at the intersection of technology and humanity.</p>
+      </div>
+      <div>
+        <p class="a-footer-col-title">Navigate</p>
+        <ul class="a-footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="a-footer-col-title">Elsewhere</p>
+        <ul class="a-footer-links">
+          <li><a href="https://www.linkedin.com/in/ddlawson/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://twitter.com/ddlaws0n" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="https://www.github.com/ddlaws0n" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+      <p class="a-footer-copy">&copy; 2026 David D. Lawson. Built with intention.</p>
+    </footer>
+  </div>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const siblings = Array.from(entry.target.parentElement?.querySelectorAll('.reveal') ?? []);
+            const index = siblings.indexOf(entry.target);
+            (entry.target as HTMLElement).style.transitionDelay = `${index * 0.08}s`;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+    );
+    reveals.forEach((el) => observer.observe(el));
+
+    document.querySelectorAll('.magnetic-cta').forEach((btn) => {
+      const el = btn as HTMLElement;
+      const strength = 0.3;
+      el.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = e.clientX - cx;
+        const dy = e.clientY - cy;
+        el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+      });
+    });
+  </script>
+</BaseLayout>
