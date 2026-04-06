@@ -60,11 +60,7 @@ const meta = {
     <Divider />
 
     <!-- ─── The Story ────────────────────────────────────────────────────── -->
-    <section
-      id="story"
-      class="relative bg-surface py-24 max-sm:py-16"
-      style="padding-left: 4.5rem; padding-right: 3rem;"
-    >
+    <section id="story" class="section-padding relative bg-surface py-24 max-sm:py-16">
       <SectionEyebrow text="Background" sideways />
       <div class="pl-12 max-lg:pl-0">
         <div class="grid grid-cols-[1.2fr_0.8fr] items-start gap-20 max-lg:grid-cols-1 max-lg:gap-12">
@@ -118,7 +114,7 @@ const meta = {
     />
 
     <!-- ─── Off the Clock ────────────────────────────────────────────────── -->
-    <section id="beyond" class="relative bg-bg py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section id="beyond" class="section-padding relative bg-bg py-24 max-sm:py-16">
       <SectionEyebrow text="Off the Clock" sideways />
       <div class="pl-12 max-lg:pl-0">
         <div class="grid grid-cols-[1fr_1fr] gap-px bg-border max-lg:grid-cols-1">
@@ -197,11 +193,7 @@ const meta = {
     <Divider />
 
     <!-- ─── Connect ──────────────────────────────────────────────────────── -->
-    <section
-      id="connect"
-      class="relative bg-surface py-24 max-sm:py-16"
-      style="padding-left: 4.5rem; padding-right: 3rem;"
-    >
+    <section id="connect" class="section-padding relative bg-surface py-24 max-sm:py-16">
       <SectionEyebrow text="Connect" sideways />
       <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
         <div class="reveal">
@@ -298,52 +290,6 @@ const meta = {
     pointer-events: none;
   }
 
-  /* ——— Hero animations ——— */
-  .hero-eyebrow {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.15s;
-  }
-
-  .line {
-    display: block;
-    clip-path: inset(100% 0 0 0);
-    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .line-1 {
-    animation-delay: 0.25s;
-  }
-  .line-2 {
-    animation-delay: 0.42s;
-  }
-
-  .hero-rule {
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: scaleIn 0.5s ease forwards;
-    animation-delay: 0.7s;
-  }
-
-  .hero-desc {
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.85s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-eyebrow,
-    .line,
-    .hero-rule,
-    .hero-desc {
-      animation: none !important;
-      opacity: 1 !important;
-      clip-path: none !important;
-      transform: none !important;
-    }
-  }
-
   /* ——— Responsive ——— */
   @media (max-width: 900px) {
     .about-hero {
@@ -359,15 +305,6 @@ const meta = {
     .about-hero-photo {
       order: 1;
       max-height: 50vh;
-    }
-  }
-
-  @media (max-width: 640px) {
-    #story,
-    #beyond,
-    #connect {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
     }
   }
 </style>

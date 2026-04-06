@@ -51,7 +51,7 @@ const readingTime = `${entry.body ? getReadingTime(entry.body) : '5'} min read`;
     <Divider />
 
     <!-- Back to archive -->
-    <section class="bg-surface py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section class="section-padding bg-surface py-16">
       <div class="pl-12 max-lg:pl-0">
         <a
           href="/writing"
@@ -64,12 +64,3 @@ const readingTime = `${entry.body ? getReadingTime(entry.body) : '5'} min read`;
   </main>
   <Footer />
 </BaseLayout>
-
-<style>
-  @media (max-width: 640px) {
-    section[style] {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
-    }
-  }
-</style>

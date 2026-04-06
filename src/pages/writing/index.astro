@@ -62,11 +62,7 @@ const meta = {
     <!-- ─── Featured Post ────────────────────────────────────────────────── -->
     {
       featuredPost && (
-        <section
-          id="featured"
-          class="relative bg-surface py-24 max-sm:py-16"
-          style="padding-left: 4.5rem; padding-right: 3rem;"
-        >
+        <section id="featured" class="section-padding relative bg-surface py-24 max-sm:py-16">
           <SectionEyebrow text="Latest" sideways />
           <div class="pl-12 max-lg:pl-0">
             <a href={`/writing/${featuredPost.id}`} class="reveal group block">
@@ -110,7 +106,7 @@ const meta = {
     <Divider />
 
     <!-- ─── All Posts ────────────────────────────────────────────────────── -->
-    <section id="archive" class="relative bg-bg py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section id="archive" class="section-padding relative bg-bg py-24 max-sm:py-16">
       <SectionEyebrow text="Archive" sideways />
       <div class="pl-12 max-lg:pl-0">
         {/* Tag filter */}
@@ -226,52 +222,6 @@ const meta = {
     max-width: 680px;
   }
 
-  /* ——— Hero animations ——— */
-  .hero-eyebrow {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.15s;
-  }
-
-  .line {
-    display: block;
-    clip-path: inset(100% 0 0 0);
-    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .line-1 {
-    animation-delay: 0.25s;
-  }
-  .line-2 {
-    animation-delay: 0.42s;
-  }
-
-  .hero-rule {
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: scaleIn 0.5s ease forwards;
-    animation-delay: 0.7s;
-  }
-
-  .hero-desc {
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.85s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-eyebrow,
-    .line,
-    .hero-rule,
-    .hero-desc {
-      animation: none !important;
-      opacity: 1 !important;
-      clip-path: none !important;
-      transform: none !important;
-    }
-  }
-
   /* ——— Tag filter active state ——— */
   .active-pill {
     background-color: var(--color-accent);
@@ -284,14 +234,6 @@ const meta = {
     .writing-hero {
       min-height: 70vh;
       padding: 4rem 1.5rem 3rem;
-    }
-  }
-
-  @media (max-width: 640px) {
-    #featured,
-    #archive {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
     }
   }
 </style>

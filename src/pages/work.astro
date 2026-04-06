@@ -85,8 +85,7 @@ const linkedInUrl =
           <>
             <section
               id={company.companyId}
-              class:list={['relative py-24 max-sm:py-16', isEven ? 'bg-surface' : 'bg-bg']}
-              style="padding-left: 4.5rem; padding-right: 3rem;"
+              class:list={['section-padding relative py-24 max-sm:py-16', isEven ? 'bg-surface' : 'bg-bg']}
             >
               <SectionEyebrow text={company.company} sideways />
 
@@ -175,7 +174,7 @@ const linkedInUrl =
     <Divider />
 
     <!-- ─── CTA ──────────────────────────────────────────────────────────── -->
-    <section id="cta" class="relative bg-surface py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section id="cta" class="section-padding relative bg-surface py-24 max-sm:py-16">
       <SectionEyebrow text="Connect" sideways />
       <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
         <div class="reveal">
@@ -239,52 +238,6 @@ const linkedInUrl =
     pointer-events: none;
   }
 
-  /* ——— Hero animations ——— */
-  .hero-eyebrow {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.15s;
-  }
-
-  .line {
-    display: block;
-    clip-path: inset(100% 0 0 0);
-    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .line-1 {
-    animation-delay: 0.25s;
-  }
-  .line-2 {
-    animation-delay: 0.42s;
-  }
-
-  .hero-rule {
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: scaleIn 0.5s ease forwards;
-    animation-delay: 0.7s;
-  }
-
-  .hero-desc {
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.85s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-eyebrow,
-    .line,
-    .hero-rule,
-    .hero-desc {
-      animation: none !important;
-      opacity: 1 !important;
-      clip-path: none !important;
-      transform: none !important;
-    }
-  }
-
   /* ——— Responsive ——— */
   @media (max-width: 900px) {
     .work-hero {
@@ -294,13 +247,6 @@ const linkedInUrl =
 
     .work-hero-aside {
       display: none;
-    }
-  }
-
-  @media (max-width: 640px) {
-    section[id] {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
     }
   }
 </style>

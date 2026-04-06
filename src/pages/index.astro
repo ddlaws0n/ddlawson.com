@@ -37,7 +37,7 @@ const meta = {
     <Divider />
 
     <!-- Beliefs -->
-    <section id="beliefs" class="relative bg-bg py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section id="beliefs" class="section-padding relative bg-bg py-24 max-sm:py-16">
       <SectionEyebrow text="What I Believe" sideways />
       <div class="pl-12 max-lg:pl-0">
         <div class="grid grid-cols-2 max-lg:grid-cols-1">
@@ -49,11 +49,7 @@ const meta = {
     <Divider />
 
     <!-- Projects -->
-    <section
-      id="projects"
-      class="relative bg-surface py-24 max-sm:py-16"
-      style="padding-left: 4.5rem; padding-right: 3rem;"
-    >
+    <section id="projects" class="section-padding relative bg-surface py-24 max-sm:py-16">
       <SectionEyebrow text="What I'm Building" sideways />
       <div class="pl-12 max-lg:pl-0">
         <div class="z-base relative -mt-8 grid grid-cols-[1.4fr_1fr] gap-px bg-border max-lg:mt-0 max-lg:grid-cols-1">
@@ -69,7 +65,7 @@ const meta = {
     />
 
     <!-- Writing -->
-    <section id="writing" class="relative bg-bg py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+    <section id="writing" class="section-padding relative bg-bg py-24 max-sm:py-16">
       <SectionEyebrow text="Recent Writing" sideways />
       <div class="pl-12 max-lg:pl-0">
         <div class="flex flex-col">
@@ -90,11 +86,7 @@ const meta = {
     <Divider />
 
     <!-- About Teaser -->
-    <section
-      id="about"
-      class="relative bg-surface py-24 max-sm:py-16"
-      style="padding-left: 4.5rem; padding-right: 3rem;"
-    >
+    <section id="about" class="section-padding relative bg-surface py-24 max-sm:py-16">
       <SectionEyebrow text="About" sideways />
       <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
         <div class="reveal">
@@ -124,15 +116,3 @@ const meta = {
   </main>
   <Footer />
 </BaseLayout>
-
-<style>
-  @media (max-width: 640px) {
-    #beliefs,
-    #projects,
-    #writing,
-    #about {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
-    }
-  }
-</style>

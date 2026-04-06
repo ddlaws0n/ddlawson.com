@@ -285,50 +285,13 @@ if (isSuccess) {
     height: 100vh;
   }
 
-  /* ——— Hero animations ——— */
-  .hero-eyebrow {
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-    animation-delay: 0.15s;
-  }
-
-  .line {
-    display: block;
-    clip-path: inset(100% 0 0 0);
-    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .line-1 {
-    animation-delay: 0.25s;
-  }
-  .line-2 {
-    animation-delay: 0.42s;
-  }
-
+  /* ——— Contact-specific animation delay overrides ——— */
   .hero-rule {
-    opacity: 0;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: scaleIn 0.5s ease forwards;
     animation-delay: 0.6s;
   }
 
   .hero-desc {
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
     animation-delay: 0.75s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-eyebrow,
-    .line,
-    .hero-rule,
-    .hero-desc {
-      animation: none !important;
-      opacity: 1 !important;
-      clip-path: none !important;
-      transform: none !important;
-    }
   }
 
   @media (max-width: 900px) {
