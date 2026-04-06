@@ -17,14 +17,14 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 		nofollow: true,
 	}}
 >
-	<div class="meridian-wrap">
+	<div class="font-body bg-bg text-text min-h-screen relative overflow-x-hidden">
 		<div class="m-noise"></div>
 		<Nav />
-		<div class="m-content">
+		<div class="mx-auto max-w-[var(--spacing-content)] px-[var(--m-gutter)]">
 			<Hero />
-			<div class="m-intro">
-				<p>
-					I lead technical account management across EMEA at <strong>Wiz</strong>, helping
+			<div class="py-14 pb-16 max-w-[520px] opacity-0 animate-fade-up [animation-delay:0.9s]">
+				<p class="font-body text-base font-light leading-[1.85] text-text-secondary m-0">
+					I lead technical account management across EMEA at <strong class="font-medium text-text">Wiz</strong>, helping
 					security teams get real value from the platform. Outside of work, I write about
 					developer experience, tinker with AI, and build things in&nbsp;public.
 				</p>
@@ -57,15 +57,6 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
-	.meridian-wrap {
-		font-family: var(--m-body);
-		background: var(--m-bg);
-		color: var(--m-text);
-		min-height: 100vh;
-		position: relative;
-		overflow-x: hidden;
-	}
-
 	.m-noise {
 		position: fixed;
 		inset: 0;
@@ -76,32 +67,5 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 		background-repeat: repeat;
 		background-size: 180px;
 		mix-blend-mode: overlay;
-	}
-
-	.m-content {
-		max-width: var(--m-content);
-		margin: 0 auto;
-		padding: 0 var(--m-gutter);
-	}
-
-	.m-intro {
-		padding: 3.5rem 0 4rem;
-		max-width: 520px;
-		opacity: 0;
-		animation: m-fadeUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards 0.9s;
-	}
-
-	.m-intro p {
-		font-family: var(--m-body);
-		font-size: 1rem;
-		font-weight: 300;
-		line-height: 1.85;
-		color: var(--m-text-secondary);
-		margin: 0;
-	}
-
-	.m-intro strong {
-		font-weight: 500;
-		color: var(--m-text);
 	}
 </style>
