@@ -1,7 +1,6 @@
 ---
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
-import SectionEyebrow from '@/components/SectionEyebrow.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE, SOCIAL } from '@/site.config';
 import { Icon } from 'astro-icon/components';
@@ -9,31 +8,24 @@ import { actions } from 'astro:actions';
 
 const meta = {
   title: 'Contact',
-  description: SITE.description,
+  description: "Get in touch — whether it's about customer success, AI, building something, or just swapping notes.",
   canonical: SITE.origin + '/contact',
 };
 
-// Get the result from the previous action call
 const result = Astro.getActionResult(actions.submitContactForm);
-
-// Determine status based on the action result
 const isSuccess = !!result && !result.error;
 const isError = !!result && !!result.error;
 
-// Initialize with the correct type
 let fieldErrors: Record<string, string[] | undefined> = {};
-// Assign if fields exist and are not null/undefined
 if (result?.error && 'fields' in result.error && result.error.fields) {
   fieldErrors = result.error.fields as Record<string, string[] | undefined>;
 }
 
-// Get general server error message (from thrown ActionError or other errors)
 const generalErrorMessage = result?.error?.message;
 
-// Determine overall status message for display
 let statusMessage: string | null = null;
 if (isSuccess) {
-  statusMessage = "Your message has been sent successfully! I'll get back to you soon.";
+  statusMessage = "Message sent. I'll be in touch soon.";
 } else if (generalErrorMessage) {
   statusMessage = generalErrorMessage;
 } else if (isError && Object.keys(fieldErrors).length > 0) {
@@ -46,9 +38,9 @@ if (isSuccess) {
 
   <main class="min-h-screen w-full">
     <div class="signal-grid">
-      {/* Left — The Manifesto */}
+      {/* ─── Left — The Intro ─────────────────────────────────────── */}
       <div class="signal-left relative flex flex-col justify-between overflow-hidden bg-bg p-6 md:p-12">
-        {/* Ghost background text */}
+        {/* Ghost text */}
         <span
           class="pointer-events-none absolute -bottom-8 left-0 font-display text-ghost leading-none font-extrabold tracking-tighter text-text opacity-ghost select-none"
           aria-hidden="true"
@@ -56,33 +48,37 @@ if (isSuccess) {
           HELLO
         </span>
 
-        <div class="reveal relative z-10 flex flex-col gap-10">
+        <div class="relative z-10 flex flex-col gap-10">
           <div>
-            <SectionEyebrow text="Get In Touch" />
+            <p class="hero-eyebrow font-display text-caption font-semibold tracking-wide text-text-muted uppercase">
+              Get In Touch
+            </p>
 
             <div class="mt-6 flex flex-col">
-              <span class="font-display text-display leading-none font-extrabold text-text opacity-watermark">
+              <span
+                class="line line-1 font-display text-display leading-none font-extrabold text-text opacity-watermark"
+              >
                 Say
               </span>
-              <span class="font-display text-display leading-none font-extrabold text-text"> Hello. </span>
+              <span class="line line-2 font-display text-display leading-none font-extrabold text-text"> Hello. </span>
             </div>
 
-            <div class="mt-8 h-0.5 w-[100px] bg-accent"></div>
+            <div class="hero-rule mt-8 h-0.5 w-[100px] bg-accent"></div>
 
-            <p class="mt-8 max-w-sm font-body text-body leading-relaxed font-light text-text-secondary">
-              Great things start with a conversation. Whether you have a question, an idea, or just want to connect —
-              I'd love to hear from you.
+            <p class="hero-desc mt-8 max-w-sm font-body text-body leading-relaxed font-light text-text-secondary">
+              I'm always up for a good conversation — whether it's about customer success, AI, building something from
+              scratch, or an idea you can't stop thinking about.
             </p>
           </div>
 
           {/* Social links */}
-          <div class="flex flex-wrap gap-6">
+          <div class="hero-desc flex flex-wrap gap-6">
             {
               SOCIAL.map(({ link, ariaLabel }) => (
                 <a
                   href={link}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   aria-label={ariaLabel}
                   class="font-body text-caption text-text-muted transition-colors duration-200 hover:text-accent"
                 >
@@ -94,7 +90,7 @@ if (isSuccess) {
         </div>
       </div>
 
-      {/* Right — The Form */}
+      {/* ─── Right — The Form ─────────────────────────────────────── */}
       <div class="reveal bg-surface p-6 md:p-12">
         {/* Status message */}
         {
@@ -112,13 +108,7 @@ if (isSuccess) {
           )
         }
 
-        <form
-          id="contact-form"
-          method="POST"
-          action="/contact?_action=submitContactForm"
-          class="space-y-6"
-          autocomplete="off"
-        >
+        <form id="contact-form" method="POST" action="/contact?_action=submitContactForm" class="space-y-6">
           {/* Name + Email grid */}
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
@@ -137,10 +127,11 @@ if (isSuccess) {
                   id="name"
                   name="name"
                   class:list={[
-                    'block w-full rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                    'block w-full rounded-md border bg-elevated px-10 py-3.5 font-body text-body text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
                     fieldErrors.name ? 'border-red-500' : 'border-border',
                   ]}
                   placeholder="Your name"
+                  autocomplete="name"
                   required
                   transition:persist
                 />
@@ -164,10 +155,12 @@ if (isSuccess) {
                   id="email"
                   name="email"
                   class:list={[
-                    'block w-full rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                    'block w-full rounded-md border bg-elevated px-10 py-3.5 font-body text-body text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
                     fieldErrors.email ? 'border-red-500' : 'border-border',
                   ]}
                   placeholder="you@example.com"
+                  autocomplete="email"
+                  spellcheck="false"
                   required
                   transition:persist
                 />
@@ -193,10 +186,10 @@ if (isSuccess) {
                 name="message"
                 rows="6"
                 class:list={[
-                  'block w-full resize-y rounded-md border bg-elevated px-10 py-3.5 text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
+                  'block w-full resize-y rounded-md border bg-elevated px-10 py-3.5 font-body text-body text-text transition-colors duration-200 placeholder:text-text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none',
                   fieldErrors.message ? 'border-red-500' : 'border-border',
                 ]}
-                placeholder="Type your message here..."
+                placeholder="What's on your mind?"
                 required
                 transition:persist></textarea>
             </div>
@@ -217,12 +210,8 @@ if (isSuccess) {
 
           {/* Turnstile Widget Loader Script */}
           <script is:inline>
-            // Cloudflare Turnstile widget loader
-            // Use astro:page-load for View Transitions compatibility
             document.addEventListener('astro:page-load', () => {
-              // Check if the Turnstile API script needs to be loaded
               if (!window.turnstile) {
-                // Avoid adding duplicate scripts if already loading/loaded
                 if (!document.querySelector('script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]')) {
                   const script = document.createElement('script');
                   script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
@@ -287,6 +276,7 @@ if (isSuccess) {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .signal-left {
@@ -295,7 +285,41 @@ if (isSuccess) {
     height: 100vh;
   }
 
-  @media (max-width: 899px) {
+  /* ——— Hero animations ——— */
+  .hero-eyebrow {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.15s;
+  }
+
+  .line {
+    display: block;
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .line-1 {
+    animation-delay: 0.25s;
+  }
+  .line-2 {
+    animation-delay: 0.42s;
+  }
+
+  .hero-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: scaleIn 0.5s ease forwards;
+    animation-delay: 0.6s;
+  }
+
+  .hero-desc {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.75s;
+  }
+
+  @media (max-width: 900px) {
     .signal-grid {
       grid-template-columns: 1fr;
     }
