@@ -1,0 +1,125 @@
+---
+const beliefs = [
+	{
+		title: '<span class="accent">Bridges</span>, not barriers',
+		body: "Great products fail without someone who gives a damn about the customer. I close the gap between what engineering builds and what humans actually need.",
+	},
+	{
+		title: 'Technology should <span class="accent">disappear</span>',
+		body: "The best tools dissolve into the workflow. If users notice the technology, the experience has already failed.",
+	},
+	{
+		title: 'Ship your <span class="accent">thinking</span>',
+		body: "Writing clarifies thought. Building in public creates accountability. Both compound over time into something larger than any single output.",
+	},
+	{
+		title: 'Context is <span class="accent">everything</span>',
+		body: "Understanding the full picture — business goals, team dynamics, technical constraints — is what separates advice from actual help.",
+	},
+];
+---
+
+<section class="m-section m-reveal">
+	<div class="m-label">
+		<span class="m-label-text">What I Believe</span>
+		<div class="m-label-line"></div>
+	</div>
+
+	<div class="m-beliefs-grid">
+		{beliefs.map((b, i) => (
+			<div class="m-belief">
+				<span class="m-belief-num">{String(i + 1).padStart(2, "0")}</span>
+				<h3 class="m-belief-title" set:html={b.title} />
+				<p class="m-belief-body">{b.body}</p>
+			</div>
+		))}
+	</div>
+</section>
+
+<style>
+	.m-beliefs-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1px;
+		background: var(--m-border);
+	}
+
+	.m-belief {
+		background: var(--m-bg);
+		padding: 2.75rem;
+		position: relative;
+		overflow: hidden;
+		transition: background 0.4s ease;
+	}
+
+	.m-belief::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 2px;
+		height: 0;
+		background: var(--m-blue);
+		transition: height 0.4s ease;
+	}
+
+	.m-belief:hover {
+		background: var(--m-surface);
+	}
+
+	.m-belief:hover::after {
+		height: 100%;
+	}
+
+	.m-belief-num {
+		font-family: var(--m-display);
+		font-size: 7rem;
+		font-weight: 200;
+		line-height: 0.75;
+		color: var(--m-text);
+		opacity: 0.02;
+		position: absolute;
+		top: -0.5rem;
+		right: 0.75rem;
+		pointer-events: none;
+		transition: opacity 0.4s ease;
+	}
+
+	.m-belief:hover .m-belief-num {
+		opacity: 0.04;
+	}
+
+	.m-belief-title {
+		font-family: var(--m-display);
+		font-size: 1.15rem;
+		font-weight: 600;
+		line-height: 1.35;
+		color: var(--m-text);
+		margin-bottom: 0.85rem;
+		position: relative;
+	}
+
+	.m-belief-title :global(.accent) {
+		color: var(--m-blue);
+	}
+
+	.m-belief-body {
+		font-family: var(--m-body);
+		font-size: 0.85rem;
+		font-weight: 300;
+		line-height: 1.75;
+		color: var(--m-text-muted);
+		position: relative;
+		transition: color 0.4s ease;
+	}
+
+	.m-belief:hover .m-belief-body {
+		color: var(--m-text-secondary);
+	}
+
+	@media (max-width: 768px) {
+		.m-beliefs-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

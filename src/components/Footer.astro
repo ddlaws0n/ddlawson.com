@@ -1,0 +1,70 @@
+---
+import { SOCIAL } from "@/site.config";
+---
+
+<div class="m-footer-wrap">
+	<footer class="m-footer">
+		<span class="m-footer-copy">&copy; {new Date().getFullYear()} David D. Lawson</span>
+		<ul class="m-footer-links">
+			<li><a href="mailto:hello@ddlawson.com">Email</a></li>
+			{SOCIAL.map((s) => (
+				<li>
+					<a href={s.link} target="_blank" rel="noopener">
+						{s.ariaLabel}
+					</a>
+				</li>
+			))}
+		</ul>
+	</footer>
+</div>
+
+<style>
+	.m-footer-wrap {
+		border-top: 1px solid var(--m-border);
+		margin-top: 2rem;
+		background: var(--m-bg);
+	}
+
+	.m-footer {
+		max-width: var(--m-content);
+		margin: 0 auto;
+		padding: 2rem var(--m-gutter);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.m-footer-copy {
+		font-size: 0.68rem;
+		font-weight: 300;
+		color: var(--m-text-muted);
+	}
+
+	.m-footer-links {
+		display: flex;
+		gap: 1.75rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.m-footer-links a {
+		font-size: 0.68rem;
+		font-weight: 400;
+		color: var(--m-text-muted);
+		text-decoration: none;
+		transition: color 0.25s ease;
+	}
+
+	.m-footer-links a:hover {
+		color: var(--m-blue);
+	}
+
+	@media (max-width: 768px) {
+		.m-footer {
+			flex-direction: column;
+			gap: 0.75rem;
+			text-align: center;
+		}
+	}
+</style>

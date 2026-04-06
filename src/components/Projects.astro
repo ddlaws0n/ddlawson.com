@@ -1,0 +1,141 @@
+---
+const projects = [
+	{
+		tag: "Website",
+		title: "ddlawson.com",
+		desc: "This website. Built with Astro, deployed on Cloudflare.",
+	},
+	{
+		tag: "Internal Tool",
+		title: "TAM Toolkit",
+		desc: "Tools for technical account management workflows.",
+	},
+	{
+		tag: "Dashboard",
+		title: "Security Posture",
+		desc: "Customer-facing security metrics visualization.",
+	},
+	{
+		tag: "Experiment",
+		title: "AI Workflows",
+		desc: "Exploring LLM-powered automation for customer success.",
+	},
+];
+---
+
+<section class="m-section m-reveal" id="projects">
+	<div class="m-label">
+		<span class="m-label-text">What I'm Building</span>
+		<div class="m-label-line"></div>
+	</div>
+
+	<div class="m-projects-grid">
+		{projects.map((p) => (
+			<a href="#" class="m-project">
+				<div class="m-project-tag">{p.tag}</div>
+				<h3 class="m-project-title">{p.title}</h3>
+				<p class="m-project-desc">{p.desc}</p>
+				<span class="m-project-arrow">&rarr;</span>
+			</a>
+		))}
+	</div>
+</section>
+
+<style>
+	.m-projects-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	.m-project {
+		background: var(--m-surface);
+		padding: 2.25rem 2.5rem;
+		border-radius: 4px;
+		border: 1px solid var(--m-border);
+		transition: all 0.35s ease;
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.m-project::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, var(--m-blue), transparent);
+		opacity: 0;
+		transition: opacity 0.35s ease;
+	}
+
+	.m-project:hover {
+		background: var(--m-elevated);
+		border-color: var(--m-border-hover);
+		transform: translateY(-2px);
+		box-shadow:
+			0 8px 32px rgba(0, 0, 0, 0.2),
+			0 0 0 1px var(--m-border-hover);
+	}
+
+	.m-project:hover::before {
+		opacity: 1;
+	}
+
+	.m-project-tag {
+		font-family: var(--m-display);
+		font-size: 0.52rem;
+		font-weight: 600;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--m-text-muted);
+		margin-bottom: 0.85rem;
+		transition: color 0.35s ease;
+	}
+
+	.m-project:hover .m-project-tag {
+		color: var(--m-blue);
+	}
+
+	.m-project-title {
+		font-family: var(--m-display);
+		font-size: 1.12rem;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--m-text);
+		margin: 0 0 0.65rem;
+	}
+
+	.m-project-desc {
+		font-family: var(--m-body);
+		font-size: 0.84rem;
+		font-weight: 300;
+		line-height: 1.7;
+		color: var(--m-text-secondary);
+	}
+
+	.m-project-arrow {
+		display: inline-block;
+		font-size: 0.9rem;
+		color: var(--m-text-muted);
+		margin-top: 1.25rem;
+		transition:
+			transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+			color 0.3s ease;
+	}
+
+	.m-project:hover .m-project-arrow {
+		transform: translateX(6px);
+		color: var(--m-blue);
+	}
+
+	@media (max-width: 768px) {
+		.m-projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

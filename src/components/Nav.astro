@@ -1,0 +1,133 @@
+---
+import { NAV } from "@/site.config";
+---
+
+<div class="m-nav-bar">
+	<nav class="m-nav">
+		<div class="m-nav-left">
+			<a href="/" class="m-nav-monogram">DDL</a>
+			<span class="m-nav-status">
+				<span class="m-nav-dot"></span>
+				London, UK
+			</span>
+		</div>
+		<ul class="m-nav-links">
+			{NAV.map((item) => (
+				<li><a href={item.href}>{item.name}</a></li>
+			))}
+		</ul>
+	</nav>
+</div>
+
+<style>
+	.m-nav-bar {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: rgba(11, 9, 14, 0.82);
+		backdrop-filter: blur(16px) saturate(1.2);
+		-webkit-backdrop-filter: blur(16px) saturate(1.2);
+		border-bottom: 1px solid var(--m-border);
+	}
+
+	.m-nav {
+		max-width: var(--m-content);
+		margin: 0 auto;
+		padding: 1rem var(--m-gutter);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.m-nav-left {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.m-nav-monogram {
+		font-family: var(--m-display);
+		font-size: 1.15rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		color: var(--m-text);
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.m-nav-monogram:hover {
+		color: var(--m-blue);
+	}
+
+	.m-nav-status {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-size: 0.58rem;
+		font-weight: 300;
+		color: var(--m-text-muted);
+		letter-spacing: 0.06em;
+	}
+
+	.m-nav-dot {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--m-blue);
+		box-shadow: 0 0 6px rgba(74, 158, 158, 0.4);
+		animation: m-pulse 3s ease-in-out infinite;
+	}
+
+	.m-nav-links {
+		display: flex;
+		gap: 2rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.m-nav-links a {
+		font-family: var(--m-body);
+		font-size: 0.75rem;
+		font-weight: 400;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--m-text-muted);
+		text-decoration: none;
+		transition: color 0.25s ease;
+		position: relative;
+	}
+
+	.m-nav-links a::after {
+		content: "";
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background: var(--m-blue);
+		transition: width 0.3s ease;
+	}
+
+	.m-nav-links a:hover {
+		color: var(--m-text);
+	}
+
+	.m-nav-links a:hover::after {
+		width: 100%;
+	}
+
+	@media (max-width: 768px) {
+		.m-nav-links {
+			gap: 1.25rem;
+		}
+
+		.m-nav-links a {
+			font-size: 0.68rem;
+		}
+
+		.m-nav-status {
+			display: none;
+		}
+	}
+</style>

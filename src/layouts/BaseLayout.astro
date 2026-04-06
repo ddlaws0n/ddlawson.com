@@ -1,0 +1,41 @@
+---
+import "@/assets/styles/base.css";
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import { SITE } from "@/site.config.ts";
+import type { MetaSEO } from "@/types";
+
+interface Props {
+    meta?: MetaSEO;
+}
+
+const { meta = {} } = Astro.props;
+const title = meta.title ?? SITE.title;
+const description = meta.description ?? SITE.description;
+---
+
+<!doctype html>
+<html
+    lang={SITE.language}
+    dir="ltr"
+    class="h-full scroll-smooth motion-reduce:scroll-auto"
+>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        {meta.canonical && <link rel="canonical" href={meta.canonical.toString()} />}
+        {meta.noindex && <meta name="robots" content={`${meta.noindex ? "noindex" : ""}${meta.nofollow ? ",nofollow" : ""}`} />}
+        <meta property="og:title" content={meta.ogTitle ?? title} />
+        <meta property="og:type" content={meta.ogType ?? "website"} />
+        {meta.image && <meta property="og:image" content={meta.image} />}
+        <Font cssVariable="--font-display" />
+        <Font cssVariable="--font-body" />
+        <ClientRouter />
+    </head>
+
+    <body>
+        <slot />
+    </body>
+</html>
