@@ -1,9 +1,10 @@
 ---
-import HeroImageFull from '@/assets/images/david-d-lawson-full.png';
+import altPhoto from '@/assets/images/david-d-lawson-alt.png';
 import Button from '@/components/Button.astro';
 import Divider from '@/components/Divider.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import PullQuote from '@/components/PullQuote.astro';
 import SectionEyebrow from '@/components/SectionEyebrow.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
@@ -11,191 +12,350 @@ import { Image } from 'astro:assets';
 
 const meta = {
   title: 'About',
-  description: SITE.description,
+  description: 'The story behind DDL — customer success leader, AI tinkerer, and builder of things that matter.',
   canonical: SITE.origin + '/about',
 };
 ---
 
 <BaseLayout {meta}>
   <Header />
+  <main id="main-content">
+    <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="about-hero">
+      <div class="about-hero-text">
+        <p class="hero-eyebrow font-display text-caption font-semibold tracking-wide text-text-muted uppercase">
+          The Story
+        </p>
 
-  <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
-  <section class="relative min-h-screen overflow-hidden bg-bg">
-    <div class="grid h-full min-h-screen grid-cols-[1fr_1fr] max-lg:grid-cols-1">
-      <!-- Photo side -->
-      <div class="relative min-h-[60vh] overflow-hidden max-lg:order-1 max-lg:h-[65vw] max-lg:min-h-0">
-        <!-- Blue glow underneath photo -->
-        <div class="z-raised absolute right-0 bottom-0 left-0 h-1/3 bg-gradient-to-t from-accent/20 to-transparent">
-        </div>
-        <!-- Fade to bg at bottom -->
-        <div class="absolute right-0 bottom-0 left-0 z-20 h-2/5 bg-gradient-to-t from-bg to-transparent"></div>
-        <!-- Right edge fade -->
-        <div class="z-raised absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-bg to-transparent max-lg:hidden">
-        </div>
+        <h1
+          class="mt-6 font-display text-hero leading-[0.92] font-extrabold text-text"
+          style="letter-spacing: var(--tracking-hero);"
+        >
+          <span class="line line-1">Behind</span>
+          <span class="line line-2">The Work</span>
+        </h1>
+
+        <div class="hero-rule my-10 h-0.5 w-[100px] bg-accent"></div>
+
+        <p class="hero-desc max-w-[38ch] font-body text-body-lg leading-relaxed font-light text-text-secondary">
+          I build trust between companies and the people who bet on their products. Everything else is just context.
+        </p>
+      </div>
+
+      <div class="about-hero-photo">
         <Image
-          src={HeroImageFull}
-          alt="David D Lawson"
-          format="webp"
-          width={900}
-          height={1200}
-          class="h-full w-full object-cover object-top"
+          src={altPhoto}
+          alt="David D. Lawson"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 900px) 100vw, 45vw"
+          loading="eager"
+          class="about-hero-img"
         />
+        <div class="photo-glow"></div>
+        <div class="photo-fade-bottom"></div>
+        <div class="photo-fade-left"></div>
       </div>
+    </section>
 
-      <!-- Text side -->
-      <div
-        class="relative flex flex-col justify-center px-16 py-32 max-lg:order-2 max-lg:px-8 max-lg:py-16 max-sm:px-6 max-sm:py-12"
-      >
-        <div class="z-raised relative">
-          <!-- Eyebrow -->
-          <div class="animate-fade-up opacity-0" style="animation-delay: 100ms; animation-fill-mode: forwards;">
-            <SectionEyebrow text="The Story So Far" />
-          </div>
+    <Divider />
 
-          <!-- Name -->
-          <h1
-            class="mt-4 animate-fade-up font-display text-display leading-[0.92] font-extrabold text-text opacity-0"
-            style="animation-delay: 250ms; animation-fill-mode: forwards;"
-          >
-            David D.<br />Lawson
-          </h1>
-
-          <!-- Accent rule -->
+    <!-- ─── The Story ────────────────────────────────────────────────────── -->
+    <section
+      id="story"
+      class="relative bg-surface py-24 max-sm:py-16"
+      style="padding-left: 4.5rem; padding-right: 3rem;"
+    >
+      <SectionEyebrow text="Background" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        <div class="grid grid-cols-[1.2fr_0.8fr] items-start gap-20 max-lg:grid-cols-1 max-lg:gap-12">
+          <!-- Narrative -->
           <div
-            class="mt-8 h-px w-[100px] animate-fade-up bg-accent opacity-0"
-            style="animation-delay: 400ms; animation-fill-mode: forwards;"
+            class="reveal space-y-6 font-body text-body leading-[1.85] font-light text-text-secondary"
+            style="font-size: 1.02rem;"
           >
+            <p>
+              I've spent the last decade in B2B SaaS learning one uncomfortable truth: the distance between a great
+              product and a churned customer is almost always a human problem, not a technical one.
+            </p>
+            <p>
+              Today I lead Technical Account Management EMEA at <strong class="font-medium text-text">Wiz</strong> — the
+              cloud security company that went from zero to $100M ARR faster than anyone thought possible. Before that, I
+              cut my teeth at <strong class="font-medium text-text">Veracode</strong>, <strong
+                class="font-medium text-text">Lacework</strong
+              >, and a handful of companies where I learned that customer success isn't a department. It's a belief
+              system.
+            </p>
+            <p>
+              What keeps me up at night isn't quotas or renewal cycles. It's the gap between what technology can do and
+              what most people actually get out of it. Closing that gap — that's the work I care about.
+            </p>
           </div>
 
-          <!-- Location -->
-          <p
-            class="mt-6 animate-fade-up font-body text-caption tracking-widest text-text-muted uppercase opacity-0"
-            style="animation-delay: 550ms; animation-fill-mode: forwards;"
+          <!-- Sidebar callout -->
+          <div class="reveal">
+            <div class="border-l-2 border-accent/30 pl-8">
+              <span
+                class="block font-display text-[clamp(3rem,5vw,4.5rem)] leading-[0.88] font-extrabold text-text opacity-watermark"
+                >London</span
+              >
+              <span class="block font-display text-[clamp(3rem,5vw,4.5rem)] leading-[0.88] font-extrabold text-text"
+                >Based</span
+              >
+              <div class="mt-6 h-px w-12 bg-accent"></div>
+              <p class="mt-5 font-body text-small leading-relaxed font-light text-text-muted">
+                Originally from the States. Moved to London for the challenge, stayed for the culture.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pull Quote -->
+    <PullQuote
+      quote="The gap between a great product and a successful customer is someone who gives a damn."
+      attribution="DDL"
+    />
+
+    <!-- ─── Off the Clock ────────────────────────────────────────────────── -->
+    <section id="beyond" class="relative bg-bg py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+      <SectionEyebrow text="Off the Clock" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        <div class="grid grid-cols-[1fr_1fr] gap-px bg-border max-lg:grid-cols-1">
+          <!-- AI & Building -->
+          <div class="reveal bg-bg p-10 max-sm:p-6">
+            <span
+              class="mb-6 block font-display text-ghost leading-none font-extrabold text-text opacity-ghost"
+              aria-hidden="true">01</span
+            >
+            <h3 class="font-display text-heading font-bold text-text">AI Obsessive</h3>
+            <div class="mt-4 h-px w-8 bg-accent"></div>
+            <p
+              class="mt-5 font-body text-body leading-[1.85] font-light text-text-secondary"
+              style="font-size: 1.02rem;"
+            >
+              I spend more time talking to language models than most people spend on social media. Not because I think
+              AI will replace everything — but because I think the people who learn to think alongside it will build
+              things the rest of us can't imagine yet. This site? Built with Claude.
+            </p>
+          </div>
+
+          <!-- Writing -->
+          <div class="reveal bg-bg p-10 max-sm:p-6">
+            <span
+              class="mb-6 block font-display text-ghost leading-none font-extrabold text-text opacity-ghost"
+              aria-hidden="true">02</span
+            >
+            <h3 class="font-display text-heading font-bold text-text">Writer</h3>
+            <div class="mt-4 h-px w-8 bg-accent"></div>
+            <p
+              class="mt-5 font-body text-body leading-[1.85] font-light text-text-secondary"
+              style="font-size: 1.02rem;"
+            >
+              I write to think. Most of it ends up on this site — thoughts on technology, customer success, and the
+              messy intersection of the two. The internet is the most leveraged desk ever built. Might as well use it.
+            </p>
+          </div>
+
+          <!-- Fitness / Active -->
+          <div class="reveal bg-bg p-10 max-sm:p-6">
+            <span
+              class="mb-6 block font-display text-ghost leading-none font-extrabold text-text opacity-ghost"
+              aria-hidden="true">03</span
+            >
+            <h3 class="font-display text-heading font-bold text-text">Moving</h3>
+            <div class="mt-4 h-px w-8 bg-accent"></div>
+            <p
+              class="mt-5 font-body text-body leading-[1.85] font-light text-text-secondary"
+              style="font-size: 1.02rem;"
+            >
+              Gym before the laptop opens, no exceptions. Somewhere between discipline and therapy. London is a good
+              city for walking and thinking, which is most of what I do when I'm not at a screen.
+            </p>
+          </div>
+
+          <!-- Building -->
+          <div class="reveal bg-bg p-10 max-sm:p-6">
+            <span
+              class="mb-6 block font-display text-ghost leading-none font-extrabold text-text opacity-ghost"
+              aria-hidden="true">04</span
+            >
+            <h3 class="font-display text-heading font-bold text-text">Tinkerer</h3>
+            <div class="mt-4 h-px w-8 bg-accent"></div>
+            <p
+              class="mt-5 font-body text-body leading-[1.85] font-light text-text-secondary"
+              style="font-size: 1.02rem;"
+            >
+              I like making things from scratch — websites, tools, side projects that may never ship. The joy isn't in
+              the finished product. It's in the moment something that didn't exist starts working.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Divider />
+
+    <!-- ─── Connect ──────────────────────────────────────────────────────── -->
+    <section
+      id="connect"
+      class="relative bg-surface py-24 max-sm:py-16"
+      style="padding-left: 4.5rem; padding-right: 3rem;"
+    >
+      <SectionEyebrow text="Connect" sideways />
+      <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
+        <div class="reveal">
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-watermark"
+            >Let's</span
           >
-            London, United Kingdom
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text">Talk</span>
+        </div>
+        <div class="reveal max-w-narrow">
+          <p class="font-body font-light text-text-secondary" style="font-size: 1.02rem; line-height: 1.8;">
+            Whether it's about customer success, AI, building something interesting, or just swapping notes — I'm always
+            up for a good conversation.
           </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <Button title="Get In Touch" link="/contact" variant="primary" size="lg" icon="tabler:mail" />
+            <Button title="Read My Writing" link="/writing" variant="outline" size="lg" icon="tabler:pencil" />
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ─── Bio ──────────────────────────────────────────────────────────── -->
-  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="Background" sideways />
-    <div class="grid grid-cols-[1fr_1.4fr] items-start gap-20 pl-12 max-lg:grid-cols-1 max-lg:gap-10 max-lg:pl-0">
-      <!-- Pull quote -->
-      <div class="reveal">
-        <blockquote class="font-display text-heading leading-snug font-bold text-text italic">
-          "I believe every problem presents an opportunity."
-        </blockquote>
-        <div class="mt-6 h-px w-16 bg-accent"></div>
-      </div>
-
-      <!-- Bio paragraphs -->
-      <div class="reveal space-y-6 font-body text-body leading-relaxed font-light text-text-secondary">
-        <p>
-          Customer Success leader at <strong class="font-semibold text-text">Wiz</strong> — the cloud security company rewriting
-          how enterprises think about risk.
-        </p>
-        <p>
-          Before Wiz: navigating the messy, human side of B2B SaaS adoption at scale across <strong
-            class="font-semibold text-text">Veracode</strong
-          >, <strong class="font-semibold text-text">Lacework</strong>, and <strong class="font-semibold text-text"
-            >Finalsite</strong
-          >.
-        </p>
-        <p>
-          Outside work, I chase the edges of what AI makes possible — building tools, writing about what I learn, and
-          trying to leave something useful behind.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ─── Stats ribbon ──────────────────────────────────────────────────── -->
-  <section class="bg-bg py-16">
-    <div class="px-12 max-sm:px-6">
-      <div class="grid grid-cols-4 divide-x divide-border max-md:grid-cols-2 max-md:gap-y-10 max-md:divide-x-0">
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
-          <span class="font-display text-heading font-extrabold text-text">10+</span>
-          <span class="font-body text-caption tracking-widest text-text-muted uppercase">Years in SaaS</span>
-        </div>
-
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
-          <span class="font-display text-heading font-extrabold text-text">5</span>
-          <span class="font-body text-caption tracking-widest text-text-muted uppercase">Companies</span>
-        </div>
-
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
-          <span class="font-display text-heading font-extrabold text-text">Cloud Security</span>
-          <span class="font-body text-caption tracking-widest text-text-muted uppercase">Current Focus</span>
-        </div>
-
-        <div class="reveal flex flex-col items-center gap-2 px-8 text-center max-md:px-4">
-          <span class="font-display text-heading font-extrabold text-text">London</span>
-          <span class="font-body text-caption tracking-widest text-text-muted uppercase">Based In</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ─── Interests ─────────────────────────────────────────────────────── -->
-  <section class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="Beyond Work" sideways />
-    <div class="pl-12 max-lg:pl-0">
-      <div class="grid grid-cols-3 gap-12 max-lg:grid-cols-1 max-lg:gap-8">
-        <div class="reveal">
-          <span class="mb-4 block font-body text-caption font-semibold tracking-widest text-accent uppercase">01</span>
-          <h3 class="font-display text-subheading font-bold text-text">AI & LLMs</h3>
-          <div class="mt-3 h-px w-8 bg-border"></div>
-          <p class="mt-5 font-body text-body leading-relaxed font-light text-text-secondary">
-            Experimenting with language models daily. Not to automate, but to think faster and build better.
-          </p>
-        </div>
-
-        <div class="reveal">
-          <span class="mb-4 block font-body text-caption font-semibold tracking-widest text-accent uppercase">02</span>
-          <h3 class="font-display text-subheading font-bold text-text">Writing</h3>
-          <div class="mt-3 h-px w-8 bg-border"></div>
-          <p class="mt-5 font-body text-body leading-relaxed font-light text-text-secondary">
-            500 words a day. The internet is the most leveraged writing desk ever built.
-          </p>
-        </div>
-
-        <div class="reveal">
-          <span class="mb-4 block font-body text-caption font-semibold tracking-widest text-accent uppercase">03</span>
-          <h3 class="font-display text-subheading font-bold text-text">Building Things</h3>
-          <div class="mt-3 h-px w-8 bg-border"></div>
-          <p class="mt-5 font-body text-body leading-relaxed font-light text-text-secondary">
-            From this website to small tools — the joy is in making something from nothing.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <Divider />
-
-  <!-- ─── CTA ───────────────────────────────────────────────────────────── -->
-  <section class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <div class="reveal max-w-narrow pl-12 max-lg:pl-0">
-      <h2 class="font-display text-display leading-[0.92] font-extrabold text-text">Let's Connect</h2>
-      <div class="mt-6 h-px w-[100px] bg-accent"></div>
-      <p class="mt-8 font-body text-body leading-relaxed font-light text-text-secondary">
-        I'm always open to conversations about technology, customer success, or interesting ideas.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-4">
-        <Button title="Get In Touch" link="/contact" variant="primary" size="lg" icon="tabler:mail" />
-        <Button title="View My Work" link="/work" variant="outline" size="lg" icon="tabler:briefcase" />
-      </div>
-    </div>
-  </section>
-
+    </section>
+  </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  /* ——— Hero layout ——— */
+  .about-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-hero-text {
+    padding: 0 4rem 6rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
+  }
+
+  .about-hero-photo {
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .about-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    mask-image: linear-gradient(to right, transparent, black 30%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+  }
+
+  .photo-glow {
+    position: absolute;
+    bottom: -10%;
+    left: 10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(74, 127, 212, 0.06) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .photo-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background-color: var(--color-bg);
+    mask-image: linear-gradient(to top, black, transparent);
+    -webkit-mask-image: linear-gradient(to top, black, transparent);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .photo-fade-left {
+    position: absolute;
+    inset: 0;
+    width: 35%;
+    background-color: var(--color-bg);
+    mask-image: linear-gradient(to right, black, transparent);
+    -webkit-mask-image: linear-gradient(to right, black, transparent);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ——— Hero animations ——— */
+  .hero-eyebrow {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.15s;
+  }
+
+  .line {
+    display: block;
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .line-1 {
+    animation-delay: 0.25s;
+  }
+  .line-2 {
+    animation-delay: 0.42s;
+  }
+
+  .hero-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: scaleIn 0.5s ease forwards;
+    animation-delay: 0.7s;
+  }
+
+  .hero-desc {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.85s;
+  }
+
+  /* ——— Responsive ——— */
+  @media (max-width: 900px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .about-hero-text {
+      padding: 4rem 1.5rem 3rem;
+      order: 2;
+    }
+
+    .about-hero-photo {
+      order: 1;
+      max-height: 50vh;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #story,
+    #beyond,
+    #connect {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+  }
+</style>

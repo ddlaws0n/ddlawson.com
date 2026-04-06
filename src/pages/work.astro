@@ -3,14 +3,15 @@ import Button from '@/components/Button.astro';
 import Divider from '@/components/Divider.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import PullQuote from '@/components/PullQuote.astro';
 import SectionEyebrow from '@/components/SectionEyebrow.astro';
 import { workExperienceData } from '@/data/workExperience';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SITE } from '@/site.config';
 
 const meta = {
-  title: 'Work Experience',
-  description: 'Professional experience and career journey of David D Lawson',
+  title: 'Work',
+  description: 'A decade of building trust between technology and the people who depend on it.',
   canonical: SITE.origin + '/work',
 };
 
@@ -21,134 +22,273 @@ function formatRoleDate(dateStr: string): string {
   return date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
 }
 
+// Company narrative blurbs — the human story behind each stop
+const companyNarratives: Record<string, string> = {
+  wiz: 'The rocket ship. Joined pre-IPO to help enterprise customers make sense of cloud security at a company that went from zero to $100M ARR faster than anyone thought possible. Grew from IC to leading the EMEA TAM function.',
+  veracode:
+    'Where I learned that customer success is a craft, not a role. Four roles in three years — from managing security programs to leading teams and reimagining how a mature company engages its customers.',
+  lacework:
+    'A short chapter during a turbulent time for the company. Enough to sharpen my thinking on what makes customer success work at hypergrowth startups — and what breaks.',
+  finalsite:
+    'My entry into London and into SaaS. Delivered 20+ website projects for schools, learned the rhythm of client work, and discovered that the best project management is really just empathy on a deadline.',
+  'nila-expeditions':
+    'The origin story. Co-founded a bespoke travel company in Italy, built the tech from scratch, and learned that when you own the whole stack — product, marketing, operations — you see the business differently.',
+};
+
 const linkedInUrl =
   SITE.socialShares.find((s) => s.ariaLabel === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/';
 ---
 
 <BaseLayout {meta}>
   <Header />
+  <main id="main-content">
+    <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="work-hero">
+      <div class="work-hero-text">
+        <p class="hero-eyebrow font-display text-caption font-semibold tracking-wide text-text-muted uppercase">
+          Professional Journey
+        </p>
 
-  <!-- Hero Header -->
-  <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-20">
-    <div class="max-w-content relative mx-auto">
-      <SectionEyebrow text="Professional Journey" />
-      <div class="reveal mt-4">
-        <span
-          class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text opacity-watermark"
-          >The</span
+        <h1
+          class="mt-6 font-display text-hero leading-[0.92] font-extrabold text-text"
+          style="letter-spacing: var(--tracking-hero);"
         >
-        <span class="block font-display text-[clamp(4rem,8vw,9rem)] leading-[0.88] font-extrabold text-text"
-          >Chronicle</span
-        >
+          <span class="line line-1">The</span>
+          <span class="line line-2">Chronicle</span>
+        </h1>
+
+        <div class="hero-rule my-10 h-0.5 w-[100px] bg-accent"></div>
+
+        <p class="hero-desc max-w-[40ch] font-body text-body-lg leading-relaxed font-light text-text-secondary">
+          A decade of building trust between technology and the people who depend on it. Five companies. One thread.
+        </p>
       </div>
-      <p class="reveal max-w-narrow mt-8 font-body text-body leading-relaxed font-light text-text-secondary">
-        A career built at the intersection of technology and human outcomes.
-      </p>
-    </div>
-  </section>
 
-  <Divider />
+      <!-- Ghost year range -->
+      <div class="work-hero-aside" aria-hidden="true">
+        <span class="font-display text-ghost leading-none font-extrabold text-text opacity-ghost">2017</span>
+        <div class="mx-4 h-px flex-1 bg-border"></div>
+        <span class="font-display text-ghost leading-none font-extrabold text-text opacity-ghost">Now</span>
+      </div>
+    </section>
 
-  <!-- Company Chapters -->
-  {
-    workExperienceData.map((company, index) => {
-      const chapterNum = String(index + 1).padStart(2, '0');
-      const isEven = index % 2 === 1;
+    <Divider />
 
-      return (
-        <section
-          class:list={[
-            'reveal relative border-l-2 border-accent/20 px-12 py-24 max-sm:px-6 max-sm:py-16',
-            isEven ? 'bg-surface' : 'bg-bg',
-          ]}
-        >
-          <div class="max-w-content relative mx-auto">
-            {/* Ghost chapter number */}
-            <span
-              class="pointer-events-none absolute -top-4 -left-4 font-display text-ghost leading-none font-extrabold text-text opacity-ghost select-none"
-              aria-hidden="true"
+    <!-- ─── Company Sections ─────────────────────────────────────────────── -->
+    {
+      workExperienceData.map((company, index) => {
+        const isEven = index % 2 === 1;
+        const narrative = companyNarratives[company.companyId] ?? '';
+        const chapterNum = String(index + 1).padStart(2, '0');
+
+        return (
+          <>
+            <section
+              id={company.companyId}
+              class:list={['relative py-24 max-sm:py-16', isEven ? 'bg-surface' : 'bg-bg']}
+              style="padding-left: 4.5rem; padding-right: 3rem;"
             >
-              {chapterNum}
-            </span>
+              <SectionEyebrow text={company.company} sideways />
 
-            {/* Company header */}
-            <div class="relative mb-10 flex flex-wrap items-center gap-4">
-              {company.logoUrl && (
-                <img
-                  src={company.logoUrl}
-                  alt={`${company.company} logo`}
-                  class="h-8 w-auto object-contain opacity-80"
-                  loading="lazy"
-                />
-              )}
-              <div>
-                <h2 class="font-display text-heading font-semibold text-text">{company.company}</h2>
-                <p class="text-caption text-text-muted">{company.location}</p>
-              </div>
-            </div>
-
-            {/* Roles list */}
-            <div class="flex flex-col gap-6">
-              {company.roles.map((role) => (
-                <div class="rounded-lg border border-border bg-elevated p-8 max-sm:p-5">
-                  <div class="mb-4 flex flex-wrap items-start justify-between gap-2">
-                    <h3 class="font-display text-subheading font-semibold text-text">{role.title}</h3>
-                    <span class="shrink-0 text-caption text-accent">
-                      {formatRoleDate(role.start_date)} — {formatRoleDate(role.end_date)}
+              <div class="pl-12 max-lg:pl-0">
+                {/* Company header with narrative */}
+                <div class="reveal mb-16 grid grid-cols-[0.8fr_1.2fr] items-start gap-20 max-lg:grid-cols-1 max-lg:gap-8">
+                  {/* Left — Company identity */}
+                  <div>
+                    <span
+                      class="pointer-events-none block font-display text-ghost leading-none font-extrabold text-text opacity-ghost select-none"
+                      aria-hidden="true"
+                    >
+                      {chapterNum}
                     </span>
+                    <div class="mt-4 flex items-center gap-4">
+                      {company.logoUrl && (
+                        <img
+                          src={company.logoUrl}
+                          alt={`${company.company} logo`}
+                          class="h-7 w-auto object-contain opacity-70"
+                          loading="lazy"
+                        />
+                      )}
+                      <div>
+                        <h2 class="font-display text-heading font-semibold text-text">{company.company}</h2>
+                        <p class="mt-1 font-body text-caption tracking-widest text-text-muted uppercase">
+                          {company.location}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
-                  {role.responsibilities && role.responsibilities.length > 0 && (
-                    <ul class="mb-5 flex flex-col gap-1.5">
-                      {role.responsibilities.map((item) => (
-                        <li class="flex gap-2 text-small text-text-secondary">
-                          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" aria-hidden="true" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {role.achievements && role.achievements.length > 0 && (
-                    <div>
-                      <p class="mb-2 text-caption font-semibold tracking-widest text-text-muted uppercase">
-                        Key Achievements
-                      </p>
-                      <ul class="flex flex-col gap-1.5">
-                        {role.achievements.map((item) => (
-                          <li class="flex gap-2 text-small text-text-secondary">
-                            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                            <span set:html={item} />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {/* Right — Narrative blurb */}
+                  <div>
+                    <p
+                      class="font-body text-body leading-[1.85] font-light text-text-secondary"
+                      style="font-size: 1.02rem;"
+                    >
+                      {narrative}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Roles grid — 1px gap pattern */}
+                <div class="grid grid-cols-1 gap-px bg-border max-lg:gap-px">
+                  {company.roles.map((role) => (
+                    <div
+                      class="reveal bg-[var(--role-bg)] p-8 max-sm:p-5"
+                      style={`--role-bg: var(--color-${isEven ? 'surface' : 'bg'})`}
+                    >
+                      <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                        <h3 class="font-display text-subheading font-semibold text-text">{role.title}</h3>
+                        <span class="shrink-0 font-body text-caption tracking-widest text-accent uppercase">
+                          {formatRoleDate(role.start_date)} — {formatRoleDate(role.end_date)}
+                        </span>
+                      </div>
+
+                      {role.achievements && role.achievements.length > 0 && (
+                        <ul class="mt-5 flex flex-col gap-2">
+                          {role.achievements.map((item) => (
+                            <li class="flex gap-3 font-body text-small leading-relaxed font-light text-text-secondary">
+                              <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                              <span set:html={item} />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Pull quote after Wiz section */}
+            {index === 0 && (
+              <PullQuote quote="Customer success isn't a department. It's a belief system." attribution="DDL" />
+            )}
+
+            {/* Divider between remaining sections */}
+            {index > 0 && index < workExperienceData.length - 1 && <Divider />}
+          </>
+        );
+      })
+    }
+
+    <Divider />
+
+    <!-- ─── CTA ──────────────────────────────────────────────────────────── -->
+    <section id="cta" class="relative bg-surface py-24 max-sm:py-16" style="padding-left: 4.5rem; padding-right: 3rem;">
+      <SectionEyebrow text="Connect" sideways />
+      <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
+        <div class="reveal">
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-watermark"
+            >The</span
+          >
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text">Full Picture</span>
+        </div>
+        <div class="reveal max-w-narrow">
+          <p class="font-body font-light text-text-secondary" style="font-size: 1.02rem; line-height: 1.8;">
+            This page tells the story. LinkedIn has the details — endorsements, connections, and the rest of the
+            professional paper trail.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <Button
+              title="View LinkedIn"
+              link={linkedInUrl}
+              variant="primary"
+              size="lg"
+              icon="tabler:brand-linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              umami="linkedin-connect-work"
+            />
+            <Button title="Get In Touch" link="/contact" variant="outline" size="lg" icon="tabler:mail" />
           </div>
-        </section>
-      );
-    })
-  }
-
-  <!-- CTA Footer -->
-  <section class="bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <div class="reveal max-w-content mx-auto flex flex-col items-start gap-6">
-      <p class="font-display text-heading font-semibold text-text">Want the full picture?</p>
-      <Button
-        title="View LinkedIn Profile"
-        link={linkedInUrl}
-        variant="primary"
-        size="lg"
-        icon="tabler:brand-linkedin"
-        target="_blank"
-        rel="noopener noreferrer"
-        umami="linkedin-connect-work"
-      />
-    </div>
-  </section>
-
+        </div>
+      </div>
+    </section>
+  </main>
   <Footer />
 </BaseLayout>
+
+<style>
+  /* ——— Hero layout ——— */
+  .work-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    padding: 0 3rem 5rem 3rem;
+  }
+
+  .work-hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .work-hero-aside {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: absolute;
+    bottom: 5rem;
+    right: 3rem;
+    width: 280px;
+    pointer-events: none;
+  }
+
+  /* ——— Hero animations ——— */
+  .hero-eyebrow {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.15s;
+  }
+
+  .line {
+    display: block;
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .line-1 {
+    animation-delay: 0.25s;
+  }
+  .line-2 {
+    animation-delay: 0.42s;
+  }
+
+  .hero-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: scaleIn 0.5s ease forwards;
+    animation-delay: 0.7s;
+  }
+
+  .hero-desc {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.85s;
+  }
+
+  /* ——— Responsive ——— */
+  @media (max-width: 900px) {
+    .work-hero {
+      min-height: 70vh;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    .work-hero-aside {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    section[id] {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+  }
+</style>
