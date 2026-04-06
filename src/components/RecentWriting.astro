@@ -9,132 +9,19 @@ const posts = [
 
 <section class="m-section m-reveal" id="writing">
 	<div class="m-label">
-		<span class="m-label-text">Recent Writing</span>
-		<div class="m-label-line"></div>
+		<span class="font-display text-[0.6rem] font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap">Recent Writing</span>
+		<div class="flex-1 h-px bg-gradient-to-r from-border-hover to-transparent/80"></div>
 	</div>
 
-	<div class="m-posts">
-		{posts.map((post) => (
-			<a href="#" class="m-post">
-				<span class="m-post-date">{post.date}</span>
-				<span class="m-post-title">{post.title}</span>
-				<span class="m-post-tag">{post.tag}</span>
+	<div class="flex flex-col">
+		{posts.map((post, i) => (
+			<a href="#" class:list={["post group grid grid-cols-[88px_1fr_auto] gap-7 items-center py-5 px-5 border-b border-border no-underline text-inherit transition-all duration-250 -mx-5 rounded-sm hover:bg-blue-ghost hover:border-b-transparent max-md:grid-cols-1 max-md:gap-1", i === 0 && "border-t"]}>
+				<span class="font-display text-[0.68rem] font-normal text-text-muted tracking-[0.02em] transition-colors duration-250 group-hover:text-blue max-md:order-2">{post.date}</span>
+				<span class="font-body text-[0.95rem] font-normal text-text transition-colors duration-250 group-hover:text-blue-bright">{post.title}</span>
+				<span class="font-display text-[0.52rem] font-medium tracking-[0.14em] uppercase text-text-muted border border-border py-[0.2rem] px-[0.55rem] rounded-sm transition-all duration-250 group-hover:border-blue-ring group-hover:text-blue-muted max-md:hidden">{post.tag}</span>
 			</a>
 		))}
 	</div>
 
-	<a href="/writing" class="m-view-all">View all <span>&rarr;</span></a>
+	<a href="/writing" class="inline-flex items-center gap-2 mt-7 text-[0.8rem] font-normal text-blue no-underline transition-all duration-300 hover:gap-3 hover:text-blue-bright">View all <span>&rarr;</span></a>
 </section>
-
-<style>
-	.m-posts {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.m-post {
-		display: grid;
-		grid-template-columns: 88px 1fr auto;
-		gap: 1.75rem;
-		align-items: center;
-		padding: 1.25rem 1.25rem;
-		border-bottom: 1px solid var(--m-border);
-		text-decoration: none;
-		color: inherit;
-		transition: all 0.25s ease;
-		margin: 0 -1.25rem;
-		border-radius: 3px;
-	}
-
-	.m-post:first-child {
-		border-top: 1px solid var(--m-border);
-	}
-
-	.m-post:hover {
-		background: var(--m-blue-ghost);
-		border-bottom-color: transparent;
-	}
-
-	.m-post:hover + .m-post {
-		border-top-color: transparent;
-	}
-
-	.m-post-date {
-		font-family: var(--m-display);
-		font-size: 0.68rem;
-		font-weight: 400;
-		color: var(--m-text-muted);
-		letter-spacing: 0.02em;
-		transition: color 0.25s ease;
-	}
-
-	.m-post-title {
-		font-family: var(--m-body);
-		font-size: 0.95rem;
-		font-weight: 400;
-		color: var(--m-text);
-		transition: color 0.25s ease;
-	}
-
-	.m-post:hover .m-post-title {
-		color: var(--m-blue-bright);
-	}
-
-	.m-post:hover .m-post-date {
-		color: var(--m-blue);
-	}
-
-	.m-post-tag {
-		font-family: var(--m-display);
-		font-size: 0.52rem;
-		font-weight: 500;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--m-text-muted);
-		border: 1px solid var(--m-border);
-		padding: 0.2rem 0.55rem;
-		border-radius: 2px;
-		transition:
-			border-color 0.25s ease,
-			color 0.25s ease;
-	}
-
-	.m-post:hover .m-post-tag {
-		border-color: var(--m-blue-ring);
-		color: var(--m-blue-muted);
-	}
-
-	.m-view-all {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 1.75rem;
-		font-size: 0.8rem;
-		font-weight: 400;
-		color: var(--m-blue);
-		text-decoration: none;
-		transition:
-			gap 0.3s ease,
-			color 0.3s ease;
-	}
-
-	.m-view-all:hover {
-		gap: 0.75rem;
-		color: var(--m-blue-bright);
-	}
-
-	@media (max-width: 768px) {
-		.m-post {
-			grid-template-columns: 1fr;
-			gap: 0.25rem;
-		}
-
-		.m-post-date {
-			order: 2;
-		}
-
-		.m-post-tag {
-			display: none;
-		}
-	}
-</style>

@@ -21,105 +21,38 @@ const beliefs = [
 
 <section class="m-section m-reveal">
 	<div class="m-label">
-		<span class="m-label-text">What I Believe</span>
-		<div class="m-label-line"></div>
+		<span class="font-display text-[0.6rem] font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap">What I Believe</span>
+		<div class="flex-1 h-px bg-gradient-to-r from-border-hover to-transparent/80"></div>
 	</div>
 
-	<div class="m-beliefs-grid">
+	<div class="grid grid-cols-2 gap-px bg-border max-md:grid-cols-1">
 		{beliefs.map((b, i) => (
-			<div class="m-belief">
-				<span class="m-belief-num">{String(i + 1).padStart(2, "0")}</span>
-				<h3 class="m-belief-title" set:html={b.title} />
-				<p class="m-belief-body">{b.body}</p>
+			<div class="belief group bg-bg p-11 relative overflow-hidden transition-colors duration-400 hover:bg-surface">
+				<span class="font-display text-[7rem] font-extralight leading-[0.75] text-text opacity-[0.02] absolute -top-2 right-3 pointer-events-none transition-opacity duration-400 group-hover:opacity-[0.04]">{String(i + 1).padStart(2, "0")}</span>
+				<h3 class="font-display text-[1.15rem] font-semibold leading-[1.35] text-text mb-3.5 relative" set:html={b.title} />
+				<p class="font-body text-[0.85rem] font-light leading-[1.75] text-text-muted relative transition-colors duration-400 group-hover:text-text-secondary">{b.body}</p>
 			</div>
 		))}
 	</div>
 </section>
 
 <style>
-	.m-beliefs-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1px;
-		background: var(--m-border);
-	}
-
-	.m-belief {
-		background: var(--m-bg);
-		padding: 2.75rem;
-		position: relative;
-		overflow: hidden;
-		transition: background 0.4s ease;
-	}
-
-	.m-belief::after {
+	.belief::after {
 		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 2px;
 		height: 0;
-		background: var(--m-blue);
+		background: var(--color-blue);
 		transition: height 0.4s ease;
 	}
 
-	.m-belief:hover {
-		background: var(--m-surface);
-	}
-
-	.m-belief:hover::after {
+	.belief:hover::after {
 		height: 100%;
 	}
 
-	.m-belief-num {
-		font-family: var(--m-display);
-		font-size: 7rem;
-		font-weight: 200;
-		line-height: 0.75;
-		color: var(--m-text);
-		opacity: 0.02;
-		position: absolute;
-		top: -0.5rem;
-		right: 0.75rem;
-		pointer-events: none;
-		transition: opacity 0.4s ease;
-	}
-
-	.m-belief:hover .m-belief-num {
-		opacity: 0.04;
-	}
-
-	.m-belief-title {
-		font-family: var(--m-display);
-		font-size: 1.15rem;
-		font-weight: 600;
-		line-height: 1.35;
-		color: var(--m-text);
-		margin-bottom: 0.85rem;
-		position: relative;
-	}
-
-	.m-belief-title :global(.accent) {
-		color: var(--m-blue);
-	}
-
-	.m-belief-body {
-		font-family: var(--m-body);
-		font-size: 0.85rem;
-		font-weight: 300;
-		line-height: 1.75;
-		color: var(--m-text-muted);
-		position: relative;
-		transition: color 0.4s ease;
-	}
-
-	.m-belief:hover .m-belief-body {
-		color: var(--m-text-secondary);
-	}
-
-	@media (max-width: 768px) {
-		.m-beliefs-grid {
-			grid-template-columns: 1fr;
-		}
+	.belief :global(.accent) {
+		color: var(--color-blue);
 	}
 </style>
