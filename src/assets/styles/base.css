@@ -5,22 +5,22 @@
 
 @theme {
   /* ——— Colors (OKLCH) ——— */
-  --color-bg: oklch(10.5% 0.012 290);
+  --color-bg: oklch(15.87% 0.0089 307.84);
   --color-surface: oklch(14% 0.014 290);
   --color-surface-hover: oklch(16.5% 0.013 290);
   --color-elevated: oklch(19% 0.015 290);
 
   --color-text: oklch(93% 0.008 290);
   --color-text-secondary: oklch(70% 0.015 290);
-  --color-text-muted: oklch(50% 0.014 290);
+  --color-text-muted: oklch(55% 0.014 290);
 
   --color-accent: oklch(58% 0.14 255);
   --color-accent-bright: oklch(65% 0.14 255);
   --color-accent-muted: oklch(47% 0.12 255);
   --color-accent-subtle: color-mix(in oklab, var(--color-accent) 8%, transparent);
 
-  --color-border: color-mix(in oklab, white 10%, transparent);
-  --color-border-hover: color-mix(in oklab, white 16%, transparent);
+  --color-border: color-mix(in oklab, white 6%, transparent);
+  --color-border-hover: color-mix(in oklab, white 12%, transparent);
 
   --color-ring: var(--color-accent);
   --color-ring-offset: var(--color-bg);
@@ -43,6 +43,7 @@
 
   /* ——— Letter spacing ——— */
   --tracking-tight: 0.08em;
+  --tracking-hero: -0.025em;
   --tracking-label: 0.18em;
   --tracking-wide: 0.25em;
 
@@ -89,6 +90,7 @@
   --animate-fade-up: fadeUp 0.7s ease forwards;
   --animate-scale-in: scaleIn 0.5s ease forwards;
   --animate-pulse-dot: pulse 2.5s ease-in-out infinite;
+  --animate-scan-sweep: scanSweep 4.5s 1.5s ease-in-out infinite;
 
   @keyframes clipReveal {
     from {
@@ -125,8 +127,29 @@
       transform: scale(1);
     }
     50% {
-      opacity: 0.6;
-      transform: scale(2.2);
+      opacity: 0.4;
+      transform: scale(2.5);
+    }
+  }
+
+  @keyframes scanSweep {
+    0% {
+      top: -2%;
+      opacity: 0;
+    }
+    5% {
+      opacity: 0.5;
+    }
+    45% {
+      opacity: 0.5;
+    }
+    50% {
+      top: 102%;
+      opacity: 0;
+    }
+    100% {
+      top: 102%;
+      opacity: 0;
     }
   }
 }
@@ -143,6 +166,24 @@
 .reveal.visible {
   opacity: 1;
   clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    clip-path: none;
+  }
+  .line,
+  .hero-eyebrow,
+  .hero-rule,
+  .hero-desc,
+  .hero-meta {
+    animation: none;
+    opacity: 1;
+    clip-path: none;
+    transform: none;
+  }
 }
 
 @layer components {
