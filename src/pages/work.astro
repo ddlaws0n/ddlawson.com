@@ -273,6 +273,18 @@ const linkedInUrl =
     animation-delay: 0.85s;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .line,
+    .hero-rule,
+    .hero-desc {
+      animation: none !important;
+      opacity: 1 !important;
+      clip-path: none !important;
+      transform: none !important;
+    }
+  }
+
   /* ——— Responsive ——— */
   @media (max-width: 900px) {
     .work-hero {

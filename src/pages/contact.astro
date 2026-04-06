@@ -319,6 +319,18 @@ if (isSuccess) {
     animation-delay: 0.75s;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .line,
+    .hero-rule,
+    .hero-desc {
+      animation: none !important;
+      opacity: 1 !important;
+      clip-path: none !important;
+      transform: none !important;
+    }
+  }
+
   @media (max-width: 900px) {
     .signal-grid {
       grid-template-columns: 1fr;

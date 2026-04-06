@@ -6,9 +6,9 @@
 @theme {
   /* ——— Colors (OKLCH) ——— */
   --color-bg: oklch(15.87% 0.0089 307.84);
-  --color-surface: oklch(14% 0.014 290);
-  --color-surface-hover: oklch(16.5% 0.013 290);
-  --color-elevated: oklch(19% 0.015 290);
+  --color-surface: oklch(19% 0.014 290);
+  --color-surface-hover: oklch(21.5% 0.013 290);
+  --color-elevated: oklch(24% 0.015 290);
 
   --color-text: oklch(93% 0.008 290);
   --color-text-secondary: oklch(70% 0.015 290);

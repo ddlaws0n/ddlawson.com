@@ -96,6 +96,18 @@ const { title, date, readingTime, tags } = Astro.props;
     animation-delay: 0.7s;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .line,
+    .hero-rule,
+    .hero-meta {
+      animation: none !important;
+      opacity: 1 !important;
+      clip-path: none !important;
+      transform: none !important;
+    }
+  }
+
   @media (max-width: 640px) {
     .article-hero {
       min-height: 40vh;
