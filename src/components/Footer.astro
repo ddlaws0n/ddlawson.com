@@ -6,6 +6,7 @@ const currentYear = new Date().getFullYear();
 const footerNav = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
+  { name: 'Work', href: '/work' },
   { name: 'Writing', href: '/writing' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -25,9 +26,7 @@ const footerNav = [
 
     <!-- Col 2: Navigate -->
     <div>
-      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase opacity-35">
-        Navigate
-      </p>
+      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase">Navigate</p>
       <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
         {
           footerNav.map(({ name, href }) => (
@@ -46,9 +45,7 @@ const footerNav = [
 
     <!-- Col 3: Elsewhere -->
     <div>
-      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase opacity-35">
-        Elsewhere
-      </p>
+      <p class="mb-5 font-display text-caption font-bold tracking-label text-text-muted uppercase">Elsewhere</p>
       <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
         {
           SOCIAL.map(({ link, ariaLabel }) => (
@@ -56,7 +53,7 @@ const footerNav = [
               <a
                 href={link}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 aria-label={ariaLabel}
                 class="flex min-h-[44px] items-center font-body text-small font-light text-text-muted no-underline transition-colors duration-200 hover:text-text"
               >
@@ -69,7 +66,7 @@ const footerNav = [
     </div>
 
     <!-- Copyright -->
-    <p class="col-span-full mt-4 font-body text-caption font-light tracking-tight text-text-muted opacity-25">
+    <p class="col-span-full mt-4 font-body text-caption font-light tracking-tight text-text-muted">
       &copy; {currentYear} David D. Lawson. All rights reserved.
     </p>
   </div>

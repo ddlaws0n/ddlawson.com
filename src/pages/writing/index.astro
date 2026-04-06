@@ -1,4 +1,5 @@
 ---
+import Divider from '@/components/Divider.astro';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import PostListItem from '@/components/PostListItem.astro';
@@ -24,102 +25,137 @@ const remainingPosts = blogPosts.slice(1);
 const allTags = Array.from(new Set(blogPosts.flatMap((p) => p.data.tags ?? [])));
 
 const meta = {
-  title: 'Writing — The Archive',
-  description: 'Thoughts on technology, customer success, AI, and building things.',
+  title: 'Writing',
+  description: 'Thinking out loud about technology, customer success, AI, and building things that matter.',
   canonical: SITE.origin + '/writing',
 };
 ---
 
 <BaseLayout {meta}>
   <Header />
+  <main id="main-content">
+    <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="writing-hero">
+      <div class="writing-hero-text">
+        <p class="hero-eyebrow font-display text-caption font-semibold tracking-wide text-text-muted uppercase">
+          The Archive
+        </p>
 
-  <!-- Hero Header -->
-  <section class="relative overflow-hidden bg-bg px-12 py-32 max-sm:px-6 max-sm:py-16">
-    <div class="max-w-content relative z-10">
-      <SectionEyebrow text="The Archive" />
-      <h1 class="mb-4 font-display text-display font-extrabold text-text">Writing</h1>
-      <p class="max-w-[55ch] font-body text-body text-text-secondary">
-        Thoughts on technology, customer success, AI, and building things.
-      </p>
-    </div>
-  </section>
+        <h1
+          class="mt-6 font-display text-hero leading-[0.92] font-extrabold text-text"
+          style="letter-spacing: var(--tracking-hero);"
+        >
+          <span class="line line-1 opacity-watermark">Every</span>
+          <span class="line line-2">Word</span>
+        </h1>
 
-  <!-- Featured Post -->
-  {
-    featuredPost && (
-      <section class="bg-surface px-12 py-16 max-sm:px-6 max-sm:py-10">
-        <div class="max-w-content">
-          <p class="mb-6 font-display text-caption font-semibold tracking-label text-text-muted uppercase">Latest</p>
-          <a href={`/writing/${featuredPost.id}`} class="reveal group block border-l-2 border-accent pl-8 max-sm:pl-5">
-            <h2 class="mb-3 font-display text-title leading-tight font-semibold text-text">
-              {featuredPost.data.title}
-            </h2>
-            <p class="mb-4 font-body text-caption text-text-muted">
-              {getFormattedDate(featuredPost.data.publishDate)}
-              {featuredPost.body && <span> · {getReadingTime(featuredPost.body)} min read</span>}
-            </p>
-            {featuredPost.data.description && (
-              <p class="mb-5 max-w-[60ch] font-body text-body text-text-secondary">{featuredPost.data.description}</p>
-            )}
-            {(featuredPost.data.tags?.length ?? 0) > 0 && (
-              <div class="mb-6 flex flex-wrap gap-2">
-                {featuredPost.data.tags!.map((tag) => (
-                  <TagPill tag={tag} />
-                ))}
-              </div>
-            )}
-            <span class="font-body text-small text-accent group-hover:underline">Read Article →</span>
-          </a>
-        </div>
-      </section>
-    )
-  }
+        <div class="hero-rule my-10 h-0.5 w-[100px] bg-accent"></div>
 
-  <!-- Tag Filter -->
-  <section class="border-b border-border bg-bg px-12 py-8 max-sm:px-6">
-    <div class="max-w-content flex flex-wrap gap-2" id="tag-filter">
-      <button
-        data-tag="all"
-        class="tag-pill active-pill rounded-sm px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap uppercase transition-colors"
-      >
-        All
-      </button>
-      {
-        allTags.map((tag) => (
-          <button
-            data-tag={tag}
-            class="tag-pill rounded-sm border border-border px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap text-text-muted uppercase transition-colors hover:text-text"
-          >
-            {tag}
-          </button>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- Post List -->
-  <section class="bg-bg px-12 pb-24 max-sm:px-6 max-sm:pb-16">
-    <div class="max-w-content">
-      <div class="post-list">
-        {
-          remainingPosts.map((post) => {
-            const tag = post.data.tags?.[0] ?? '';
-            return (
-              <div data-tag={tag}>
-                <PostListItem
-                  date={getFormattedDate(post.data.publishDate)}
-                  title={post.data.title}
-                  tag={tag || undefined}
-                  href={`/writing/${post.id}`}
-                />
-              </div>
-            );
-          })
-        }
+        <p class="hero-desc max-w-[42ch] font-body text-body-lg leading-relaxed font-light text-text-secondary">
+          Thinking out loud about technology, customer success, AI, and the things I'm learning along the way.
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <Divider />
+
+    <!-- ─── Featured Post ────────────────────────────────────────────────── -->
+    {
+      featuredPost && (
+        <section id="featured" class="section-padding relative bg-surface py-24 max-sm:py-16">
+          <SectionEyebrow text="Latest" sideways />
+          <div class="pl-12 max-lg:pl-0">
+            <a href={`/writing/${featuredPost.id}`} class="reveal group block">
+              <div class="grid grid-cols-[1fr_1.4fr] items-start gap-16 max-lg:grid-cols-1 max-lg:gap-6">
+                {/* Left — Meta */}
+                <div>
+                  <span class="block font-body text-caption tracking-widest text-text-muted uppercase">
+                    {getFormattedDate(featuredPost.data.publishDate)}
+                    {featuredPost.body && <span> · {getReadingTime(featuredPost.body)} min read</span>}
+                  </span>
+                  {(featuredPost.data.tags?.length ?? 0) > 0 && (
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      {featuredPost.data.tags!.map((tag) => (
+                        <TagPill tag={tag} />
+                      ))}
+                    </div>
+                  )}
+                  <span class="mt-6 inline-block font-body text-small text-accent transition-colors group-hover:text-accent-bright">
+                    Read Article →
+                  </span>
+                </div>
+
+                {/* Right — Title & excerpt */}
+                <div class="border-l-2 border-accent/30 pl-8 max-lg:border-l-0 max-lg:pl-0">
+                  <h2 class="font-display text-heading leading-snug font-semibold text-text transition-colors group-hover:text-accent">
+                    {featuredPost.data.title}
+                  </h2>
+                  {featuredPost.data.description && (
+                    <p class="mt-4 max-w-[55ch] font-body text-body leading-relaxed font-light text-text-secondary">
+                      {featuredPost.data.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      )
+    }
+
+    <Divider />
+
+    <!-- ─── All Posts ────────────────────────────────────────────────────── -->
+    <section id="archive" class="section-padding relative bg-bg py-24 max-sm:py-16">
+      <SectionEyebrow text="Archive" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        {/* Tag filter */}
+        {
+          allTags.length > 0 && (
+            <div class="mb-12 flex flex-wrap gap-2" id="tag-filter">
+              <button
+                data-tag="all"
+                class="tag-pill active-pill rounded-sm px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap uppercase transition-colors"
+              >
+                All
+              </button>
+              {allTags.map((tag) => (
+                <button
+                  data-tag={tag}
+                  class="tag-pill rounded-sm border border-border px-3 py-1 font-display text-caption font-bold tracking-label whitespace-nowrap text-text-muted uppercase transition-colors hover:text-text"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          )
+        }
+
+        {/* Post list */}
+        <div class="post-list">
+          {
+            remainingPosts.length > 0 ? (
+              remainingPosts.map((post) => {
+                const tag = post.data.tags?.[0] ?? '';
+                return (
+                  <div data-tag={tag}>
+                    <PostListItem
+                      date={getFormattedDate(post.data.publishDate)}
+                      title={post.data.title}
+                      tag={tag || undefined}
+                      href={`/writing/${post.id}`}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <p class="font-body text-body font-light text-text-muted">More writing coming soon.</p>
+            )
+          }
+        </div>
+      </div>
+    </section>
+  </main>
   <Footer />
 </BaseLayout>
 
@@ -168,9 +204,36 @@ const meta = {
 </script>
 
 <style>
+  /* ——— Hero layout ——— */
+  .writing-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    padding: 0 3rem 5rem 3rem;
+  }
+
+  .writing-hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  /* ——— Tag filter active state ——— */
   .active-pill {
     background-color: var(--color-accent);
     color: var(--color-bg);
     border-color: transparent;
+  }
+
+  /* ——— Responsive ——— */
+  @media (max-width: 900px) {
+    .writing-hero {
+      min-height: 70vh;
+      padding: 4rem 1.5rem 3rem;
+    }
   }
 </style>

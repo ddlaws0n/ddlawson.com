@@ -30,89 +30,89 @@ const meta = {
 
 <BaseLayout {meta}>
   <Header />
+  <main id="main-content">
+    <!-- Hero -->
+    <Hero />
 
-  <!-- Hero -->
-  <Hero />
+    <Divider />
 
-  <Divider />
-
-  <!-- Beliefs -->
-  <section id="beliefs" class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="What I Believe" sideways />
-    <div class="pl-12 max-lg:pl-0">
-      <div class="grid grid-cols-2 max-lg:grid-cols-1">
-        {beliefs.map((belief) => <BeliefCard {belief} />)}
+    <!-- Beliefs -->
+    <section id="beliefs" class="section-padding relative bg-bg py-24 max-sm:py-16">
+      <SectionEyebrow text="What I Believe" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        <div class="grid grid-cols-2 max-lg:grid-cols-1">
+          {beliefs.map((belief) => <BeliefCard {belief} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <Divider />
+    <Divider />
 
-  <!-- Projects -->
-  <section id="projects" class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="What I'm Building" sideways />
-    <div class="pl-12 max-lg:pl-0">
-      <div class="z-base relative -mt-8 grid grid-cols-[1.4fr_1fr] gap-px bg-border max-lg:mt-0 max-lg:grid-cols-1">
-        {projects.map((project) => <ProjectCard {project} />)}
+    <!-- Projects -->
+    <section id="projects" class="section-padding relative bg-surface py-24 max-sm:py-16">
+      <SectionEyebrow text="What I'm Building" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        <div class="z-base relative -mt-8 grid grid-cols-[1.4fr_1fr] gap-px bg-border max-lg:mt-0 max-lg:grid-cols-1">
+          {projects.map((project) => <ProjectCard {project} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Pull Quote -->
-  <PullQuote
-    quote="The gap between a great product and a successful customer is someone who gives a damn."
-    attribution="DDL"
-  />
+    <!-- Pull Quote -->
+    <PullQuote
+      quote="The gap between a great product and a successful customer is someone who gives a damn."
+      attribution="DDL"
+    />
 
-  <!-- Writing -->
-  <section id="writing" class="relative bg-bg px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="Recent Writing" sideways />
-    <div class="pl-12 max-lg:pl-0">
-      <div class="flex flex-col">
-        {
-          recentPosts.map((post) => (
-            <PostListItem
-              date={getFormattedDate(post.data.publishDate)}
-              title={post.data.title}
-              tag={post.data.tags?.[0]}
-              href={`/writing/${post.id}`}
-            />
-          ))
-        }
+    <!-- Writing -->
+    <section id="writing" class="section-padding relative bg-bg py-24 max-sm:py-16">
+      <SectionEyebrow text="Recent Writing" sideways />
+      <div class="pl-12 max-lg:pl-0">
+        <div class="flex flex-col">
+          {
+            recentPosts.map((post) => (
+              <PostListItem
+                date={getFormattedDate(post.data.publishDate)}
+                title={post.data.title}
+                tag={post.data.tags?.[0]}
+                href={`/writing/${post.id}`}
+              />
+            ))
+          }
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <Divider />
+    <Divider />
 
-  <!-- About Teaser -->
-  <section id="about" class="relative bg-surface px-12 py-24 max-sm:px-6 max-sm:py-16">
-    <SectionEyebrow text="About" sideways />
-    <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
-      <div class="reveal">
-        <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-watermark"
-          >The</span
-        >
-        <span class="block font-display text-display leading-[0.88] font-extrabold text-text">Story</span>
+    <!-- About Teaser -->
+    <section id="about" class="section-padding relative bg-surface py-24 max-sm:py-16">
+      <SectionEyebrow text="About" sideways />
+      <div class="grid grid-cols-[0.8fr_1.2fr] items-center gap-24 pl-12 max-lg:grid-cols-1 max-lg:gap-12 max-lg:pl-0">
+        <div class="reveal">
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text opacity-watermark"
+            >The</span
+          >
+          <span class="block font-display text-display leading-[0.88] font-extrabold text-text">Story</span>
+        </div>
+        <div class="reveal max-w-narrow">
+          <p class="font-body font-light text-text-secondary" style="font-size: 1.02rem; line-height: 1.8;">
+            Customer Success leader at <strong class="font-medium text-text">Wiz</strong> — the cloud security company rewriting
+            how enterprises think about risk. Before that: navigating the messy, human side of B2B SaaS adoption at scale.
+          </p>
+          <p class="mt-5 font-body font-light text-text-secondary" style="font-size: 1.02rem; line-height: 1.8;">
+            Outside work, I chase the edges of what AI makes possible — building small tools, writing about what I
+            learn, and trying to leave something useful behind.
+          </p>
+          <a
+            href="/about"
+            class="magnetic-cta mt-8 inline-flex items-center gap-2.5 border-b border-border pb-1 font-display text-small font-semibold tracking-tight text-text-secondary no-underline transition-[gap,border-color,color] duration-300 hover:gap-3.5 hover:border-accent hover:text-accent"
+          >
+            Read the full story &rarr;
+          </a>
+        </div>
       </div>
-      <div class="reveal max-w-narrow">
-        <p class="font-body text-body leading-relaxed font-light text-text-secondary">
-          Customer Success leader at <strong class="font-medium text-text">Wiz</strong> — the cloud security company rewriting
-          how enterprises think about risk. Before that: navigating the messy, human side of B2B SaaS adoption at scale.
-        </p>
-        <p class="mt-5 font-body text-body leading-relaxed font-light text-text-secondary">
-          Outside work, I chase the edges of what AI makes possible — building small tools, writing about what I learn,
-          and trying to leave something useful behind.
-        </p>
-        <a
-          href="/about"
-          class="magnetic-cta mt-8 inline-flex items-center gap-2.5 border-b border-border pb-1 font-display text-small font-semibold tracking-tight text-text-secondary no-underline transition-all duration-300 hover:gap-3.5 hover:border-accent hover:text-accent"
-        >
-          Read the full story &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
-
+    </section>
+  </main>
   <Footer />
 </BaseLayout>

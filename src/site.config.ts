@@ -10,8 +10,8 @@ const CONFIG: Config = {
   // SEO
   title: 'David D Lawson | B2B SaaS Customer Experience Professional',
   description:
-    '🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.',
-  language: 'en',
+    'Building bridges between technology and the humans who need it. Customer Success leader, AI practitioner, writer.',
+  language: 'en-gb',
 
   // Appearance
   defaultTheme: 'system',

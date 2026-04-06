@@ -12,7 +12,7 @@ const isActive = (href: string) => {
 >
   <a
     href="/"
-    class="font-display text-subheading font-extrabold tracking-tight text-text no-underline"
+    class="font-display text-subheading font-extrabold tracking-[0.03em] text-text no-underline"
     aria-label="Homepage"
   >
     DDL
@@ -24,8 +24,9 @@ const isActive = (href: string) => {
         <li>
           <a
             href={href}
+            aria-current={isActive(href) ? 'page' : undefined}
             class:list={[
-              'font-body text-caption tracking-label uppercase no-underline transition-colors duration-200',
+              'font-body text-caption tracking-widest uppercase no-underline transition-colors duration-200',
               isActive(href) ? 'text-text' : 'text-text-muted hover:text-text',
             ]}
           >
@@ -48,9 +49,9 @@ const isActive = (href: string) => {
     aria-expanded="false"
     aria-controls="mobile-menu"
   >
-    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-top"></span>
-    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-mid"></span>
-    <span class="block h-0.5 w-5 bg-current transition-all" id="ham-bot"></span>
+    <span class="block h-0.5 w-5 bg-current transition-[transform,opacity,width]" id="ham-top"></span>
+    <span class="block h-0.5 w-5 bg-current transition-[transform,opacity,width]" id="ham-mid"></span>
+    <span class="block h-0.5 w-5 bg-current transition-[transform,opacity,width]" id="ham-bot"></span>
   </button>
 </header>
 
@@ -65,8 +66,9 @@ const isActive = (href: string) => {
         <li>
           <a
             href={href}
+            aria-current={isActive(href) ? 'page' : undefined}
             class:list={[
-              'block min-h-[44px] py-2 font-body text-caption tracking-label uppercase no-underline transition-colors duration-200',
+              'block min-h-[44px] py-2 font-body text-caption tracking-widest uppercase no-underline transition-colors duration-200',
               isActive(href) ? 'text-text' : 'text-text-muted hover:text-text',
             ]}
           >
@@ -104,3 +106,11 @@ const isActive = (href: string) => {
     }
   });
 </script>
+
+<style>
+  /* Nav link font-size override — target is 0.78rem per Anthem reference */
+  #main-nav-links a,
+  #mobile-menu a {
+    font-size: 0.78rem;
+  }
+</style>
