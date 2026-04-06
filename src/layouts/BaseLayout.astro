@@ -16,13 +16,19 @@ const { language = 'en-gb' } = SITE;
 ---
 
 <!doctype html>
-<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto">
+<html lang={language} dir="ltr" class="h-full scroll-smooth motion-reduce:scroll-auto" style="color-scheme: dark;">
   <head>
     <MetaTags {...meta} />
     <ClientRouter />
   </head>
 
   <body class="flex min-h-screen flex-col antialiased">
+    <a
+      href="#main-content"
+      class="focus:z-modal sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:font-body focus:text-small focus:font-semibold focus:text-bg focus:no-underline"
+    >
+      Skip to main content
+    </a>
     <GrainOverlay />
     <slot />
     <SpeedInsights />

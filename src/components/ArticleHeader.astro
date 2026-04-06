@@ -1,4 +1,5 @@
 ---
+import Divider from '@/components/Divider.astro';
 import TagPill from '@/components/TagPill.astro';
 import { getFormattedDate } from '@/utils';
 
@@ -12,15 +13,93 @@ interface Props {
 const { title, date, readingTime, tags } = Astro.props;
 ---
 
-<section class="px-12 py-16 max-sm:px-6">
-  <h1 class="mb-6 font-display text-title leading-[1.15] font-bold text-text">
-    {title}
-  </h1>
-  <div class="flex flex-wrap items-center gap-4 font-body text-caption text-text-muted">
-    <time datetime={date instanceof Date ? date.toISOString() : date}>
-      {getFormattedDate(date)}
-    </time>
-    <span>{readingTime}</span>
-    {tags && tags.map((tag) => <TagPill tag={tag} />)}
+<section class="article-hero">
+  <div class="article-hero-text">
+    <a
+      href="/writing"
+      class="hero-eyebrow mb-8 inline-flex items-center gap-2 font-display text-caption font-semibold tracking-wide text-text-muted uppercase no-underline transition-colors hover:text-accent"
+    >
+      &larr; Back to Archive
+    </a>
+
+    <h1 class="line font-display text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.1] font-extrabold text-text">
+      {title}
+    </h1>
+
+    <div class="hero-rule my-8 h-0.5 w-[100px] bg-accent"></div>
+
+    <div class="hero-meta flex flex-wrap items-center gap-4 font-body text-caption text-text-muted">
+      <time datetime={date.toISOString()}>
+        {getFormattedDate(date)}
+      </time>
+      <span class="h-3 w-px bg-border" aria-hidden="true"></span>
+      <span>{readingTime}</span>
+      {
+        tags && tags.length > 0 && (
+          <>
+            <span class="h-3 w-px bg-border" aria-hidden="true" />
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <TagPill tag={tag} />
+              ))}
+            </div>
+          </>
+        )
+      }
+    </div>
   </div>
 </section>
+
+<Divider />
+
+<style>
+  .article-hero {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-hero-text {
+    max-width: var(--width-narrow);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ——— Animations ——— */
+  .hero-eyebrow {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.15s;
+  }
+
+  .line {
+    clip-path: inset(100% 0 0 0);
+    animation: clipReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.25s;
+  }
+
+  .hero-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: scaleIn 0.5s ease forwards;
+    animation-delay: 0.55s;
+  }
+
+  .hero-meta {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.7s;
+  }
+
+  @media (max-width: 640px) {
+    .article-hero {
+      min-height: 40vh;
+      padding: 0 1.5rem 3rem;
+    }
+  }
+</style>
