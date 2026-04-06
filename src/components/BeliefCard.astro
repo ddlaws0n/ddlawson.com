@@ -9,9 +9,11 @@ const { belief } = Astro.props;
 ---
 
 <div
-  class="reveal relative overflow-hidden border border-border px-10 py-14 transition-[background,border-color] duration-400 hover:border-border-hover hover:bg-surface"
+  class="reveal relative overflow-hidden border border-border transition-[background,border-color] duration-400 hover:border-border-hover hover:bg-surface"
+  style="padding: 3.5rem;"
 >
   <span
+    aria-hidden="true"
     class="pointer-events-none absolute -top-2 -right-2 font-display text-ghost leading-[0.8] font-extralight tracking-tighter text-text opacity-ghost"
   >
     {belief.number}

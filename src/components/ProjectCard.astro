@@ -15,9 +15,10 @@ const attrs = project.url ? { href: project.url } : {};
   {...attrs}
   class:list={[
     'project-card',
-    'flex flex-col justify-between border-l-[3px] border-border bg-surface px-12 py-10 transition-all duration-300',
+    'flex flex-col justify-between border-l-[3px] border-border bg-surface transition-[transform,border-color,background-color,box-shadow] duration-300',
     { featured: project.featured },
   ]}
+  style="padding: 2.5rem 3rem;"
 >
   <div>
     <p
@@ -38,6 +39,7 @@ const attrs = project.url ? { href: project.url } : {};
     </p>
   </div>
   <span
+    aria-hidden="true"
     class="project-arrow mt-6 inline-block text-subheading text-text-muted transition-[transform,color] duration-[0.25s]"
   >
     &rarr;
