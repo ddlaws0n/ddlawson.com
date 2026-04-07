@@ -32,12 +32,7 @@ export default defineConfig({
 				access: "public",
 				default: "https://cloud.umami.is",
 			}),
-			API_SECRET: envField.string({
-				context: "server",
-				access: "secret",
-			}),
 		},
-		validateSecrets: true,
 	},
 
 	fonts: [
