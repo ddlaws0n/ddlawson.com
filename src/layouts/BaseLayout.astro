@@ -7,6 +7,7 @@ import { conf } from "@/site.config.ts";
 const { meta = {} } = Astro.props;
 const title = meta.title ?? conf.site.name;
 const description = meta.description ?? conf.seo.description;
+const pathname = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -18,7 +19,7 @@ const description = meta.description ?? conf.seo.description;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} | {conf.site.name}</title>
+    <title>{title}{pathname !== "/" ? ` | ${conf.site.name}` : ""}</title>
     <meta name="description" content={description} />
     {
       meta.canonical && (
