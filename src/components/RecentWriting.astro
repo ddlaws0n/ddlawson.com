@@ -1,8 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import PostCard from "@/components/PostCard.astro";
 import { conf } from "@/site.config.ts";
 
 const dateFmt = conf.blog.dateFormatter;
+
+function formatDate(date: Date): string {
+  return dateFmt.format(date);
+}
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -12,7 +17,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
 <section class="m-section m-reveal" id="writing">
   <div class="m-label">
     <span
-      class="font-display text-text-muted lg:text-label text-xs font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
+      class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
       >Recent Writing</span
     >
     <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
@@ -22,27 +27,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
   <div class="flex flex-col">
     {
       posts.map((post, i) => (
-        <a
-          href={`/writing/${post.id}`}
-          class:list={[
-            "post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[88px_1fr_auto] md:items-center md:gap-7",
-            i === 0 && "border-t",
-          ]}
-        >
-          <span class="font-display text-text-muted group-hover:text-teal lg:text-caption order-2 text-sm font-normal tracking-[0.02em] transition-colors duration-250 md:order-0">
-            {dateFmt.format(post.data.date)}
-          </span>
-
-          <span class="font-body text-prose text-text group-hover:text-teal-bright order-1 font-normal transition-colors duration-250">
-            {post.data.title}
-          </span>
-
-          <div class="order-3 mt-1 md:order-2 md:mt-0">
-            <span class="font-display text-detail text-text-muted border-border group-hover:border-teal/12 group-hover:text-teal-muted inline-block rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase transition-all duration-250">
-              {post.data.tag}
-            </span>
-          </div>
-        </a>
+        <PostCard post={post} formatDate={formatDate} index={i} />
       ))
     }
   </div>

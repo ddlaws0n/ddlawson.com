@@ -1,0 +1,55 @@
+---
+interface Props {
+	post: {
+		id: string;
+		data: {
+			title: string;
+			date: Date;
+			tag: string;
+			description?: string;
+		};
+	};
+	showDescription?: boolean;
+	formatDate: (date: Date) => string;
+	index: number;
+}
+
+const { post, showDescription = false, formatDate, index } = Astro.props;
+---
+
+<a
+	href={`/writing/${post.id}`}
+	class:list={[
+		"post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[100px_1fr_auto] md:items-center md:gap-7",
+		index === 0 && "border-t",
+	]}
+>
+	<span
+		class="font-display text-text-muted group-hover:text-teal lg:text-caption order-2 text-sm font-normal tracking-[0.02em] transition-colors duration-250 md:order-0"
+	>
+		{formatDate(post.data.date)}
+	</span>
+
+	<div class="order-1 md:order-1">
+		<span
+			class="font-body text-prose text-text group-hover:text-teal-bright block font-normal transition-colors duration-250"
+		>
+			{post.data.title}
+		</span>
+		{showDescription && post.data.description && (
+			<span
+				class="text-micro text-text-muted mt-1.5 block leading-relaxed"
+			>
+				{post.data.description}
+			</span>
+		)}
+	</div>
+
+	<div class="order-3 mt-1 flex items-center gap-3 md:order-2 md:mt-0">
+		<span
+			class="font-display text-detail text-text-muted border-border group-hover:border-teal/12 group-hover:text-teal-muted inline-block rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase transition-all duration-250"
+		>
+			{post.data.tag}
+		</span>
+	</div>
+</a>
