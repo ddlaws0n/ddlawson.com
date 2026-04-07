@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { conf } from "@/site.config.ts";
+import { getReadingTime } from "@/utils/reading-time";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -19,6 +20,7 @@ const { Content } = await render(post);
 const { title, description, date, tag } = post.data;
 const dateFmt = conf.blog.dateFormatter;
 const formattedDate = dateFmt.format(date);
+const readingTime = post.body ? getReadingTime(post.body) : undefined;
 const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
 ---
 
@@ -56,6 +58,11 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
             >
               {formattedDate}
             </span>
+            {readingTime && (
+              <span class="text-text-muted text-sm font-normal"
+                >&middot; {readingTime}</span
+              >
+            )}
           </div>
           <h1
             class="font-display text-quote text-text font-extrabold leading-tight"
@@ -63,7 +70,7 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
             {title}
           </h1>
           <p
-            class="text-prose text-text-secondary mt-4 mb-0 font-light lg:mt-6"
+            class="text-prose text-text-secondary mt-4 mb-0 max-w-[52ch] font-normal lg:mt-6"
           >
             {description}
           </p>
@@ -81,7 +88,7 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
         </div>
 
         <!-- Post footer -->
-        <footer class="max-w-copy mx-auto mt-12 border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
+        <footer class="max-w-copy mx-auto mt-12 flex items-center justify-between border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
           <a
             href="/writing"
             class="text-micro text-teal hover:text-teal-bright inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
@@ -89,9 +96,49 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
             <span>&larr;</span>
             <span>Back to all writing</span>
           </a>
+          <button
+            type="button"
+            class="js-copy-link text-micro text-teal hover:text-teal-bright inline-flex items-center gap-1.5 rounded-sm p-2.5 font-normal transition-colors duration-250"
+            aria-label="Copy link to clipboard"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <span class="js-copy-label">Copy link</span>
+          </button>
         </footer>
       </article>
     </main>
     <Footer />
   </div>
 </BaseLayout>
+
+<script>
+  function initCopyLink() {
+    document.querySelectorAll<HTMLButtonElement>(".js-copy-link").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(window.location.href);
+        const label = btn.querySelector(".js-copy-label");
+        if (!label) return;
+        const original = label.textContent;
+        label.textContent = "Copied!";
+        setTimeout(() => {
+          label.textContent = original;
+        }, 2000);
+      });
+    });
+  }
+  initCopyLink();
+  document.addEventListener("astro:after-swap", initCopyLink);
+</script>
