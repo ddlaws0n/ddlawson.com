@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: amondnet/vercel-action@v42
+      - uses: amondnet/vercel-action@v42.1.0
         id: deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
