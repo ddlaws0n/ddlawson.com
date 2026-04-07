@@ -10,17 +10,18 @@ interface Props {
 		};
 	};
 	showDescription?: boolean;
+	readingTime?: string;
 	formatDate: (date: Date) => string;
 	index: number;
 }
 
-const { post, showDescription = false, formatDate, index } = Astro.props;
+const { post, showDescription = false, readingTime, formatDate, index } = Astro.props;
 ---
 
 <a
 	href={`/writing/${post.id}`}
 	class:list={[
-		"post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[100px_1fr_auto] md:items-center md:gap-7",
+		"post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[130px_1fr_auto] md:items-center md:gap-7",
 		index === 0 && "border-t",
 	]}
 >
@@ -51,5 +52,13 @@ const { post, showDescription = false, formatDate, index } = Astro.props;
 		>
 			{post.data.tag}
 		</span>
+		{readingTime && (
+			<span class="text-detail text-text-muted font-normal tracking-wide">
+				{readingTime}
+			</span>
+		)}
+		<span
+			class="text-text-muted ml-auto hidden opacity-0 transition-opacity duration-250 group-hover:opacity-100 md:inline"
+			aria-hidden="true">&rarr;</span>
 	</div>
 </a>

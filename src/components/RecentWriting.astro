@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import PostCard from "@/components/PostCard.astro";
+import SectionLabel from "@/components/SectionLabel.astro";
 import { conf } from "@/site.config.ts";
+import { getReadingTime } from "@/utils/reading-time";
 
 const dateFmt = conf.blog.dateFormatter;
 
@@ -15,26 +17,24 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
 ---
 
 <section class="m-section m-reveal" id="writing">
-  <div class="m-label">
-    <span
-      class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
-      >Recent Writing</span
-    >
-    <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
-    </div>
-  </div>
+  <SectionLabel label="Recent Writing" />
 
   <div class="flex flex-col">
     {
       posts.map((post, i) => (
-        <PostCard post={post} formatDate={formatDate} index={i} />
+        <PostCard
+          post={post}
+          readingTime={post.body ? getReadingTime(post.body) : undefined}
+          formatDate={formatDate}
+          index={i}
+        />
       ))
     }
   </div>
 
   <a
     href="/writing"
-    class="text-micro text-teal hover:text-teal-bright mt-7 inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
+    class="text-caption text-teal hover:text-teal-bright mt-8 inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
     >View all <span>&rarr;</span></a
   >
 </section>
