@@ -3,29 +3,29 @@ import { Icon } from "astro-icon/components";
 import { conf, social } from "@/site.config";
 ---
 
-<div class="border-t border-border mt-8 bg-background">
-    <footer
-        class="mx-auto flex flex-col gap-3 text-center max-w-content items-center px-(--m-gutter) py-8 md:flex-row md:justify-between md:text-left md:gap-0"
+<div class="border-border bg-background mt-8 border-t">
+  <footer
+    class="max-w-content mx-auto flex flex-col items-center gap-3 px-(--m-gutter) py-8 text-center md:flex-row md:justify-between md:gap-0 md:text-left"
+  >
+    <span class="text-caption text-text-muted font-light"
+      >&copy; {new Date().getFullYear()} {conf.site.name}</span
     >
-        <span class="text-caption font-light text-text-muted"
-            >&copy; {new Date().getFullYear()} {conf.name}</span
-        >
-        <ul class="flex gap-7 list-none m-0 p-0 items-center">
-            {
-                social.map((s) => (
-                    <li>
-                        <a
-                            href={s.link}
-                            target="_blank"
-                            rel="noopener"
-                            aria-label={s.ariaLabel}
-                            class="inline-flex text-text-muted transition-colors duration-250 hover:text-teal"
-                        >
-                            <Icon name={s.name} class="size-[0.9rem]" />
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-    </footer>
+    <ul class="m-0 flex list-none items-center gap-7 p-0">
+      {
+        social.map((s) => (
+          <li>
+            <a
+              href={s.link}
+              target="_blank"
+              rel="noopener"
+              aria-label={s.ariaLabel}
+              class="text-text-muted hover:text-teal inline-flex transition-colors duration-250"
+            >
+              <Icon name={s.name} class="size-[0.9rem]" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </footer>
 </div>

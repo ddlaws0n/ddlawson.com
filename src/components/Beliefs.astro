@@ -1,43 +1,56 @@
 ---
 const beliefs = [
-	{
-		title: '<span class="accent">Bridges</span>, not barriers',
-		body: "Great products fail without someone who gives a damn about the customer. I close the gap between what engineering builds and what humans actually need.",
-	},
-	{
-		title: 'Technology should <span class="accent">disappear</span>',
-		body: "The best tools dissolve into the workflow. If users notice the technology, the experience has already failed.",
-	},
-	{
-		title: 'Ship your <span class="accent">thinking</span>',
-		body: "Writing clarifies thought. Building in public creates accountability. Both compound over time into something larger than any single output.",
-	},
-	{
-		title: 'Context is <span class="accent">everything</span>',
-		body: "Understanding the full picture — business goals, team dynamics, technical constraints — is what separates advice from actual help.",
-	},
+  {
+    title: '<span class="accent">Bridges</span>, not barriers',
+    body: "Great products fail without someone who gives a damn about the customer. I close the gap between what engineering builds and what humans actually need.",
+  },
+  {
+    title: 'Technology should <span class="accent">disappear</span>',
+    body: "The best tools dissolve into the workflow. If users notice the technology, the experience has already failed.",
+  },
+  {
+    title: 'Ship your <span class="accent">thinking</span>',
+    body: "Writing clarifies thought. Building in public creates accountability. Both compound over time into something larger than any single output.",
+  },
+  {
+    title: 'Context is <span class="accent">everything</span>',
+    body: "Understanding the full picture — business goals, team dynamics, technical constraints — is what separates advice from actual help.",
+  },
 ];
 ---
 
 <section class="m-section m-reveal">
-	<div class="m-label">
-		<span class="font-display text-xs font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap lg:text-label">What I Believe</span>
-		<div class="flex-1 h-px bg-linear-to-r from-border-hover to-transparent/80"></div>
-	</div>
+  <div class="m-label">
+    <span
+      class="font-display text-text-muted lg:text-label text-xs font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
+      >What I Believe</span
+    >
+    <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
+    </div>
+  </div>
 
-	<div class="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
-		{beliefs.map((b, i) => (
-			<div class="group bg-background p-7 relative overflow-hidden transition-colors duration-400 hover:bg-surface md:p-11 after:absolute after:top-0 after:left-0 after:w-0.5 after:h-0 after:bg-teal after:transition-[height] after:duration-400 hover:after:h-full">
-				<span class="font-display text-[7rem] font-extralight leading-[0.75] text-text opacity-[0.02] absolute -top-2 right-3 pointer-events-none transition-opacity duration-400 group-hover:opacity-[0.04]">{String(i + 1).padStart(2, "0")}</span>
-				<h3 class="font-display text-lg font-semibold leading-[1.35] text-text mb-3.5 relative" set:html={b.title} ></h3>
-				<p class="font-body text-prose font-light text-text-muted relative transition-colors duration-400 group-hover:text-text-secondary">{b.body}</p>
-			</div>
-		))}
-	</div>
+  <div class="bg-border grid grid-cols-1 gap-px md:grid-cols-2">
+    {
+      beliefs.map((b, i) => (
+        <div class="group bg-background hover:bg-surface after:bg-teal relative overflow-hidden p-7 transition-colors duration-400 after:absolute after:top-0 after:left-0 after:h-0 after:w-0.5 after:transition-[height] after:duration-400 hover:after:h-full md:p-11">
+          <span class="font-display text-text pointer-events-none absolute -top-2 right-3 text-[7rem] leading-[0.75] font-extralight opacity-[0.02] transition-opacity duration-400 group-hover:opacity-[0.04]">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3
+            class="font-display text-text relative mb-3.5 text-lg leading-[1.35] font-semibold"
+            set:html={b.title}
+          />
+          <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-400">
+            {b.body}
+          </p>
+        </div>
+      ))
+    }
+  </div>
 </section>
 
 <style>
-	.group :global(.accent) {
-		color: var(--color-teal);
-	}
+  .group :global(.accent) {
+    color: var(--color-teal);
+  }
 </style>

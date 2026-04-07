@@ -6,153 +6,156 @@ import { workExperienceData } from "@/data";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
-    year: "numeric",
-    month: "long",
-    timeZone: "GMT",
+  year: "numeric",
+  month: "long",
+  timeZone: "GMT",
 });
 
 function formatDate(raw: string): string {
-    if (raw === "Present") return "Present";
-    return dateFmt.format(new Date(raw));
+  if (raw === "Present") return "Present";
+  return dateFmt.format(new Date(raw));
 }
 
-function tenureRange(roles: typeof workExperienceData[0]["roles"]): string {
-    const first = roles[roles.length - 1].start_date;
-    const last = roles[0].end_date;
-    const startYear = new Date(first).getFullYear();
-    const endPart = last === "Present" ? "Present" : new Date(last).getFullYear().toString();
-    return `${startYear} — ${endPart}`;
+function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
+  const first = roles[roles.length - 1].start_date;
+  const last = roles[0].end_date;
+  const startYear = new Date(first).getFullYear();
+  const endPart =
+    last === "Present" ? "Present" : new Date(last).getFullYear().toString();
+  return `${startYear} — ${endPart}`;
 }
 ---
 
 <BaseLayout
-    meta={{
-        title: "Work",
-        description:
-            "Career timeline — leadership roles across cloud security, application security, and customer experience.",
-        noindex: true,
-        nofollow: true,
-    }}
+  meta={{
+    title: "Work",
+    description:
+      "Career timeline — leadership roles across cloud security, application security, and customer experience.",
+    noindex: true,
+    nofollow: true,
+  }}
 >
-    <div
-        class="font-body bg-background text-text min-h-screen relative overflow-x-hidden"
-    >
-        <div class="m-noise"></div>
-        <Nav />
-        <main class="mx-auto max-w-content px-(--m-gutter)">
-            <!-- Page header -->
-            <header
-                class="pt-10 pb-8 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14 opacity-0 animate-fade-up"
-            >
-                <span
-                    class="mb-2 block font-display text-xs font-semibold tracking-[0.24em] uppercase text-teal-muted md:mb-3 lg:mb-5 lg:text-label"
-                >
-                    Career Timeline
-                </span>
-                <h1
-                    class="font-display text-hero font-extrabold text-text max-w-[12ch]"
-                >
-                    Work
-                </h1>
-                <p class="font-body text-prose font-light text-text-secondary mt-5 mb-0 max-w-[48ch] lg:mt-8">
-                    Over a decade building and leading teams across cloud security, application security, and digital delivery — from startup co-founder to enterprise account leadership.
-                </p>
-            </header>
+  <div
+    class="font-body bg-background text-text relative min-h-screen overflow-x-hidden"
+  >
+    <div class="m-noise"></div>
+    <Nav />
+    <main class="max-w-content mx-auto px-(--m-gutter)">
+      <!-- Page header -->
+      <header
+        class="animate-fade-up pt-10 pb-8 opacity-0 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
+      >
+        <span
+          class="font-display text-teal-muted lg:text-label mb-2 block text-xs font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
+        >
+          Career Timeline
+        </span>
+        <h1
+          class="font-display text-hero text-text max-w-[12ch] font-extrabold"
+        >
+          Work
+        </h1>
+        <p
+          class="font-body text-prose text-text-secondary mt-5 mb-0 max-w-[48ch] font-light lg:mt-8"
+        >
+          Over a decade building and leading teams across cloud security,
+          application security, and digital delivery — from startup co-founder
+          to enterprise account leadership.
+        </p>
+      </header>
 
-            <!-- Timeline -->
-            <section class="m-section">
-                {
-                    workExperienceData.map((company, companyIdx) => (
-                        <article class="relative mb-14 last:mb-0 md:mb-16 lg:mb-24">
-                            {/* ── Desktop: asymmetric sticky grid (from md up) ── */}
-                            <div class="hidden md:grid md:grid-cols-[180px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-0">
-                                {/* Left column — sticky company info */}
-                                <div class="m-reveal sticky top-24 self-start pr-6 pb-8 lg:pr-10">
-                                    {company.logoUrl && (
-                                        <img
-                                            src={company.logoUrl}
-                                            alt={`${company.company} logo`}
-                                            class="mb-4 h-7 w-auto brightness-0 invert opacity-75 lg:h-8"
-                                        />
-                                    )}
-                                    <h2 class="font-display text-xl font-bold text-text m-0 lg:text-2xl">
-                                        {company.company}
-                                    </h2>
-                                    <p class="font-display text-detail uppercase tracking-[0.2em] text-teal-muted mt-1.5 mb-0 lg:text-label">
-                                        {tenureRange(company.roles)}
-                                    </p>
-                                    <p class="text-micro text-text-muted mt-1 mb-0">
-                                        {company.location}
-                                    </p>
-                                </div>
+      <!-- Timeline -->
+      <section class="m-section">
+        {
+          workExperienceData.map((company, companyIdx) => (
+            <article class="relative mb-14 last:mb-0 md:mb-16 lg:mb-24">
+              {/* ── Desktop: asymmetric sticky grid (from md up) ── */}
+              <div class="hidden md:grid md:grid-cols-[180px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-0">
+                {/* Left column — sticky company info */}
+                <div class="m-reveal sticky top-24 self-start pr-6 pb-8 lg:pr-10">
+                  {company.logoUrl && (
+                    <img
+                      src={company.logoUrl}
+                      alt={`${company.company} logo`}
+                      class="mb-4 h-7 w-auto opacity-75 brightness-0 invert lg:h-8"
+                    />
+                  )}
+                  <h2 class="font-display text-text m-0 text-xl font-bold lg:text-2xl">
+                    {company.company}
+                  </h2>
+                  <p class="font-display text-detail text-teal-muted lg:text-label mt-1.5 mb-0 tracking-[0.2em] uppercase">
+                    {tenureRange(company.roles)}
+                  </p>
+                  <p class="text-micro text-text-muted mt-1 mb-0">
+                    {company.location}
+                  </p>
+                </div>
 
-                                {/* Right column — roles with timeline spine */}
-                                <div class="relative pl-8 lg:pl-10">
-                                    <div class="m-spine-draw absolute left-0 top-2 bottom-2 w-px bg-border-hover" />
-                                    {company.roles.map((role, roleIdx) => (
-                                        <TimelineRole
-                                            title={role.title}
-                                            startDate={formatDate(role.start_date)}
-                                            endDate={formatDate(role.end_date)}
-                                            summary={role.summary}
-                                            achievements={role.key_achievements}
-                                            isCurrent={role.end_date === "Present"}
-                                            staggerDelay={100 + roleIdx * 120}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                {/* Right column — roles with timeline spine */}
+                <div class="relative pl-8 lg:pl-10">
+                  <div class="m-spine-draw bg-border-hover absolute top-2 bottom-2 left-0 w-px" />
+                  {company.roles.map((role, roleIdx) => (
+                    <TimelineRole
+                      title={role.title}
+                      startDate={formatDate(role.start_date)}
+                      endDate={formatDate(role.end_date)}
+                      summary={role.summary}
+                      achievements={role.key_achievements}
+                      isCurrent={role.end_date === "Present"}
+                      staggerDelay={100 + roleIdx * 120}
+                    />
+                  ))}
+                </div>
+              </div>
 
-                            {/* ── Mobile: left-spine timeline (below md) ── */}
-                            <div class="md:hidden">
-                                {/* Company header */}
-                                <div class="m-reveal mb-6 flex items-center gap-3">
-                                    {company.logoUrl && (
-                                        <img
-                                            src={company.logoUrl}
-                                            alt={`${company.company} logo`}
-                                            class="h-6 w-auto brightness-0 invert opacity-75"
-                                        />
-                                    )}
-                                    <div>
-                                        <h2 class="font-display text-xl font-bold text-text m-0">
-                                            {company.company}
-                                        </h2>
-                                        <p class="font-display text-detail uppercase tracking-[0.2em] text-teal-muted mt-0.5 mb-0">
-                                            {tenureRange(company.roles)} · {company.location}
-                                        </p>
-                                    </div>
-                                </div>
+              {/* ── Mobile: left-spine timeline (below md) ── */}
+              <div class="md:hidden">
+                {/* Company header */}
+                <div class="m-reveal mb-6 flex items-center gap-3">
+                  {company.logoUrl && (
+                    <img
+                      src={company.logoUrl}
+                      alt={`${company.company} logo`}
+                      class="h-6 w-auto opacity-75 brightness-0 invert"
+                    />
+                  )}
+                  <div>
+                    <h2 class="font-display text-text m-0 text-xl font-bold">
+                      {company.company}
+                    </h2>
+                    <p class="font-display text-detail text-teal-muted mt-0.5 mb-0 tracking-[0.2em] uppercase">
+                      {tenureRange(company.roles)} · {company.location}
+                    </p>
+                  </div>
+                </div>
 
-                                {/* Roles with left spine */}
-                                <div class="relative pl-7 ml-1">
-                                    <div class="m-spine-draw absolute left-0 top-1 bottom-1 w-px bg-border-hover" />
-                                    {company.roles.map((role, roleIdx) => (
-                                        <TimelineRole
-                                            title={role.title}
-                                            startDate={formatDate(role.start_date)}
-                                            endDate={formatDate(role.end_date)}
-                                            summary={role.summary}
-                                            achievements={role.key_achievements}
-                                            isCurrent={role.end_date === "Present"}
-                                            mobile
-                                            staggerDelay={80 + roleIdx * 100}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
+                {/* Roles with left spine */}
+                <div class="relative ml-1 pl-7">
+                  <div class="m-spine-draw bg-border-hover absolute top-1 bottom-1 left-0 w-px" />
+                  {company.roles.map((role, roleIdx) => (
+                    <TimelineRole
+                      title={role.title}
+                      startDate={formatDate(role.start_date)}
+                      endDate={formatDate(role.end_date)}
+                      summary={role.summary}
+                      achievements={role.key_achievements}
+                      isCurrent={role.end_date === "Present"}
+                      mobile
+                      staggerDelay={80 + roleIdx * 100}
+                    />
+                  ))}
+                </div>
+              </div>
 
-                            {/* Company divider */}
-                            {companyIdx < workExperienceData.length - 1 && (
-                                <div class="m-divider mt-10 md:mt-12 lg:mt-16 md:ml-45 lg:ml-60" />
-                            )}
-                        </article>
-                    ))
-                }
-            </section>
-        </main>
-        <Footer />
-    </div>
-
-
+              {/* Company divider */}
+              {companyIdx < workExperienceData.length - 1 && (
+                <div class="m-divider mt-10 md:mt-12 md:ml-45 lg:mt-16 lg:ml-60" />
+              )}
+            </article>
+          ))
+        }
+      </section>
+    </main>
+    <Footer />
+  </div>
 </BaseLayout>

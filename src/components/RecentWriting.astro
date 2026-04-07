@@ -1,33 +1,67 @@
 ---
 const posts = [
-	{ date: "Mar 2026", title: "The Gap Between Product and Customer", tag: "Strategy" },
-	{ date: "Feb 2026", title: "Why Developer Experience Matters More Than Features", tag: "DevEx" },
-	{ date: "Jan 2026", title: "Building in Public: Month One", tag: "Personal" },
-	{ date: "Dec 2025", title: "Cloud Security in the Age of AI", tag: "Security" },
+  {
+    date: "Mar 2026",
+    title: "The Gap Between Product and Customer",
+    tag: "Strategy",
+  },
+  {
+    date: "Feb 2026",
+    title: "Why Developer Experience Matters More Than Features",
+    tag: "DevEx",
+  },
+  { date: "Jan 2026", title: "Building in Public: Month One", tag: "Personal" },
+  {
+    date: "Dec 2025",
+    title: "Cloud Security in the Age of AI",
+    tag: "Security",
+  },
 ];
 ---
 
 <section class="m-section m-reveal" id="writing">
-	<div class="m-label">
-		<span class="font-display text-xs font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap lg:text-label">Recent Writing</span>
-		<div class="flex-1 h-px bg-linear-to-r from-border-hover to-transparent/80"></div>
-	</div>
-
-	<div class="flex flex-col">
-		{posts.map((post, i) => (
-			<a href="#" tabindex="-1" aria-disabled="true" class:list={["post group grid grid-cols-1 gap-2.5 items-start py-6 px-5 border-b border-border no-underline text-inherit transition-all duration-250 -mx-5 rounded-sm hover:bg-teal/4 hover:border-b-transparent md:items-center md:grid-cols-[88px_1fr_auto] md:gap-7", i === 0 && "border-t"]}>
-	
-    <span class="font-display text-sm font-normal text-text-muted tracking-[0.02em] transition-colors duration-250 group-hover:text-teal order-2 md:order-0 lg:text-caption">{post.date}</span>
-	
-    <span class="font-body text-prose font-normal text-text transition-colors duration-250 group-hover:text-teal-bright order-1">{post.title}</span>
-	
-    <div class="order-3 mt-1 md:mt-0 md:order-2">
-        <span class="font-display text-detail font-medium tracking-[0.14em] uppercase text-text-muted border border-border py-[0.2rem] px-[0.55rem] rounded-sm transition-all duration-250 group-hover:border-teal/12 group-hover:text-teal-muted inline-block">{post.tag}</span>
+  <div class="m-label">
+    <span
+      class="font-display text-text-muted lg:text-label text-xs font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
+      >Recent Writing</span
+    >
+    <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
     </div>
-</a>
+  </div>
 
-		))}
-	</div>
+  <div class="flex flex-col">
+    {
+      posts.map((post, i) => (
+        <a
+          href="#"
+          tabindex="-1"
+          aria-disabled="true"
+          class:list={[
+            "post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[88px_1fr_auto] md:items-center md:gap-7",
+            i === 0 && "border-t",
+          ]}
+        >
+          <span class="font-display text-text-muted group-hover:text-teal lg:text-caption order-2 text-sm font-normal tracking-[0.02em] transition-colors duration-250 md:order-0">
+            {post.date}
+          </span>
 
-	<a href="/writing" class="inline-flex items-center gap-2 mt-7 text-micro font-normal text-teal no-underline transition-all duration-300 hover:gap-3 hover:text-teal-bright">View all <span>&rarr;</span></a>
+          <span class="font-body text-prose text-text group-hover:text-teal-bright order-1 font-normal transition-colors duration-250">
+            {post.title}
+          </span>
+
+          <div class="order-3 mt-1 md:order-2 md:mt-0">
+            <span class="font-display text-detail text-text-muted border-border group-hover:border-teal/12 group-hover:text-teal-muted inline-block rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase transition-all duration-250">
+              {post.tag}
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+
+  <a
+    href="/writing"
+    class="text-micro text-teal hover:text-teal-bright mt-7 inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
+    >View all <span>&rarr;</span></a
+  >
 </section>

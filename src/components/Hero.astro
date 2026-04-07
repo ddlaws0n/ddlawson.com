@@ -6,107 +6,113 @@ import { social } from "@/site.config";
 ---
 
 <section
-    class="hero relative grid grid-cols-1 gap-y-6 py-12 sm:gap-y-8 sm:py-16 md:gap-y-7 lg:grid-cols-[minmax(0,1fr)_18rem] lg:grid-rows-[auto_1fr] lg:items-end lg:gap-x-10 lg:gap-y-0 lg:py-20 xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-x-14 xl:py-24"
-    id="hero"
+  class="hero relative grid grid-cols-1 gap-y-6 py-12 sm:gap-y-8 sm:py-16 md:gap-y-7 lg:grid-cols-[minmax(0,1fr)_18rem] lg:grid-rows-[auto_1fr] lg:items-end lg:gap-x-10 lg:gap-y-0 lg:py-20 xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-x-14 xl:py-24"
+  id="hero"
 >
-
-
-<!-- hero.astro -->
-<!-- photo -->
-<div
-    class="hero-photo-wrap relative min-w-0 self-start mt-0.5 opacity-0 animate-reveal-photo [animation-delay:0.3s] lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center lg:mt-0"
->
+  <!-- hero.astro -->
+  <!-- photo -->
+  <div
+    class="hero-photo-wrap animate-reveal-photo relative mt-0.5 min-w-0 self-start opacity-0 [animation-delay:0.3s] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center"
+  >
     <!-- Combined into a single hero-photo div with the updated sizes -->
     <div
-        class="hero-photo relative overflow-hidden rounded-full size-28 shadow-[0_4px_20px_oklch(0%_0_0/0.1),0_0_0_1px_var(--color-border)] sm:size-32 md:size-44 lg:rounded-lg lg:size-auto lg:aspect-3/4 lg:shadow-[0_8px_40px_oklch(0%_0_0/0.4),0_0_0_1px_var(--color-border)]"
+      class="hero-photo relative size-28 overflow-hidden rounded-full shadow-[0_4px_20px_oklch(0%_0_0/0.1),0_0_0_1px_var(--color-border)] sm:size-32 md:size-44 lg:aspect-3/4 lg:size-auto lg:rounded-lg lg:shadow-[0_8px_40px_oklch(0%_0_0/0.4),0_0_0_1px_var(--color-border)]"
     >
-        <Image
-            src={heroPhoto}
-            alt="David D. Lawson"
-            width={720}
-            height={960}
-            sizes="(min-width: 1280px) 22rem, (min-width: 1024px) 18rem, (min-width: 768px) 11rem, (min-width: 640px) 8rem, 7rem"
-            loading="eager"
-            fetchpriority="high"
-            fit="cover"
-            position="top"
-        />
-        <div class="hero-photo-fade-left hidden lg:block"></div>
-        <div
-            class="absolute -bottom-px left-0 right-0 z-10 hidden h-0.5 bg-[linear-gradient(90deg,var(--color-teal),transparent_70%)] lg:block"
-        >
-        </div>
+      <Image
+        src={heroPhoto}
+        alt="David D. Lawson"
+        width={720}
+        height={960}
+        sizes="(min-width: 1280px) 22rem, (min-width: 1024px) 18rem, (min-width: 768px) 11rem, (min-width: 640px) 8rem, 7rem"
+        loading="eager"
+        fetchpriority="high"
+        fit="cover"
+        position="top"
+      />
+      <div class="hero-photo-fade-left hidden lg:block"></div>
+      <div
+        class="absolute right-0 -bottom-px left-0 z-10 hidden h-0.5 bg-[linear-gradient(90deg,var(--color-teal),transparent_70%)] lg:block"
+      >
+      </div>
     </div>
-    
+
     <!-- Desktop Glow Effect (Unchanged) -->
     <div
-        class="absolute -bottom-[20%] left-[5%] hidden h-1/2 w-[90%] bg-[radial-gradient(ellipse,color-mix(in_oklch,var(--color-teal)_6%,transparent)_0%,transparent_65%)] pointer-events-none lg:block"
+      class="pointer-events-none absolute -bottom-[20%] left-[5%] hidden h-1/2 w-[90%] bg-[radial-gradient(ellipse,color-mix(in_oklch,var(--color-teal)_6%,transparent)_0%,transparent_65%)] lg:block"
     >
     </div>
-</div>
+  </div>
 
-<div class="min-w-0 flex flex-col justify-end gap-12 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:gap-16">
-        
-        <!-- Block 1: Subtitle + Name -->
-        <!-- Note: Removed lg:col-start-1 and lg:row-start-1 from here -->
-        <div class="opacity-0 animate-fade-up">
-            <span
-                class="md:mb-4 block font-display text-kicker font-semibold tracking-[0.2em] uppercase text-teal-muted opacity-0 animate-slide-in [animation-delay:0.2s] sm:mb-2.5 sm:text-label sm:tracking-[0.24em] lg:mb-6"
-            >
-                TAM Leader &middot; Builder &middot; Writer
-            </span>
+  <div
+    class="flex min-w-0 flex-col justify-end gap-12 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:gap-16"
+  >
+    <!-- Block 1: Subtitle + Name -->
+    <!-- Note: Removed lg:col-start-1 and lg:row-start-1 from here -->
+    <div class="animate-fade-up opacity-0">
+      <span
+        class="font-display text-kicker text-teal-muted animate-slide-in sm:text-label block font-semibold tracking-[0.2em] uppercase opacity-0 [animation-delay:0.2s] sm:mb-2.5 sm:tracking-[0.24em] md:mb-4 lg:mb-6"
+      >
+        TAM Leader &middot; Builder &middot; Writer
+      </span>
 
-            <h1
-                class="max-w-[8.5ch] font-display text-[3.2rem] leading-[0.92] tracking-[-0.03em] font-extrabold text-text sm:text-[4rem] md:text-[4.5rem] lg:max-w-[9ch] lg:text-hero"
-            >
-                David <span class="font-light text-text-secondary">D.</span>
-                <span class="block">Lawson</span>
-            </h1>
-        </div>
-
-        <!-- Block 2: Rule, description, social -->
-        <div class="opacity-0 animate-fade-up flex flex-col gap-6 lg:gap-8 [animation-delay:0.4s]">
-            <div>
-                <div
-                    class="hero-rule mb-4 h-0.5 w-12 origin-left bg-linear-to-r from-teal to-transparent transform-[scaleX(0)] animate-scale-in [animation-delay:0.5s] lg:mb-6 lg:w-16"
-                >
-                </div>
-                
-                <p
-                    class="m-0 max-w-[46ch] font-body text-prose font-light text-text-secondary leading-relaxed opacity-0 animate-fade-up [animation-delay:0.6s]"
-                >
-                    Building bridges between technology and the humans who need it. 
-                    I lead technical account management across EMEA at <a href="https://wiz.io" referrerpolicy="origin" target="_blank" class="m-link-external" style="--favicon-src:url('https://www.google.com/s2/favicons?domain=wiz.io&sz=32')" rel="external"><strong class="font-medium text-text">Wiz</strong></a>, helping security teams get real value from the platform. 
-                    Outside of work, I write about developer experience, tinker with AI, and build things in&nbsp;public.
-                </p>
-            </div>
-        <ul
-            class="mt-4 flex flex-wrap gap-x-4 gap-y-2 p-0 list-none opacity-0 animate-fade-up [animation-delay:0.8s] md:mt-5 md:gap-x-5 lg:mt-8 lg:gap-x-6 lg:gap-y-3"
-        >
-            {
-                social
-                    .filter((s) => s.ariaLabel !== "Email")
-                    .map((s) => (
-                        <li>
-                            <a
-                                href={s.link}
-                                target="_blank"
-                                rel="noopener"
-                                aria-label={s.ariaLabel}
-                                class="inline-flex items-center gap-1.5 p-2 lg:p-0 -ml-2 lg:ml-0 no-underline text-micro font-normal text-text-muted tracking-[0.04em] transition-all duration-250 hover:-translate-y-px hover:text-teal"
-                            >
-                                <Icon
-                                    name={s.name}
-                                    class="size-3.5 lg:size-[0.85rem]"
-                                />
-                                {s.ariaLabel}
-                            </a>
-                        </li>
-                    ))
-            }
-        </ul>
-        </div>
+      <h1
+        class="font-display text-text lg:text-hero max-w-[8.5ch] text-[3.2rem] leading-[0.92] font-extrabold tracking-[-0.03em] sm:text-[4rem] md:text-[4.5rem] lg:max-w-[9ch]"
+      >
+        David <span class="text-text-secondary font-light">D.</span>
+        <span class="block">Lawson</span>
+      </h1>
     </div>
+
+    <!-- Block 2: Rule, description, social -->
+    <div
+      class="animate-fade-up flex flex-col gap-6 opacity-0 [animation-delay:0.4s] lg:gap-8"
+    >
+      <div>
+        <div
+          class="hero-rule from-teal animate-scale-in mb-4 h-0.5 w-12 origin-left transform-[scaleX(0)] bg-linear-to-r to-transparent [animation-delay:0.5s] lg:mb-6 lg:w-16"
+        >
+        </div>
+
+        <p
+          class="font-body text-prose text-text-secondary animate-fade-up m-0 max-w-[46ch] leading-relaxed font-light opacity-0 [animation-delay:0.6s]"
+        >
+          Building bridges between technology and the humans who need it. I lead
+          technical account management across EMEA at <a
+            href="https://wiz.io"
+            referrerpolicy="origin"
+            target="_blank"
+            class="m-link-external"
+            style="--favicon-src:url('https://www.google.com/s2/favicons?domain=wiz.io&sz=32')"
+            rel="external"><strong class="text-text font-medium">Wiz</strong></a
+          >, helping security teams get real value from the platform. Outside of
+          work, I write about developer experience, tinker with AI, and build
+          things in&nbsp;public.
+        </p>
+      </div>
+      <ul
+        class="animate-fade-up mt-4 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 opacity-0 [animation-delay:0.8s] md:mt-5 md:gap-x-5 lg:mt-8 lg:gap-x-6 lg:gap-y-3"
+      >
+        {
+          social
+            .filter((s) => s.ariaLabel !== "Email")
+            .map((s) => (
+              <li>
+                <a
+                  href={s.link}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={s.ariaLabel}
+                  class="text-micro text-text-muted hover:text-teal -ml-2 inline-flex items-center gap-1.5 p-2 font-normal tracking-[0.04em] no-underline transition-all duration-250 hover:-translate-y-px lg:ml-0 lg:p-0"
+                >
+                  <Icon name={s.name} class="size-3.5 lg:size-[0.85rem]" />
+                  {s.ariaLabel}
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </div>
+  </div>
 </section>
 <!-- <section class="m-section m-reveal" id="about">
                 <div
@@ -125,51 +131,51 @@ import { social } from "@/site.config";
 </section> -->
 
 <style>
-    .hero::before {
-        position: absolute;
-        top: -80px;
-        right: -120px;
-        width: 600px;
-        height: 600px;
-        pointer-events: none;
-        content: "";
-        background: radial-gradient(
-            ellipse,
-            color-mix(in oklch, var(--color-teal) 4%, transparent) 0%,
-            transparent 65%
-        );
-    }
+  .hero::before {
+    position: absolute;
+    top: -80px;
+    right: -120px;
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+    content: "";
+    background: radial-gradient(
+      ellipse,
+      color-mix(in oklch, var(--color-teal) 4%, transparent) 0%,
+      transparent 65%
+    );
+  }
 
-    .hero-photo :global(img) {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-        filter: saturate(0.9) contrast(1.02);
-    }
+  .hero-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: saturate(0.9) contrast(1.02);
+  }
 
-    .hero-photo::after {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        height: 40%;
-        pointer-events: none;
-        content: "";
-        background: linear-gradient(to top, var(--color-background), transparent);
-    }
+  .hero-photo::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 40%;
+    pointer-events: none;
+    content: "";
+    background: linear-gradient(to top, var(--color-background), transparent);
+  }
 
-    .hero-photo-fade-left {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 25%;
-        pointer-events: none;
-        background: linear-gradient(
-            to right,
-            color-mix(in oklch, var(--color-background) 50%, transparent),
-            transparent
-        );
-    }
+  .hero-photo-fade-left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      color-mix(in oklch, var(--color-background) 50%, transparent),
+      transparent
+    );
+  }
 </style>
