@@ -1,19 +1,31 @@
 ---
-import { SOCIAL } from "@/site.config";
+import { Icon } from "astro-icon/components";
+import { conf, social } from "@/site.config";
 ---
 
-<div class="border-t border-border mt-8 bg-bg">
-	<footer class="mx-auto flex max-w-[var(--spacing-content)] items-center justify-between px-[var(--m-gutter)] py-8 max-md:flex-col max-md:gap-3 max-md:text-center">
-		<span class="text-[0.68rem] font-light text-text-muted">&copy; {new Date().getFullYear()} David D. Lawson</span>
-		<ul class="flex gap-7 list-none m-0 p-0">
-			<li><a href="mailto:hello@ddlawson.com" class="text-[0.68rem] font-normal text-text-muted no-underline transition-colors duration-250 hover:text-blue">Email</a></li>
-			{SOCIAL.map((s) => (
-				<li>
-					<a href={s.link} target="_blank" rel="noopener" class="text-[0.68rem] font-normal text-text-muted no-underline transition-colors duration-250 hover:text-blue">
-						{s.ariaLabel}
-					</a>
-				</li>
-			))}
-		</ul>
-	</footer>
+<div class="border-t border-border mt-8 bg-background">
+    <footer
+        class="mx-auto flex flex-col gap-3 text-center max-w-content items-center px-(--m-gutter) py-8 md:flex-row md:justify-between md:text-left md:gap-0"
+    >
+        <span class="text-caption font-light text-text-muted"
+            >&copy; {new Date().getFullYear()} {conf.name}</span
+        >
+        <ul class="flex gap-7 list-none m-0 p-0 items-center">
+            {
+                social.map((s) => (
+                    <li>
+                        <a
+                            href={s.link}
+                            target="_blank"
+                            rel="noopener"
+                            aria-label={s.ariaLabel}
+                            class="inline-flex text-text-muted transition-colors duration-250 hover:text-teal"
+                        >
+                            <Icon name={s.name} class="size-[0.9rem]" />
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </footer>
 </div>

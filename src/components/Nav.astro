@@ -1,43 +1,60 @@
 ---
-import { NAV } from "@/site.config";
+import { Icon } from "astro-icon/components";
+import { nav } from "@/site.config";
+
+// 1. Get the current path from Astro.url
+const pathname = Astro.url.pathname;
 ---
 
-<div class="sticky top-0 z-100 border-b border-border bg-bg/82 backdrop-blur-[16px] backdrop-saturate-[1.2]">
-	<nav class="mx-auto flex max-w-[var(--spacing-content)] items-center justify-between px-[var(--m-gutter)] py-4">
-		<div class="flex items-center gap-5">
-			<a href="/" class="font-display text-[1.15rem] font-bold tracking-[0.04em] text-text no-underline transition-colors duration-300 hover:text-blue">DDL</a>
-			<span class="nav-status flex items-center gap-[0.45rem] text-[0.58rem] font-light tracking-[0.06em] text-text-muted">
-				<span class="size-[5px] rounded-full bg-blue shadow-[0_0_6px_oklch(64.8%_0.081_195_/_0.4)] animate-pulse-dot"></span>
-				London, UK
-			</span>
-		</div>
-		<ul class="flex gap-8 list-none m-0 p-0 max-md:gap-5">
-			{NAV.map((item) => (
-				<li><a href={item.href} class="nav-link font-body text-[0.75rem] font-normal tracking-[0.1em] uppercase text-text-muted no-underline transition-colors duration-250 relative hover:text-text max-md:text-[0.68rem]">{item.name}</a></li>
-			))}
-		</ul>
-	</nav>
+<div
+    class="sticky top-0 z-100 border-b border-border bg-background/82 backdrop-blur-lg backdrop-saturate-[1.2]"
+>
+    <nav
+        class="mx-auto flex max-w-content items-center justify-between px-(--m-gutter) py-3 sm:py-4"
+    >
+        <a
+            href="/"
+            class="group inline-flex shrink-0 text-text no-underline transition-all duration-300 hover:opacity-85 hover:-translate-y-px"
+            aria-label="Home"
+        >
+            <Icon
+                name="dl_dot"
+                class="h-[1.1rem] w-auto transition-[filter] duration-300 [&_circle]:group-hover:drop-shadow-[0_0_4px_oklch(64.8%_0.081_195/0.6)]"
+            />
+        </a>
+        
+        <ul class="flex flex-wrap justify-end gap-x-3.5 gap-y-1 list-none m-0 p-0 sm:gap-5 md:gap-8">
+            {
+                nav.map((item) => {
+                    // 2. Determine if the current link is active.
+                    // If it's the home page ('/'), it needs an exact match.
+                    // Otherwise, we use startsWith() so a route like '/writing/my-post' keeps the '/writing' nav item active.
+                    const isActive = item.href === '/' 
+                        ? pathname === '/' 
+                        : pathname.startsWith(item.href);
+
+                    return (
+                        <li>
+                            <a
+                                href={item.href}
+                                aria-current={isActive ? "page" : undefined}
+                                class:list={[
+                                    // Base classes applied to all links
+                                    "block py-2 font-body text-[10px] sm:text-xs font-normal tracking-wider sm:tracking-widest uppercase no-underline transition-colors duration-250 relative lg:text-caption",
+                                    "after:absolute after:bottom-1 sm:after:-bottom-1 after:left-0 after:h-px after:bg-teal after:transition-[width] after:duration-300",
+                                    
+                                    // 3. Conditional classes based on active state
+                                    isActive 
+                                        ? "text-text " // Active state: bright text, permanent underline
+                                        : "text-text-muted hover:text-text after:w-0 hover:after:w-full" // Inactive state: muted text, underline on hover
+                                ]}
+                            >
+                                {item.name}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </nav>
 </div>
-
-<style>
-	.nav-status {
-		@media (max-width: 768px) {
-			display: none;
-		}
-	}
-
-	.nav-link::after {
-		content: "";
-		position: absolute;
-		bottom: -4px;
-		left: 0;
-		width: 0;
-		height: 1px;
-		background: var(--color-blue);
-		transition: width 0.3s ease;
-	}
-
-	.nav-link:hover::after {
-		width: 100%;
-	}
-</style>
