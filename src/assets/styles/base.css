@@ -3,17 +3,14 @@
 /* ——— THEME TOKENS ——— */
 @theme {
 	/* Colors — OKLCH for perceptual uniformity */
-	--color-bg: oklch(14.5% 0.011 303);
+	--color-background: oklch(14.5% 0.011 303);
 	--color-surface: oklch(17.5% 0.017 296);
 	--color-surface-hover: oklch(20.5% 0.024 296);
 	--color-elevated: oklch(22.9% 0.027 297);
 
-	--color-blue: oklch(64.8% 0.081 195);
-	--color-blue-bright: oklch(79.2% 0.093 195);
-	--color-blue-muted: oklch(54.7% 0.068 195);
-	--color-blue-ghost: oklch(64.8% 0.081 195 / 0.04);
-	--color-blue-ring: oklch(64.8% 0.081 195 / 0.12);
-	--color-blue-glow: oklch(64.8% 0.081 195 / 0.06);
+	--color-teal: oklch(64.8% 0.081 195);
+	--color-teal-bright: oklch(79.2% 0.093 195);
+	--color-teal-muted: oklch(54.7% 0.068 195);
 
 	--color-warm: oklch(70.4% 0.081 63);
 
@@ -27,10 +24,34 @@
 	/* Layout */
 	--spacing-content: 940px;
 
+	/* Type scale — static */
+	--text-detail: 0.65rem;
+	--text-detail--line-height: 1.4;
+	--text-label: 0.7rem;
+	--text-label--line-height: 1.4;
+
+	/* New: slightly smaller compact kicker / eyebrow */
+	--text-kicker: 0.64rem;
+	--text-kicker--line-height: 1.35;
+
+	--text-caption: 0.75rem;
+	--text-caption--line-height: 1.5;
+
+	/* Type scale — fluid */
+	--text-micro: clamp(0.72rem, 0.7rem + 0.12vw, 0.82rem);
+	--text-micro--line-height: 1.5;
+	--text-prose: clamp(0.84rem, 0.6rem + 0.5vw, 1.05rem);
+	--text-prose--line-height: 1.7;
+	--text-quote: clamp(1.15rem, 0.8rem + 1.5vw, 2.1rem);
+	--text-quote--line-height: 1.4;
+	--text-hero: clamp(1.9rem, 1rem + 5vw, 5.8rem);
+	--text-hero--line-height: 0.92;
+	--text-hero--letter-spacing: -0.03em;
+
 	/* Radius */
-	--radius-sm: 2px;
-	--radius-md: 4px;
-	--radius-lg: 6px;
+	--radius-sm: 0.125rem;
+	--radius-md: 0.25rem;
+	--radius-lg: 0.375rem;
 
 	/* Animations */
 	--animate-fade-up: fade-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -40,6 +61,15 @@
 	--animate-reveal-photo: reveal-photo 0.9s cubic-bezier(0.23, 1, 0.32, 1)
 		forwards;
 	--animate-pulse-dot: pulse-dot 3s ease-in-out infinite;
+
+	/* Shadows */
+	--shadow-teal-glow: 0 0 8px
+		color-mix(in oklch, var(--color-teal) 40%, transparent);
+	--shadow-teal-glow-sm: 0 0 6px
+		color-mix(in oklch, var(--color-teal) 35%, transparent);
+
+	--container-copy: 42rem;
+	--container-hero: 64rem;
 
 	@keyframes fade-up {
 		from {
@@ -94,6 +124,12 @@
 			opacity: 0.25;
 		}
 	}
+
+	@keyframes m-favicon-in {
+		to {
+			opacity: 0.7;
+		}
+	}
 }
 
 /* Font tokens — inline so they reference Astro's <Font> CSS vars without collision */
@@ -109,29 +145,41 @@
 
 /* ——— CUSTOM UTILITIES ——— */
 @utility m-section {
-	padding: 5rem 0;
+	padding: clamp(4rem, 8vw, 6rem) 0;
 }
 
 @utility m-label {
 	display: flex;
-	align-items: center;
 	gap: 1.25rem;
+	align-items: center;
 	margin-bottom: 2.5rem;
 }
 
+/* Uses CSS transitions on opacity+transform (compositor-only).
+   Do NOT combine m-reveal with animate-* keyframes on the same element —
+   mixing transitions and keyframes on the same properties causes jank. */
 @utility m-reveal {
 	opacity: 0;
 	transform: translateY(20px);
 	transition:
 		opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
 		transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Spine draw-in — scaleY from top, triggered by data-visible */
+@utility m-spine-draw {
+	transform: scaleY(0);
+	transform-origin: top;
+	transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+	transition-delay: var(--reveal-delay, 0ms);
 }
 
 @utility m-section-alt {
-	background: var(--color-surface);
-	margin: 0 calc(-1 * var(--m-gutter));
-	padding: 4.5rem var(--m-gutter);
 	position: relative;
+	padding: clamp(2.5rem, 5vw, 4.5rem) var(--m-gutter);
+	margin: 0 calc(-1 * var(--m-gutter));
+	background: var(--color-surface);
 }
 
 @utility m-divider {
@@ -141,41 +189,98 @@
 	padding: 1rem 0;
 }
 
+/* ——— EXTERNAL LINK with FAVICON ——— */
+/* Opt-in: class="m-link-external" + style="--favicon-src:url(https://www.google.com/s2/favicons?domain=wiz.io&sz=32)"
+   Adds a tiny favicon and a ↗ indicator. Inline-flex so the icon
+   aligns with the text baseline.
+   NOTE: The --favicon-src must be set per-element via style attribute
+   because CSS url() cannot interpolate custom-property values. */
+@utility m-link-external {
+	position: relative;
+	display: inline-flex;
+	gap: 0.2em;
+	align-items: baseline;
+	text-decoration-line: none;
+	text-underline-offset: 0;
+
+	&::before {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		vertical-align: -0.125em;
+		content: "";
+		background-image: var(--favicon-src);
+		background-repeat: no-repeat;
+		background-size: contain;
+		border-radius: 2px;
+		opacity: 0;
+		animation: m-favicon-in 0.4s ease 0.3s forwards;
+	}
+
+	/* ↗ indicator after the link text */
+	&::after {
+		font-size: 0.65em;
+		line-height: 1;
+		content: "↗";
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+
+	&:hover::after {
+		opacity: 0.6;
+	}
+}
+
 /* ——— BASE LAYER ——— */
 @layer base {
+	/* Inline text links: subtle underline that lifts to teal on hover.
+	   Navigation, card, social-icon, and CTA links override these with inline classes. */
+	a {
+		color: var(--color-text-secondary);
+		text-decoration-line: underline;
+		text-decoration-thickness: 1px;
+		text-decoration-color: color-mix(
+			in oklch,
+			var(--color-text-muted) 40%,
+			transparent
+		);
+		text-decoration-skip-ink: auto;
+		text-underline-offset: 0.15em;
+		transition:
+			color 0.25s ease,
+			text-decoration-color 0.25s ease;
+	}
+
+	a:hover {
+		color: var(--color-teal);
+		text-decoration-color: var(--color-teal-muted);
+	}
+
 	a:focus-visible {
-		outline: 2px solid var(--color-blue);
+		outline: 2px solid var(--color-teal);
 		outline-offset: 3px;
 		border-radius: 2px;
 	}
 }
 
-/* Unlayered so it overrides the m-reveal utility */
-.m-reveal.is-visible {
+/* Unlayered so it overrides the m-reveal utility; data-attr for semantic state */
+.m-reveal[data-visible] {
 	opacity: 1;
 	transform: translateY(0);
 }
 
-.m-reveal-delay-1 {
-	transition-delay: 0.1s;
-}
-
-.m-reveal-delay-2 {
-	transition-delay: 0.2s;
-}
-
-.m-reveal-delay-3 {
-	transition-delay: 0.3s;
+.m-spine-draw[data-visible] {
+	transform: scaleY(1);
 }
 
 /* Section-alt top border gradient */
 .m-section-alt::before {
-	content: "";
 	position: absolute;
 	top: 0;
-	left: 0;
 	right: 0;
+	left: 0;
 	height: 1px;
+	content: "";
 	background: linear-gradient(
 		90deg,
 		transparent,
@@ -186,16 +291,22 @@
 
 /* Divider line */
 .m-divider::before {
-	content: "";
 	width: 28px;
 	height: 1px;
-	background: var(--color-blue-muted);
+	content: "";
+	background: var(--color-teal-muted);
 	opacity: 0.5;
 }
 
-@media (max-width: 768px) {
-	.m-section-alt {
-		margin: 0 calc(-1 * var(--m-gutter));
-		padding: 3rem var(--m-gutter);
-	}
+/* Noise overlay — fixed, non-interactive */
+@utility m-noise {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	pointer-events: none;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-repeat: repeat;
+	background-size: 180px;
+	mix-blend-mode: overlay;
+	opacity: 0.028;
 }
