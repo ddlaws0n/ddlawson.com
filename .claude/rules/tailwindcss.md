@@ -5,6 +5,7 @@
 The type scale is defined in `@theme` in `src/assets/styles/base.css`. Prefer these tokens over arbitrary font-size values.
 
 **Static tokens** — small labels, fixed across viewports:
+- `text-kicker` (0.64rem) — compact eyebrow/kicker text
 - `text-detail` (0.65rem) — tag labels, smallest text
 - `text-label` (0.7rem) — section labels, hero subtitle, nav items
 - `text-caption` (0.75rem) — captions, attributions, nav links on desktop
@@ -14,6 +15,7 @@ The type scale is defined in `@theme` in `src/assets/styles/base.css`. Prefer th
 - `text-prose` (0.84–1.05rem) — paragraph body text, card descriptions, list items
 - `text-quote` (1.15–2.1rem) — pull quotes, callouts
 - `text-hero` (1.9–5.8rem) — hero/display headings (includes letter-spacing: -0.03em)
+- `text-display` (8–16rem) — decorative oversized numerals (e.g., 404 page)
 
 Each token includes a `--line-height` companion (and `--letter-spacing` where needed) so `text-prose` automatically sets `line-height: 1.7`. No need for separate `leading-*` classes when using a type token.
 
@@ -54,6 +56,10 @@ Each token includes a `--line-height` companion (and `--letter-spacing` where ne
 
 - All animations use compositor-only properties (`opacity`, `transform`) — never animate layout properties.
 - **Never combine `m-reveal` (CSS transition) with `animate-*` (keyframes) on the same element.** Mixing transitions and keyframes on the same properties causes jank. Apply `m-reveal` on the container, `animate-*` on children.
+- A global `@media (prefers-reduced-motion: reduce)` block in `base.css` disables all animations and transitions. This is the safety net — don't remove it.
+- **Every `opacity-0 animate-*` pairing must include `motion-reduce:opacity-100`** so content isn't permanently hidden when animations are disabled.
+- For elements using `transform` in their animation initial state (e.g., `transform-[scaleX(0)]`), also add `motion-reduce:transform-none`.
+- Animation durations: micro-interactions 150–300ms, complex transitions ≤600ms. Stagger delays should be 50–60ms per item.
 
 ## CSS Variable Syntax
 
@@ -81,6 +87,7 @@ Each token includes a `--line-height` companion (and `--letter-spacing` where ne
   /* ❌ Hardcoded in template */
   shadow-[0_0_8px_oklch(64.8%_0.081_195/0.4)]
   ```
+- `--shadow-logo-teal` is defined for the nav logo hover glow — reference it with `drop-shadow-(--shadow-logo-teal)`.
 
 ## Animations
 
@@ -112,7 +119,7 @@ Usage requires a `style` attribute to set the favicon URL (CSS `url()` cannot in
   href="https://wiz.io"
   class="m-link-external"
   style="--favicon-src:url('https://www.google.com/s2/favicons?domain=wiz.io&sz=32')"
-  rel="external"
+  rel="external noopener noreferrer"
 >Wiz</a>
 ```
 
