@@ -8,101 +8,147 @@ const { meta = {} } = Astro.props;
 const title = meta.title ?? conf.site.name;
 const description = meta.description ?? conf.seo.description;
 const pathname = Astro.url.pathname;
+const canonicalURL = meta.canonical ?? new URL(pathname, conf.site.origin).href;
+const ogImage = meta.image ?? new URL("/og/default.png", conf.site.origin).href;
+const ogImageAlt = meta.imageAlt ?? `${conf.site.name} — ${conf.site.domain}`;
 ---
 
 <!doctype html>
 <html
-  lang={conf.site.language}
-  dir="ltr"
-  class="h-full scroll-smooth antialiased motion-reduce:scroll-auto"
+    lang={conf.site.language}
+    dir="ltr"
+    class="h-full scroll-smooth antialiased motion-reduce:scroll-auto"
 >
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}{pathname !== "/" ? ` | ${conf.site.name}` : ""}</title>
-    <meta name="description" content={description} />
-    {
-      meta.canonical && (
-        <link rel="canonical" href={meta.canonical.toString()} />
-      )
-    }
-    {
-      meta.noindex && (
-        <meta
-          name="robots"
-          content={`${meta.noindex ? "noindex" : ""}${meta.nofollow ? ",nofollow" : ""}`}
-        />
-      )
-    }
-    <meta property="og:title" content={meta.ogTitle ?? title} />
-    <meta property="og:type" content={meta.ogType ?? "website"} />
-    {meta.image && <meta property="og:image" content={meta.image} />}
-    <Font cssVariable="--font-display" />
-    <Font cssVariable="--font-body" />
-    <ClientRouter />
-  </head>
-
-  <body>
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-teal focus:px-4 focus:py-2 focus:text-sm focus:text-background">Skip to content</a>
-    <slot />
-  </body><script>
-    /**
-     * Set up IntersectionObserver for scroll-reveal animations.
-     * Runs on initial load AND after every Astro View Transition swap
-     * so that new m-reveal / m-spine-draw elements get observed.
-     */
-    function initRevealObserver() {
-      const reveals = document.querySelectorAll(".m-reveal, .m-spine-draw");
-      if (!reveals.length) return;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.setAttribute("data-visible", "");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-      );
-
-      for (const el of reveals) {
-        if (!el.hasAttribute("data-visible")) {
-          observer.observe(el);
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}{pathname !== "/" ? ` | ${conf.site.name}` : ""}</title>
+        <meta name="description" content={description} />
+        <meta name="author" content={conf.site.name} />
+        <link rel="canonical" href={canonicalURL.toString()} />
+        {
+            meta.noindex ? (
+                <meta
+                    name="robots"
+                    content={`noindex${meta.nofollow ? ",nofollow" : ""}`}
+                />
+            ) : (
+                <meta
+                    name="robots"
+                    content="index,follow,max-image-preview:large,max-snippet:-1"
+                />
+            )
         }
-      }
-    }
+        <!-- Open Graph -->
+        <meta property="og:title" content={meta.ogTitle ?? title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={meta.ogType ?? "website"} />
+        <meta property="og:url" content={canonicalURL.toString()} />
+        <meta property="og:site_name" content={conf.site.name} />
+        <meta
+            property="og:locale"
+            content={conf.site.language.replace("-", "_")}
+        />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content={ogImageAlt} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        {meta.publishedTime && <meta property="article:published_time" content={meta.publishedTime} />}
+        {meta.modifiedTime && <meta property="article:modified_time" content={meta.modifiedTime} />}
+        {meta.articleAuthor && <meta property="article:author" content={meta.articleAuthor} />}
+        {meta.articleTag && <meta property="article:tag" content={meta.articleTag} />}
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        {conf.site.twitterHandle && <meta name="twitter:site" content={conf.site.twitterHandle} />}
+        {conf.site.twitterHandle && <meta name="twitter:creator" content={conf.site.twitterHandle} />}
+        <meta name="twitter:title" content={meta.ogTitle ?? title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={ogImageAlt} />
+        <Font cssVariable="--font-display" />
+        <Font cssVariable="--font-body" />
+        {
+            import.meta.env.PROD && (
+                <script
+                    async
+                    defer
+                    is:inline
+                    data-astro-rerun
+                    data-website-id={conf.analytics.umamiId}
+                    src={conf.analytics.umamiUrl}
+                />
+            )
+        }
+        <ClientRouter />
+    </head>
 
-    /**
-     * Re-trigger CSS keyframe animations after a View Transition swap.
-     *
-     * Elements using animate-fade-up etc. start at opacity:0 and rely on the
-     * keyframe running to reach opacity:1. After a View Transition swap, the
-     * browser may not re-trigger these animations since the DOM elements are
-     * new but the CSS rules haven't changed. We force a restart by briefly
-     * setting animation to "none", forcing reflow, then removing it.
-     */
-    function restartAnimations() {
-      const animated = document.querySelectorAll(
-        ".animate-fade-up, .animate-slide-in, .animate-scale-in, .animate-reveal-photo, .animate-fade-up-fast",
-      );
-      for (const el of animated) {
-        const html = el as HTMLElement;
-        html.style.animation = "none";
-        // Force reflow so the browser registers the "none" value
-        void html.offsetHeight;
-        html.style.animation = "";
-      }
-    }
+    <body>
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-teal focus:px-4 focus:py-2 focus:text-sm focus:text-background"
+            >Skip to content</a
+        >
+        <slot />
+    </body><script>
+        /**
+         * Set up IntersectionObserver for scroll-reveal animations.
+         * Runs on initial load AND after every Astro View Transition swap
+         * so that new m-reveal / m-spine-draw elements get observed.
+         */
+        function initRevealObserver() {
+            const reveals = document.querySelectorAll(
+                ".m-reveal, .m-spine-draw",
+            );
+            if (!reveals.length) return;
 
-    // Initial page load
-    document.addEventListener("DOMContentLoaded", initRevealObserver);
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.setAttribute("data-visible", "");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+            );
 
-    // Re-run after every Astro View Transition swap
-    document.addEventListener("astro:after-swap", () => {
-      initRevealObserver();
-      restartAnimations();
-    });
-  </script>
+            for (const el of reveals) {
+                if (!el.hasAttribute("data-visible")) {
+                    observer.observe(el);
+                }
+            }
+        }
+
+        /**
+         * Re-trigger CSS keyframe animations after a View Transition swap.
+         *
+         * Elements using animate-fade-up etc. start at opacity:0 and rely on the
+         * keyframe running to reach opacity:1. After a View Transition swap, the
+         * browser may not re-trigger these animations since the DOM elements are
+         * new but the CSS rules haven't changed. We force a restart by briefly
+         * setting animation to "none", forcing reflow, then removing it.
+         */
+        function restartAnimations() {
+            const animated = document.querySelectorAll(
+                ".animate-fade-up, .animate-slide-in, .animate-scale-in, .animate-reveal-photo, .animate-fade-up-fast",
+            );
+            for (const el of animated) {
+                const html = el as HTMLElement;
+                html.style.animation = "none";
+                // Force reflow so the browser registers the "none" value
+                void html.offsetHeight;
+                html.style.animation = "";
+            }
+        }
+
+        // Initial page load
+        document.addEventListener("DOMContentLoaded", initRevealObserver);
+
+        // Re-run after every Astro View Transition swap
+        document.addEventListener("astro:after-swap", () => {
+            initRevealObserver();
+            restartAnimations();
+        });
+    </script>
 </html>

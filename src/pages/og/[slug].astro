@@ -1,0 +1,222 @@
+---
+// biome-ignore-file
+import { getCollection } from "astro:content";
+import { conf } from "@/site.config";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog", ({ data }) => !data.draft);
+    return [
+        ...posts.map((post) => ({
+            params: { slug: post.id },
+            props: { title: post.data.title, tag: post.data.tag },
+        })),
+        {
+            params: { slug: "default" },
+            props: {
+                title: conf.site.name,
+                tag: "B2B SaaS · CX · Cloud Security",
+            },
+        },
+    ];
+}
+
+const { title, tag } = Astro.props;
+---
+
+<html lang={conf.site.language}>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Outfit:wght@300;400&display=swap");
+
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                position: relative;
+                width: 1200px;
+                height: 630px;
+                overflow: hidden;
+                font-family: "Outfit", system-ui, sans-serif;
+                color: oklch(93.5% 0.01 299);
+                background: oklch(14.5% 0.011 303);
+            }
+
+            /* Safe zone: 60px+ all sides, 80px bottom for platform overlays */
+            .safe-zone {
+                position: absolute;
+                inset: 60px 64px 80px 64px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* ── Background effects ── */
+
+            /* Ambient teal glow — top right */
+            .glow-1 {
+                position: absolute;
+                top: -100px;
+                right: -80px;
+                width: 600px;
+                height: 600px;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse at 60% 40%,
+                    oklch(64.8% 0.081 195 / 0.07) 0%,
+                    transparent 60%
+                );
+            }
+
+            /* Secondary glow — bottom left */
+            .glow-2 {
+                position: absolute;
+                bottom: -120px;
+                left: -60px;
+                width: 500px;
+                height: 500px;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse at 40% 60%,
+                    oklch(64.8% 0.081 195 / 0.04) 0%,
+                    transparent 60%
+                );
+            }
+
+            /* Subtle grid pattern */
+            .grid-bg {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image:
+                    linear-gradient(
+                        oklch(100% 0 0 / 0.02) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        oklch(100% 0 0 / 0.02) 1px,
+                        transparent 1px
+                    );
+                background-size: 60px 60px;
+                mask-image: radial-gradient(
+                    ellipse at 70% 30%,
+                    black 10%,
+                    transparent 70%
+                );
+            }
+
+            /* Top accent bar */
+            .accent-bar {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: 4px;
+                background: linear-gradient(
+                    90deg,
+                    oklch(64.8% 0.081 195) 0%,
+                    oklch(64.8% 0.081 195 / 0.3) 40%,
+                    transparent 70%
+                );
+            }
+
+            /* ── Header row: logo left, domain right ── */
+            .header {
+                display: flex;
+                flex-shrink: 0;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .site {
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 17px;
+                font-weight: 700;
+                color: oklch(55% 0.024 305);
+                letter-spacing: 0.04em;
+            }
+
+            /* ── Content: vertically centered ── */
+            .content {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .tag {
+                margin-bottom: 20px;
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                color: oklch(54.7% 0.068 195);
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+            }
+
+            .title {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                max-width: 18ch;
+                overflow: hidden;
+                -webkit-line-clamp: 3;
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 56px;
+                font-weight: 800;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+            }
+
+            .rule {
+                width: 56px;
+                height: 3px;
+                margin-top: 28px;
+                background: linear-gradient(
+                    90deg,
+                    oklch(64.8% 0.081 195),
+                    oklch(64.8% 0.081 195 / 0.2)
+                );
+                border-radius: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+        <div class="grid-bg"></div>
+        <div class="accent-bar"></div>
+
+        <div class="safe-zone">
+            <div class="header">
+                <!-- DL logo -->
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 104 52"
+                    width="72"
+                    height="36"
+                >
+                    <path
+                        d="M0,0 L0,48 L18,48 C36,48 48,38 48,24 C48,10 36,0 18,0 Z M8,7 L17,7 C31,7 40,15 40,24 C40,33 31,41 17,41 L8,41 Z"
+                        fill="oklch(93.5% 0.01 299)"></path>
+                    <path
+                        d="M56,0 L56,48 L88,48 L88,41 L64,41 L64,0 Z"
+                        fill="oklch(93.5% 0.01 299)"></path>
+                    <circle cx="96" cy="44" r="4" fill="oklch(64.8% 0.081 195)"
+                    ></circle>
+                </svg>
+                <span class="site">{conf.site.domain}</span>
+            </div>
+
+            <div class="content">
+                <p class="tag">{tag}</p>
+                <h1 class="title">{title}</h1>
+                <div class="rule"></div>
+            </div>
+        </div>
+    </body>
+</html>

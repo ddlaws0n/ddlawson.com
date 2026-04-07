@@ -6,6 +6,8 @@ export interface SiteConfig {
 		basePathname: string;
 		trailingSlash: string;
 		language: string;
+		domain: string;
+		twitterHandle?: string;
 		defaultTheme?: string;
 	};
 	seo: {

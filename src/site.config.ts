@@ -2,7 +2,8 @@ import type { SiteConfig } from "@/types";
 
 const SITE_NAME = "David D Lawson";
 const SITE_EMAIL = "work@ddlawson.com";
-const SITE_DOMAIN = "https://ddlawson.com";
+const SITE_DOMAIN = "https://dlawsonv3.vercel.app";
+const SITE_DISPLAY_DOMAIN = "ddlawson.com";
 
 const isProd = import.meta.env.PROD;
 
@@ -19,11 +20,13 @@ export const conf: SiteConfig = {
 		basePathname: "/",
 		trailingSlash: "never",
 		language: "en-GB",
+		domain: SITE_DISPLAY_DOMAIN,
+		twitterHandle: "@ddlaws0n",
 	},
 	seo: {
 		title: "David D Lawson | B2B SaaS Customer Experience Professional",
 		description:
-			"🚀 Customer Experience professional with a passion for people & tech.",
+			"Customer experience professional bridging technology and the humans who need it. TAM leadership, cloud security, and building in public.",
 	},
 	analytics: {
 		umamiId: import.meta.env.UMAMI_ID,

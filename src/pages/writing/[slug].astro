@@ -19,14 +19,19 @@ const { Content } = await render(post);
 const { title, description, date, tag } = post.data;
 const dateFmt = conf.blog.dateFormatter;
 const formattedDate = dateFmt.format(date);
+const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
 ---
 
 <BaseLayout
   meta={{
     title,
     description,
-    noindex: true,
-    nofollow: true,
+    image: ogImage,
+    imageAlt: `${title} — ${conf.site.domain}`,
+    ogType: "article",
+    publishedTime: date.toISOString(),
+    articleAuthor: conf.site.name,
+    articleTag: tag,
   }}
 >
   <div

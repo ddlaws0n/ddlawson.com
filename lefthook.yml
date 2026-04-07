@@ -26,4 +26,4 @@ pre-push:
       tags: lint
       files: git diff --name-only $(git merge-base origin/main HEAD)
       glob: "src/**/*.{js,jsx,ts,tsx}"
-      run: pnpm run check && echo "Types checked successfully."
+      run: pnpm run types && echo "Types checked successfully."

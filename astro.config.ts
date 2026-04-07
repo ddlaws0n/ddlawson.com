@@ -1,4 +1,5 @@
 // astro.config.ts
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import favicons from "astro-favicons";
@@ -68,6 +69,9 @@ export default defineConfig({
 	],
 
 	integrations: [
+		sitemap({
+			filter: (page) => !page.includes("/og/") && !page.includes("/404"),
+		}),
 		icon({ iconDir: "src/assets/svg" }),
 		favicons({
 			name: conf.site.name,
