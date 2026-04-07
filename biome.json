@@ -33,7 +33,7 @@
 				"noUnusedFunctionParameters": "warn"
 			},
 			"nursery": {
-				"useSortedClasses": "warn"
+				"useSortedClasses": "off"
 			}
 		}
 	},
