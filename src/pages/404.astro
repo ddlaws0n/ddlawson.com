@@ -1,0 +1,76 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    meta={{
+        title: "404 — Page Not Found",
+        description: "This page doesn't exist.",
+        noindex: true,
+        nofollow: true,
+    }}
+>
+    <div class="font-body bg-background text-text h-dvh relative overflow-hidden">
+        <div class="m-noise"></div>
+
+        <!-- Ambient glow -->
+        <div
+            class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[60vmin] rounded-full bg-[radial-gradient(ellipse,color-mix(in_oklch,var(--color-teal)_6%,transparent)_0%,transparent_65%)]"
+            aria-hidden="true"
+        />
+
+        <!-- Second offset glow -->
+        <div
+            class="pointer-events-none absolute top-[30%] right-[15%] size-[35vmin] rounded-full bg-[radial-gradient(ellipse,color-mix(in_oklch,var(--color-teal)_3%,transparent)_0%,transparent_60%)]"
+            aria-hidden="true"
+        />
+
+        <main class="relative z-10 flex h-full flex-col items-center justify-center px-(--m-gutter) text-center">
+            <!-- Large 404 number -->
+            <div class="opacity-0 animate-fade-up">
+                <span
+                    class="font-display text-[clamp(8rem,22vw,16rem)] font-extralight leading-[0.85] tracking-[-0.04em] text-text/4 block select-none"
+                    aria-hidden="true"
+                >
+                    404
+                </span>
+            </div>
+
+            <!-- Overlaid content -->
+            <div class="opacity-0 animate-fade-up [animation-delay:0.15s] -mt-[clamp(4rem,10vw,8rem)]">
+                <span
+                    class="mb-3 block font-display text-xs font-semibold tracking-[0.24em] uppercase text-teal-muted lg:text-label"
+                >
+                    Page Not Found
+                </span>
+                <h1
+                    class="font-display text-[clamp(1.6rem,1rem+3vw,3rem)] font-bold text-text leading-[1.1] tracking-[-0.02em] max-w-[14ch] mx-auto"
+                >
+                    Nothing lives here<span class="text-teal">.</span>
+                </h1>
+                <p class="font-body text-prose font-light text-text-secondary mt-4 mb-0 max-w-[32ch] mx-auto">
+                    The page you're looking for has moved, been renamed, or never existed in the first place.
+                </p>
+            </div>
+
+            <!-- CTA -->
+            <div class="opacity-0 animate-fade-up [animation-delay:0.3s] mt-8 lg:mt-10">
+                <a
+                    href="/"
+                    class="group inline-flex items-center gap-2 font-display text-sm font-medium tracking-[0.06em] uppercase text-teal no-underline transition-all duration-300 hover:text-teal-bright hover:gap-3"
+                >
+                    <span
+                        class="inline-flex size-8 items-center justify-center rounded-full border border-teal/30 transition-all duration-300 group-hover:border-teal group-hover:bg-teal/8"
+                    >
+                        <Icon
+                            name="tabler:arrow-left"
+                            class="size-3.5"
+                        />
+                    </span>
+                    Back to Home
+                </a>
+            </div>
+        </main>
+    </div>
+</BaseLayout>
