@@ -1,6 +1,6 @@
-import type { Config } from "@/types";
+import type { SiteConfig } from "@/types";
 
-const CONFIG: Config = {
+const meta: SiteConfig = {
 	// Basics
 	name: "David D Lawson",
 	origin: "https://ddlawson.com",
@@ -11,10 +11,7 @@ const CONFIG: Config = {
 	title: "David D Lawson | B2B SaaS Customer Experience Professional",
 	description:
 		"🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.",
-	language: "en",
-
-	// Appearance
-	defaultTheme: "system",
+	language: "en-Gb",
 
 	// Analytics
 	umamiId: "9b7d8646-6556-4e06-8cb1-c6114fb4828d",
@@ -35,17 +32,9 @@ const CONFIG: Config = {
 			href: "/",
 		},
 		{
-			name: "About",
-			href: "/about",
-		},
-		{
 			name: "Work",
 			href: "/work",
 		},
-		// {
-		//   name: 'Projects',
-		//   href: '/projects',
-		// },
 		{
 			name: "Writing",
 			href: "/writing",
@@ -58,14 +47,20 @@ const CONFIG: Config = {
 
 	socialShares: [
 		{
-			name: "tabler:brand-github",
-			link: "https://www.github.com/ddlaws0n",
-			ariaLabel: "GitHub",
+			name: "tabler:mail",
+			link: "mailto:work@ddlawson.com",
+			ariaLabel: "Email",
 		},
 		{
 			name: "tabler:brand-linkedin",
 			link: "https://www.linkedin.com/in/ddlawson/",
 			ariaLabel: "LinkedIn",
+		},
+
+		{
+			name: "tabler:brand-github",
+			link: "https://www.github.com/ddlaws0n",
+			ariaLabel: "GitHub",
 		},
 		{
 			name: "tabler:brand-x",
@@ -75,7 +70,7 @@ const CONFIG: Config = {
 	],
 };
 
-export const SITE = { ...CONFIG };
-export const NAV = CONFIG.navItems;
-export const SOCIAL = CONFIG.socialShares;
-export const DATE_FORMATTER = CONFIG.dateFormatter;
+export const conf = { ...meta };
+export const nav = meta.navItems;
+export const social = meta.socialShares;
+export const dt = meta.dateFormatter;

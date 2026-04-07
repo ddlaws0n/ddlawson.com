@@ -1,4 +1,4 @@
-export interface Config {
+export interface SiteConfig {
 	name: string;
 	origin: string;
 	basePathname: string;
@@ -6,7 +6,7 @@ export interface Config {
 	title: string;
 	description: string;
 	language: string;
-	defaultTheme: string;
+	defaultTheme?: string;
 	umamiId: string;
 	words_per_minute: number;
 	dateFormatter: Intl.DateTimeFormat;
@@ -23,4 +23,20 @@ export interface MetaSEO {
 	nofollow?: boolean;
 	ogTitle?: string;
 	ogType?: "website" | "article" | "profile" | "book";
+}
+
+export interface Role {
+	title: string;
+	start_date: string;
+	end_date: string;
+	summary: string;
+	key_achievements?: string[];
+}
+
+export interface WorkExperience {
+	company: string;
+	companyId: string;
+	location: string;
+	logoUrl: string | null;
+	roles: Role[];
 }
