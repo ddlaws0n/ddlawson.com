@@ -12,7 +12,7 @@ import { social } from "@/site.config";
   <!-- hero.astro -->
   <!-- photo -->
   <div
-    class="hero-photo-wrap animate-reveal-photo relative mt-0.5 min-w-0 self-start opacity-0 [animation-delay:0.3s] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center"
+    class="hero-photo-wrap animate-reveal-photo relative mt-0.5 min-w-0 self-start opacity-0 motion-reduce:opacity-100 [animation-delay:0.3s] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-center"
   >
     <!-- Combined into a single hero-photo div with the updated sizes -->
     <div
@@ -48,15 +48,15 @@ import { social } from "@/site.config";
   >
     <!-- Block 1: Subtitle + Name -->
     <!-- Note: Removed lg:col-start-1 and lg:row-start-1 from here -->
-    <div class="animate-fade-up opacity-0">
+    <div class="animate-fade-up opacity-0 motion-reduce:opacity-100">
       <span
-        class="font-display text-kicker text-teal-muted animate-slide-in sm:text-label block font-semibold tracking-[0.2em] uppercase opacity-0 [animation-delay:0.2s] sm:mb-2.5 sm:tracking-[0.24em] md:mb-4 lg:mb-6"
+        class="font-display text-kicker text-teal-muted sm:text-label block font-semibold tracking-[0.2em] uppercase sm:mb-2.5 sm:tracking-[0.24em] md:mb-4 lg:mb-6"
       >
         TAM Leader &middot; Builder &middot; Writer
       </span>
 
       <h1
-        class="font-display text-text lg:text-hero max-w-[8.5ch] text-[3.2rem] leading-[0.92] font-extrabold tracking-[-0.03em] sm:text-[4rem] md:text-[4.5rem] lg:max-w-[9ch]"
+        class="font-display text-hero text-text max-w-[8.5ch] font-extrabold lg:max-w-[9ch]"
       >
         David <span class="text-text-secondary font-light">D.</span>
         <span class="block">Lawson</span>
@@ -65,16 +65,16 @@ import { social } from "@/site.config";
 
     <!-- Block 2: Rule, description, social -->
     <div
-      class="animate-fade-up flex flex-col gap-6 opacity-0 [animation-delay:0.4s] lg:gap-8"
+      class="animate-fade-up flex flex-col gap-6 opacity-0 motion-reduce:opacity-100 [animation-delay:0.4s] lg:gap-8"
     >
       <div>
         <div
-          class="hero-rule from-teal animate-scale-in mb-4 h-0.5 w-12 origin-left transform-[scaleX(0)] bg-linear-to-r to-transparent [animation-delay:0.5s] lg:mb-6 lg:w-16"
+          class="hero-rule from-teal animate-scale-in mb-4 h-0.5 w-12 origin-left transform-[scaleX(0)] motion-reduce:opacity-100 motion-reduce:transform-none bg-linear-to-r to-transparent [animation-delay:0.5s] lg:mb-6 lg:w-16"
         >
         </div>
 
         <p
-          class="font-body text-prose text-text-secondary animate-fade-up m-0 max-w-[46ch] leading-relaxed font-light opacity-0 [animation-delay:0.6s]"
+          class="font-body text-prose text-text-secondary animate-fade-up m-0 max-w-[46ch] leading-relaxed font-light opacity-0 motion-reduce:opacity-100 [animation-delay:0.6s]"
         >
           Building bridges between technology and the humans who need it. I lead
           technical account management across EMEA at <a
@@ -83,14 +83,14 @@ import { social } from "@/site.config";
             target="_blank"
             class="m-link-external"
             style="--favicon-src:url('https://www.google.com/s2/favicons?domain=wiz.io&sz=32')"
-            rel="external"><strong class="text-text font-medium">Wiz</strong></a
+            rel="external noopener noreferrer"><strong class="text-text font-medium">Wiz</strong><span class="sr-only">(opens in new tab)</span></a
           >, helping security teams get real value from the platform. Outside of
           work, I write about developer experience, tinker with AI, and build
           things in&nbsp;public.
         </p>
       </div>
       <ul
-        class="animate-fade-up mt-4 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 opacity-0 [animation-delay:0.8s] md:mt-5 md:gap-x-5 lg:mt-8 lg:gap-x-6 lg:gap-y-3"
+        class="animate-fade-up mt-4 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 opacity-0 motion-reduce:opacity-100 [animation-delay:0.8s] md:mt-5 md:gap-x-5 lg:mt-8 lg:gap-x-6 lg:gap-y-3"
       >
         {
           social
@@ -102,7 +102,7 @@ import { social } from "@/site.config";
                   target="_blank"
                   rel="noopener"
                   aria-label={s.ariaLabel}
-                  class="text-micro text-text-muted hover:text-teal -ml-2 inline-flex items-center gap-1.5 p-2 font-normal tracking-[0.04em] no-underline transition-all duration-250 hover:-translate-y-px lg:ml-0 lg:p-0"
+                  class="text-micro text-text-muted hover:text-teal -ml-2 inline-flex min-h-11 min-w-11 items-center gap-1.5 p-2 font-normal tracking-[0.04em] no-underline transition-all duration-250 hover:-translate-y-px lg:ml-0 lg:p-1.5"
                 >
                   <Icon name={s.name} class="size-3.5 lg:size-[0.85rem]" />
                   {s.ariaLabel}
