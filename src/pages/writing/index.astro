@@ -3,8 +3,10 @@ import { getCollection } from "astro:content";
 import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
 import PostCard from "@/components/PostCard.astro";
+import SectionLabel from "@/components/SectionLabel.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { conf } from "@/site.config.ts";
+import { getReadingTime } from "@/utils/reading-time";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -55,16 +57,7 @@ function formatDate(date: Date): string {
 
       <!-- Post list -->
       <section class="m-section">
-        <div class="m-label">
-          <span
-            class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
-          >
-            {posts.length} {posts.length === 1 ? "Post" : "Posts"}
-          </span>
-          <div
-            class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80"
-          ></div>
-        </div>
+        <SectionLabel label={`${posts.length} ${posts.length === 1 ? "Post" : "Posts"}`} />
 
         {posts.length === 0 && (
           <p class="text-prose text-text-muted py-16 text-center">No posts yet — check back soon.</p>
@@ -73,7 +66,7 @@ function formatDate(date: Date): string {
         <div class="flex flex-col">
           {
             posts.map((post, i) => (
-              <PostCard post={post} showDescription={true} formatDate={formatDate} index={i} />
+              <PostCard post={post} showDescription={true} readingTime={post.body ? getReadingTime(post.body) : undefined} formatDate={formatDate} index={i} />
             ))
           }
         </div>
