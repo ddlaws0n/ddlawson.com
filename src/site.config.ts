@@ -17,7 +17,7 @@ export const conf: SiteConfig = {
 		email: SITE_EMAIL,
 		origin: getOrigin(),
 		basePathname: "/",
-		trailingSlash: false,
+		trailingSlash: "never",
 		language: "en-GB",
 	},
 	seo: {
@@ -42,7 +42,7 @@ export const conf: SiteConfig = {
 		{ name: "Home", href: "/" },
 		{ name: "Work", href: "/work" },
 		{ name: "Writing", href: "/writing" },
-		{ name: "Contact", href: "/contact" },
+		// { name: "Contact", href: "/contact" },
 	],
 	social: [
 		{ name: "tabler:mail", link: `mailto:${SITE_EMAIL}`, ariaLabel: "Email" },

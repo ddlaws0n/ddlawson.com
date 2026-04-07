@@ -4,7 +4,7 @@ export interface SiteConfig {
 		email: string;
 		origin: string;
 		basePathname: string;
-		trailingSlash: boolean;
+		trailingSlash: string;
 		language: string;
 		defaultTheme?: string;
 	};
