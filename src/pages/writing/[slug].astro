@@ -1,9 +1,9 @@
 ---
+import { getCollection, render } from "astro:content";
 import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { conf } from "@/site.config.ts";
-import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -34,11 +34,11 @@ const formattedDate = dateFmt.format(date);
   >
     <div class="m-noise"></div>
     <Nav />
-    <main class="max-w-content mx-auto px-(--m-gutter)">
-      <article class="max-w-copy mx-auto">
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
+      <article>
         <!-- Post header -->
         <header
-          class="animate-fade-up pt-10 pb-8 opacity-0 sm:pt-12 md:pt-14 lg:pt-20 lg:pb-12"
+          class="max-w-copy mx-auto animate-fade-up pt-10 pb-8 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-20 lg:pb-12"
         >
           <div class="mb-5 flex items-center gap-4 md:mb-7">
             <span
@@ -65,18 +65,18 @@ const formattedDate = dateFmt.format(date);
         </header>
 
         <!-- Divider -->
-        <div class="m-divider mb-8 lg:mb-12"></div>
+        <div class="max-w-copy mx-auto m-divider mb-8 lg:mb-12"></div>
 
         <!-- Post body -->
         <div
-          class="prose prose-invert animate-fade-up-fast opacity-0 max-w-none"
+          class="max-w-copy mx-auto prose prose-invert animate-fade-up-fast opacity-0 motion-reduce:opacity-100"
           style="animation-delay: 120ms"
         >
           <Content />
         </div>
 
         <!-- Post footer -->
-        <footer class="mt-12 border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
+        <footer class="max-w-copy mx-auto mt-12 border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
           <a
             href="/writing"
             class="text-micro text-teal hover:text-teal-bright inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"

@@ -1,9 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import Footer from "@/components/Footer.astro";
 import Nav from "@/components/Nav.astro";
+import PostCard from "@/components/PostCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { conf } from "@/site.config.ts";
-import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -30,13 +31,13 @@ function formatDate(date: Date): string {
   >
     <div class="m-noise"></div>
     <Nav />
-    <main class="max-w-content mx-auto px-(--m-gutter)">
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
       <!-- Page header -->
       <header
-        class="animate-fade-up pt-10 pb-8 opacity-0 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
+        class="animate-fade-up pt-10 pb-8 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
       >
         <span
-          class="font-display text-teal-muted lg:text-label mb-2 block text-xs font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
+          class="font-display text-teal-muted text-label mb-2 block font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
         >
           Writing
         </span>
@@ -58,7 +59,7 @@ function formatDate(date: Date): string {
       <section class="m-section">
         <div class="m-label">
           <span
-            class="font-display text-text-muted lg:text-label text-xs font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
+            class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
           >
             {posts.length} {posts.length === 1 ? "Post" : "Posts"}
           </span>
@@ -67,43 +68,14 @@ function formatDate(date: Date): string {
           ></div>
         </div>
 
+        {posts.length === 0 && (
+          <p class="text-prose text-text-muted py-16 text-center">No posts yet — check back soon.</p>
+        )}
+
         <div class="flex flex-col">
           {
             posts.map((post, i) => (
-              <a
-                href={`/writing/${post.id}`}
-                class:list={[
-                  "post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[100px_1fr_auto] md:items-center md:gap-7",
-                  i === 0 && "border-t",
-                ]}
-              >
-                <span
-                  class="font-display text-text-muted group-hover:text-teal lg:text-caption order-2 text-sm font-normal tracking-[0.02em] transition-colors duration-250 md:order-0"
-                >
-                  {formatDate(post.data.date)}
-                </span>
-
-                <div class="order-1 md:order-1">
-                  <span
-                    class="font-body text-prose text-text group-hover:text-teal-bright block font-normal transition-colors duration-250"
-                  >
-                    {post.data.title}
-                  </span>
-                  <span
-                    class="text-micro text-text-muted mt-1.5 block leading-relaxed"
-                  >
-                    {post.data.description}
-                  </span>
-                </div>
-
-                <div class="order-3 mt-1 flex items-center gap-3 md:order-2 md:mt-0">
-                  <span
-                    class="font-display text-detail text-text-muted border-border group-hover:border-teal/12 group-hover:text-teal-muted inline-block rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase transition-all duration-250"
-                  >
-                    {post.data.tag}
-                  </span>
-                </div>
-              </a>
+              <PostCard post={post} showDescription={true} formatDate={formatDate} index={i} />
             ))
           }
         </div>
