@@ -25,36 +25,19 @@ const projects = [
 
 <section class="m-section m-reveal" id="projects">
 	<div class="m-label">
-		<span class="font-display text-[0.6rem] font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap">What I'm Building</span>
-		<div class="flex-1 h-px bg-gradient-to-r from-border-hover to-transparent/80"></div>
+		<span class="font-display text-xs font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap lg:text-label">What I'm Building</span>
+		<div class="flex-1 h-px bg-linear-to-r from-border-hover to-transparent/80"></div>
 	</div>
 
-	<div class="grid grid-cols-2 gap-5 max-md:grid-cols-1">
+	<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
 		{projects.map((p) => (
-			<a href="#" class="project group block bg-surface rounded-md border border-border p-9 px-10 no-underline text-inherit relative overflow-hidden transition-all duration-350 hover:bg-elevated hover:border-border-hover hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.2),0_0_0_1px_var(--color-border-hover)]">
-				<div class="font-display text-[0.52rem] font-semibold tracking-[0.2em] uppercase text-text-muted mb-3.5 transition-colors duration-350 group-hover:text-blue">{p.tag}</div>
-				<h3 class="font-display text-[1.12rem] font-semibold leading-[1.3] text-text mb-2.5">{p.title}</h3>
-				<p class="font-body text-[0.84rem] font-light leading-[1.7] text-text-secondary">{p.desc}</p>
-				<span class="inline-block text-[0.9rem] text-text-muted mt-5 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-blue">&rarr;</span>
+			<a href="#" tabindex="-1" aria-disabled="true" class="group block bg-surface rounded-md border border-border p-5 no-underline text-inherit relative overflow-hidden transition-all duration-350 hover:bg-elevated hover:border-border-hover hover:-translate-y-0.5 hover:shadow-[0_8px_32px_oklch(0%_0_0/0.2),0_0_0_1px_var(--color-border-hover)] sm:p-6 md:p-9 md:px-10 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:via-teal before:to-transparent before:opacity-0 before:transition-opacity before:duration-350 hover:before:opacity-100">
+
+				<div class="font-display text-xs font-semibold tracking-[0.2em] uppercase text-text-muted mb-3.5 transition-colors duration-350 group-hover:text-teal lg:text-detail">{p.tag}</div>
+				<h3 class="font-display text-lg font-semibold leading-[1.3] text-text mb-2.5">{p.title}</h3>
+				<p class="font-body text-prose font-light text-text-secondary">{p.desc}</p>
+				<span class="inline-block text-[0.9rem] text-text-muted mt-5 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-teal">&rarr;</span>
 			</a>
 		))}
 	</div>
 </section>
-
-<style>
-	.project::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background: linear-gradient(90deg, transparent, var(--color-blue), transparent);
-		opacity: 0;
-		transition: opacity 0.35s ease;
-	}
-
-	.project:hover::before {
-		opacity: 1;
-	}
-</style>

@@ -9,19 +9,25 @@ const posts = [
 
 <section class="m-section m-reveal" id="writing">
 	<div class="m-label">
-		<span class="font-display text-[0.6rem] font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap">Recent Writing</span>
-		<div class="flex-1 h-px bg-gradient-to-r from-border-hover to-transparent/80"></div>
+		<span class="font-display text-xs font-semibold tracking-[0.24em] uppercase text-text-muted whitespace-nowrap lg:text-label">Recent Writing</span>
+		<div class="flex-1 h-px bg-linear-to-r from-border-hover to-transparent/80"></div>
 	</div>
 
 	<div class="flex flex-col">
 		{posts.map((post, i) => (
-			<a href="#" class:list={["post group grid grid-cols-[88px_1fr_auto] gap-7 items-center py-5 px-5 border-b border-border no-underline text-inherit transition-all duration-250 -mx-5 rounded-sm hover:bg-blue-ghost hover:border-b-transparent max-md:grid-cols-1 max-md:gap-1", i === 0 && "border-t"]}>
-				<span class="font-display text-[0.68rem] font-normal text-text-muted tracking-[0.02em] transition-colors duration-250 group-hover:text-blue max-md:order-2">{post.date}</span>
-				<span class="font-body text-[0.95rem] font-normal text-text transition-colors duration-250 group-hover:text-blue-bright">{post.title}</span>
-				<span class="font-display text-[0.52rem] font-medium tracking-[0.14em] uppercase text-text-muted border border-border py-[0.2rem] px-[0.55rem] rounded-sm transition-all duration-250 group-hover:border-blue-ring group-hover:text-blue-muted max-md:hidden">{post.tag}</span>
-			</a>
+			<a href="#" tabindex="-1" aria-disabled="true" class:list={["post group grid grid-cols-1 gap-2.5 items-start py-6 px-5 border-b border-border no-underline text-inherit transition-all duration-250 -mx-5 rounded-sm hover:bg-teal/4 hover:border-b-transparent md:items-center md:grid-cols-[88px_1fr_auto] md:gap-7", i === 0 && "border-t"]}>
+	
+    <span class="font-display text-sm font-normal text-text-muted tracking-[0.02em] transition-colors duration-250 group-hover:text-teal order-2 md:order-0 lg:text-caption">{post.date}</span>
+	
+    <span class="font-body text-prose font-normal text-text transition-colors duration-250 group-hover:text-teal-bright order-1">{post.title}</span>
+	
+    <div class="order-3 mt-1 md:mt-0 md:order-2">
+        <span class="font-display text-detail font-medium tracking-[0.14em] uppercase text-text-muted border border-border py-[0.2rem] px-[0.55rem] rounded-sm transition-all duration-250 group-hover:border-teal/12 group-hover:text-teal-muted inline-block">{post.tag}</span>
+    </div>
+</a>
+
 		))}
 	</div>
 
-	<a href="/writing" class="inline-flex items-center gap-2 mt-7 text-[0.8rem] font-normal text-blue no-underline transition-all duration-300 hover:gap-3 hover:text-blue-bright">View all <span>&rarr;</span></a>
+	<a href="/writing" class="inline-flex items-center gap-2 mt-7 text-micro font-normal text-teal no-underline transition-all duration-300 hover:gap-3 hover:text-teal-bright">View all <span>&rarr;</span></a>
 </section>
