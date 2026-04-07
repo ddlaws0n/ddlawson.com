@@ -1,5 +1,6 @@
 {
-	"name": "temp",
+	"name": "portfolio-redesign",
+	"description": "Personal portfolio redesign staging site built with Astro and Tailwind CSS.",
 	"type": "module",
 	"version": "0.0.1",
 	"engines": {
@@ -11,8 +12,10 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"lint": "biome check .",
-		"lint:fix": "biome check --write .",
-		"format": "biome format --write ."
+		"fix": "biome check --write .",
+		"fix:unsafe": "biome check --write .",
+		"format": "biome format --write .",
+		"types": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@iconify-json/tabler": "^1.2.33",
@@ -23,11 +26,16 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.9.8",
 		"@biomejs/biome": "2.4.10",
+		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.2.2",
 		"lefthook": "^2.1.5",
 		"sharp": "^0.34.5",
 		"tailwindcss": "^4.2.2",
 		"typescript": "^6.0.2",
 		"vite": "^8.0.5"
-	}
+	},
+	"overrides": {
+		"vite": "^7"
+	},
+	"packageManager": "pnpm@10.33.0"
 }
