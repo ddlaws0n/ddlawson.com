@@ -40,13 +40,13 @@ function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
   >
     <div class="m-noise"></div>
     <Nav />
-    <main class="max-w-content mx-auto px-(--m-gutter)">
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
       <!-- Page header -->
       <header
-        class="animate-fade-up pt-10 pb-8 opacity-0 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
+        class="animate-fade-up pt-10 pb-8 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
       >
         <span
-          class="font-display text-teal-muted lg:text-label mb-2 block text-xs font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
+          class="font-display text-teal-muted text-label mb-2 block font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
         >
           Career Timeline
         </span>
@@ -77,6 +77,10 @@ function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
                     <img
                       src={company.logoUrl}
                       alt={`${company.company} logo`}
+                      width="120"
+                      height="28"
+                      loading="lazy"
+                      decoding="async"
                       class="mb-4 h-7 w-auto opacity-75 brightness-0 invert lg:h-8"
                     />
                   )}
@@ -102,7 +106,7 @@ function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
                       summary={role.summary}
                       achievements={role.key_achievements}
                       isCurrent={role.end_date === "Present"}
-                      staggerDelay={100 + roleIdx * 120}
+                      staggerDelay={100 + roleIdx * 55}
                     />
                   ))}
                 </div>
@@ -116,6 +120,10 @@ function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
                     <img
                       src={company.logoUrl}
                       alt={`${company.company} logo`}
+                      width="120"
+                      height="24"
+                      loading="lazy"
+                      decoding="async"
                       class="h-6 w-auto opacity-75 brightness-0 invert"
                     />
                   )}
@@ -141,7 +149,7 @@ function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
                       achievements={role.key_achievements}
                       isCurrent={role.end_date === "Present"}
                       mobile
-                      staggerDelay={80 + roleIdx * 100}
+                      staggerDelay={80 + roleIdx * 55}
                     />
                   ))}
                 </div>

@@ -29,12 +29,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     </div>
 
     <main
+      id="main-content"
       class="relative z-10 flex h-full flex-col items-center justify-center px-(--m-gutter) text-center"
     >
       <!-- Large 404 number -->
-      <div class="animate-fade-up opacity-0">
+      <div class="animate-fade-up opacity-0 motion-reduce:opacity-100">
         <span
-          class="font-display text-text/4 block text-[clamp(8rem,22vw,16rem)] leading-[0.85] font-extralight tracking-[-0.04em] select-none"
+          class="font-display text-display text-text/4 block font-extralight tracking-[-0.04em] select-none"
           aria-hidden="true"
         >
           404
@@ -43,15 +44,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
       <!-- Overlaid content -->
       <div
-        class="animate-fade-up -mt-[clamp(4rem,10vw,8rem)] opacity-0 [animation-delay:0.15s]"
+        class="animate-fade-up -mt-[clamp(4rem,10vw,8rem)] opacity-0 motion-reduce:opacity-100 [animation-delay:0.15s]"
       >
         <span
-          class="font-display text-teal-muted lg:text-label mb-3 block text-xs font-semibold tracking-[0.24em] uppercase"
+          class="font-display text-teal-muted text-label mb-3 block font-semibold tracking-[0.24em] uppercase"
         >
           Page Not Found
         </span>
         <h1
-          class="font-display text-text mx-auto max-w-[14ch] text-[clamp(1.6rem,1rem+3vw,3rem)] leading-[1.1] font-bold tracking-[-0.02em]"
+          class="font-display text-quote text-text mx-auto max-w-[14ch] font-bold tracking-[-0.02em]"
         >
           Nothing lives here<span class="text-teal">.</span>
         </h1>
@@ -65,7 +66,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
       <!-- CTA -->
       <div
-        class="animate-fade-up mt-8 opacity-0 [animation-delay:0.3s] lg:mt-10"
+        class="animate-fade-up mt-8 opacity-0 motion-reduce:opacity-100 [animation-delay:0.3s] lg:mt-10"
       >
         <a
           href="/"
@@ -78,6 +79,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
           </span>
           Back to Home
         </a>
+        <div class="mt-6 flex items-center justify-center gap-6 text-caption text-text-muted">
+          <a href="/work" class="hover:text-teal transition-colors duration-250">Work</a>
+          <span class="text-border">·</span>
+          <a href="/writing" class="hover:text-teal transition-colors duration-250">Writing</a>
+        </div>
       </div>
     </main>
   </div>

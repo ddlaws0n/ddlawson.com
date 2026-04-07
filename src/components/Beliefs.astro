@@ -22,7 +22,7 @@ const beliefs = [
 <section class="m-section m-reveal">
   <div class="m-label">
     <span
-      class="font-display text-text-muted lg:text-label text-xs font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
+      class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
       >What I Believe</span
     >
     <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
@@ -32,15 +32,15 @@ const beliefs = [
   <div class="bg-border grid grid-cols-1 gap-px md:grid-cols-2">
     {
       beliefs.map((b, i) => (
-        <div class="group bg-background hover:bg-surface after:bg-teal relative overflow-hidden p-7 transition-colors duration-400 after:absolute after:top-0 after:left-0 after:h-0 after:w-0.5 after:transition-[height] after:duration-400 hover:after:h-full md:p-11">
-          <span class="font-display text-text pointer-events-none absolute -top-2 right-3 text-[7rem] leading-[0.75] font-extralight opacity-[0.02] transition-opacity duration-400 group-hover:opacity-[0.04]">
+        <div class="group bg-background hover:bg-surface after:bg-teal relative overflow-hidden p-7 transition-colors duration-300 after:absolute after:top-0 after:left-0 after:h-0 after:w-0.5 after:transition-[height] after:duration-300 hover:after:h-full md:p-11">
+          <span class="font-display text-text pointer-events-none absolute -top-2 right-3 text-[7rem] leading-[0.75] font-extralight opacity-[0.02] transition-opacity duration-300 group-hover:opacity-[0.04]">
             {String(i + 1).padStart(2, "0")}
           </span>
           <h3
             class="font-display text-text relative mb-3.5 text-lg leading-[1.35] font-semibold"
             set:html={b.title}
           />
-          <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-400">
+          <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-300">
             {b.body}
           </p>
         </div>
