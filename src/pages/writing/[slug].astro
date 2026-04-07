@@ -1,0 +1,92 @@
+---
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { conf } from "@/site.config.ts";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, date, tag } = post.data;
+const dateFmt = conf.blog.dateFormatter;
+const formattedDate = dateFmt.format(date);
+---
+
+<BaseLayout
+  meta={{
+    title,
+    description,
+    noindex: true,
+    nofollow: true,
+  }}
+>
+  <div
+    class="font-body bg-background text-text relative min-h-screen overflow-x-hidden"
+  >
+    <div class="m-noise"></div>
+    <Nav />
+    <main class="max-w-content mx-auto px-(--m-gutter)">
+      <article class="max-w-copy mx-auto">
+        <!-- Post header -->
+        <header
+          class="animate-fade-up pt-10 pb-8 opacity-0 sm:pt-12 md:pt-14 lg:pt-20 lg:pb-12"
+        >
+          <div class="mb-5 flex items-center gap-4 md:mb-7">
+            <span
+              class="font-display text-detail text-teal-muted border-teal/12 rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase"
+            >
+              {tag}
+            </span>
+            <span
+              class="font-display text-text-muted lg:text-caption text-sm font-normal tracking-[0.02em]"
+            >
+              {formattedDate}
+            </span>
+          </div>
+          <h1
+            class="font-display text-quote text-text font-extrabold leading-tight"
+          >
+            {title}
+          </h1>
+          <p
+            class="text-prose text-text-secondary mt-4 mb-0 font-light lg:mt-6"
+          >
+            {description}
+          </p>
+        </header>
+
+        <!-- Divider -->
+        <div class="m-divider mb-8 lg:mb-12"></div>
+
+        <!-- Post body -->
+        <div
+          class="prose prose-invert animate-fade-up-fast opacity-0 max-w-none"
+          style="animation-delay: 120ms"
+        >
+          <Content />
+        </div>
+
+        <!-- Post footer -->
+        <footer class="mt-12 border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
+          <a
+            href="/writing"
+            class="text-micro text-teal hover:text-teal-bright inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
+          >
+            <span>&larr;</span>
+            <span>Back to all writing</span>
+          </a>
+        </footer>
+      </article>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
