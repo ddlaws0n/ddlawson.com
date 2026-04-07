@@ -1,6 +1,7 @@
 ---
 import SectionLabel from "@/components/SectionLabel.astro";
 import { projects } from "@/content/projects";
+import { conf } from "@/site.config";
 ---
 
 <section class="m-section m-reveal" id="projects">
@@ -10,7 +11,7 @@ import { projects } from "@/content/projects";
     {
       projects.map((p) => (
         <a
-          href={`${p.href}?ref=ddlawson.com`}
+          href={`${p.href}?ref=${conf.site.domain}`}
           tabindex="-1"
           aria-disabled="true"
           referrerpolicy="origin"

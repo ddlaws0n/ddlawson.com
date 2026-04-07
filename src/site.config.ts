@@ -2,7 +2,7 @@ import type { SiteConfig } from "@/types";
 
 const SITE_NAME = "David D Lawson";
 const SITE_EMAIL = "work@ddlawson.com";
-const SITE_DOMAIN = "https://dlawsonv3.vercel.app";
+const SITE_DOMAIN = "https://ddlawson.com";
 const SITE_DISPLAY_DOMAIN = "ddlawson.com";
 
 const isProd = import.meta.env.PROD;
