@@ -1,0 +1,43 @@
+---
+title: "The Customer Success Playbook Doesn't Scale"
+description: "The standard CS playbook — QBRs, health scores, success plans — breaks at enterprise scale. Here's what to replace it with."
+date: "2025-11-20"
+tag: "Strategy"
+draft: false
+---
+
+I've built and managed Customer Success teams using the standard playbook. Quarterly business reviews, account health scoring, success plans reviewed on a cadence. It works — until it doesn't.
+
+The breaking point usually arrives around 40–60 accounts per CSM. At that point, the activities that drive outcomes (deep strategic conversations, proactive risk identification, executive alignment) get squeezed out by the activities that maintain appearances (QBRs nobody prepares for, health scores that lag reality by a month, success plans that live in a tool nobody opens).
+
+## What scales instead
+
+After watching this pattern repeat across multiple organisations, I've come to believe that scaling CS requires fundamentally changing the operating model, not just adding headcount:
+
+### Segment by outcome, not revenue
+
+Most teams segment by ARR. That makes sense for resource allocation but creates a confused operating model. A £50K startup iterating rapidly on their security programme needs a fundamentally different engagement model than a £500K enterprise running a multi-year transformation.
+
+Segment by *what the customer is trying to achieve*, and the engagement model designs itself.
+
+### Replace periodic reviews with continuous signals
+
+The QBR is a relic. By the time you're sitting in a room reviewing last quarter's metrics, the moment for proactive intervention has passed. Instead, invest in:
+
+- Automated usage signals that trigger outreach when engagement patterns change
+- In-product telemetry that surfaces friction before it becomes a support ticket
+- Executive communication that's triggered by milestones, not calendar dates
+
+### Make success a shared metric
+
+The most effective CS teams I've worked with don't own customer outcomes — they *orchestrate* them. The difference matters. When CS is the only team measured on retention, every other team optimises for their own metrics. When product, engineering, and sales share customer outcome metrics, the CS role shifts from advocate to conductor.
+
+## The uncomfortable trade-off
+
+This model requires giving up control. You can't orchestrate outcomes if every customer interaction routes through your team. You have to trust that a well-designed system — clear triggers, defined escalation paths, shared metrics — will produce better results than heroic individual effort.
+
+In my experience, it does. But it requires a level of organisational maturity that many teams haven't reached yet.
+
+---
+
+*If you're wrestling with scaling CS, I'd love to compare notes. This is a problem the industry is still figuring out collectively.*

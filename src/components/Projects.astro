@@ -1,26 +1,5 @@
 ---
-const projects = [
-  {
-    tag: "Website",
-    title: "ddlawson.com",
-    desc: "This website. Built with Astro, deployed on Cloudflare.",
-  },
-  {
-    tag: "Internal Tool",
-    title: "TAM Toolkit",
-    desc: "Tools for technical account management workflows.",
-  },
-  {
-    tag: "Dashboard",
-    title: "Security Posture",
-    desc: "Customer-facing security metrics visualization.",
-  },
-  {
-    tag: "Experiment",
-    title: "AI Workflows",
-    desc: "Exploring LLM-powered automation for customer success.",
-  },
-];
+import { projects } from "@/content/projects";
 ---
 
 <section class="m-section m-reveal" id="projects">
@@ -37,10 +16,13 @@ const projects = [
     {
       projects.map((p) => (
         <a
-          href="#"
+          href={`${p.href}?ref=ddlawson.com`}
           tabindex="-1"
           aria-disabled="true"
-          class="group bg-surface border-border hover:bg-elevated hover:border-border-hover before:via-teal relative block overflow-hidden rounded-md border p-5 text-inherit no-underline transition-all duration-350 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:to-transparent before:opacity-0 before:transition-opacity before:duration-350 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_oklch(0%_0_0/0.2),0_0_0_1px_var(--color-border-hover)] hover:before:opacity-100 sm:p-6 md:p-9 md:px-10"
+          referrerpolicy="origin"
+          target="_blank"
+          rel="external noopener"
+          class="cursor-alias group bg-surface border-border hover:bg-elevated hover:border-border-hover before:via-teal relative block overflow-hidden rounded-md border p-5 text-inherit no-underline transition-all duration-350 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:to-transparent before:opacity-0 before:transition-opacity before:duration-350 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_oklch(0%_0_0/0.2),0_0_0_1px_var(--color-border-hover)] hover:before:opacity-100 sm:p-6 md:p-9 md:px-10"
         >
           <div class="font-display text-text-muted group-hover:text-teal lg:text-detail mb-3.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-350">
             {p.tag}

@@ -1,22 +1,12 @@
 ---
-const posts = [
-  {
-    date: "Mar 2026",
-    title: "The Gap Between Product and Customer",
-    tag: "Strategy",
-  },
-  {
-    date: "Feb 2026",
-    title: "Why Developer Experience Matters More Than Features",
-    tag: "DevEx",
-  },
-  { date: "Jan 2026", title: "Building in Public: Month One", tag: "Personal" },
-  {
-    date: "Dec 2025",
-    title: "Cloud Security in the Age of AI",
-    tag: "Security",
-  },
-];
+import { getCollection } from "astro:content";
+import { conf } from "@/site.config.ts";
+
+const dateFmt = conf.blog.dateFormatter;
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
 ---
 
 <section class="m-section m-reveal" id="writing">
@@ -33,25 +23,23 @@ const posts = [
     {
       posts.map((post, i) => (
         <a
-          href="#"
-          tabindex="-1"
-          aria-disabled="true"
+          href={`/writing/${post.id}`}
           class:list={[
             "post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[88px_1fr_auto] md:items-center md:gap-7",
             i === 0 && "border-t",
           ]}
         >
           <span class="font-display text-text-muted group-hover:text-teal lg:text-caption order-2 text-sm font-normal tracking-[0.02em] transition-colors duration-250 md:order-0">
-            {post.date}
+            {dateFmt.format(post.data.date)}
           </span>
 
           <span class="font-body text-prose text-text group-hover:text-teal-bright order-1 font-normal transition-colors duration-250">
-            {post.title}
+            {post.data.title}
           </span>
 
           <div class="order-3 mt-1 md:order-2 md:mt-0">
             <span class="font-display text-detail text-text-muted border-border group-hover:border-teal/12 group-hover:text-teal-muted inline-block rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase transition-all duration-250">
-              {post.tag}
+              {post.data.tag}
             </span>
           </div>
         </a>
