@@ -51,4 +51,65 @@ const description = meta.description ?? conf.description;
             <slot />
 
     </body>
+
+    <script>
+        /**
+         * Set up IntersectionObserver for scroll-reveal animations.
+         * Runs on initial load AND after every Astro View Transition swap
+         * so that new m-reveal / m-spine-draw elements get observed.
+         */
+        function initRevealObserver() {
+            const reveals = document.querySelectorAll(".m-reveal, .m-spine-draw");
+            if (!reveals.length) return;
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.setAttribute("data-visible", "");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+            );
+
+            for (const el of reveals) {
+                if (!el.hasAttribute("data-visible")) {
+                    observer.observe(el);
+                }
+            }
+        }
+
+        /**
+         * Re-trigger CSS keyframe animations after a View Transition swap.
+         *
+         * Elements using animate-fade-up etc. start at opacity:0 and rely on the
+         * keyframe running to reach opacity:1. After a View Transition swap, the
+         * browser may not re-trigger these animations since the DOM elements are
+         * new but the CSS rules haven't changed. We force a restart by briefly
+         * setting animation to "none", forcing reflow, then removing it.
+         */
+        function restartAnimations() {
+            const animated = document.querySelectorAll(
+                ".animate-fade-up, .animate-slide-in, .animate-scale-in, .animate-reveal-photo, .animate-fade-up-fast",
+            );
+            for (const el of animated) {
+                const html = el as HTMLElement;
+                html.style.animation = "none";
+                // Force reflow so the browser registers the "none" value
+                void html.offsetHeight;
+                html.style.animation = "";
+            }
+        }
+
+        // Initial page load
+        document.addEventListener("DOMContentLoaded", initRevealObserver);
+
+        // Re-run after every Astro View Transition swap
+        document.addEventListener("astro:after-swap", () => {
+            initRevealObserver();
+            restartAnimations();
+        });
+    </script>
 </html>

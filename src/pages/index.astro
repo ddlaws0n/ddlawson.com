@@ -35,23 +35,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         <Footer />
     </div>
 
-    <script>
-        const reveals = document.querySelectorAll(".m-reveal");
-        if (reveals.length) {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.setAttribute("data-visible", "");
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-            );
-            for (const el of reveals) observer.observe(el);
-        }
-    </script>
+
 </BaseLayout>
 
 <style>

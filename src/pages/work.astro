@@ -144,7 +144,7 @@ function tenureRange(roles: typeof workExperienceData[0]["roles"]): string {
 
                             {/* Company divider */}
                             {companyIdx < workExperienceData.length - 1 && (
-                                <div class="m-divider mt-10 md:mt-12 lg:mt-16 md:ml-45 lg:ml-[240px]" />
+                                <div class="m-divider mt-10 md:mt-12 lg:mt-16 md:ml-45 lg:ml-60" />
                             )}
                         </article>
                     ))
@@ -154,21 +154,5 @@ function tenureRange(roles: typeof workExperienceData[0]["roles"]): string {
         <Footer />
     </div>
 
-    <script>
-        const reveals = document.querySelectorAll(".m-reveal, .m-spine-draw");
-        if (reveals.length) {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.setAttribute("data-visible", "");
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-            );
-            for (const el of reveals) observer.observe(el);
-        }
-    </script>
+
 </BaseLayout>

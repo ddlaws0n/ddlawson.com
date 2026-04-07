@@ -14,11 +14,11 @@ import { social } from "@/site.config";
 <!-- hero.astro -->
 <!-- photo -->
 <div
-    class="hero-photo-wrap relative min-w-0 self-start mt-0.5 opacity-0 animate-reveal-photo [animation-delay:0.3s] lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-auto lg:mt-0"
+    class="hero-photo-wrap relative min-w-0 self-start mt-0.5 opacity-0 animate-reveal-photo [animation-delay:0.3s] lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center lg:mt-0"
 >
     <!-- Combined into a single hero-photo div with the updated sizes -->
     <div
-        class="hero-photo relative overflow-hidden rounded-full size-28 shadow-[0_4px_20px_oklch(0%_0_0/0.4),0_0_0_1px_var(--color-border)] sm:size-32 md:size-44 lg:rounded-lg lg:size-auto lg:aspect-3/4 lg:shadow-[0_8px_40px_oklch(0%_0_0/0.4),0_0_0_1px_var(--color-border)]"
+        class="hero-photo relative overflow-hidden rounded-full size-28 shadow-[0_4px_20px_oklch(0%_0_0/0.1),0_0_0_1px_var(--color-border)] sm:size-32 md:size-44 lg:rounded-lg lg:size-auto lg:aspect-3/4 lg:shadow-[0_8px_40px_oklch(0%_0_0/0.4),0_0_0_1px_var(--color-border)]"
     >
         <Image
             src={heroPhoto}
@@ -51,10 +51,11 @@ import { social } from "@/site.config";
         <!-- Note: Removed lg:col-start-1 and lg:row-start-1 from here -->
         <div class="opacity-0 animate-fade-up">
             <span
-                class="mb-0.5 block font-display text-kicker font-semibold tracking-[0.2em] uppercase text-teal-muted opacity-0 animate-slide-in [animation-delay:0.2s] sm:mb-1 sm:text-label sm:tracking-[0.24em] lg:mb-6"
+                class="md:mb-4 block font-display text-kicker font-semibold tracking-[0.2em] uppercase text-teal-muted opacity-0 animate-slide-in [animation-delay:0.2s] sm:mb-2.5 sm:text-label sm:tracking-[0.24em] lg:mb-6"
             >
                 TAM Leader &middot; Builder &middot; Writer
             </span>
+
             <h1
                 class="max-w-[8.5ch] font-display text-[3.2rem] leading-[0.92] tracking-[-0.03em] font-extrabold text-text sm:text-[4rem] md:text-[4.5rem] lg:max-w-[9ch] lg:text-hero"
             >
@@ -92,7 +93,7 @@ import { social } from "@/site.config";
                                 target="_blank"
                                 rel="noopener"
                                 aria-label={s.ariaLabel}
-                                class="inline-flex items-center gap-1.5 p-2 -ml-2 text-micro font-normal tracking-[0.04em] text-text-muted no-underline transition-all duration-250 hover:text-teal hover:-translate-y-px lg:p-0 lg:ml-0"
+                                class="inline-flex items-center gap-1.5 p-2 lg:p-0 -ml-2 lg:ml-0 no-underline text-micro font-normal text-text-muted tracking-[0.04em] transition-all duration-250 hover:-translate-y-px hover:text-teal"
                             >
                                 <Icon
                                     name={s.name}
