@@ -1,6 +1,6 @@
 ---
-title: "Why Developer Experience Matters More Than Features"
-description: "In security tooling, the best product isn't the one with the most capabilities — it's the one developers actually use. A reflection on making security frictionless."
+title: "The Best Security Tool Is the One Developers Actually Use"
+description: "Security products compete on detectors and integrations. They should compete on friction. The adoption gap starts in the developer's IDE, not the CISO's budget."
 date: "2026-02-22"
 tag: "DevEx"
 draft: false
@@ -26,7 +26,7 @@ At Veracode, I worked with customers who had wildly different adoption rates for
 
 ## Building for the reluctant user
 
-The honest reality is that most developers don't *want* to interact with security tooling. It's not a product they chose — it's an obligation. Designing for a reluctant user means:
+Most developers don't *want* to interact with security tooling. It's not a product they chose — it's an obligation. Designing for a reluctant user means:
 
 1. Zero config where possible — sensible defaults that work out of the box
 2. Incremental depth — simple for the 80% case, powerful for the 20%
@@ -36,4 +36,4 @@ The companies that understand this are winning. Not because their security is be
 
 ---
 
-*DevEx in security is a topic I think about constantly. If you're working on this problem, I'd welcome a conversation.*
+*I'm building [customersuccess.guide](https://customersuccess.guide) partly to explore this — how adoption-first thinking changes the way you design, sell, and support a product.*

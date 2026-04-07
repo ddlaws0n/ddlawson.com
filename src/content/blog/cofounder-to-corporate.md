@@ -1,6 +1,6 @@
 ---
-title: "From Co-founder to Corporate: Lessons in Adaptation"
-description: "Going from running a startup to leading teams inside enterprise organisations taught me more about leadership than any book ever did."
+title: "From Co-founder to Corporate: What Survived the Transition"
+description: "Startup leadership is energy and conviction. Enterprise leadership is translation and persistence. Same foundation, entirely different surface."
 date: "2025-10-05"
 tag: "Personal"
 draft: false
@@ -36,4 +36,4 @@ A two-week experiment in a startup becomes a 48-hour proof of concept in enterpr
 
 ---
 
-*Career transitions are deeply personal. If you're navigating one, happy to share more from my experience.*
+*The form changes. The substance doesn't. That's the thing nobody tells you during the transition — and the thing that makes it survivable.*

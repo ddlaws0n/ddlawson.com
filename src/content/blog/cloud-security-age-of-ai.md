@@ -1,14 +1,12 @@
 ---
-title: "Cloud Security in the Age of AI"
-description: "AI is reshaping both the attack surface and the defensive toolkit. Here's what security leaders should be thinking about right now."
+title: "AI Broke the Cloud Security Status Quo"
+description: "AI changes what you're defending against and what you're defending with — simultaneously. Most organisations are only optimising for one side."
 date: "2025-12-08"
 tag: "Security"
 draft: false
 ---
 
-Every conversation I have with security leaders eventually lands on the same question: how does AI change what we're defending against, and what we're defending with?
-
-The honest answer is that it changes both simultaneously, and most organisations are optimising for only one side.
+AI changes both what you're defending against and what you're defending with. Most organisations are optimising for only one side — and every conversation I have with security leaders confirms it.
 
 ## The offensive shift
 
@@ -40,4 +38,4 @@ The organisations that treat AI as both a threat amplifier and a capability mult
 
 ---
 
-*Cloud security and AI is evolving faster than most realise. I'm always keen to discuss what's working and what isn't.*
+*This space moves weekly, not quarterly. I'm tracking what's working at [customersuccess.guide](https://customersuccess.guide) — and I'm always keen to hear what you're seeing on the ground.*

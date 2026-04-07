@@ -1,7 +1,7 @@
 export const beliefs = [
 	{
-		title: '<span class="accent">Bridges</span>, not barriers',
-		body: "Great products fail without someone who gives a damn about the customer. I close the gap between what engineering builds and what humans actually need.",
+		title: 'Product meets <span class="accent">reality</span>',
+		body: "Every feature ships with assumptions. Someone has to sit with the customer, find where those assumptions break, and feed that back to the team. That's the job.",
 	},
 	{
 		title: 'Technology should <span class="accent">disappear</span>',
@@ -9,10 +9,10 @@ export const beliefs = [
 	},
 	{
 		title: 'Ship your <span class="accent">thinking</span>',
-		body: "Writing clarifies thought. Building in public creates accountability. Both compound over time into something larger than any single output.",
+		body: "Writing clarifies thought. Building in public creates accountability. A year of weekly posts teaches you more than a month of planning ever will.",
 	},
 	{
-		title: 'Context is <span class="accent">everything</span>',
+		title: 'Context is <span class="accent">king</span>',
 		body: "Understanding the full picture — business goals, team dynamics, technical constraints — is what separates advice from actual help.",
 	},
 ];

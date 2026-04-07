@@ -9,13 +9,13 @@ export const projects: Project[] = [
 	{
 		tag: "Project",
 		title: "customersuccess.guide",
-		desc: "AI-powered tools for customer success professionals.",
+		desc: "AI-powered tools that make customer success professionals' lives easier.",
 		href: "https://customersuccess.guide",
 	},
 	{
 		tag: "Experiment",
 		title: "52weeks",
-		desc: "A straightforward yearly planner for effortless scheduling.",
+		desc: "A minimal week-number planner — fifty-two rows, no clutter.",
 		href: "https://52weeks.lawson.dev",
 	},
 	// {

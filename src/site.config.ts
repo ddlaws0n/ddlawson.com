@@ -24,9 +24,9 @@ export const conf: SiteConfig = {
 		twitterHandle: "@ddlaws0n",
 	},
 	seo: {
-		title: "David D Lawson | B2B SaaS Customer Experience Professional",
+		title: "David D Lawson — Closing the gap between product and customer",
 		description:
-			"Customer experience professional bridging technology and the humans who need it. TAM leadership, cloud security, and building in public.",
+			"I lead technical account management at Wiz and build in public. Writing about customer experience, cloud security, and developer tools.",
 	},
 	analytics: {
 		umamiId: import.meta.env.UMAMI_ID,

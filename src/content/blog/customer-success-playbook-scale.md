@@ -1,6 +1,6 @@
 ---
 title: "The Customer Success Playbook Doesn't Scale"
-description: "The standard CS playbook — QBRs, health scores, success plans — breaks at enterprise scale. Here's what to replace it with."
+description: "QBRs, health scores, success plans — the standard CS playbook breaks at 40 accounts per CSM. The replacement isn't more headcount."
 date: "2025-11-20"
 tag: "Strategy"
 draft: false
@@ -40,4 +40,4 @@ In my experience, it does. But it requires a level of organisational maturity th
 
 ---
 
-*If you're wrestling with scaling CS, I'd love to compare notes. This is a problem the industry is still figuring out collectively.*
+*I'm turning these ideas into open playbooks at [customersuccess.guide](https://customersuccess.guide). If you've cracked a piece of this puzzle, I want to hear about it.*

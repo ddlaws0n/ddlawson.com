@@ -1,6 +1,6 @@
 ---
 title: "Building in Public: Month One"
-description: "What I learned from the first 30 days of sharing my work openly — the discomfort, the feedback, and why I'm continuing."
+description: "Thirty days of sharing half-formed ideas, abandoned drafts, and failed experiments in the open. The discomfort faded. The feedback didn't."
 date: "2026-01-10"
 tag: "Personal"
 draft: false

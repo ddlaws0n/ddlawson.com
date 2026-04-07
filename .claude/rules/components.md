@@ -1,5 +1,11 @@
 # Component Patterns
 
+## Content Data
+
+Site content lives in `src/content/`. Blog posts use Astro's content collection (`blog/*.md` with schema in `content.config.ts`). Structured data — work history, projects, beliefs — are plain TypeScript files (`work.ts`, `projects.ts`, `beliefs.ts`) that export typed arrays.
+
+Keep data out of components. If a component renders a list of items, the data should be imported from `src/content/`, not defined inline in the component.
+
 ## Shared Components
 
 `PostCard.astro` — Reusable post card for blog listings. Used by `RecentWriting.astro` and `writing/index.astro`. Props:

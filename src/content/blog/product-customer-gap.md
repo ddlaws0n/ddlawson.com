@@ -1,12 +1,12 @@
 ---
 title: "The Gap Between Product and Customer"
-description: "Most product teams think they're customer-centric. The data says otherwise. Here's what separates companies that retain from those that churn."
+description: "Most product teams think they're customer-centric. The data says otherwise — and the fix isn't a new process."
 date: "2026-03-15"
 tag: "Strategy"
 draft: false
 ---
 
-You've seen the slide decks. Every company claims to be "customer-obsessed." But when you peel back the layers — look at the actual operating cadence, the meeting rhythms, the metrics on the dashboard — the gap between aspiration and reality is staggering.
+You've seen the slide decks. Every company claims to be "customer-obsessed." But look at the actual operating cadence — the meeting rhythms, the metrics on the dashboard, the questions nobody asks — and the gap between aspiration and reality is staggering.
 
 ## The measurement problem
 
@@ -30,4 +30,4 @@ Closing it requires more than a new process or a new tool. It requires making th
 
 ---
 
-*If this resonates, I'd love to hear how your team bridges this gap. Reach out — the conversation is always worth having.*
+*The question worth asking: does your team measure outputs or outcomes? The answer reveals more than any dashboard.*
