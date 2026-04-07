@@ -1,76 +1,65 @@
 import type { SiteConfig } from "@/types";
 
-const meta: SiteConfig = {
-	// Basics
-	name: "David D Lawson",
-	origin: "https://ddlawson.com",
-	basePathname: "/",
-	trailingSlash: false,
+const SITE_NAME = "David D Lawson";
+const SITE_EMAIL = "work@ddlawson.com";
+const SITE_DOMAIN = "https://ddlawson.com";
 
-	// SEO
-	title: "David D Lawson | B2B SaaS Customer Experience Professional",
-	description:
-		"🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.",
-	language: "en-Gb",
+const isProd = import.meta.env.PROD;
 
-	// Analytics
-	umamiId: "9b7d8646-6556-4e06-8cb1-c6114fb4828d",
+const getOrigin = () => {
+	if (isProd) return SITE_DOMAIN;
+	return "http://localhost:4321";
+};
 
-	// Blog
-	words_per_minute: 200,
-	dateFormatter: new Intl.DateTimeFormat("en-GB", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-		timeZone: "GMT",
-	}),
-
-	// Navigation & Social
-	navItems: [
-		{
-			name: "Home",
-			href: "/",
-		},
-		{
-			name: "Work",
-			href: "/work",
-		},
-		{
-			name: "Writing",
-			href: "/writing",
-		},
-		{
-			name: "Contact",
-			href: "/contact",
-		},
+export const conf: SiteConfig = {
+	site: {
+		name: SITE_NAME,
+		email: SITE_EMAIL,
+		origin: getOrigin(),
+		basePathname: "/",
+		trailingSlash: false,
+		language: "en-GB",
+	},
+	seo: {
+		title: "David D Lawson | B2B SaaS Customer Experience Professional",
+		description:
+			"🚀 Customer Experience professional with a passion for people & tech.",
+	},
+	analytics: {
+		umamiId: import.meta.env.UMAMI_ID,
+		umamiUrl: import.meta.env.UMAMI_URL,
+	},
+	blog: {
+		wordsPerMinute: 200,
+		dateFormatter: new Intl.DateTimeFormat("en-GB", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			timeZone: "GMT",
+		}),
+	},
+	nav: [
+		{ name: "Home", href: "/" },
+		{ name: "Work", href: "/work" },
+		{ name: "Writing", href: "/writing" },
+		{ name: "Contact", href: "/contact" },
 	],
-
-	socialShares: [
-		{
-			name: "tabler:mail",
-			link: "mailto:work@ddlawson.com",
-			ariaLabel: "Email",
-		},
+	social: [
+		{ name: "tabler:mail", link: `mailto:${SITE_EMAIL}`, ariaLabel: "Email" },
 		{
 			name: "tabler:brand-linkedin",
 			link: "https://www.linkedin.com/in/ddlawson/",
 			ariaLabel: "LinkedIn",
 		},
-
 		{
 			name: "tabler:brand-github",
 			link: "https://www.github.com/ddlaws0n",
 			ariaLabel: "GitHub",
 		},
-		{
-			name: "tabler:brand-x",
-			link: "https://x.com/ddlaws0n",
-			ariaLabel: "X",
-		},
+		{ name: "tabler:brand-x", link: "https://x.com/ddlaws0n", ariaLabel: "X" },
 	],
 };
 
-export const conf = { ...meta };
-export const nav = meta.navItems;
-export const social = meta.socialShares;
-export const dt = meta.dateFormatter;
+export const nav = conf.nav;
+export const social = conf.social;
+export const dt = conf.blog.dateFormatter;

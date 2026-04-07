@@ -1,28 +1,27 @@
 export interface SiteConfig {
-	name: string;
-	origin: string;
-	basePathname: string;
-	trailingSlash: boolean;
-	title: string;
-	description: string;
-	language: string;
-	defaultTheme?: string;
-	umamiId: string;
-	words_per_minute: number;
-	dateFormatter: Intl.DateTimeFormat;
-	navItems: Array<{ name: string; href: string }>;
-	socialShares: Array<{ name: string; link: string; ariaLabel: string }>;
-}
-
-export interface MetaSEO {
-	title?: string;
-	description?: string;
-	image?: string;
-	canonical?: string | URL;
-	noindex?: boolean;
-	nofollow?: boolean;
-	ogTitle?: string;
-	ogType?: "website" | "article" | "profile" | "book";
+	site: {
+		name: string;
+		email: string;
+		origin: string;
+		basePathname: string;
+		trailingSlash: boolean;
+		language: string;
+		defaultTheme?: string;
+	};
+	seo: {
+		title: string;
+		description: string;
+	};
+	analytics: {
+		umamiId: string;
+		umamiUrl: string;
+	};
+	blog: {
+		wordsPerMinute: number;
+		dateFormatter: Intl.DateTimeFormat;
+	};
+	nav: Array<{ name: string; href: string }>;
+	social: Array<{ name: string; link: string; ariaLabel: string }>;
 }
 
 export interface Role {
