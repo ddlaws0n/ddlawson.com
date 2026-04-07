@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!src/pages/reference.astro", "!local"]
+		"includes": ["**", "!src/pages/reference.astro", "!local/*"]
 	},
 	"css": {
 		"parser": {
@@ -31,6 +31,9 @@
 			},
 			"correctness": {
 				"noUnusedFunctionParameters": "warn"
+			},
+			"nursery": {
+				"useSortedClasses": "error"
 			}
 		}
 	},
