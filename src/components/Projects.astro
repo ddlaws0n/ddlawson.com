@@ -1,16 +1,10 @@
 ---
+import SectionLabel from "@/components/SectionLabel.astro";
 import { projects } from "@/content/projects";
 ---
 
 <section class="m-section m-reveal" id="projects">
-  <div class="m-label">
-    <span
-      class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
-      >What I'm Building</span
-    >
-    <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
-    </div>
-  </div>
+  <SectionLabel label="What I'm Building" />
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
     {

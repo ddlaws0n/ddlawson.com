@@ -1,4 +1,6 @@
 ---
+import SectionLabel from "@/components/SectionLabel.astro";
+
 const beliefs = [
   {
     title: '<span class="accent">Bridges</span>, not barriers',
@@ -20,14 +22,7 @@ const beliefs = [
 ---
 
 <section class="m-section m-reveal">
-  <div class="m-label">
-    <span
-      class="font-display text-text-muted text-label font-semibold tracking-[0.24em] whitespace-nowrap uppercase"
-      >What I Believe</span
-    >
-    <div class="from-border-hover h-px flex-1 bg-linear-to-r to-transparent/80">
-    </div>
-  </div>
+  <SectionLabel label="What I Believe" />
 
   <div class="bg-border grid grid-cols-1 gap-px md:grid-cols-2">
     {
