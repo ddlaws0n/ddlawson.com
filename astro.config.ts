@@ -8,6 +8,12 @@ import { conf } from "./src/site.config.ts";
 const twPlugin = tailwindcss();
 
 export default defineConfig({
+	site: conf.site.origin,
+	base: conf.site.basePathname,
+	trailingSlash: conf.site.trailingSlash === "always" ? "always" : "never",
+
+	output: "static",
+
 	vite: {
 		// @ts-expect-error — Vite plugin type mismatch between @tailwindcss/vite (Vite 8) and Astro (Vite 7)
 		plugins: [twPlugin],
@@ -15,21 +21,22 @@ export default defineConfig({
 
 	env: {
 		schema: {
-			API_URL: envField.string({
+			UMAMI_ID: envField.string({
 				context: "client",
 				access: "public",
 				optional: true,
 			}),
-			PORT: envField.number({
-				context: "server",
+			UMAMI_URL: envField.string({
+				context: "client",
 				access: "public",
-				default: 4321,
+				default: "https://cloud.umami.is",
 			}),
 			API_SECRET: envField.string({
 				context: "server",
 				access: "secret",
 			}),
 		},
+		validateSecrets: true,
 	},
 
 	fonts: [
@@ -63,7 +70,7 @@ export default defineConfig({
 	integrations: [
 		icon({ iconDir: "src/assets/svg" }),
 		favicons({
-			name: conf.name,
+			name: conf.site.name,
 			input: "src/assets/svg/dl_dot.svg",
 			short_name: "DL",
 			background: "#1e1b2e",
