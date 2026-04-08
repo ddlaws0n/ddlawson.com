@@ -56,7 +56,7 @@ Each token includes a `--line-height` companion (and `--letter-spacing` where ne
 
 - All animations use compositor-only properties (`opacity`, `transform`) — never animate layout properties.
 - **Never combine `m-reveal` (CSS transition) with `animate-*` (keyframes) on the same element.** Mixing transitions and keyframes on the same properties causes jank. Apply `m-reveal` on the container, `animate-*` on children.
-- A global `@media (prefers-reduced-motion: reduce)` block in `base.css` disables all animations and transitions. This is the safety net — don't remove it.
+- Reduced motion is handled per-element using Tailwind v4 variants (`motion-reduce:opacity-100`, `motion-reduce:transform-none`, `motion-reduce:animate-none`). Custom CSS transition utilities (`m-reveal`, `m-spine-draw`) include their own `@media (prefers-reduced-motion: reduce)` blocks.
 - **Every `opacity-0 animate-*` pairing must include `motion-reduce:opacity-100`** so content isn't permanently hidden when animations are disabled.
 - For elements using `transform` in their animation initial state (e.g., `transform-[scaleX(0)]`), also add `motion-reduce:transform-none`.
 - Animation durations: micro-interactions 150–300ms, complex transitions ≤600ms. Stagger delays should be 50–60ms per item.

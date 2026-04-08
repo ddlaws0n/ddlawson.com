@@ -6,7 +6,7 @@
 
 ## Motion Safety
 
-Every `opacity-0 animate-*` pairing requires `motion-reduce:opacity-100`. For transform-based initial states, also add `motion-reduce:transform-none`. The global `prefers-reduced-motion` block in `base.css` handles the rest.
+Every `opacity-0 animate-*` pairing requires `motion-reduce:opacity-100`. For transform-based initial states, also add `motion-reduce:transform-none`. For infinite animations (e.g. `animate-pulse-dot`), add `motion-reduce:animate-none`. Custom CSS transition utilities (`m-reveal`, `m-spine-draw`) handle reduced motion internally.
 
 ## Touch Targets
 

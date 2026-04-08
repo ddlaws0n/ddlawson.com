@@ -24,8 +24,8 @@ const {
 } = Astro.props;
 
 const nodeCurrent = mobile
-  ? "size-2.5 rounded-full bg-teal animate-pulse-dot shadow-teal-glow-sm"
-  : "size-3 rounded-full bg-teal animate-pulse-dot shadow-teal-glow";
+  ? "size-2.5 rounded-full bg-teal animate-pulse-dot motion-reduce:animate-none shadow-teal-glow-sm"
+  : "size-3 rounded-full bg-teal animate-pulse-dot motion-reduce:animate-none shadow-teal-glow";
 
 const nodePast = mobile
   ? "size-2 rounded-full border border-border-hover bg-surface"
