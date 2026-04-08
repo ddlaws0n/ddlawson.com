@@ -1,9 +1,9 @@
 import type { SiteConfig } from "@/types";
 
 const SITE_NAME = "David D Lawson";
-const SITE_EMAIL = "work@ddlawson.com";
-const SITE_DOMAIN = "https://ddlawson.com";
-const SITE_DISPLAY_DOMAIN = "ddlawson.com";
+const SITE_BASE = "dlawsonv3.vercel.app";
+const SITE_EMAIL = `work@${SITE_BASE}`;
+const SITE_DOMAIN = `https://${SITE_BASE}`;
 
 const isProd = import.meta.env.PROD;
 
@@ -20,7 +20,7 @@ export const conf: SiteConfig = {
 		basePathname: "/",
 		trailingSlash: "never",
 		language: "en-GB",
-		domain: SITE_DISPLAY_DOMAIN,
+		domain: SITE_BASE,
 		twitterHandle: "@ddlaws0n",
 	},
 	seo: {

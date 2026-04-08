@@ -5,46 +5,49 @@ import { conf } from "@/site.config";
 ---
 
 <section class="m-section m-reveal" id="projects">
-  <SectionLabel label="What I'm Building" />
+    <SectionLabel label="What I'm Building" />
 
-  <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-    {
-      projects.map((p) => (
-        <a
-          href={`${p.href}?ref=${conf.site.domain}`}
-          tabindex="-1"
-          aria-disabled="true"
-          referrerpolicy="origin"
-          target="_blank"
-          rel="external noopener"
-          data-umami-event="outbound-project"
-          data-umami-event-project={p.title}
-          class="cursor-alias group bg-surface border-border hover:bg-elevated hover:border-border-hover before:via-teal relative block overflow-hidden rounded-md border p-5 text-inherit no-underline transition-all duration-300 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_oklch(0%_0_0/0.2),0_0_0_1px_var(--color-border-hover)] hover:before:opacity-100 sm:p-6 md:p-9 md:px-10"
-        >
-          <div class="font-display text-text-muted group-hover:text-teal lg:text-detail mb-3.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-300">
-            {p.tag}
-          </div>
-          <h3 class="font-display text-text mb-2.5 flex items-center gap-2 text-lg leading-[1.3] font-semibold">
-            {p.href && (
-              <img
-                src={`https://www.google.com/s2/favicons?domain=${new URL(p.href).hostname}&sz=32`}
-                alt=""
-                width="16"
-                height="16"
-                loading="lazy"
-                class="size-4 shrink-0 rounded-sm opacity-0 [animation:m-favicon-in_0.4s_ease_0.3s_forwards]"
-              />
-            )}
-            {p.title}
-          </h3>
-          <p class="font-body text-prose text-text-secondary font-light">
-            {p.desc}
-          </p>
-          <span class="text-text-muted group-hover:text-teal mt-5 inline-block text-sm transition-all duration-300 group-hover:translate-x-1.5">
-            &rarr;
-          </span>
-        </a>
-      ))
-    }
-  </div>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {
+            projects.map((p) => (
+                <a
+                    href={`${p.href}?ref=${conf.site.domain}`}
+                    tabindex="-1"
+                    aria-disabled="true"
+                    referrerpolicy="origin"
+                    target="_blank"
+                    rel="external noopener"
+                    data-umami-event="outbound-project"
+                    data-umami-event-project={p.title}
+                    class="cursor-alias group bg-surface border-border hover:bg-elevated hover:border-border-hover before:via-teal relative block overflow-hidden rounded-md border p-5 text-inherit no-underline transition-all duration-300 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_oklch(0%_0_0/0.2),0_0_0_1px_var(--color-border-hover)] hover:before:opacity-100 sm:p-6 md:p-9 md:px-10"
+                >
+                    <div class="font-display text-text-muted group-hover:text-teal lg:text-detail mb-3.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-300">
+                        {p.tag}
+                    </div>
+                    <h3 class="font-display text-text mb-2.5 flex items-center gap-2 text-lg leading-[1.3] font-semibold">
+                        {p.faviconUrl && (
+                            <img
+                                src={p.faviconUrl}
+                                alt=""
+                                width="16"
+                                height="16"
+                                loading="lazy"
+                                class:list={[
+                                    "size-4 shrink-0 rounded-sm opacity-0 animate-[m-favicon-in_0.4s_ease_0.3s_forwards]",
+                                    { invert: p.invertFavicon },
+                                ]}
+                            />
+                        )}
+                        {p.title}
+                    </h3>
+                    <p class="font-body text-prose text-text-secondary font-light">
+                        {p.desc}
+                    </p>
+                    <span class="text-text-muted group-hover:text-teal mt-5 inline-block text-sm transition-all duration-300 group-hover:translate-x-1.5">
+                        &rarr;
+                    </span>
+                </a>
+            ))
+        }
+    </div>
 </section>

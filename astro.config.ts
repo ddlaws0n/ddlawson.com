@@ -70,7 +70,7 @@ export default defineConfig({
 		icon({ iconDir: "src/assets/svg" }),
 		favicons({
 			name: conf.site.name,
-			input: "src/assets/svg/dl_dot.svg",
+			input: "src/assets/svg/dl_dot_favicon.svg",
 			short_name: "DL",
 			background: "#1e1b2e",
 			themes: ["#1e1b2e", "#1e1b2e"],
