@@ -17,17 +17,14 @@ import { conf, social } from "@/site.config";
           const linkClass =
             "text-text-muted hover:text-teal inline-flex items-center justify-center p-2.5 transition-colors duration-250";
           if (isEmail) {
-            const [user, domain] = s.link.replace("mailto:", "").split("@");
             return (
               <li>
                 <a
-                  href="#"
-                  data-u={user}
-                  data-d={domain}
+                  href={s.link}
                   aria-label={s.ariaLabel}
                   data-umami-event="email-click"
                   data-umami-event-location="footer"
-                  class:list={["js-email", linkClass]}
+                  class={linkClass}
                 >
                   <Icon name={s.name} class="size-[0.9rem]" />
                 </a>
@@ -56,15 +53,3 @@ import { conf, social } from "@/site.config";
     </ul>
   </footer>
 </div>
-
-<script>
-	function hydrateEmail() {
-		document.querySelectorAll<HTMLAnchorElement>(".js-email").forEach((el) => {
-			const u = el.dataset.u;
-			const d = el.dataset.d;
-			if (u && d) el.href = `mailto:${u}@${d}`;
-		});
-	}
-	hydrateEmail();
-	document.addEventListener("astro:after-swap", hydrateEmail);
-</script>

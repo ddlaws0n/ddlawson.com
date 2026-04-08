@@ -1,5 +1,5 @@
-import faviconCsg from "@/assets/img/favicon-csg.png";
 import favicon52weeks from "@/assets/img/favicon-52weeks.png";
+import faviconCsg from "@/assets/img/favicon-csg.png";
 
 type Project = {
 	tag: string;
