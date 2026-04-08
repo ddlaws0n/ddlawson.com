@@ -129,6 +129,8 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
     document.querySelectorAll<HTMLButtonElement>(".js-copy-link").forEach((btn) => {
       btn.addEventListener("click", async () => {
         await navigator.clipboard.writeText(window.location.href);
+        const slug = window.location.pathname.split("/").pop() ?? "";
+        window.umami?.track("copy-link", { slug });
         const label = btn.querySelector(".js-copy-label");
         if (!label) return;
         const original = label.textContent;
