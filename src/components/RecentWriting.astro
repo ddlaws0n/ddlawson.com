@@ -34,6 +34,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft))
 
   <a
     href="/writing"
+    data-umami-event="view-all-writing"
     class="text-caption text-teal hover:text-teal-bright mt-8 inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
     >View all <span>&rarr;</span></a
   >

@@ -25,6 +25,8 @@ import { conf, social } from "@/site.config";
                   data-u={user}
                   data-d={domain}
                   aria-label={s.ariaLabel}
+                  data-umami-event="email-click"
+                  data-umami-event-location="footer"
                   class:list={["js-email", linkClass]}
                 >
                   <Icon name={s.name} class="size-[0.9rem]" />
@@ -39,6 +41,9 @@ import { conf, social } from "@/site.config";
                 target="_blank"
                 rel="external noopener noreferrer"
                 aria-label={s.ariaLabel}
+                data-umami-event="social-click"
+                data-umami-event-platform={s.ariaLabel}
+                data-umami-event-location="footer"
                 class={linkClass}
               >
                 <Icon name={s.name} class="size-[0.9rem]" />

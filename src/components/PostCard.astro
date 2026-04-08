@@ -20,6 +20,8 @@ const { post, showDescription = false, readingTime, formatDate, index } = Astro.
 
 <a
 	href={`/writing/${post.id}`}
+	data-umami-event="post-click"
+	data-umami-event-slug={post.id}
 	class:list={[
 		"post group border-border hover:bg-teal/4 -mx-5 grid grid-cols-1 items-start gap-2.5 rounded-sm border-b px-5 py-6 text-inherit no-underline transition-all duration-250 hover:border-b-transparent md:grid-cols-[130px_1fr_auto] md:items-center md:gap-7",
 		index === 0 && "border-t",

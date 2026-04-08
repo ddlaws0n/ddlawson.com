@@ -82,6 +82,7 @@ import { conf, social } from "@/site.config";
             referrerpolicy="origin"
             target="_blank"
             class="m-link-external"
+            data-umami-event="outbound-wiz"
             style="--favicon-src:url('https://www.google.com/s2/favicons?domain=wiz.io&sz=32')"
             rel="external noopener noreferrer"><strong class="text-text font-medium">Wiz</strong><span class="sr-only">(opens in new tab)</span></a
           >, I lead technical account management across EMEA, helping security
@@ -101,6 +102,9 @@ import { conf, social } from "@/site.config";
                   target="_blank"
                   rel="external noopener noreferrer"
                   aria-label={s.ariaLabel}
+                  data-umami-event="social-click"
+                  data-umami-event-platform={s.ariaLabel}
+                  data-umami-event-location="hero"
                   class="text-micro text-text-muted hover:text-teal -ml-2 inline-flex min-h-11 min-w-11 items-center gap-1.5 p-2 font-normal tracking-[0.04em] no-underline transition-all duration-250 hover:-translate-y-px lg:ml-0 lg:p-1.5"
                 >
                   <Icon name={s.name} class="size-3.5 lg:size-[0.85rem]" />

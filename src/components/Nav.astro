@@ -42,6 +42,8 @@ const pathname = Astro.url.pathname;
               <a
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
+                data-umami-event="nav-click"
+                data-umami-event-item={item.name}
                 class:list={[
                   // Base classes applied to all links
                   "font-body lg:text-caption relative block py-2 text-detail font-normal tracking-wider uppercase no-underline transition-colors duration-250 sm:text-xs sm:tracking-widest",
