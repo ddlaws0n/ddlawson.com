@@ -39,7 +39,7 @@ const wasUpdated = lastUpdatedDate && lastUpdatedDate.getTime() !== date.getTime
   }}
 >
   <div
-    class="font-body bg-background text-text relative min-h-screen overflow-x-hidden"
+    class="font-body bg-background text-text relative min-h-screen overflow-x-clip"
   >
     <div class="m-noise"></div>
     <Nav />
@@ -95,7 +95,7 @@ const wasUpdated = lastUpdatedDate && lastUpdatedDate.getTime() !== date.getTime
         <footer class="max-w-copy mx-auto mt-12 flex items-center justify-between border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
           <a
             href="/writing"
-            class="text-micro text-teal hover:text-teal-bright inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
+            class="text-micro text-teal hover:text-teal-bright -ml-2.5 inline-flex min-h-11 items-center gap-2 p-2.5 font-normal no-underline transition-all duration-300 hover:gap-3"
           >
             <span>&larr;</span>
             <span>Back to all writing</span>
@@ -132,13 +132,17 @@ const wasUpdated = lastUpdatedDate && lastUpdatedDate.getTime() !== date.getTime
   function initCopyLink() {
     document.querySelectorAll<HTMLButtonElement>(".js-copy-link").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        await navigator.clipboard.writeText(window.location.href);
-        const slug = window.location.pathname.split("/").pop() ?? "";
-        window.umami?.track("copy-link", { slug });
         const label = btn.querySelector(".js-copy-label");
         if (!label) return;
         const original = label.textContent;
-        label.textContent = "Copied!";
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const slug = window.location.pathname.split("/").pop() ?? "";
+          window.umami?.track("copy-link", { slug });
+          label.textContent = "Copied!";
+        } catch {
+          label.textContent = "Failed to copy";
+        }
         setTimeout(() => {
           label.textContent = original;
         }, 2000);
