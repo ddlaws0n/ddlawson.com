@@ -16,7 +16,7 @@ import { beliefs } from "@/content/beliefs";
                     <h3
                         class="font-display text-text relative mb-3.5 text-lg leading-[1.35] font-semibold"
                         set:html={b.title}
-                        aria-label={b.body}
+                        aria-label={b.title.replace(/<[^>]*>/g, "")}
                     />
                     <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-300">
                         {b.body}
