@@ -2,6 +2,7 @@
 title: "From Co-founder to Corporate: What Survived the Transition"
 description: "Startup leadership is energy and conviction. Enterprise leadership is translation and persistence. Same foundation, entirely different surface."
 date: "2025-10-05"
+lastUpdatedDate: "2025-10-05"
 tag: "Personal"
 draft: false
 ---

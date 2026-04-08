@@ -2,6 +2,7 @@
 title: "The Best Security Tool Is the One Developers Actually Use"
 description: "Security products compete on detectors and integrations. They should compete on friction. The adoption gap starts in the developer's IDE, not the CISO's budget."
 date: "2026-02-22"
+lastUpdatedDate: "2026-02-22"
 tag: "DevEx"
 draft: false
 ---

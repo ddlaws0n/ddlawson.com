@@ -2,6 +2,7 @@
 title: "AI Broke the Cloud Security Status Quo"
 description: "AI changes what you're defending against and what you're defending with — simultaneously. Most organisations are only optimising for one side."
 date: "2025-12-08"
+lastUpdatedDate: "2025-12-08"
 tag: "Security"
 draft: false
 ---

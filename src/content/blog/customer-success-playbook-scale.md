@@ -2,6 +2,7 @@
 title: "The Customer Success Playbook Doesn't Scale"
 description: "QBRs, health scores, success plans — the standard CS playbook breaks at 40 accounts per CSM. The replacement isn't more headcount."
 date: "2025-11-20"
+lastUpdatedDate: "2025-11-20"
 tag: "Strategy"
 draft: false
 ---

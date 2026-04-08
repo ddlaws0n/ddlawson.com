@@ -2,6 +2,7 @@
 title: "The Gap Between Product and Customer"
 description: "Most product teams think they're customer-centric. The data says otherwise — and the fix isn't a new process."
 date: "2026-03-15"
+lastUpdatedDate: "2026-03-15"
 tag: "Strategy"
 draft: false
 ---

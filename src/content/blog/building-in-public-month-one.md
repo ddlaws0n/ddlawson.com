@@ -2,6 +2,7 @@
 title: "Building in Public: Month One"
 description: "Thirty days of sharing half-formed ideas, abandoned drafts, and failed experiments in the open. The discomfort faded. The feedback didn't."
 date: "2026-01-10"
+lastUpdatedDate: "2026-01-10"
 tag: "Personal"
 draft: false
 ---
