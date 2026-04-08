@@ -17,11 +17,12 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const { title, description, date, tag } = post.data;
+const { title, description, date, lastUpdatedDate, tag } = post.data;
 const dateFmt = conf.blog.dateFormatter;
 const formattedDate = dateFmt.format(date);
 const readingTime = post.body ? getReadingTime(post.body) : undefined;
 const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
+const wasUpdated = lastUpdatedDate && lastUpdatedDate.getTime() !== date.getTime();
 ---
 
 <BaseLayout
@@ -32,6 +33,7 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
     imageAlt: `${title} — ${conf.site.domain}`,
     ogType: "article",
     publishedTime: date.toISOString(),
+    modifiedTime: lastUpdatedDate?.toISOString(),
     articleAuthor: conf.site.name,
     articleTag: tag,
   }}
@@ -45,9 +47,19 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
       <article>
         <!-- Post header -->
         <header
-          class="max-w-copy mx-auto animate-fade-up pt-10 pb-8 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-20 lg:pb-12"
+          class="max-w-copy mx-auto animate-fade-up pt-10 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-20"
         >
-          <div class="mb-5 flex items-center gap-4 md:mb-7">
+          <h1
+            class="font-display text-quote text-text mb-4 font-extrabold leading-tight lg:mb-5"
+          >
+            {title}
+          </h1>
+          <p
+            class="text-prose text-text-secondary mb-6 max-w-[52ch] font-normal lg:mb-8"
+          >
+            {description}
+          </p>
+          <div class="border-border flex items-center gap-4 border-t pt-4">
             <span
               class="font-display text-detail text-teal-muted border-teal/12 rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase"
             >
@@ -63,25 +75,17 @@ const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
                 >&middot; {readingTime}</span
               >
             )}
+            {wasUpdated && (
+              <span class="text-text-muted text-sm font-normal"
+                >&middot; Updated {dateFmt.format(lastUpdatedDate)}</span
+              >
+            )}
           </div>
-          <h1
-            class="font-display text-quote text-text font-extrabold leading-tight"
-          >
-            {title}
-          </h1>
-          <p
-            class="text-prose text-text-secondary mt-4 mb-0 max-w-[52ch] font-normal lg:mt-6"
-          >
-            {description}
-          </p>
         </header>
-
-        <!-- Divider -->
-        <div class="max-w-copy mx-auto m-divider mb-8 lg:mb-12"></div>
 
         <!-- Post body -->
         <div
-          class="max-w-copy mx-auto prose prose-invert animate-fade-up-fast opacity-0 motion-reduce:opacity-100"
+          class="max-w-copy mx-auto mt-10 prose prose-invert animate-fade-up-fast opacity-0 motion-reduce:opacity-100 lg:mt-14"
           style="animation-delay: 120ms"
         >
           <Content />
