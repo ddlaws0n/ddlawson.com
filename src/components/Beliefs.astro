@@ -4,30 +4,31 @@ import { beliefs } from "@/content/beliefs";
 ---
 
 <section class="m-section m-reveal">
-  <SectionLabel label="What I Believe" />
+    <SectionLabel label="What I Believe" />
 
-  <div class="bg-border grid grid-cols-1 gap-px md:grid-cols-2">
-    {
-      beliefs.map((b, i) => (
-        <div class="group bg-background hover:bg-surface after:bg-teal relative overflow-hidden p-7 transition-colors duration-300 after:absolute after:top-0 after:left-0 after:h-0 after:w-0.5 after:transition-[height] after:duration-300 hover:after:h-full md:p-11">
-          <span class="font-display text-text pointer-events-none absolute -top-2 right-3 text-[7rem] leading-[0.75] font-extralight opacity-[0.02] transition-opacity duration-300 group-hover:opacity-[0.04]">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          <h3
-            class="font-display text-text relative mb-3.5 text-lg leading-[1.35] font-semibold"
-            set:html={b.title}
-          />
-          <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-300">
-            {b.body}
-          </p>
-        </div>
-      ))
-    }
-  </div>
+    <div class="bg-border grid grid-cols-1 gap-px md:grid-cols-2">
+        {
+            beliefs.map((b, i) => (
+                <div class="group bg-background hover:bg-surface after:bg-teal relative overflow-hidden p-7 transition-colors duration-300 after:absolute after:top-0 after:left-0 after:h-0 after:w-0.5 after:transition-[height] after:duration-300 hover:after:h-full md:p-11">
+                    <span class="font-display text-text pointer-events-none absolute -top-2 right-3 text-[7rem] leading-[0.75] font-extralight opacity-[0.04] transition-opacity duration-300 group-hover:opacity-[0.08]">
+                        {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3
+                        class="font-display text-text relative mb-3.5 text-lg leading-[1.35] font-semibold"
+                        set:html={b.title}
+                        aria-label={b.body}
+                    />
+                    <p class="font-body text-prose text-text-muted group-hover:text-text-secondary relative font-light transition-colors duration-300">
+                        {b.body}
+                    </p>
+                </div>
+            ))
+        }
+    </div>
 </section>
 
 <style>
-  .group :global(.accent) {
-    color: var(--color-teal);
-  }
+    .group :global(.accent) {
+        color: var(--color-teal);
+    }
 </style>
