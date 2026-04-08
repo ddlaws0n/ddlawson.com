@@ -41,11 +41,11 @@
 	/* Type scale — fluid */
 	--text-micro: clamp(0.72rem, 0.7rem + 0.12vw, 0.82rem);
 	--text-micro--line-height: 1.5;
-	--text-prose: clamp(0.84rem, 0.6rem + 0.5vw, 1.05rem);
+	--text-prose: clamp(0.906rem, 0.6rem + 0.5vw, 1.05rem);
 	--text-prose--line-height: 1.7;
 	--text-quote: clamp(1.15rem, 0.8rem + 1.5vw, 2.1rem);
 	--text-quote--line-height: 1.4;
-	--text-hero: clamp(1.9rem, 1rem + 5vw, 5.8rem);
+	--text-hero: clamp(3rem, 1rem + 5vw, 5.8rem);
 	--text-hero--line-height: 0.92;
 	--text-hero--letter-spacing: -0.03em;
 	--text-display: clamp(8rem, 22vw, 16rem);
@@ -384,6 +384,28 @@
 	& :where(ul),
 	& :where(ol) {
 		padding-left: 1.25rem;
+	}
+
+	/* External links: no underline by default, underline on hover, icon suffix */
+	& :where(a[href^="http"]) {
+		text-decoration-line: none;
+
+		&:hover {
+			text-decoration-line: underline;
+		}
+
+		&::after {
+			display: inline-block;
+			width: 0.75em;
+			height: 0.75em;
+			margin-left: 0.15em;
+			vertical-align: -0.05em;
+			content: "";
+			background-color: currentColor;
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5'/%3E%3C/svg%3E");
+			mask-size: contain;
+			mask-repeat: no-repeat;
+		}
 	}
 }
 
