@@ -1,90 +1,154 @@
 ---
-import AuthorProfile from '@/assets/images/david-d-lawson-profile.jpg';
-import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE } from '@/site.config';
-import { getFormattedDate, getReadingTime } from '@/utils';
-import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
-import { getCollection, render } from 'astro:content';
-export const prerender = true;
-
-import type { MetaSEO } from '@/types';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from "astro:content";
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { conf } from "@/site.config.ts";
+import { getReadingTime } from "@/utils/reading-time";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('writing');
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
   }));
 }
 
-const { entry } = Astro.props as { entry: CollectionEntry<'writing'> };
-const { Content } = await render(entry);
+const { post } = Astro.props;
+const { Content } = await render(post);
 
-const meta: MetaSEO = {
-  title: entry.data.title,
-  description: entry.data.description,
-  canonical: SITE.origin + `/writing/${entry.id}`,
-  ogTitle: entry.data.title,
-};
+const { title, description, date, lastUpdatedDate, tag } = post.data;
+const dateFmt = conf.blog.dateFormatter;
+const formattedDate = dateFmt.format(date);
+const readingTime = post.body ? getReadingTime(post.body) : undefined;
+const ogImage = new URL(`/og/${post.id}.png`, conf.site.origin).href;
+const wasUpdated = lastUpdatedDate && lastUpdatedDate.getTime() !== date.getTime();
 ---
 
-<PageLayout {meta}>
-  <article class="container mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mb-16 text-center">
-      <span
-        class="inline-flex items-center rounded-full bg-gray-200 px-4 py-1.5 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-200"
-      >
-        {entry.data.category || 'Blogging'}
-      </span>
-    </div>
-
-    <h1
-      class="mb-12 text-center text-4xl leading-tight font-black text-gray-900 sm:text-5xl lg:text-6xl dark:text-gray-100"
-    >
-      {entry.data.title}
-    </h1>
-
-    <div class="mb-16 flex items-center justify-center space-x-6 text-gray-600 dark:text-gray-400">
-      <div class="flex items-center space-x-3">
-        {
-          entry.data.author == 'David D Lawson' && (
-            <Image
-              src={AuthorProfile}
-              alt={entry.data.author}
-              width={40}
-              height={40}
-              class="text-foreground bg-muted relative h-10 w-10 overflow-hidden rounded-full border-2 object-cover text-sm"
-            />
-          )
-        }
-        <span class="font-medium text-gray-900 dark:text-gray-100">
-          {entry.data.author}
-        </span>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <Icon name="tabler:calendar" class="h-5 w-5" />
-        <time
-          datetime={entry.data.publishDate instanceof Date
-            ? entry.data.publishDate.toISOString()
-            : entry.data.publishDate}
+<BaseLayout
+  meta={{
+    title,
+    description,
+    image: ogImage,
+    imageAlt: `${title} — ${conf.site.domain}`,
+    ogType: "article",
+    publishedTime: date.toISOString(),
+    modifiedTime: lastUpdatedDate?.toISOString(),
+    articleAuthor: conf.site.name,
+    articleTag: tag,
+  }}
+>
+  <div
+    class="font-body bg-background text-text relative min-h-screen overflow-x-clip"
+  >
+    <div class="m-noise"></div>
+    <Nav />
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
+      <article>
+        <!-- Post header -->
+        <header
+          class="max-w-copy mx-auto animate-fade-up pt-10 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-20"
         >
-          {getFormattedDate(entry.data.publishDate)}
-        </time>
-      </div>
+          <h1
+            class="font-display text-quote text-text mb-4 font-extrabold leading-tight lg:mb-5"
+          >
+            {title}
+          </h1>
+          <p
+            class="text-prose text-text-secondary mb-6 max-w-[52ch] font-normal lg:mb-8"
+          >
+            {description}
+          </p>
+          <div class="border-border flex items-center gap-4 border-t pt-4">
+            <span
+              class="font-display text-detail text-teal-muted border-teal/12 rounded-sm border px-[0.55rem] py-[0.2rem] font-medium tracking-[0.14em] uppercase"
+            >
+              {tag}
+            </span>
+            <span
+              class="font-display text-text-muted lg:text-caption text-sm font-normal tracking-[0.02em]"
+            >
+              {formattedDate}
+            </span>
+            {readingTime && (
+              <span class="text-text-muted text-sm font-normal"
+                >&middot; {readingTime}</span
+              >
+            )}
+            {wasUpdated && (
+              <span class="text-text-muted text-sm font-normal"
+                >&middot; Updated {dateFmt.format(lastUpdatedDate)}</span
+              >
+            )}
+          </div>
+        </header>
 
-      <div class="flex items-center space-x-2">
-        <Icon name="tabler:clock" class="h-5 w-5" />
-        <span>{entry.body ? getReadingTime(entry.body) : '5'} min read</span>
-      </div>
-    </div>
+        <!-- Post body -->
+        <div
+          class="max-w-copy mx-auto mt-10 prose prose-invert animate-fade-up-fast opacity-0 motion-reduce:opacity-100 lg:mt-14"
+          style="animation-delay: 120ms"
+        >
+          <Content />
+        </div>
 
-    <div
-      class="prose prose-lg max-w-none prose-gray dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-code:rounded prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:text-gray-800 dark:prose-code:bg-gray-800 dark:prose-code:text-gray-200 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-img:rounded-lg prose-img:shadow-md"
-    >
-      <Content />
-    </div>
-  </article>
-</PageLayout>
+        <!-- Post footer -->
+        <footer class="max-w-copy mx-auto mt-12 flex items-center justify-between border-border border-t pt-8 pb-4 lg:mt-16 lg:pt-10">
+          <a
+            href="/writing"
+            class="text-micro text-teal hover:text-teal-bright -ml-2.5 inline-flex min-h-11 items-center gap-2 p-2.5 font-normal no-underline transition-all duration-300 hover:gap-3"
+          >
+            <span>&larr;</span>
+            <span>Back to all writing</span>
+          </a>
+          <button
+            type="button"
+            class="js-copy-link text-micro text-teal hover:text-teal-bright inline-flex items-center gap-1.5 rounded-sm p-2.5 font-normal transition-colors duration-250"
+            aria-label="Copy link to clipboard"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <span class="js-copy-label">Copy link</span>
+          </button>
+        </footer>
+      </article>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
+
+<script>
+  function initCopyLink() {
+    document.querySelectorAll<HTMLButtonElement>(".js-copy-link").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const label = btn.querySelector(".js-copy-label");
+        if (!label) return;
+        const original = label.textContent;
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const slug = window.location.pathname.split("/").pop() ?? "";
+          window.umami?.track("copy-link", { slug });
+          label.textContent = "Copied!";
+        } catch {
+          label.textContent = "Failed to copy";
+        }
+        setTimeout(() => {
+          label.textContent = original;
+        }, 2000);
+      });
+    });
+  }
+  initCopyLink();
+  document.addEventListener("astro:after-swap", initCopyLink);
+</script>

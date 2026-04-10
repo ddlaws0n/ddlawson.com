@@ -1,155 +1,33 @@
 ---
-import HeroImage from '@/assets/images/david-d-lawson-profile.png';
-import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE, SOCIAL } from '@/site.config';
-import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
-
-// import Button from '@/components/Button.astro';
-// import BentoCard from '@/components/BentoCard.astro';
-
-const meta = {
-  title: SITE.title,
-  description: SITE.description,
-  dontUseTitleTemplate: true,
-  canonical: SITE.origin,
-};
+import Beliefs from "@/components/Beliefs.astro";
+import Footer from "@/components/Footer.astro";
+import Hero from "@/components/Hero.astro";
+import Nav from "@/components/Nav.astro";
+import Projects from "@/components/Projects.astro";
+import Quote from "@/components/Quote.astro";
+import RecentWriting from "@/components/RecentWriting.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
-<PageLayout {meta}>
-  <div class="relative mx-auto px-4 py-12 md:py-24 lg:px-8 xl:max-w-7xl">
-    <div class="grid grid-cols-1 place-items-center gap-8 md:grid-cols-8 md:place-items-start md:gap-16">
-      <div class="col-span-1 w-48 md:col-span-3 md:w-full">
-        <div class="relative mx-auto">
-          <div class="aspect-square overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-slate-800">
-            <div
-              class="absolute inset-0 rounded-full bg-gradient-to-tr via-none from-sky-200 to-sky-400 opacity-10 md:size-full dark:opacity-10"
-            >
-            </div>
-            <Image
-              src={HeroImage}
-              alt="David D Lawson Profile Photo"
-              format="webp"
-              width={640}
-              height={640}
-              class="h-full w-full object-cover object-center"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col-span-1 flex flex-col items-center md:col-span-5 md:items-start">
-        <div class="space-y-6 text-center md:text-left">
-          <div>
-            <span class="text-lg font-medium text-slate-800 md:text-xl md:leading-relaxed dark:text-slate-100">
-              Hey <span aria-label="wave" role="img">👋</span> I'm
-            </span>
-            <h1
-              class="my-4 font-sans text-6xl font-medium tracking-tight text-balance md:text-7xl/[0.7] lg:text-8xl/[0.8] xl:text-8xl"
-            >
-              <span
-                class="bg-gradient-to-br from-sky-300 via-cyan-300 to-teal-300 text-slate-950 dark:bg-gradient-to-r dark:via-none dark:from-sky-100 dark:to-indigo-500 dark:bg-clip-text dark:text-transparent"
-              >
-                David Lawson
-              </span>
-            </h1>
-          </div>
-
-          <!-- More prominent subheader -->
-          <p class="mt-6 mb-4 text-xl font-semibold text-slate-950 md:text-2xl lg:text-3xl dark:text-slate-100">
-            I believe every problem presents an opportunity.
-          </p>
-
-          <p
-            class="text-md mx-auto font-sans text-slate-950/75 md:mx-0 md:text-lg md:leading-relaxed dark:text-slate-300"
-          >
-            I'm a <strong>Customer Success</strong> professional, specialized in B2B SaaS with a passion for people & technology.
-            Currently helping secure the world's cloud @ <a
-              class="cursor-pointer text-sky-600 after:content-['_↗'] hover:text-sky-500 dark:text-sky-300 dark:hover:text-sky-200"
-              href="https://www.wiz.io">Wiz</a
-            >
-          </p>
-        </div>
-
-        <!-- Social media icons and CTA -->
-        <div class="mt-8 flex flex-col space-y-6 md:space-y-8">
-          <!-- CTA -->
-          <!-- <div class="flex justify-center md:justify-start">
-              <Button
-                link="/writing"
-                title="Explore"
-                icon="tabler:news"
-                size="lg"
-                variant="outline"
-                umami="writing-button"
-              />
-            </div> -->
-
-          <!-- Social media icons -->
-          <div class="flex items-center justify-center space-x-5 md:justify-start">
-            {
-              SOCIAL.map(({ name, link, ariaLabel }) => (
-                <a
-                  href={link}
-                  target="_blank"
-                  class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-800 hover:bg-sky-100 hover:text-sky-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-sky-300"
-                  aria-label={ariaLabel}
-                >
-                  <Icon name={name} class="h-5 w-5" />
-                </a>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {
-      /*
-    <!-- BentoGrid Section -->
-    <div class="my-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:my-26 lg:grid-cols-3">
-      <!-- Current Work -->
-      <BentoCard
-        title="Current Work"
-        content="Leading the EMEA technical account management team through hypergrowth at Wiz."
-        icon="tabler:briefcase"
-        className="lg:row-span-2"
-        href="https://www.wiz.io"
-        footer="Learn more about Wiz"
-      />
-
-      <!-- Location -->
-      <BentoCard
-        title="Location"
-        content="London, United Kingdom 🇬🇧"
-        icon="tabler:map-pin">
-        <div
-          class="mt-4 text-sm text-slate-500"
-          x-data="{ time: new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' }) }"
-          x-init="setInterval(() => time = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' }), 1000)">
-          Local time: <span x-text="time"></span>
-        </div>
-      </BentoCard>
-
-      <!-- Quote -->
-      <BentoCard
-        title="Quote"
-        content="Work becomes flow at the limits of ability."
-        icon="tabler:quote"
-        footer="— Naval Ravikant"
-      />
-
-      <!-- Contact -->
-      <BentoCard
-        title="Let's Work Together"
-        content="Open to consulting, advisory roles, or collaborations."
-        icon="tabler:heart-handshake"
-        href="/contact"
-        className="sm:col-span-2"
-        footer="Say hello"
-      />
-    </div>
+<BaseLayout
+  meta={{
+    title: "David D Lawson — Closing the gap between product and customer",
+    description:
+      "Customer experience, cloud security, and building in public.",
+  }}
+>
+  <div
+    class="font-body bg-background text-text relative min-h-screen overflow-x-clip"
+  >
+    <div class="m-noise"></div>
+    <Nav />
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
+      <Hero />
+      <Quote />
+      <Beliefs />
+      <RecentWriting />
+      <Projects />
+    </main>
+    <Footer />
   </div>
-  */
-    }
-  </div>
-</PageLayout>
+</BaseLayout>

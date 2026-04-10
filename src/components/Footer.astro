@@ -1,60 +1,55 @@
 ---
-import { NAV, SOCIAL } from '@/site.config';
-import { Icon } from 'astro-icon/components';
-
-const currentYear = new Date().getFullYear();
+import { Icon } from "astro-icon/components";
+import { conf, social } from "@/site.config";
 ---
 
-<footer class="mt-auto border-t border-slate-200 dark:border-slate-800">
-  <div class="mx-auto max-w-7xl px-6 py-14 sm:py-16 lg:px-8">
-    <nav class="mb-10 flex flex-wrap justify-center gap-x-10 gap-y-4" aria-label="Footer">
+<div class="border-border bg-background mt-8 border-t">
+  <footer
+    class="max-w-content mx-auto flex flex-col items-center gap-3 px-(--m-gutter) py-8 text-center md:flex-row md:justify-between md:gap-0 md:text-left"
+  >
+    <span class="text-caption text-text-muted font-light"
+      >&copy; {new Date().getFullYear()} {conf.site.name}</span
+    >
+    <ul class="m-0 flex list-none items-center gap-7 p-0">
       {
-        NAV.map(({ name, href }) => (
-          <div>
-            <a
-              href={href}
-              class="text-sm leading-6 font-medium text-slate-600 transition-colors hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-300"
-            >
-              {name}
-            </a>
-          </div>
-        ))
+        social.map((s) => {
+          const isEmail = s.link.startsWith("mailto:");
+          const linkClass =
+            "text-text-muted hover:text-teal inline-flex items-center justify-center p-2.5 transition-colors duration-250";
+          if (isEmail) {
+            return (
+              <li>
+                <a
+                  href={s.link}
+                  aria-label={s.ariaLabel}
+                  data-umami-event="email-click"
+                  data-umami-event-location="footer"
+                  class={linkClass}
+                >
+                  <Icon name={s.name} class="size-[0.9rem]" />
+                </a>
+              </li>
+            );
+          }
+          return (
+            <li>
+              <a
+                href={s.link}
+                target="_blank"
+                rel="external noopener noreferrer"
+                aria-label={s.ariaLabel}
+                data-umami-event="social-click"
+                data-umami-event-platform={s.ariaLabel}
+                data-umami-event-location="footer"
+                class={linkClass}
+              >
+                <Icon name={s.name} class="size-[0.9rem]" />
+                <span class="sr-only">(opens in new tab)</span>
+              </a>
+            </li>
+          );
+        })
       }
-      <div>
-        <button class="cursor-not-allowed text-sm leading-6 font-medium text-slate-400 dark:text-slate-600" disabled
-          >Projects</button
-        >
-        <span
-          class="ml-2 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[.6125rem] font-medium text-slate-500 uppercase dark:bg-slate-800 dark:text-slate-400"
-          >Soon</span
-        >
-      </div>
-    </nav>
-
-    <div class="mt-8 flex justify-center space-x-8">
-      {
-        SOCIAL.map(({ name, link, ariaLabel }) => (
-          <a
-            href={link}
-            target="_blank"
-            aria-label={ariaLabel}
-            class="inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-sky-100 hover:text-sky-600 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-sky-300"
-          >
-            <span class="sr-only">{ariaLabel}</span>
-            <Icon name={name} class="h-5 w-5" />
-          </a>
-        ))
-      }
-    </div>
-
-    <div class="mt-10 border-t border-slate-200 pt-8 dark:border-slate-800">
-      <p class="text-center text-sm text-slate-500 dark:text-slate-400">
-        &copy; {currentYear} David D Lawson. Got any feedback? <span
-          data-feedback-fish
-          class="cursor-pointer font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300"
-          >Let me know!</span
-        >
-      </p>
-    </div>
-  </div>
-</footer>
+    </ul>
+  </footer>
+</div>

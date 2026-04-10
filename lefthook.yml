@@ -3,19 +3,19 @@
 pre-commit:
   commands:
     format:
-      glob: 'src/**/*.{ts,tsx,js,jsx,css}'
-      run: pnpm prettier --write {staged_files} && git update-index --again && echo "Code formatted successfully."
+      glob: "src/**/*.{ts,tsx,js,jsx,css}"
+      run: pnpm format {staged_files} && git update-index --again && echo "Code formatted successfully."
 
     lint:
-      glob: 'src/**/*.{ts,tsx,js,jsx,css}'
-      run: pnpm eslint --fix {staged_files} && git update-index --again && echo "Code linted successfully."
+      glob: "src/**/*.{ts,tsx,js,jsx,css}"
+      run: pnpm lint {staged_files} && git update-index --again && echo "Code linted successfully."
 
-    update-env-example:
-      tags: prepare:env-file
-      run: |
-        cp .env .env.example || cp .env.local .env.example
-        sed -i '' 's/=\(.*\)/=""/' .env.example
-        echo "Updated .env.example successfully."
+    # update-env-example:
+    #   tags: prepare:env-file
+    #   run: |
+    #     cp .env .env.example || cp .env.local .env.example
+    #     sed -i '' 's/=\(.*\)/=""/' .env.example
+    #     echo "Updated .env.example successfully."
 
 pre-push:
   commands:
@@ -25,5 +25,5 @@ pre-push:
     check:
       tags: lint
       files: git diff --name-only $(git merge-base origin/main HEAD)
-      glob: 'src/**/*.{js,jsx,ts,tsx}'
-      run: pnpm run check && echo "Types checked successfully."
+      glob: "src/**/*.{js,jsx,ts,tsx}"
+      run: pnpm run types && echo "Types checked successfully."

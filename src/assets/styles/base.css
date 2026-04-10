@@ -1,117 +1,432 @@
-@import 'tailwindcss';
-
+@import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "@tailwindcss/forms";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Define theme variables */
+/* ——— THEME TOKENS ——— */
 @theme {
-  --font-sans: var(--font-switzer), system-ui, sans-serif;
+	/* Colors — OKLCH for perceptual uniformity */
+	--color-background: oklch(14.5% 0.011 303);
+	--color-surface: oklch(17.5% 0.017 296);
+	--color-surface-hover: oklch(20.5% 0.024 296);
+	--color-elevated: oklch(22.9% 0.027 297);
 
-  /*
-   * Define primary color palette by mapping to Tailwind sky colors
-   * To change the primary color to a different Tailwind color:
-   * 1. Replace all instances of 'sky' below with another color name (e.g., 'blue', 'indigo', 'emerald')
-   * 2. All components using primary-* classes will automatically use the new color
-   */
-  /* --color-primary-50: var(--color-sky-50, #f0f9ff);
-  --color-primary-100: var(--color-sky-100, #e0f2fe);
-  --color-primary-200: var(--color-sky-200, #bae6fd);
-  --color-primary-300: var(--color-sky-300, #7dd3fc);
-  --color-primary-400: var(--color-sky-400, #38bdf8);
-  --color-primary-500: var(--color-sky-500, #0ea5e9);
-  --color-primary-600: var(--color-sky-600, #0284c7);
-  --color-primary-700: var(--color-sky-700, #0369a1);
-  --color-primary-800: var(--color-sky-800, #075985);
-  --color-primary-900: var(--color-sky-900, #0c4a6e);
-  --color-primary-950: var(--color-sky-950, #082f49); */
+	--color-teal: oklch(64.8% 0.081 195);
+	--color-teal-bright: oklch(79.2% 0.093 195);
+	--color-teal-muted: oklch(54.7% 0.068 195);
 
-  /* Main primary color for backward compatibility */
-  /* --color-primary: var(--color-primary-500, #0ea5e9); */
+	--color-warm: oklch(70.4% 0.081 63);
+
+	--color-text: oklch(93.5% 0.01 299);
+	--color-text-secondary: oklch(69.9% 0.023 304);
+	--color-text-muted: oklch(62% 0.024 305);
+
+	--color-border: oklch(100% 0 0 / 0.05);
+	--color-border-hover: oklch(100% 0 0 / 0.1);
+
+	/* Layout */
+	--spacing-content: 940px;
+
+	/* Type scale — static */
+	--text-detail: 0.65rem;
+	--text-detail--line-height: 1.4;
+	--text-label: 0.7rem;
+	--text-label--line-height: 1.4;
+
+	/* New: slightly smaller compact kicker / eyebrow */
+	--text-kicker: 0.64rem;
+	--text-kicker--line-height: 1.35;
+
+	--text-caption: 0.75rem;
+	--text-caption--line-height: 1.5;
+
+	/* Type scale — fluid */
+	--text-micro: clamp(0.72rem, 0.7rem + 0.12vw, 0.82rem);
+	--text-micro--line-height: 1.5;
+	--text-prose: clamp(0.906rem, 0.6rem + 0.5vw, 1.05rem);
+	--text-prose--line-height: 1.7;
+	--text-quote: clamp(1.15rem, 0.8rem + 1.5vw, 2.1rem);
+	--text-quote--line-height: 1.4;
+	--text-hero: clamp(3rem, 1rem + 5vw, 5.8rem);
+	--text-hero--line-height: 0.92;
+	--text-hero--letter-spacing: -0.03em;
+	--text-display: clamp(8rem, 22vw, 16rem);
+	--text-display--line-height: 1;
+
+	/* Radius */
+	--radius-sm: 0.125rem;
+	--radius-md: 0.25rem;
+	--radius-lg: 0.375rem;
+
+	/* Animations */
+	--animate-fade-up: fade-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+	--animate-fade-up-fast: fade-up 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+	--animate-slide-in: slide-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+	--animate-scale-in: scale-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+	--animate-reveal-photo: reveal-photo 0.6s cubic-bezier(0.23, 1, 0.32, 1)
+		forwards;
+	--animate-pulse-dot: pulse-dot 3s ease-in-out infinite;
+
+	/* Shadows */
+	--shadow-teal-glow: 0 0 8px
+		color-mix(in oklch, var(--color-teal) 40%, transparent);
+	--shadow-teal-glow-sm: 0 0 6px
+		color-mix(in oklch, var(--color-teal) 35%, transparent);
+	--shadow-logo-teal: 0 0 4px
+		color-mix(in oklch, var(--color-teal) 60%, transparent);
+
+	/* Prose overrides — map typography plugin vars to theme tokens */
+	--tw-prose-body: var(--color-text-secondary);
+	--tw-prose-headings: var(--color-text);
+	--tw-prose-lead: var(--color-text-secondary);
+	--tw-prose-links: var(--color-teal);
+	--tw-prose-bold: var(--color-text);
+	--tw-prose-counters: var(--color-text-muted);
+	--tw-prose-bullets: var(--color-teal-muted);
+	--tw-prose-hr: var(--color-border-hover);
+	--tw-prose-quotes: var(--color-text);
+	--tw-prose-quote-borders: var(--color-teal-muted);
+	--tw-prose-captions: var(--color-text-muted);
+	--tw-prose-code: var(--color-teal);
+	--tw-prose-pre-code: var(--color-text-secondary);
+	--tw-prose-pre-bg: var(--color-surface);
+	--tw-prose-th-borders: var(--color-border-hover);
+	--tw-prose-td-borders: var(--color-border);
+
+	--container-copy: 42rem;
+	--container-hero: 64rem;
+
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			transform: translateY(18px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes slide-in {
+		from {
+			opacity: 0;
+			transform: translateX(-12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@keyframes scale-in {
+		from {
+			transform: scaleX(0);
+			opacity: 0;
+		}
+		to {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes reveal-photo {
+		from {
+			opacity: 0;
+			transform: translateY(24px) scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@keyframes pulse-dot {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.25;
+		}
+	}
+
+	@keyframes m-favicon-in {
+		to {
+			opacity: 0.7;
+		}
+	}
 }
 
+@theme inline {
+	--font-display: var(--font-display), system-ui, sans-serif;
+	--font-body: var(--font-body), system-ui, sans-serif;
+}
+
+:root {
+	--m-gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ——— CUSTOM UTILITIES ——— */
+@utility m-section {
+	padding: clamp(4rem, 8vw, 6rem) 0;
+}
+
+@utility m-label {
+	display: flex;
+	gap: 1.25rem;
+	align-items: center;
+	margin-bottom: 2.5rem;
+}
+
+/* Uses CSS transitions on opacity+transform (compositor-only).
+   Do NOT combine m-reveal with animate-* keyframes on the same element —
+   mixing transitions and keyframes on the same properties causes jank. */
+@utility m-reveal {
+	opacity: 0;
+	transform: translateY(20px);
+	transition:
+		opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+		transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+
+	@media (prefers-reduced-motion: reduce) {
+		transition-duration: 0.01ms;
+	}
+}
+
+@utility m-spine-draw {
+	opacity: 0;
+	transform: scaleY(0);
+	transform-origin: top;
+	transition:
+		opacity,
+		transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+
+	@media (prefers-reduced-motion: reduce) {
+		transition-duration: 0.01ms;
+	}
+}
+
+@utility m-section-alt {
+	position: relative;
+	padding: clamp(2.5rem, 5vw, 4.5rem) var(--m-gutter);
+	margin: 0 calc(-1 * var(--m-gutter));
+	background: var(--color-surface);
+}
+
+@utility m-divider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem 0;
+}
+
+/* ——— EXTERNAL LINK with FAVICON ——— */
+/* Opt-in: class="m-link-external" + style="--favicon-src:url(https://www.google.com/s2/favicons?domain=wiz.io&sz=32)"
+   Adds a tiny favicon and a ↗ indicator. Inline-flex so the icon
+   aligns with the text baseline.
+   NOTE: The --favicon-src must be set per-element via style attribute
+   because CSS url() cannot interpolate custom-property values. */
+@utility m-link-external {
+	position: relative;
+	display: inline-flex;
+	gap: 0.2em;
+	align-items: baseline;
+	text-decoration-line: none;
+	text-underline-offset: 0;
+
+	&::before {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		vertical-align: -0.125em;
+		content: "";
+		background-image: var(--favicon-src);
+		background-repeat: no-repeat;
+		background-size: contain;
+		border-radius: 2px;
+		opacity: 0;
+		animation: m-favicon-in 0.4s ease 0.3s forwards;
+	}
+
+	/* ↗ indicator after the link text */
+	&::after {
+		font-size: 0.65em;
+		line-height: 1;
+		content: "↗";
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+
+	&:hover::after {
+		opacity: 0.6;
+	}
+}
+
+/* ——— BASE LAYER ——— */
 @layer base {
-  button:not(:disabled),
-  [role='button']:not(:disabled) {
-    cursor: pointer;
-  }
+	/* Inline text links: subtle underline that lifts to teal on hover.
+	   Navigation, card, social-icon, and CTA links override these with inline classes. */
+	a {
+		color: var(--color-text-secondary);
+		text-decoration-line: underline;
+		text-decoration-thickness: 1px;
+		text-decoration-color: color-mix(
+			in oklch,
+			var(--color-text-muted) 40%,
+			transparent
+		);
+		text-decoration-skip-ink: auto;
+		text-underline-offset: 0.15em;
+		transition:
+			color 0.25s ease,
+			text-decoration-color 0.25s ease;
+	}
+
+	a:hover {
+		color: var(--color-teal);
+		text-decoration-color: var(--color-teal-muted);
+	}
+
+	a:focus-visible {
+		outline: 2px solid var(--color-teal);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
 }
 
-/* --- Custom Keyframes for Background Blur Animation --- */
-@layer utilities {
-  @keyframes background-move {
-    0% {
-      transform: translateX(-50%) rotate(30deg) scale(1);
-      opacity: 0.3;
-    }
-    50% {
-      transform: translateX(-48%) rotate(32deg) scale(1.04);
-      opacity: 0.2;
-    }
-    100% {
-      transform: translateX(-52%) rotate(28deg) scale(0.98);
-      opacity: 0.4;
-    }
-  }
-  .animate-background-move {
-    animation: background-move 18s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-  }
-
-  /* New utility for header-constrained background animation */
-  .animate-header-background-move {
-    /* Apply the same animation - Positioning is handled by the component */
-    animation: background-move 18s ease-in-out infinite alternate;
-    will-change: transform, opacity;
-  }
+/* Unlayered so it overrides the m-reveal utility; data-attr for semantic state */
+.m-reveal[data-visible] {
+	opacity: 1;
+	transform: translateY(0);
 }
 
-@utility custom-scroll {
-  &::-webkit-scrollbar {
-    @apply right-0! block! size-2! bg-slate-800!;
-  }
-  &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-slate-600!;
-  }
-  &::-webkit-scrollbar-corner {
-    @apply bg-slate-800!;
-  }
+.m-spine-draw[data-visible] {
+	opacity: 1;
+	transform: scaleY(1);
 }
 
-/*
- * Utility class for generating color variants
- * Usage: .bg-primary-variant-hover:hover { @apply bg-primary-variant; }
- */
-/* @utility primary-variant {
-  @apply text-primary-600 dark:text-primary-300;
-} */
-
-@utility tooltip-scroll {
-  &::-webkit-scrollbar {
-    @apply right-0! block! size-1.5! bg-white!;
-  }
-  @layer utilities {
-    .custom-cubic-bezier {
-      transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
-    }
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply rounded-md! bg-slate-300!;
-  }
-
-  &::-webkit-scrollbar-corner {
-    @apply bg-slate-300!;
-  }
+/* Section-alt top border gradient */
+.m-section-alt::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 1px;
+	content: "";
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--color-border-hover),
+		transparent
+	);
 }
 
-@layer components {
-  * {
-    -ms-overflow-style: none;
-    scrollbar-width: auto;
-  }
-  *::-webkit-scrollbar {
-    display: none;
-  }
+/* Divider line */
+.m-divider::before {
+	width: 28px;
+	height: 1px;
+	content: "";
+	background: var(--color-teal-muted);
+	opacity: 0.5;
+}
+
+/* ——— PROSE TYPOGRAPHY OVERRIDES ——— */
+/* Tailwind Typography plugin sets its own font sizes/families/spacing.
+   These overrides make prose content match the dark editorial theme tokens. */
+.prose {
+	font-family: var(--font-body), system-ui, sans-serif;
+	font-size: var(--text-prose);
+	line-height: var(--text-prose--line-height);
+
+	& :where(h2) {
+		margin-top: 2.8rem;
+		margin-bottom: 0.8rem;
+		font-family: var(--font-display), system-ui, sans-serif;
+		font-size: clamp(1.15rem, 0.9rem + 0.8vw, 1.55rem);
+		font-weight: 700;
+		line-height: 1.3;
+		letter-spacing: -0.01em;
+	}
+
+	& :where(h3) {
+		margin-top: 2.2rem;
+		margin-bottom: 0.6rem;
+		font-family: var(--font-display), system-ui, sans-serif;
+		font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
+		font-weight: 600;
+		line-height: 1.35;
+	}
+
+	& :where(p) {
+		margin-bottom: 1.35rem;
+	}
+
+	& :where(blockquote) {
+		padding-left: 1.25rem;
+		margin: 1.8rem 0;
+		font-style: italic;
+		font-weight: inherit;
+		border-left-width: 2px;
+	}
+
+	& :where(blockquote) p {
+		font-size: inherit;
+	}
+
+	& :where(code) {
+		padding: 0.15em 0.4em;
+		font-size: 0.88em;
+		font-weight: 500;
+	}
+
+	& :where(hr) {
+		margin: 2.5rem 0;
+		border: none;
+		border-top: 1px solid;
+	}
+
+	& :where(li) {
+		margin-bottom: 0.4rem;
+	}
+
+	& :where(ul),
+	& :where(ol) {
+		padding-left: 1.25rem;
+	}
+
+	/* External links: no underline by default, underline on hover, icon suffix */
+	& :where(a[href^="http"]) {
+		text-decoration-line: none;
+
+		&:hover {
+			text-decoration-line: underline;
+		}
+
+		&::after {
+			display: inline-block;
+			width: 0.75em;
+			height: 0.75em;
+			margin-left: 0.15em;
+			vertical-align: -0.05em;
+			content: "";
+			background-color: currentColor;
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6m-7 1l9-9m-5 0h5v5'/%3E%3C/svg%3E");
+			mask-repeat: no-repeat;
+			mask-size: contain;
+		}
+	}
+}
+
+/* Noise overlay —non-interactive */
+@utility m-noise {
+	position: fixed;
+	inset: 0;
+	z-index: 40;
+	content-visibility: auto;
+	pointer-events: none;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-repeat: repeat;
+	background-size: 180px;
+	mix-blend-mode: overlay;
+	opacity: 0.028;
 }
