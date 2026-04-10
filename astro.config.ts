@@ -71,8 +71,8 @@ export default defineConfig({
 				yandex: true,
 			},
 		}),
-  ],
-  experimental: {
-    rustCompiler: true,
-  },
+	],
+	experimental: {
+		rustCompiler: true,
+	},
 });
