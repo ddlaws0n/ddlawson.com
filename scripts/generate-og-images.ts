@@ -25,7 +25,7 @@ const BASE_URL = `http://localhost:${PREVIEW_PORT}`;
 
 interface Post {
 	slug: string;
-	title: string;
+	draft: boolean;
 }
 
 function getFrontmatterField(content: string, field: string): string | null {
@@ -40,9 +40,8 @@ function readPosts(): Post[] {
 		.map((file) => {
 			const raw = readFileSync(join(POSTS_DIR, file), "utf-8");
 			const slug = file.replace(/\.md$/, "");
-			const title = getFrontmatterField(raw, "title") ?? slug;
 			const draft = getFrontmatterField(raw, "draft");
-			return { slug, title, draft: draft === "true" };
+			return { slug, draft: draft === "true" };
 		})
 		.filter((p) => !p.draft);
 }

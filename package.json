@@ -15,7 +15,7 @@
 		"fix": "biome check --write .",
 		"fix:unsafe": "biome check --write .",
 		"format": "biome format --write .",
-		"types": "tsc --noEmit",
+		"types": "astro sync && tsc --noEmit",
 		"generate:og": "bun scripts/generate-og-images.ts"
 	},
 	"dependencies": {
