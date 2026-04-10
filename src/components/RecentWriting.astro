@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import PostCard from "@/components/PostCard.astro";
+import SectionLabel from "@/components/SectionLabel.astro";
+import { conf } from "@/site.config.ts";
+import { getReadingTime } from "@/utils/reading-time";
+
+const dateFmt = conf.blog.dateFormatter;
+
+function formatDate(date: Date): string {
+  return dateFmt.format(date);
+}
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+---
+
+<section class="m-section m-reveal" id="writing">
+  <SectionLabel label="Recent Writing" />
+
+  <div class="flex flex-col">
+    {
+      posts.map((post, i) => (
+        <PostCard
+          post={post}
+          readingTime={post.body ? getReadingTime(post.body) : undefined}
+          formatDate={formatDate}
+          index={i}
+        />
+      ))
+    }
+  </div>
+
+  <a
+    href="/writing"
+    data-umami-event="view-all-writing"
+    class="text-caption text-teal hover:text-teal-bright mt-8 inline-flex items-center gap-2 font-normal no-underline transition-all duration-300 hover:gap-3"
+    >View all <span>&rarr;</span></a
+  >
+</section>

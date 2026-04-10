@@ -1,21 +1,14 @@
-import type { APIRoute } from 'astro';
-import { SITE } from '@/site.config';
+import type { APIRoute } from "astro";
+import { conf } from "@/site.config";
 
-export const GET: APIRoute = async () => {
-  return new Response(
-    `
-# Hello, robots! here's my instructions for ddlawson.com
-# For more info: https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt
+export const GET: APIRoute = () => {
+	const body = `User-agent: *
+Allow: /
 
-User-agent: *
-Disallow: /admin
+Sitemap: ${conf.site.origin}/sitemap-index.xml
+`;
 
-Sitemap: ${SITE.origin}/sitemap.xml
-    `.trim(),
-    {
-      headers: {
-        'Content-Type': 'text/plain',
-      },
-    }
-  );
+	return new Response(body, {
+		headers: { "Content-Type": "text/plain; charset=utf-8" },
+	});
 };

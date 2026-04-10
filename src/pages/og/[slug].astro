@@ -1,0 +1,274 @@
+---
+// biome-ignore-file
+import { getCollection } from "astro:content";
+import { conf } from "@/site.config";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog", ({ data }) => !data.draft);
+    return [
+        ...posts.map((post) => ({
+            params: { slug: post.id },
+            props: { title: post.data.title, tag: post.data.tag, isDefault: false },
+        })),
+        {
+            params: { slug: "default" },
+            props: {
+                title: conf.site.name,
+                tag: "B2B SaaS · CX · Cloud Security",
+                isDefault: true,
+            },
+        },
+    ];
+}
+
+const { title, tag, isDefault } = Astro.props;
+---
+
+<html lang={conf.site.language}>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Outfit:wght@300;400&display=swap");
+
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                position: relative;
+                width: 1200px;
+                height: 630px;
+                overflow: hidden;
+                font-family: "Outfit", system-ui, sans-serif;
+                color: oklch(93.5% 0.01 299);
+                background: oklch(14.5% 0.011 303);
+            }
+
+            /* ── Background effects ── */
+
+            /* Teal glow behind the decorative arc */
+            .glow-1 {
+                position: absolute;
+                top: -100px;
+                right: -100px;
+                width: 800px;
+                height: 800px;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse at 50% 50%,
+                    oklch(64.8% 0.081 195 / 0.14) 0%,
+                    oklch(64.8% 0.081 195 / 0.05) 35%,
+                    transparent 65%
+                );
+            }
+
+            /* Bottom-left ambient glow */
+            .glow-2 {
+                position: absolute;
+                bottom: -100px;
+                left: -80px;
+                width: 600px;
+                height: 600px;
+                pointer-events: none;
+                background: radial-gradient(
+                    ellipse at 40% 60%,
+                    oklch(64.8% 0.081 195 / 0.06) 0%,
+                    transparent 60%
+                );
+            }
+
+            /* Grid pattern — right-biased */
+            .grid-bg {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background-image:
+                    linear-gradient(
+                        oklch(100% 0 0 / 0.03) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        oklch(100% 0 0 / 0.03) 1px,
+                        transparent 1px
+                    );
+                background-size: 60px 60px;
+                mask-image: radial-gradient(
+                    ellipse at 75% 40%,
+                    black 15%,
+                    transparent 65%
+                );
+            }
+
+            /* Decorative arc — large teal ring, right side */
+            .deco-arc {
+                position: absolute;
+                top: 50%;
+                right: -280px;
+                width: 680px;
+                height: 680px;
+                pointer-events: none;
+                border: 3px solid oklch(64.8% 0.081 195 / 0.2);
+                border-radius: 50%;
+                transform: translateY(-50%);
+            }
+
+            /* Second arc — inner, offset */
+            .deco-arc-2 {
+                position: absolute;
+                top: 50%;
+                right: -220px;
+                width: 560px;
+                height: 560px;
+                pointer-events: none;
+                border: 2px solid oklch(64.8% 0.081 195 / 0.08);
+                border-radius: 50%;
+                transform: translateY(-50%);
+            }
+
+            /* Left accent stripe */
+            .accent-stripe {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 6px;
+                background: linear-gradient(
+                    180deg,
+                    oklch(64.8% 0.081 195) 0%,
+                    oklch(79.2% 0.093 195) 50%,
+                    oklch(64.8% 0.081 195 / 0.3) 100%
+                );
+            }
+
+            /* Top accent bar */
+            .accent-bar {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: 4px;
+                background: linear-gradient(
+                    90deg,
+                    oklch(64.8% 0.081 195) 0%,
+                    oklch(64.8% 0.081 195 / 0.4) 50%,
+                    transparent 80%
+                );
+            }
+
+            /* ── Layout ── */
+            .safe-zone {
+                position: absolute;
+                inset: 48px 56px 56px 56px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            /* ── Content: fills the card ── */
+            .content {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .tag {
+                margin-bottom: 24px;
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 22px;
+                font-weight: 700;
+                color: oklch(64.8% 0.081 195);
+                text-transform: uppercase;
+                letter-spacing: 0.18em;
+            }
+
+            .title {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                max-width: 16ch;
+                overflow: hidden;
+                -webkit-line-clamp: 3;
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 72px;
+                font-weight: 800;
+                line-height: 1.1;
+                letter-spacing: -0.025em;
+            }
+
+            .title.is-default {
+                font-size: 84px;
+                max-width: 14ch;
+            }
+
+            .rule {
+                width: 72px;
+                height: 4px;
+                margin-top: 32px;
+                background: linear-gradient(
+                    90deg,
+                    oklch(64.8% 0.081 195),
+                    oklch(79.2% 0.093 195 / 0.5)
+                );
+                border-radius: 2px;
+            }
+
+            /* ── Footer: logo + domain ── */
+            .footer {
+                display: flex;
+                flex-shrink: 0;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .site {
+                font-family: "Bricolage Grotesque", system-ui, sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                color: oklch(55% 0.024 305);
+                letter-spacing: 0.04em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+        <div class="grid-bg"></div>
+        <div class="deco-arc"></div>
+        <div class="deco-arc-2"></div>
+        <div class="accent-stripe"></div>
+        <div class="accent-bar"></div>
+
+        <div class="safe-zone">
+            <div class="content">
+                <p class="tag">{tag}</p>
+                <h1 class:list={["title", { "is-default": isDefault }]}>{title}</h1>
+                <div class="rule"></div>
+            </div>
+
+            <div class="footer">
+                <!-- DL logo -->
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 104 52"
+                    width="64"
+                    height="32"
+                >
+                    <path
+                        d="M0,0 L0,48 L17,48 C33,48 44,38 44,24 C44,10 33,0 17,0 Z M6,6 L16,6 C29,6 38,15 38,24 C38,33 29,42 16,42 L6,42 Z"
+                        fill="oklch(69.9% 0.023 304)"></path>
+                    <path
+                        d="M56,0 L56,48 L88,48 L88,41 L64,41 L64,0 Z"
+                        fill="oklch(93.5% 0.01 299)"></path>
+                    <circle cx="96" cy="44" r="4" fill="oklch(64.8% 0.081 195)"
+                    ></circle>
+                </svg>
+                <span class="site">{conf.site.domain}</span>
+            </div>
+        </div>
+    </body>
+</html>

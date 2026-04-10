@@ -1,56 +1,33 @@
-# Build output
+# build output
 dist/
-.output/
-
-# Generated types and caches
+# generated types
 .astro/
-.vercel/
-.cache/
-.netlify/
-.temp/
 
-# Dependencies
-node_modules
-.pnpm-store/
-.yarn
-.unlighthouse
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# dependencies
+node_modules/
 
-# Logs
-logs/
-*.log
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-.pnpm-debug.log*
 
-# Environment variables
+
+# environment variables
 .env
-.env.*
-!.env.example
-
-# Editor directories and files
-.vscode
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.env.local
+.env.production
 
 # macOS-specific files
 .DS_Store
-.AppleDouble
-.LSOverride
 
-# Testing and coverage
-coverage/
-.nyc_output/
+# jetbrains setting folder
+.idea/
 
-# Temporary files
-*.tmp
-*.temp
-.cache/
+# Claude Code session logs
+.claude/logs/
+
+# Dev environment & deployment
+.zed
+.vercel
+.wrangler

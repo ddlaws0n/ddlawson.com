@@ -1,81 +1,67 @@
-import type { Config } from '@/types';
+import type { SiteConfig } from "@/types";
 
-const CONFIG: Config = {
-  // Basics
-  name: 'David D Lawson',
-  origin: 'https://ddlawson.com',
-  basePathname: '/',
-  trailingSlash: false,
+const SITE_NAME = "David D Lawson";
+const SITE_BASE = "dlawsonv3.vercel.app";
+const SITE_EMAIL = `work@${SITE_BASE}`;
+const SITE_DOMAIN = `https://${SITE_BASE}`;
 
-  // SEO
-  title: 'David D Lawson | B2B SaaS Customer Experience Professional',
-  description:
-    '🚀 Customer Experience professional with a passion for people & tech (among other things). Welcome to my little corner of the internet.',
-  language: 'en',
+const isProd = import.meta.env.PROD;
 
-  // Appearance
-  defaultTheme: 'system',
-
-  // Analytics
-  umamiId: '9b7d8646-6556-4e06-8cb1-c6114fb4828d',
-
-  // Blog
-  words_per_minute: 200,
-  dateFormatter: new Intl.DateTimeFormat('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'GMT',
-  }),
-
-  // Navigation & Social
-  navItems: [
-    {
-      name: 'Home',
-      href: '/',
-    },
-    {
-      name: 'About',
-      href: '/about',
-    },
-    {
-      name: 'Work',
-      href: '/work',
-    },
-    // {
-    //   name: 'Projects',
-    //   href: '/projects',
-    // },
-    {
-      name: 'Writing',
-      href: '/writing',
-    },
-    {
-      name: 'Contact',
-      href: '/contact',
-    },
-  ],
-
-  socialShares: [
-    {
-      name: 'tabler:brand-linkedin',
-      link: 'https://www.linkedin.com/in/ddlawson/',
-      ariaLabel: 'LinkedIn',
-    },
-    {
-      name: 'tabler:brand-x',
-      link: 'https://twitter.com/ddlaws0n',
-      ariaLabel: 'Twitter',
-    },
-    {
-      name: 'tabler:brand-github',
-      link: 'https://www.github.com/ddlaws0n',
-      ariaLabel: 'GitHub',
-    },
-  ],
+const getOrigin = () => {
+	if (isProd) return SITE_DOMAIN;
+	return "http://localhost:4321";
 };
 
-export const SITE = { ...CONFIG };
-export const NAV = CONFIG.navItems;
-export const SOCIAL = CONFIG.socialShares;
-export const DATE_FORMATTER = CONFIG.dateFormatter;
+export const conf: SiteConfig = {
+	site: {
+		name: SITE_NAME,
+		email: SITE_EMAIL,
+		origin: getOrigin(),
+		basePathname: "/",
+		trailingSlash: "never",
+		language: "en-GB",
+		domain: SITE_BASE,
+		twitterHandle: "@ddlaws0n",
+	},
+	seo: {
+		title: "David D Lawson — Closing the gap between product and customer",
+		description:
+			"I lead technical account management at Wiz and build in public. Writing about customer experience, cloud security, and developer tools.",
+	},
+	analytics: {
+		umamiId: import.meta.env.UMAMI_ID,
+	},
+	blog: {
+		wordsPerMinute: 200,
+		dateFormatter: new Intl.DateTimeFormat("en-GB", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			timeZone: "GMT",
+		}),
+	},
+	nav: [
+		{ name: "Home", href: "/" },
+		{ name: "Work", href: "/work" },
+		{ name: "Writing", href: "/writing" },
+		// { name: "Contact", href: "/contact" },
+	],
+	social: [
+		{ name: "tabler:mail", link: `mailto:${SITE_EMAIL}`, ariaLabel: "Email" },
+		{
+			name: "tabler:brand-linkedin",
+			link: "https://www.linkedin.com/in/ddlawson/",
+			ariaLabel: "LinkedIn",
+		},
+		{
+			name: "tabler:brand-github",
+			link: "https://www.github.com/ddlaws0n",
+			ariaLabel: "GitHub",
+		},
+		{ name: "tabler:brand-x", link: "https://x.com/ddlaws0n", ariaLabel: "X" },
+	],
+};
+
+export const nav = conf.nav;
+export const social = conf.social;
+export const dt = conf.blog.dateFormatter;

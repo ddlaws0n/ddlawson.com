@@ -1,154 +1,167 @@
 ---
-import Button from '@/components/Button.astro'; // Import Button component
-import Container from '@/components/Container.astro';
-import TimelineItem from '@/components/TimelineItem.astro';
-import { workExperienceData } from '@/data/workExperience'; // Import data
-import PageLayout from '@/layouts/PageLayout.astro';
-import { SITE } from '@/site.config';
+import Footer from "@/components/Footer.astro";
+import Nav from "@/components/Nav.astro";
+import TimelineRole from "@/components/TimelineRole.astro";
+import { workExperienceData } from "@/content/work";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const meta = {
-  title: 'Work Experience',
-  description: 'Professional experience and career journey of David D Lawson',
-  canonical: SITE.origin + '/work',
-};
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "long",
+  timeZone: "GMT",
+});
 
-const workExperience = workExperienceData;
+function formatDate(raw: string): string {
+  if (raw === "Present") return "Present";
+  return dateFmt.format(new Date(raw));
+}
+
+function tenureRange(roles: (typeof workExperienceData)[0]["roles"]): string {
+  const first = roles[roles.length - 1].start_date;
+  const last = roles[0].end_date;
+  const startYear = new Date(first).getFullYear();
+  const endPart =
+    last === "Present" ? "Present" : new Date(last).getFullYear().toString();
+  return `${startYear} — ${endPart}`;
+}
 ---
 
-<PageLayout {meta}>
-  <Container
-    title="Professional Journey"
-    subtitle="My career path and professional experiences across various organizations"
+<BaseLayout
+  meta={{
+    title: "Work",
+    description:
+      "Career timeline — leadership roles across cloud security, application security, and customer experience.",
+  }}
+>
+  <div
+    class="font-body bg-background text-text relative min-h-screen overflow-x-clip"
   >
-    <div id="timeline-container" class="relative mx-auto max-w-5xl px-4 pl-16">
-      <div
-        id="timeline-line"
-        class="absolute top-0 left-8 h-10 w-2 -translate-x-1/2 transform bg-sky-200 dark:bg-sky-800"
+    <div class="m-noise"></div>
+    <Nav />
+    <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
+      <!-- Page header -->
+      <header
+        class="animate-fade-up pt-10 pb-8 opacity-0 motion-reduce:opacity-100 sm:pt-12 md:pt-14 lg:pt-16 lg:pb-14"
       >
-        {/* Changed w-1 to w-2, removed transition classes */}
-      </div>
-      {
-        workExperience.map((company) => {
-          return <TimelineItem experience={company} />;
-        })
-      }
-      {/* LinkedIn Callout Section */}
-      <div class="mt-16 text-center">
-        <p class="mb-4 text-lg text-slate-700 dark:text-slate-300">Interested in my full professional background?</p>
-        <Button
-          title="Connect on LinkedIn"
-          link={SITE.socialShares.find((s) => s.name === 'LinkedIn')?.link ?? 'https://www.linkedin.com/in/ddlawson/'}
-          variant="primary"
-          size="lg"
-          icon="tabler:brand-linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          umami="linkedin-connect-work"
-        />
-      </div>
-    </div>
-  </Container>
-</PageLayout>
+        <span
+          class="font-display text-teal-muted text-label mb-2 block font-semibold tracking-[0.24em] uppercase md:mb-3 lg:mb-5"
+        >
+          Career Timeline
+        </span>
+        <h1
+          class="font-display text-hero text-text max-w-[12ch] font-extrabold"
+        >
+          Work
+        </h1>
+        <p
+          class="font-body text-prose text-text-secondary mt-5 mb-0 max-w-[48ch] font-light lg:mt-8"
+        >
+          Over a decade building and leading teams across cloud security,
+          application security, and digital delivery — from startup co-founder
+          to enterprise account leadership.
+        </p>
+      </header>
 
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const timelineContainer = document.getElementById('timeline-container');
-    const timelineLine = document.getElementById('timeline-line') as HTMLElement | null;
-    const timelineItems = document.querySelectorAll<HTMLElement>('[data-timeline-item]'); // Type assertion
+      <!-- Timeline -->
+      <section class="m-section">
+        {
+          workExperienceData.map((company, companyIdx) => (
+            <article class="relative mb-14 last:mb-0 md:mb-16 lg:mb-24">
+              {/* ── Desktop: asymmetric sticky grid (from md up) ── */}
+              <div class="hidden md:grid md:grid-cols-[180px_1fr] md:gap-6 lg:grid-cols-[240px_1fr] lg:gap-0">
+                {/* Left column — sticky company info */}
+                <div class="m-reveal sticky top-24 self-start pr-6 pb-8 lg:pr-10">
+                  {company.logoUrl && (
+                    <img
+                      src={company.logoUrl}
+                      alt={`${company.company} logo`}
+                      width="120"
+                      height="28"
+                      loading="lazy"
+                      decoding="async"
+                      class="mb-4 h-7 w-auto opacity-75 brightness-0 invert lg:h-8"
+                    />
+                  )}
+                  <h2 class="font-display text-text m-0 text-xl font-bold lg:text-2xl">
+                    {company.company}
+                  </h2>
+                  <p class="font-display text-detail text-teal-muted lg:text-label mt-1.5 mb-0 tracking-[0.2em] uppercase">
+                    {tenureRange(company.roles)}
+                  </p>
+                  <p class="text-micro text-text-muted mt-1 mb-0">
+                    {company.location}
+                  </p>
+                </div>
 
-    if (!timelineContainer || !timelineLine || timelineItems.length === 0) {
-      // console.warn('Timeline elements for animation not found.'); // Removed log
-      return;
-    }
-    const minHeight = 40; // Minimum height for the line
-    timelineLine.style.height = `${minHeight}px`; // Set initial height
+                {/* Right column — roles with timeline spine */}
+                <div class="relative pl-8 lg:pl-10">
+                  <div class="m-spine-draw bg-border-hover absolute top-2 bottom-2 left-0 w-px" />
+                  {company.roles.map((role, roleIdx) => (
+                    <TimelineRole
+                      title={role.title}
+                      startDate={formatDate(role.start_date)}
+                      endDate={formatDate(role.end_date)}
+                      summary={role.summary}
+                      achievements={role.key_achievements}
+                      isCurrent={role.end_date === "Present"}
+                      staggerDelay={100 + roleIdx * 55}
+                    />
+                  ))}
+                </div>
+              </div>
 
-    // --- Scroll-based Line Drawing Animation ---
-    let ticking = false; // Removed unused lastScrollY
+              {/* ── Mobile: left-spine timeline (below md) ── */}
+              <div class="md:hidden">
+                {/* Company header */}
+                <div class="m-reveal mb-6 flex items-center gap-3">
+                  {company.logoUrl && (
+                    <img
+                      src={company.logoUrl}
+                      alt={`${company.company} logo`}
+                      width="120"
+                      height="24"
+                      loading="lazy"
+                      decoding="async"
+                      class="h-6 w-auto opacity-75 brightness-0 invert"
+                    />
+                  )}
+                  <div>
+                    <h2 class="font-display text-text m-0 text-xl font-bold">
+                      {company.company}
+                    </h2>
+                    <p class="font-display text-detail text-teal-muted mt-0.5 mb-0 tracking-[0.2em] uppercase">
+                      {tenureRange(company.roles)} · {company.location}
+                    </p>
+                  </div>
+                </div>
 
-    const updateLineHeight = () => {
-      // const currentScroll = window.scrollY; // Removed unused variable
+                {/* Roles with left spine */}
+                <div class="relative ml-1 pl-7">
+                  <div class="m-spine-draw bg-border-hover absolute top-1 bottom-1 left-0 w-px" />
+                  {company.roles.map((role, roleIdx) => (
+                    <TimelineRole
+                      title={role.title}
+                      startDate={formatDate(role.start_date)}
+                      endDate={formatDate(role.end_date)}
+                      summary={role.summary}
+                      achievements={role.key_achievements}
+                      isCurrent={role.end_date === "Present"}
+                      mobile
+                      staggerDelay={80 + roleIdx * 55}
+                    />
+                  ))}
+                </div>
+              </div>
 
-      // Find the first and last item's marker position relative to the container
-      const firstItem = timelineItems[0];
-      const lastItem = timelineItems[timelineItems.length - 1];
-
-      if (!firstItem || !lastItem) return; // Should not happen if check passed earlier
-
-      const firstMarker = firstItem.querySelector('.timeline-marker') as HTMLElement | null;
-      const lastMarker = lastItem.querySelector('.timeline-marker') as HTMLElement | null;
-
-      if (!firstMarker || !lastMarker) {
-        // console.warn('Timeline markers not found within items.'); // Removed log
-        return;
-      }
-      // Calculate marker positions relative to the container for height calculation
-      const firstMarkerContainerTop = firstItem.offsetTop + firstMarker.offsetTop + firstMarker.offsetHeight / 2;
-      const lastMarkerContainerTop = lastItem.offsetTop + lastMarker.offsetTop + lastMarker.offsetHeight / 2;
-      const totalLineTravel = lastMarkerContainerTop - firstMarkerContainerTop; // This is the max height relative to container
-
-      // Calculate marker positions relative to the viewport for progress calculation
-      const firstMarkerRect = firstMarker.getBoundingClientRect();
-      const lastMarkerRect = lastMarker.getBoundingClientRect(); // Need last marker rect now
-      const viewportHeight = window.innerHeight;
-      const viewportCenterY = viewportHeight / 2;
-
-      // Center positions relative to viewport top
-      const firstMarkerViewportCenterY = firstMarkerRect.top + firstMarkerRect.height / 2;
-      const lastMarkerViewportCenterY = lastMarkerRect.top + lastMarkerRect.height / 2;
-
-      // Total distance between markers as they appear on screen (can be negative if last is above first)
-      const totalMarkerViewportDistance = lastMarkerViewportCenterY - firstMarkerViewportCenterY;
-
-      // Distance the first marker is above the viewport center (increases as you scroll down past the center)
-      const firstMarkerDistAboveCenter = viewportCenterY - firstMarkerViewportCenterY;
-
-      // Calculate progress: how much of the total marker distance has passed the viewport center?
-      let progress = 0;
-      // Ensure total distance is positive before dividing
-      if (totalMarkerViewportDistance > 0) {
-        progress = Math.max(0, Math.min(1, firstMarkerDistAboveCenter / totalMarkerViewportDistance));
-      } else if (firstMarkerDistAboveCenter > 0) {
-        // If markers are stacked or inverted order but first is below center, progress is 1
-        progress = 1;
-      } // Otherwise progress remains 0
-
-      // Calculate the target height based on the marker positions *within the container* and the *new progress*
-      const targetHeight = firstMarkerContainerTop + totalLineTravel * progress;
-
-      // Apply the calculated height, ensuring it doesn't go below the minimum
-      timelineLine.style.height = `${Math.max(minHeight, targetHeight)}px`;
-
-      // --- Logging Removed ---
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      // Removed assignment to lastScrollY as it's unused
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // console.log('requestAnimationFrame fired'); // Removed log
-          updateLineHeight();
-          // Ticking is now set to false *inside* updateLineHeight
-        });
-        ticking = true; // Set ticking to true immediately to prevent multiple rAF calls
-      }
-    };
-
-    // Initial calculation
-    updateLineHeight();
-
-    // Add scroll listener
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Cleanup listener on navigation
-    document.addEventListener(
-      'astro:before-preparation',
-      () => {
-        window.removeEventListener('scroll', onScroll);
-      },
-      { once: true }
-    );
-  });
-</script>
+              {/* Company divider */}
+              {companyIdx < workExperienceData.length - 1 && (
+                <div class="m-divider mt-10 md:mt-12 md:ml-45 lg:mt-16 lg:ml-60" />
+              )}
+            </article>
+          ))
+        }
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

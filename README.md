@@ -1,21 +1,54 @@
-![Vercel Deploy](https://therealsujitk-vercel-badge.vercel.app/?app=ddlawson-com&style=flat-square)
+# ddlawson.com
 
-# 🖥️ ddlawson.com
+Personal portfolio site — built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcss.com).
 
-## 🔗 [Live Website](https://ddlawson.com)
+## Development
 
-Personal website built with the fantastic Astro.js framework and styled with the equally outstanding Tailwind CSS.
+```sh
+pnpm install
+pnpm dev          # localhost:4321
+pnpm build        # type-check + static build
+pnpm preview      # preview production build
+```
 
-Revival of my [old website](https://web.archive.org/web/20190805185139/http://ddlawson.com/) built with Hugo, Bootstrap & JQuery back in the good old days!
+## Deployment
 
-## Tech Stack
+Deploys to **Cloudflare Pages** via GitHub Actions on push to `main`.
 
-🖥️ **Client:** AstroJS, TailwindCSS
+| Environment | URL | Auth |
+|-|-|-|
+| Staging | `ddlawson-staging.pages.dev` | Cloudflare Access (required) |
 
-🗄️ **Server:** Vercel Hosting & CDN
+### GitHub Secrets
 
-📈 **Analytics:** Vercel Analytics
+| Secret | Purpose |
+|-|-|
+| `CF_API_TOKEN` | Cloudflare API token with Pages edit permission |
+| `CF_ACCOUNT_ID` | Cloudflare account ID |
+| `UMAMI_ID` | Umami analytics website ID (optional) |
 
-## Roadmap
+### Cloudflare Access Setup
 
-🚧 Migrating to Github Projects
+Auth on the staging deployment is managed via Cloudflare Access in the dashboard:
+
+1. Pages project → Settings → General → Access Policy → Enable
+2. Configure allowed emails/identity providers in Zero Trust dashboard
+
+### Custom Domain
+
+To point `staging.ddlawson.com` at the Pages deployment, add a CNAME record:
+
+```
+staging  CNAME  ddlawson-staging.pages.dev
+```
+
+Then add `staging.ddlawson.com` as a custom domain in the Pages project settings.
+
+## Stack
+
+- **Framework:** Astro 6 (static output)
+- **Styling:** Tailwind CSS v4 via Vite plugin
+- **Hosting:** Cloudflare Pages
+- **Linting:** Biome
+- **Fonts:** Bricolage Grotesque (display) + Outfit (body) via Astro Fonts
+- **Icons:** astro-icon + @iconify-json/tabler
