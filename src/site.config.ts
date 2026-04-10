@@ -1,7 +1,7 @@
 import type { SiteConfig } from "@/types";
 
 const SITE_NAME = "David D Lawson";
-const SITE_BASE = "dlawsonv3.vercel.app";
+const SITE_BASE = "ddlawson.com";
 const SITE_EMAIL = `work@${SITE_BASE}`;
 const SITE_DOMAIN = `https://${SITE_BASE}`;
 
