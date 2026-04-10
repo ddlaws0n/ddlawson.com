@@ -27,9 +27,15 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.8
         version: 0.9.8(prettier@3.8.1)(typescript@6.0.2)
+      '@astrojs/compiler-rs':
+        specifier: ^0.1.6
+        version: 0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
       '@biomejs/biome':
         specifier: 2.4.10
         version: 2.4.10
+      '@cloudflare/workers-types':
+        specifier: ^4.20260410.1
+        version: 4.20260410.1
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.2.2)
@@ -68,6 +74,70 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
+
+  '@astrojs/compiler-binding-darwin-arm64@0.1.6':
+    resolution: {integrity: sha512-pYCFf5a/Tat+uRJU7xUSK0aw45kxnwAaKyhpnosJFCFhiiG4d/b7U526gaIqdcIZx6PbZ0hPOYDAxUYYfMDFaw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@astrojs/compiler-binding-darwin-x64@0.1.6':
+    resolution: {integrity: sha512-GfXy2xBFwg/yCpd8VWqnDfceCnMgT+7HPoPCuJS+lNeRyi76M/4bACMROcoe59R4brAlc7Tb1kO0MED581OjJQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [darwin]
+
+  '@astrojs/compiler-binding-linux-arm64-gnu@0.1.6':
+    resolution: {integrity: sha512-XcLFDccESW7ILeO6fFsV7W+PlLX7FNifN3WZdqdO/DNAIyHj1WahI65UImauf3VfMirwexI05XsOjLpiSUg05g==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@astrojs/compiler-binding-linux-arm64-musl@0.1.6':
+    resolution: {integrity: sha512-96Mm9qf1xYHW66DjtvTdHJED0rVeh0X/Gt72lzia8RM6nJSXO+3YqiFBcsP3ixrcHJliMaV8s8+iwb5pR9kgeg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
+  '@astrojs/compiler-binding-linux-x64-gnu@0.1.6':
+    resolution: {integrity: sha512-Eg0N+YYLjIwCgnQvpGUWCs0C7v/dZmcH9hnWAkZYSamSJPxKWDlGC5rVoaBJCtRleAfjmKxHKaCjn9t7E4pyTg==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@astrojs/compiler-binding-linux-x64-musl@0.1.6':
+    resolution: {integrity: sha512-YnoxAnVcFzlP/Wr4FPVdjh1ecmvH/BWeeNK8UJZN/xd6XXLbj1loG2ckZ7+lA8HpZeyiwU2+IAZ4XjGsIUHI6w==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
+  '@astrojs/compiler-binding-wasm32-wasi@0.1.6':
+    resolution: {integrity: sha512-yNZEslAC8v/3G5lSA4GNuXGTRR8TonRzv/hCkBg7aN+8wOQF88YZTR8TLGb0sYEXV7tukYAGmmWAnMeM2zTRCQ==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+
+  '@astrojs/compiler-binding-win32-arm64-msvc@0.1.6':
+    resolution: {integrity: sha512-gnMcXKokX3/LiaFmUdTEX/UwUE3geH5TorQ2QMSPTgCpv/kS3nokflRIYQ/69NEqlk2DQoR3gas002spZTMffw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [arm64]
+    os: [win32]
+
+  '@astrojs/compiler-binding-win32-x64-msvc@0.1.6':
+    resolution: {integrity: sha512-7jEsJ1TjX1lVd/1fH1CgO/wvmWBztLHekqefPiIJQC6U+ks7ToMV2+J3so0MM/ZCfXpHnPNigcBmHn94YR1+cQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    cpu: [x64]
+    os: [win32]
+
+  '@astrojs/compiler-binding@0.1.6':
+    resolution: {integrity: sha512-EPQMZBEgqbjye57qcHQehrYQUl47kNySwUAW3U/IYrMPtuiAWAht1Dl1rahGVeWg8PDXCZXRGm+WCDAowMP1VA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@astrojs/compiler-rs@0.1.6':
+    resolution: {integrity: sha512-8PtjNrpEK4+B5Cip/ODgBFQAaBLPxkLLehoqmNMAV+iPSFGRjRHmwxGqSoB5L8pvk3z4IngCkiizcw+HoKMWWA==}
 
   '@astrojs/compiler@2.13.1':
     resolution: {integrity: sha512-f3FN83d2G/v32ipNClRKgYv30onQlMZX1vCeZMjPsMMPl1mDpmbl0+N5BYo4S/ofzqJyS5hvwacEo0CCVDn/Qg==}
@@ -190,6 +260,9 @@ packages:
 
   '@clack/prompts@1.2.0':
     resolution: {integrity: sha512-4jmztR9fMqPMjz6H/UZXj0zEmE43ha1euENwkckKKel4XpSfokExPo5AiVStdHSAlHekz4d0CA/r45Ok1E4D3w==}
+
+  '@cloudflare/workers-types@4.20260410.1':
+    resolution: {integrity: sha512-dPZT4aXxwhGHFhWA9iZhWVfFoO8g9exiLzeaS8y43Dw0Sard6Gb3o5LJjReav3ejHbQLHUfGEiZsRPGW8qmgMg==}
 
   '@emmetio/abbreviation@2.3.3':
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
@@ -2661,6 +2734,60 @@ snapshots:
       - prettier
       - prettier-plugin-astro
 
+  '@astrojs/compiler-binding-darwin-arm64@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-darwin-x64@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-linux-arm64-gnu@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-linux-arm64-musl@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-linux-x64-gnu@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-linux-x64-musl@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-wasm32-wasi@0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
+    dependencies:
+      '@napi-rs/wasm-runtime': 1.1.2(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+    optional: true
+
+  '@astrojs/compiler-binding-win32-arm64-msvc@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding-win32-x64-msvc@0.1.6':
+    optional: true
+
+  '@astrojs/compiler-binding@0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
+    optionalDependencies:
+      '@astrojs/compiler-binding-darwin-arm64': 0.1.6
+      '@astrojs/compiler-binding-darwin-x64': 0.1.6
+      '@astrojs/compiler-binding-linux-arm64-gnu': 0.1.6
+      '@astrojs/compiler-binding-linux-arm64-musl': 0.1.6
+      '@astrojs/compiler-binding-linux-x64-gnu': 0.1.6
+      '@astrojs/compiler-binding-linux-x64-musl': 0.1.6
+      '@astrojs/compiler-binding-wasm32-wasi': 0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+      '@astrojs/compiler-binding-win32-arm64-msvc': 0.1.6
+      '@astrojs/compiler-binding-win32-x64-msvc': 0.1.6
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+
+  '@astrojs/compiler-rs@0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)':
+    dependencies:
+      '@astrojs/compiler-binding': 0.1.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+
   '@astrojs/compiler@2.13.1': {}
 
   '@astrojs/compiler@3.0.1': {}
@@ -2809,6 +2936,8 @@ snapshots:
       fast-string-width: 1.1.0
       fast-wrap-ansi: 0.1.6
       sisteransi: 1.0.5
+
+  '@cloudflare/workers-types@4.20260410.1': {}
 
   '@emmetio/abbreviation@2.3.3':
     dependencies:
