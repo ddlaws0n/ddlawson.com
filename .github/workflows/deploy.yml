@@ -23,8 +23,8 @@ jobs:
     timeout-minutes: 10
 
     environment:
-      name: staging
-      url: https://ddlawson-staging.pages.dev
+      name: production
+      url: https://ddlawson.com
 
     steps:
       - uses: actions/checkout@v6
@@ -49,4 +49,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=ddlawson-staging
+          command: pages deploy dist --project-name=ddlawson-com --branch=main
