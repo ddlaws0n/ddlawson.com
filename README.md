@@ -1,25 +1,50 @@
 # ddlawson.com
 
-Personal portfolio site — built with [Astro](https://astro.build) and [Tailwind CSS v4](https://tailwindcss.com).
+[![Deploy](https://github.com/ddlaws0n/ddlawson.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/ddlaws0n/ddlawson.com/actions/workflows/deploy.yml)
+[![Astro](https://img.shields.io/badge/Astro-6-BC52EE?logo=astro&logoColor=white)](https://astro.build)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Biome](https://img.shields.io/badge/Biome-2-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
+[![Built with Claude Code](https://img.shields.io/badge/Built_with-Claude_Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
-## Development
+My personal site — writing, work, and projects. Live at **[ddlawson.com](https://ddlawson.com)**.
+
+## Quick start
 
 ```sh
 pnpm install
 pnpm dev          # localhost:4321
-pnpm build        # type-check + static build
-pnpm preview      # preview production build
 ```
+
+## Scripts
+
+| Command | What it does |
+|-|-|
+| `pnpm dev` | Start the dev server |
+| `pnpm build` | Type-check and build for production |
+| `pnpm preview` | Preview the production build locally |
+| `pnpm lint` | Lint with Biome |
+| `pnpm fix` | Auto-fix lint issues |
+| `pnpm format` | Format files with Biome |
+| `pnpm types` | Run TypeScript in `--noEmit` mode |
+| `pnpm generate:og` | Regenerate Open Graph images |
+
+## Stack
+
+- **Framework** — [Astro 6](https://astro.build) (static output)
+- **Styling** — [Tailwind CSS v4](https://tailwindcss.com) via the Vite plugin
+- **Linting/formatting** — [Biome](https://biomejs.dev)
+- **Hosting** — [Cloudflare Pages](https://pages.cloudflare.com)
+- **Analytics** — [Umami](https://umami.is)
+- **Fonts** — Bricolage Grotesque (display) + Outfit (body), served via Astro Fonts
+- **Icons** — [astro-icon](https://github.com/natemoo-re/astro-icon) + [Tabler](https://tabler.io/icons)
+- **Git hooks** — [Lefthook](https://lefthook.dev)
 
 ## Deployment
 
-Deploys to **Cloudflare Pages** via GitHub Actions on push to `main`.
+Every push to `main` deploys to Cloudflare Pages via the [`deploy` workflow](.github/workflows/deploy.yml). Pull requests run the [`validate` workflow](.github/workflows/validate.yml) for type-checking and lint.
 
-| Environment | URL | Auth |
-|-|-|-|
-| Staging | `ddlawson-staging.pages.dev` | Cloudflare Access (required) |
-
-### GitHub Secrets
+### Required GitHub secrets
 
 | Secret | Purpose |
 |-|-|
@@ -27,28 +52,26 @@ Deploys to **Cloudflare Pages** via GitHub Actions on push to `main`.
 | `CF_ACCOUNT_ID` | Cloudflare account ID |
 | `UMAMI_ID` | Umami analytics website ID (optional) |
 
-### Cloudflare Access Setup
+### Staging
 
-Auth on the staging deployment is managed via Cloudflare Access in the dashboard:
+Staging deploys to `ddlawson-staging.pages.dev` and is gated behind Cloudflare Access — configure allowed identities in the Zero Trust dashboard.
 
-1. Pages project → Settings → General → Access Policy → Enable
-2. Configure allowed emails/identity providers in Zero Trust dashboard
-
-### Custom Domain
-
-To point `staging.ddlawson.com` at the Pages deployment, add a CNAME record:
+## Project layout
 
 ```
-staging  CNAME  ddlawson-staging.pages.dev
+src/
+├── assets/        # images, svgs, global styles
+├── components/    # Astro components
+├── content/       # blog posts, projects, work history (content collections)
+├── layouts/       # page layouts
+├── pages/         # routes
+├── utils/         # helpers
+├── content.config.ts
+└── site.config.ts # site-wide config (name, SEO, analytics)
+functions/         # Cloudflare Pages Functions
+scripts/           # one-off build scripts (e.g. OG image generation)
 ```
 
-Then add `staging.ddlawson.com` as a custom domain in the Pages project settings.
+## License
 
-## Stack
-
-- **Framework:** Astro 6 (static output)
-- **Styling:** Tailwind CSS v4 via Vite plugin
-- **Hosting:** Cloudflare Pages
-- **Linting:** Biome
-- **Fonts:** Bricolage Grotesque (display) + Outfit (body) via Astro Fonts
-- **Icons:** astro-icon + @iconify-json/tabler
+Content (writing, images) © David D Lawson. Code is available for reference — feel free to take inspiration, but please don't clone the site wholesale.
