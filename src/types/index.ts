@@ -16,7 +16,6 @@ export interface SiteConfig {
 	};
 	analytics: {
 		umamiId: string;
-		umamiUrl: string;
 	};
 	blog: {
 		wordsPerMinute: number;

@@ -30,7 +30,6 @@ export const conf: SiteConfig = {
 	},
 	analytics: {
 		umamiId: import.meta.env.UMAMI_ID,
-		umamiUrl: import.meta.env.UMAMI_URL,
 	},
 	blog: {
 		wordsPerMinute: 200,
