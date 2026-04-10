@@ -1,6 +1,6 @@
 {
-	"name": "portfolio-redesign",
-	"description": "Personal portfolio redesign staging site built with Astro and Tailwind CSS.",
+	"name": "ddlawson.com",
+	"description": "Personal portfolio site built with Astro and Tailwind CSS.",
 	"type": "module",
 	"version": "0.0.1",
 	"engines": {
