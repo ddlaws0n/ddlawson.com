@@ -65,8 +65,8 @@ const ogImageAlt = meta.imageAlt ?? `${conf.site.name} — ${conf.site.domain}`;
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
         <meta name="twitter:image:alt" content={ogImageAlt} />
-        <Font cssVariable="--font-display" />
-        <Font cssVariable="--font-body" />
+        <Font cssVariable="--font-display" preload />
+        <Font cssVariable="--font-body" preload />
         {
             import.meta.env.PROD && (
                 <script
@@ -75,7 +75,8 @@ const ogImageAlt = meta.imageAlt ?? `${conf.site.name} — ${conf.site.domain}`;
                     is:inline
                     data-astro-rerun
                     data-website-id={conf.analytics.umamiId}
-                    src={conf.analytics.umamiUrl}
+                    data-host-url="/visitors"
+                    src="/visitors/script.js"
                 />
             )
         }
