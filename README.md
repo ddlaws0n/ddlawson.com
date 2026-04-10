@@ -26,7 +26,6 @@ Deploys to **Cloudflare Pages** via GitHub Actions on push to `main`.
 | `CF_API_TOKEN` | Cloudflare API token with Pages edit permission |
 | `CF_ACCOUNT_ID` | Cloudflare account ID |
 | `UMAMI_ID` | Umami analytics website ID (optional) |
-| `UMAMI_URL` | Umami script URL (optional) |
 
 ### Cloudflare Access Setup
 

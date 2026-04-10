@@ -55,9 +55,10 @@ Lefthook runs on pre-commit (format + lint staged files) and pre-push (type-chec
 ## Environment Variables
 
 Defined in `astro.config.ts` env schema:
-- `UMAMI_ID` — public, optional (analytics)
-- `UMAMI_URL` — public, defaults to Umami cloud
+- `UMAMI_ID` — public, optional (analytics website id)
 - `API_SECRET` — server, secret, required for build
+
+The Umami tracker is served via a Cloudflare Pages Function at `/visitors/*` (see `functions/visitors/[[path]].ts`) which reverse-proxies `script.js` and `api/send` to the upstream Umami instance. The upstream URL is set via the `UMAMI_UPSTREAM` Pages env binding (configured in the Cloudflare dashboard), not at build time.
 
 ## Key Conventions
 
