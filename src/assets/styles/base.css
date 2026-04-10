@@ -17,7 +17,7 @@
 
 	--color-text: oklch(93.5% 0.01 299);
 	--color-text-secondary: oklch(69.9% 0.023 304);
-	--color-text-muted: oklch(55% 0.024 305);
+	--color-text-muted: oklch(62% 0.024 305);
 
 	--color-border: oklch(100% 0 0 / 0.05);
 	--color-border-hover: oklch(100% 0 0 / 0.1);

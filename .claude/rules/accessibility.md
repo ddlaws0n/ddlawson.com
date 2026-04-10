@@ -14,7 +14,7 @@ Interactive elements (links, buttons) must have a minimum 44x44px touch area. Us
 
 ## Color Contrast
 
-- `--color-text-muted` is set to `oklch(55%)` to meet 4.5:1 against `--color-background`. Don't lower the lightness.
+- `--color-text-muted` is set to `oklch(62%)` to meet 4.5:1 against `--color-background`. Don't lower the lightness.
 - Functional text (descriptions, dates, locations) must use `text-text-muted` or brighter — never a token below 4.5:1.
 - Decorative text (background numbers at 2-4% opacity) is exempt from contrast requirements.
 
