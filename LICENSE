@@ -1,0 +1,22 @@
+Copyright © David D Lawson. All rights reserved.
+
+This repository contains the source code and content for
+https://ddlawson.com, a personal site and blog.
+
+Content (including writing, images, and other media under src/content/
+and src/assets/) is © David D Lawson and is not licensed for reuse.
+
+Code in this repository is published for reference and learning. You
+are welcome to read it, take inspiration, and adapt individual
+components or patterns for your own projects. Please do not clone or
+republish the site wholesale, and do not pass off the content or
+overall design as your own.
+
+If you want to reuse a substantial portion of the code or content,
+please get in touch first: hello@ddlawson.com.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY ARISING FROM THE USE OF THE SOFTWARE.
