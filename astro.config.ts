@@ -27,39 +27,27 @@ export default defineConfig({
 				access: "public",
 				optional: true,
 			}),
-			UMAMI_URL: envField.string({
-				context: "client",
-				access: "public",
-				default: "https://cloud.umami.is",
-			}),
 		},
 	},
 
 	fonts: [
 		{
-			provider: fontProviders.google(),
+			provider: fontProviders.fontsource(),
 			name: "Bricolage Grotesque",
 			cssVariable: "--font-display",
-			weights: [200, 300, 400, 500, 600, 700, 800],
+			fallbacks: ["system-ui", "sans-serif"],
+			weights: ["200 800"],
 			styles: ["normal"],
 			subsets: ["latin"],
-			fallbacks: ["system-ui", "sans-serif"],
-			options: {
-				experimental: {
-					variableAxis: {
-						opsz: [["12", "96"]],
-					},
-				},
-			},
 		},
 		{
-			provider: fontProviders.google(),
+			provider: fontProviders.fontsource(),
 			name: "Outfit",
 			cssVariable: "--font-body",
-			weights: [200, 300, 400, 500, 600],
+			fallbacks: ["system-ui", "sans-serif"],
+			weights: ["200 600"],
 			styles: ["normal"],
 			subsets: ["latin"],
-			fallbacks: ["system-ui", "sans-serif"],
 		},
 	],
 
@@ -83,5 +71,8 @@ export default defineConfig({
 				yandex: true,
 			},
 		}),
-	],
+  ],
+  experimental: {
+    rustCompiler: true,
+  },
 });
