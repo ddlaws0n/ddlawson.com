@@ -24,7 +24,11 @@ export const onRequest: PagesFunction<Env> = async ({
 		return new Response("Not Found", { status: 404 });
 	}
 
-	if (subpath === "script.js" && request.method !== "GET") {
+	if (
+		subpath === "script.js" &&
+		request.method !== "GET" &&
+		request.method !== "HEAD"
+	) {
 		return new Response("Method Not Allowed", { status: 405 });
 	}
 	if (subpath === "api/send" && request.method !== "POST") {
