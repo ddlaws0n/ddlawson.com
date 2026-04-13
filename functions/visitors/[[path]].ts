@@ -7,6 +7,7 @@ interface Env {
 const UPSTREAM_PATHS: Record<string, string> = {
 	"script.js": "a.js",
 	"api/send": "api/visitors",
+	"api/visitors": "api/visitors",
 };
 
 export const onRequest: PagesFunction<Env> = async ({
@@ -35,7 +36,10 @@ export const onRequest: PagesFunction<Env> = async ({
 	) {
 		return new Response("Method Not Allowed", { status: 405 });
 	}
-	if (subpath === "api/send" && request.method !== "POST") {
+	if (
+		(subpath === "api/send" || subpath === "api/visitors") &&
+		request.method !== "POST"
+	) {
 		return new Response("Method Not Allowed", { status: 405 });
 	}
 
