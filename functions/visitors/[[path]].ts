@@ -4,7 +4,10 @@ interface Env {
 	UMAMI_UPSTREAM: string;
 }
 
-const ALLOWED_PATHS = new Set(["script.js", "api/send"]);
+const UPSTREAM_PATHS: Record<string, string> = {
+	"script.js": "a.js",
+	"api/send": "api/visitors",
+};
 
 export const onRequest: PagesFunction<Env> = async ({
 	request,
@@ -20,7 +23,8 @@ export const onRequest: PagesFunction<Env> = async ({
 		: [params.path ?? ""];
 	const subpath = pathParts.join("/");
 
-	if (!ALLOWED_PATHS.has(subpath)) {
+	const upstreamPath = UPSTREAM_PATHS[subpath];
+	if (!upstreamPath) {
 		return new Response("Not Found", { status: 404 });
 	}
 
@@ -37,7 +41,7 @@ export const onRequest: PagesFunction<Env> = async ({
 
 	const upstreamBase = env.UMAMI_UPSTREAM.replace(/\/$/, "");
 	const url = new URL(request.url);
-	const targetUrl = `${upstreamBase}/${subpath}${url.search}`;
+	const targetUrl = `${upstreamBase}/${upstreamPath}${url.search}`;
 
 	const clientIp = request.headers.get("cf-connecting-ip") ?? "";
 	const existingXff = request.headers.get("x-forwarded-for");
