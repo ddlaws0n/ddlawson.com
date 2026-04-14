@@ -50,6 +50,7 @@ If you’re a constant consumer of educational and informative content, like mys
 As someone who has spent my entire life consuming content, seeing this diagram sum up my personal Release Ratio (the rate of creating content around what we learn VS releasing our own) struck a cord:
 
 ![The release ratio for most people, according to Lawrence Yeo](https://moretothat.com/wp-content/uploads/2019/11/C03-Ratio-equals-zero-rev.png)
+
 _Image credit: [MoreToThat](https://moretothat.com/)_
 
 Don’t get me wrong. I’ve learned a lot from the content that I’ve consumed. And many of the things I’ve learned, I’ve put into practice in my daily life through my work and my own personal development.

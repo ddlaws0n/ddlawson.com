@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
 import favicons from "astro-favicons";
 import icon from "astro-icon";
+import { rehypeFigure } from "./src/lib/rehype-figure.ts";
 import { conf } from "./src/site.config.ts";
 
 const twPlugin = tailwindcss();
@@ -14,6 +15,10 @@ export default defineConfig({
 	trailingSlash: conf.site.trailingSlash === "always" ? "always" : "never",
 
 	output: "static",
+
+	markdown: {
+		rehypePlugins: [rehypeFigure],
+	},
 
 	vite: {
 		// @ts-expect-error — Vite plugin type mismatch between @tailwindcss/vite (Vite 8) and Astro (Vite 7)

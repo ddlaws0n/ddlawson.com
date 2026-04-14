@@ -25,7 +25,7 @@ I’d like to be able to store that chat somewhere, so I can reference it in fut
 
 Well, thanks to this handy script with Tampermonkey, now I can:
 
-![ChatGPT Exporter Screenshot](../../assets/img/export-chats-from-chatgpt.png 'image_tooltip')
+![ChatGPT Exporter dropdown with export, copy text, screenshot, markdown and HTML options|wide](../../assets/img/export-chats-from-chatgpt.png)
 
 ## Enter Tampermonkey
 
