@@ -15,6 +15,7 @@ export default defineConfig({
 	trailingSlash: conf.site.trailingSlash === "always" ? "always" : "never",
 
 	output: "static",
+	build: { format: "file" },
 
 	markdown: {
 		rehypePlugins: [rehypeFigure],
