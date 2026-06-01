@@ -19,9 +19,9 @@
 		"generate:og": "bun scripts/generate-og-images.ts"
 	},
 	"dependencies": {
-		"@astrojs/sitemap": "^3.7.2",
-		"@iconify-json/tabler": "^1.2.33",
-		"astro": "^6.1.4",
+		"@astrojs/sitemap": "^3.7.3",
+		"@iconify-json/tabler": "^1.2.35",
+		"astro": "^6.4.2",
 		"astro-favicons": "^3.1.6",
 		"astro-icon": "^1.1.5"
 	},
