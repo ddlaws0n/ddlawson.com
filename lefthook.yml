@@ -17,7 +17,7 @@ pre-commit:
     # update-env-example:
     #   tags: prepare:env-file
     #   run: |
-    #     cp .env .env.example || cp .env.local .env.example
+    #     cp .env.local .env.example || cp .env.local .env.example
     #     sed -i '' 's/=\(.*\)/=""/' .env.example
     #     echo "Updated .env.example successfully."
 
