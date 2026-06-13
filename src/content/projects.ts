@@ -1,4 +1,4 @@
-import favicon52weeks from "@/assets/img/favicon-52weeks.png";
+import favicon52weeks from "@/assets/img/favicon-52weeks.svg";
 import faviconClaudeAteMyJob from "@/assets/img/favicon-claudeatemyjob.svg";
 import faviconCsg from "@/assets/img/favicon-csg.png";
 
@@ -32,7 +32,6 @@ export const projects: Project[] = [
 		desc: "A minimal week-number planner — fifty-two rows, no clutter.",
 		href: "https://52weeks.lawson.dev",
 		faviconUrl: favicon52weeks.src,
-		invertFavicon: true,
 	},
 	// {
 	//   tag: "Dashboard",

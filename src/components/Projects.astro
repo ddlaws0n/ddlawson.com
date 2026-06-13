@@ -27,16 +27,17 @@ import { conf } from "@/site.config";
                             <img
                                 src={p.faviconUrl}
                                 alt=""
-                                width="16"
-                                height="16"
+                                width="20"
+                                height="20"
                                 loading="lazy"
                                 class:list={[
-                                    "size-4 shrink-0 rounded-sm opacity-0 animate-[m-favicon-in_0.4s_ease_0.3s_forwards]",
+                                    "size-5 shrink-0 rounded-md opacity-0 animate-[m-favicon-in_0.4s_ease_0.3s_forwards] motion-reduce:opacity-100",
                                     { invert: p.invertFavicon },
                                 ]}
                             />
                         )}
                         {p.title}
+                        <span class="sr-only">(opens in new tab)</span>
                     </h3>
                     <p class="font-body text-prose text-text-secondary font-light">
                         {p.desc}
