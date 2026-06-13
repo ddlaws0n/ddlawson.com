@@ -24,8 +24,11 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Claude Code session logs
-.claude/logs/
+# AI agents
+!.agents/
+.claude/
+.pi/
+.codex/
 
 # Dev environment & deployment
 .zed
