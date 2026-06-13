@@ -19,25 +19,26 @@
 		"generate:og": "bun scripts/generate-og-images.ts"
 	},
 	"dependencies": {
-		"@astrojs/sitemap": "^3.7.2",
+		"@astrojs/sitemap": "^3.7.3",
 		"@iconify-json/tabler": "^1.2.33",
-		"astro": "^6.1.4",
+		"astro": "^6.4.6",
 		"astro-favicons": "^3.1.6",
 		"astro-icon": "^1.1.5"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.8",
-		"@astrojs/compiler-rs": "^0.1.6",
+		"@astrojs/check": "^0.9.9",
+		"@astrojs/compiler-rs": "^0.2.2",
+		"@astrojs/markdown-remark": "^7.2.0",
 		"@biomejs/biome": "2.4.10",
 		"@cloudflare/workers-types": "^4.20260410.1",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.2.2",
+		"@tailwindcss/typography": "^0.5.20",
+		"@tailwindcss/vite": "^4.3.0",
 		"lefthook": "^2.1.5",
 		"playwright": "^1.59.1",
 		"sharp": "^0.34.5",
-		"tailwindcss": "^4.2.2",
+		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.2",
-		"vite": "^8.0.5"
+		"vite": "^7.3.2"
 	},
 	"packageManager": "pnpm@11.6.0"
 }

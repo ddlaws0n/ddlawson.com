@@ -13,3 +13,11 @@ supportedArchitectures:
   libc:
     - glibc
     - musl
+
+overrides:
+  vite: ^7
+  esbuild: ^0.28.1
+  fast-uri: ^3.1.2
+  postcss: ^8.5.10
+  sharp: ^0.34.5
+  yaml: ^2.8.3
