@@ -1,4 +1,5 @@
 import favicon52weeks from "@/assets/img/favicon-52weeks.png";
+import faviconClaudeAteMyJob from "@/assets/img/favicon-claudeatemyjob.svg";
 import faviconCsg from "@/assets/img/favicon-csg.png";
 
 type Project = {
@@ -17,6 +18,13 @@ export const projects: Project[] = [
 		desc: "AI-powered tools that make customer success professionals' lives easier.",
 		href: "https://customersuccess.guide",
 		faviconUrl: faviconCsg.src,
+	},
+	{
+		tag: "Register",
+		title: "claudeatemyjob",
+		desc: "An evidence-first register of on-record AI-attributed layoffs, with source-pinned quotes and confidence grading.",
+		href: "https://claudeatemyjob.com",
+		faviconUrl: faviconClaudeAteMyJob.src,
 	},
 	{
 		tag: "Experiment",
