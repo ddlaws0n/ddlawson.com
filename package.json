@@ -39,21 +39,5 @@
 		"typescript": "^6.0.2",
 		"vite": "^8.0.5"
 	},
-	"packageManager": "pnpm@10.33.0",
-	"pnpm": {
-		"supportedArchitectures": {
-			"os": [
-				"darwin",
-				"linux"
-			],
-			"cpu": [
-				"x64",
-				"arm64"
-			],
-			"libc": [
-				"glibc",
-				"musl"
-			]
-		}
-	}
+	"packageManager": "pnpm@11.6.0"
 }
