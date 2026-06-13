@@ -1,4 +1,4 @@
-// astro.config.ts
+import { unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField, fontProviders } from "astro/config";
@@ -18,11 +18,10 @@ export default defineConfig({
 	build: { format: "file" },
 
 	markdown: {
-		rehypePlugins: [rehypeFigure],
+		processor: unified({ rehypePlugins: [rehypeFigure] }),
 	},
 
 	vite: {
-		// @ts-expect-error — Vite plugin type mismatch between @tailwindcss/vite (Vite 8) and Astro (Vite 7)
 		plugins: [twPlugin],
 	},
 
