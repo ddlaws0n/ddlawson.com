@@ -221,14 +221,23 @@ const { title, tag, isDefault } = Astro.props;
             .footer {
                 display: flex;
                 flex-shrink: 0;
-                align-items: center;
-                gap: 16px;
+                align-items: flex-end;
+                gap: 18px;
+                transform: translateY(-6px);
+            }
+
+            .footer-logo {
+                width: 64px;
+                height: auto;
+                display: block;
             }
 
             .site {
+                padding-bottom: 3px;
                 font-family: "Bricolage Grotesque", system-ui, sans-serif;
                 font-size: 20px;
                 font-weight: 700;
+                line-height: 1;
                 color: oklch(55% 0.024 305);
                 letter-spacing: 0.04em;
             }
@@ -254,18 +263,33 @@ const { title, tag, isDefault } = Astro.props;
                 <!-- DL logo -->
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 104 52"
+                    viewBox="0 0 220 120"
                     width="64"
-                    height="32"
+                    height="35"
+                    class="footer-logo"
                 >
+                    <defs>
+                        <linearGradient id="og-logo-teal" x1="0" x2="1" y1="0" y2="1">
+                            <stop offset="0" stop-color="oklch(79.2% 0.093 195)"></stop>
+                            <stop offset="1" stop-color="oklch(64.8% 0.081 195)"></stop>
+                        </linearGradient>
+                    </defs>
+                    <g
+                        fill="none"
+                        stroke="oklch(93.5% 0.01 299)"
+                        stroke-linecap="round"
+                        stroke-width="15"
+                    >
+                        <circle cx="64" cy="78" r="26" stroke-width="15"></circle>
+                        <path d="m96 16v88"></path>
+                    </g>
                     <path
-                        d="M0,0 L0,48 L17,48 C33,48 44,38 44,24 C44,10 33,0 17,0 Z M6,6 L16,6 C29,6 38,15 38,24 C38,33 29,42 16,42 L6,42 Z"
-                        fill="oklch(69.9% 0.023 304)"></path>
-                    <path
-                        d="M56,0 L56,48 L88,48 L88,41 L64,41 L64,0 Z"
-                        fill="oklch(93.5% 0.01 299)"></path>
-                    <circle cx="96" cy="44" r="4" fill="oklch(64.8% 0.081 195)"
-                    ></circle>
+                        d="m132 16v76q0 12 12 12"
+                        fill="none"
+                        stroke="oklch(93.5% 0.01 299)"
+                        stroke-linecap="round"
+                        stroke-width="15"></path>
+                    <circle cx="178" cy="96" r="9" fill="url(#og-logo-teal)"></circle>
                 </svg>
                 <span class="site">{conf.site.domain}</span>
             </div>
