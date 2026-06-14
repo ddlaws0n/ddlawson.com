@@ -36,7 +36,7 @@ Personal portfolio site for David D Lawson (ddlawson.com) — a static Astro 6 s
 
 **Icons:** `astro-icon` with `@iconify-json/tabler` set + local SVGs in `src/assets/svg/`.
 
-**Integrations:** `astro-favicons` (generates favicons from `src/assets/svg/dl_dot.svg`), `astro-icon`.
+**Integrations:** `astro-favicons` (generates favicons from `src/assets/svg/dl_concept_6_favicon.svg`), `astro-icon`.
 
 ## Linting & Formatting
 
