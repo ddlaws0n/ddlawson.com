@@ -1,44 +1,44 @@
 ---
-title: "The Customer Success Playbook Doesn't Scale"
-description: "QBRs, health scores, success plans — the standard CS playbook breaks at 40 accounts per CSM. The replacement isn't more headcount."
+title: "When Customer Success Becomes Too Much Admin"
+description: "How I think about account coverage, where to spend the team's time, and what to do when keeping plans up to date starts crowding out customer work."
 date: "2025-11-20"
-lastUpdatedDate: "2025-11-20"
+lastUpdatedDate: "2026-09-20"
 tag: "Strategy"
 draft: false
 ---
 
-I've built and managed Customer Success teams at Veracode using the standard playbook. Quarterly business reviews, account health scoring, success plans reviewed on a cadence. It works — until it doesn't.
+I've built and managed customer success teams using the familiar tools: quarterly reviews, health scores, and success plans. I still think they can be useful. I get less enthusiastic when keeping them up to date becomes a large part of the job.
 
-When I led the CS team at Veracode, we hit this wall at <!-- TODO: David — specific account count per CSM when the model broke (default range was 40–60) --> accounts per CSM. At that point, the activities that drive outcomes (deep strategic conversations, proactive risk identification, executive alignment) get squeezed out by the activities that maintain appearances (QBRs nobody prepares for, health scores that lag reality by a month, success plans that live in a tool nobody opens).
+A success plan takes time to maintain. So does a review deck. Multiply that by the accounts each person looks after, and you have to make choices about what deserves the attention.
 
-## What scales instead
+I don't think there's a magic account count where the model stops working. A customer getting started with a complicated rollout may need much more help than a larger customer whose team already knows what it's doing.
 
-After running CS and TAM teams across Veracode and Wiz, I've come to believe that scaling CS requires fundamentally changing the operating model, not just adding headcount:
+## Where we're putting the time
 
-### Segment by outcome, not revenue
+At Wiz, I've put systems and tools in place to prioritise 80% of our work on the 20% of customers who need us most.
 
-Most teams segment by ARR. That makes sense for resource allocation but creates a confused operating model. A £50K startup iterating rapidly on their security programme needs a fundamentally different engagement model than a £500K enterprise running a multi-year transformation.
+That leaves an important question: how do we know who needs us? Revenue is part of the picture, but it can't answer that on its own. I'd also look at what the customer is trying to do, what's blocking them, and whether our involvement could help.
 
-Segment by *what the customer is trying to achieve*, and the engagement model designs itself.
+The group needing that attention should change. A customer working through a difficult rollout this month may be comfortable next month. Another might hit a problem we weren't expecting. I'd be wary of turning the 20% into a permanent list of favourite accounts.
 
-### Replace periodic reviews with continuous signals
+The remaining customers still need a way to get help, useful guidance, and someone paying attention when their situation changes. The point of prioritising is to make room for the work that needs more of us, without making everyone else fend for themselves.
 
-The QBR is a relic. By the time you're sitting in a room reviewing last quarter's metrics, the moment for proactive intervention has passed. Instead, invest in:
+## Don't wait for the next review
 
-- Automated usage signals that trigger outreach when engagement patterns change
-- In-product telemetry that surfaces friction before it becomes a support ticket
-- Executive communication that's triggered by milestones, not calendar dates
+A quarterly review is too late to be your first sign that a customer is struggling.
 
-### Make success a shared metric
+Changes in usage, unresolved support issues, and missed rollout steps can all prompt a closer look. They aren't diagnoses. A drop in activity might mean a team is stuck, or it might mean they've finished the task they came to do. Someone needs to check.
 
-The most effective CS teams I ran at Veracode didn't own customer outcomes — they designed the system so product, engineering, and sales carried them too. The difference matters. When CS is the only team measured on retention, every other team optimises for their own metrics. When product, engineering, and sales share customer outcome metrics, the CS role shifts from advocate to coordinator.
+I'd use those signals to decide when to reach out, rather than wait for the next date in the calendar. I'd still keep a scheduled review when the customer finds it useful, especially when several teams need time together to make a decision.
 
-## The uncomfortable trade-off
+Before preparing a deck, I'd want to know what we need to discuss. If neither side has much to say, a short update may be enough.
 
-This model requires giving up control. You can't scale outcomes if every customer interaction routes through your team. You have to trust that a well-designed system — clear triggers, defined escalation paths, shared metrics — will produce better results than heroic individual effort.
+## Some problems need another team
 
-In my experience, it does. But it requires a level of organisational maturity that many teams haven't reached yet.
+An account manager can explain a product limitation very well and still be unable to fix it.
 
----
+Part of leading a customer team is making sure those problems reach someone who can act on them. That means being clear about who owns the next step, what information they need, and how the customer will hear back. Otherwise, the account team becomes a place where everyone else's unfinished work collects.
 
-*I'm turning these ideas into open playbooks at [customersuccess.guide](https://customersuccess.guide). If you've cracked a piece of this puzzle, I want to hear about it.*
+We've consistently grown our NRR quarter-over-quarter. I'm pleased with that, but I wouldn't claim a single process change explains it. I want to keep checking whether the way we spend our time is helping customers, rather than just making our internal reporting look tidy.
+
+The question I'd ask of any playbook is fairly ordinary: does this help someone do the work, or have we given them another thing to maintain?

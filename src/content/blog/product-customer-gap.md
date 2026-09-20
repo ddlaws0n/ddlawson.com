@@ -1,34 +1,56 @@
 ---
 title: "The Gap Between Product and Customer"
-description: "Most product teams think they're customer-centric. The data says otherwise — and the fix isn't a new process."
+description: "Vendors track adoption and renewals. Customers want to know whether their work is getting easier. I think AI can help us measure more of what matters to each customer."
 date: "2026-03-15"
-lastUpdatedDate: "2026-03-15"
+lastUpdatedDate: "2026-09-20"
 tag: "Strategy"
 draft: false
 ---
 
-You've seen the slide decks. Every company claims to be "customer-obsessed." But look at the actual operating cadence — the meeting rhythms, the metrics on the dashboard, the questions nobody asks — and the gap between aspiration and reality is staggering.
+A customer can use your product every day and still be disappointed with it.
 
-## The measurement problem
+That's an awkward possibility when your dashboard treats frequent use as a sign of success. Logins are up, more features are enabled, and the account looks healthy. Meanwhile, the person who bought the software is still waiting for it to solve the problem they had in mind.
 
-The first issue is that most teams measure *outputs*, not *outcomes*. Shipping a feature is an output. A customer reducing their mean time to remediate a critical vulnerability by 40% is an outcome. The difference sounds subtle, but it's the entire game.
+Working in customer success and technical account management makes me interested in both sides of that picture. I need to understand whether a customer is using the product. But I also want to know what all that use is doing for them.
 
-When I led a Technical Account Management team at Wiz, we shifted our quarterly reviews away from "features adopted" toward "risk reduction achieved." The conversations changed immediately. Product wanted to know *why* certain capabilities weren't driving outcomes. Engineering started attending customer calls. The feedback loop tightened from months to days.
+## We're measuring different things
 
-## What retention actually requires
+Vendors have good reasons to track adoption, retention, and expansion. Those numbers help us run a business. Usage can also tell us where someone needs help.
 
-Retention isn't a post-sale problem — it's a whole-company discipline. The organisations I've seen with the highest net retention rates share three traits:
+The trouble starts when we use those numbers as a substitute for the customer's own measures of progress.
 
-1. **Product and Customer Success share the same metrics.** Not aligned metrics — *the same* metrics. One dashboard, one truth.
-2. **Escalation paths are short and public.** When a customer issue reaches the right person in under 24 hours, trust compounds. When it bounces between tiers for two weeks, trust evaporates.
-3. **Customer feedback feeds directly into sprint planning.** Not a quarterly "voice of customer" slide — actual tickets, actual quotes, weighted and prioritised alongside feature requests.
+Take a security product. A vendor might count connected cloud accounts, enabled scans, or active users. A customer might care about how long a critical issue stays unresolved, how much time engineers spend sorting through findings, or whether they can answer an auditor's question without a week of preparation.
 
-## The uncomfortable truth
+Connecting another cloud account could help with any of those things. It doesn't, by itself, tell us that they improved.
 
-The gap between product and customer isn't usually a knowledge problem. Teams *know* what their customers need. The gap is structural — misaligned incentives, fragmented tooling, and organisational boundaries that treat the post-sale work as someone else's responsibility.
+Even customers using the same product may want different results. Imagine one team trying to get basic visibility into its cloud estate, and another trying to shorten the time between finding a problem and fixing it. Giving them the same success score hides quite a lot.
 
-Closing it requires more than a new process or a new tool. It requires making the customer's outcome the unit of measurement that every team optimises against.
+## Personalised KPIs take work
 
----
+It's easy to say we should measure what matters to each customer. Doing it across a large account base is harder.
 
-*The question worth asking: does your team measure outputs or outcomes? The answer reveals more than any dashboard.*
+Someone has to understand the goal, agree on a useful measure, find the data, and keep the definition up to date. “Spend less time on triage” sounds clear until you ask what counts as triage, whose time we're measuring, and what the starting point was.
+
+A team can do that by hand for a few accounts. As the workload grows, a standard dashboard becomes an understandable compromise. The data is available, the definitions are consistent, and nobody has to maintain a separate spreadsheet for every customer.
+
+I think AI gives us a way to make some of that individual work less expensive. Personalised KPI tracking becomes more practical when each account doesn't need someone to build and maintain the whole report by hand.
+
+## Where I'd use AI
+
+I'd start with the customer's stated goal and information we're authorised to use: an agreed success plan, relevant meeting notes, and the available product data.
+
+An AI assistant could help turn that material into a draft measurement plan. For a customer trying to fix critical issues faster, it might suggest tracking the time from confirmation to remediation, then flag the missing details: which systems are in scope, where timestamps come from, and how reopened issues are handled.
+
+The customer and account team would still need to agree on the definition. Once agreed, the calculation should run in code or a reporting tool against known data. I wouldn't ask a language model to guess the number from a pile of notes.
+
+AI could then help explain changes, pull together the supporting records, and suggest questions worth investigating. A shorter remediation time might be encouraging. It might also reflect a quieter month or a change in which findings were counted. That's something to check before calling it progress.
+
+The opportunity is to make a tailored measurement plan practical for more than the largest accounts. It needs access controls, visible sources, and a person who can correct it. If the data isn't there, I'd rather the report say so than fill the gap with a convincing explanation.
+
+## I'd keep the vendor dashboard too
+
+I still need to know about usage and renewals. Customers don't necessarily want a new reporting project, either. For some, one agreed measure and a short conversation will be enough.
+
+What I'd like to change is how confidently we label an account successful based on our own numbers. Alongside “Are they using it?”, I want an answer to “Is it helping them do what they bought it for?”
+
+AI could make that second question easier to answer across more accounts. We still have to ask the customer what the answer should be based on.
