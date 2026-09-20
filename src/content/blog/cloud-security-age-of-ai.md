@@ -1,54 +1,46 @@
 ---
-title: "AI Broke the Cloud Security Status Quo"
-description: "AI changes what you're defending against and what you're defending with — simultaneously. Most organisations are only optimising for one side."
+title: "What I'd Ask Before Trusting an AI Security Feature"
+description: "The questions I'd bring to an evaluation: what data it uses, how to check its answers, and what happens when it gets something wrong."
 date: "2025-12-08"
-lastUpdatedDate: "2025-12-08"
+lastUpdatedDate: "2026-09-20"
 tag: "Security"
 draft: true
 ---
 
-AI changes both what you're defending against and what you're defending with. Most organisations are optimising for only one side — and in my TAM role at Wiz, every EMEA customer conversation I've had this year has confirmed it.
+When I look at an AI security feature, I want to understand what work it will take off someone's plate and how they'll know whether it did that work correctly.
 
-<!-- TODO: David — one specific Wiz customer conversation or moment that made this click. Even an anonymised anchor ("a FTSE 100 financial services customer told me…") is stronger than the current opener. What was the moment — a specific QBR, a customer incident, a pattern you noticed across accounts? -->
+A convincing explanation of a finding is useful. It isn't enough for me to trust the recommendation, especially if the next step could change a production system.
 
-## The offensive shift
+These are the questions I'd bring to an evaluation. They're a starting point, rather than a report of results from a particular customer deployment.
 
-AI doesn't create fundamentally new attack categories — it dramatically lowers the barrier to executing existing ones. What previously required a sophisticated actor with deep cloud expertise can now be accomplished with a well-crafted prompt and a basic understanding of your infrastructure.
+## What can it see?
 
-<!-- TODO: David — the three bullets below are reasonable but entirely generic. They could have been written by anyone who reads security Twitter. Replace at least one of them with a specific pattern you've watched emerge across Wiz customers in the last 6–12 months. Named or anonymised ("a mid-market SaaS customer in EMEA…") is fine. If you've seen IAM misconfiguration chains used differently now vs. a year ago, that's the story. -->
+I'd start with the data. Which cloud accounts, resources, and findings can the feature access? Does it know anything about the application or the team responsible for it? How old is that information?
 
-The practical implications:
+I'd also ask what happens when something is missing. If an account isn't connected or a permission blocks access, I want that gap to be visible in the answer.
 
-- **Faster reconnaissance.** AI can enumerate misconfigurations across cloud environments in minutes, not days.
-- **More convincing social engineering.** Phishing emails that would have been flagged by grammar alone are now indistinguishable from internal communications.
-- **Automated exploit chaining.** Combining a minor IAM misconfiguration with a publicly accessible storage bucket becomes trivial when AI handles the reasoning.
+There are access questions beyond the model itself. Where does the data go, how long is it retained, and can the feature reveal information the person using it isn't allowed to see? I'd want those answers before putting sensitive customer or infrastructure data into an evaluation.
 
-## The defensive opportunity
+## Can I check the recommendation?
 
-But AI is equally transformative on the defensive side. The organisations I see winning are the ones using AI to:
+Suppose a tool says a finding is urgent because a resource is exposed to the internet. I want a route back to the evidence: which resource, which configuration, when it was checked, and what makes that exposure relevant.
 
-<!-- TODO: David — "the organisations I see winning" is where your Wiz vantage point is most valuable. Can you name one pattern from an actual EMEA customer? "A retail customer we work with shifted from X to Y and reduced triage time by…" — even a rough metric or anonymised industry anchor is better than the current generalisation. -->
+I don't need a long explanation of every internal step. I need enough information to verify the claim and decide what to do next.
 
-1. **Prioritise, not just detect.** When your tool surfaces 2,000 findings, the human bottleneck is triage. AI that can contextualise findings based on your specific architecture and business impact is worth more than any additional detector.
-2. **Bridge the talent gap.** Junior engineers can operate at a higher level when AI handles the pattern-matching. "Is this finding real?" becomes "What's the blast radius, and what's the fastest path to remediation?"
-3. **Continuously validate controls.** AI-generated attack paths let you test your defences against realistic scenarios without relying on annual penetration tests.
+I'd test it with cases the team already understands, including ambiguous ones. Can it distinguish a confirmed problem from something that needs investigation? Does it tell us when it doesn't have enough information?
 
-<!-- TODO: David — point 3 (continuously validate controls) is where Wiz specifically plays. If you've run this conversation with customers — moving them away from annual pen tests toward continuous validation — what's the pushback you hear, and what shifts the thinking? That's the insight nobody else writing about this has. -->
+## What is it allowed to do?
 
-## What I'd do today
+Summarising a finding and changing a firewall rule carry different risks. I'd evaluate them separately.
 
-If I were building a cloud security programme from scratch right now, I'd invest heavily in three things:
+For anything that changes an environment, I'd want clear permission boundaries, a record of the action, and a way to recover if it goes wrong. I'd start with approval before execution and only consider more autonomy after seeing how it behaves on the actual task.
 
-- **Context-rich telemetry.** AI is only as good as its inputs. Ensure you have well-structured, high-fidelity telemetry across your cloud environment — coverage gaps are where AI-assisted attackers find their wedge.
-- **Human-in-the-loop workflows.** Automate the 80% but keep experienced humans in the decision chain for the 20% that matters.
-- **Security and platform engineering literacy.** Your security team doesn't need to build models, but they need to understand capabilities, limitations, and failure modes well enough to evaluate vendor claims.
+The fallback matters too. If the feature is unavailable or the team doesn't trust its answer, can they still investigate and act using the underlying tools?
 
-<!-- TODO: David — "if I were building a cloud security programme from scratch" is a good framing, but the three bullets above are still abstract. Can you ground even one of them in a real conversation? E.g. the telemetry bullet — have you had a customer where coverage gaps were the actual problem, not detections? -->
+## Does it save time once we include checking?
 
-The organisations that treat AI as both a threat amplifier and a capability multiplier — simultaneously — will be the ones that emerge from this transition with stronger security postures than they had before.
+I'd measure the full task, including the time spent reviewing the output and correcting mistakes. A fast draft can still create a slow investigation.
 
-<!-- TODO: David — the closing paragraph is a fine summary but doesn't land with a position. What do you actually believe most EMEA security teams are getting wrong right now? That's the closing sentence this post needs. -->
+For triage, that might mean comparing how long it takes to reach a sound decision with and without the feature, while checking for important findings that were missed or wrongly dismissed. I'd start with a bounded trial, rather than assume a good demonstration will translate into day-to-day results.
 
----
-
-*This space moves weekly, not quarterly. I'm tracking what's working at [customersuccess.guide](https://customersuccess.guide) — and I'm always keen to hear what you're seeing on the ground.*
+The feature I'd be interested in keeping is one the team can use, check, and recover from when it makes a mistake. I'd rather establish that on a small task first.

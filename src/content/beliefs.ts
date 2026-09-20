@@ -1,18 +1,19 @@
 export const beliefs = [
 	{
-		title: 'Product meets <span class="accent">reality</span>',
-		body: "Every feature ships with assumptions. Someone has to sit inside the customer's reality, find where those assumptions break, and get that signal back before it becomes a churned account. That's not support. That's product intelligence.",
+		title: 'Find out where people <span class="accent">get stuck</span>',
+		body: "A feature can work as designed and still be difficult to use. I want to understand where customers get stuck and help the product team see it too.",
 	},
 	{
-		title: 'Results, not <span class="accent">verbs</span>',
-		body: '"Drove adoption" tells you nothing. "Grew adoption from 40% to 72% in one quarter" tells you something worth saying. If you can\'t quantify it, you didn\'t own it.',
+		title: 'Be specific about <span class="accent">results</span>',
+		body: "“Drove adoption” doesn’t tell me much. What changed? How do we know? Numbers help, but they need enough context to mean something.",
 	},
 	{
-		title: 'Adoption beats <span class="accent">features</span>',
-		body: "A mediocre tool developers actually use beats a technically superior platform they avoid. The security you use is always better than the security you don't.",
+		title:
+			'Pay attention to the <span class="accent">everyday experience</span>',
+		body: "If a security tool slows developers down or gives them too much noise, they'll find ways around it. Setup, scan times, and useful results deserve attention.",
 	},
 	{
-		title: 'Context is <span class="accent">king</span>',
-		body: "Knowing the product is table stakes. Understanding the business goal, the team friction, and the constraint nobody has written down — that's what turns a recommendation into something people can act on. Advice without context isn't just unhelpful. It's often wrong.",
+		title: 'Understand the <span class="accent">constraints</span>',
+		body: "Before recommending something, I want to know who'll do the work, how much time they have, and what else they're dealing with.",
 	},
 ];

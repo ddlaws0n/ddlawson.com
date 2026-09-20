@@ -4,16 +4,15 @@ import Footer from "@/components/Footer.astro";
 import Hero from "@/components/Hero.astro";
 import Nav from "@/components/Nav.astro";
 import Projects from "@/components/Projects.astro";
-import Quote from "@/components/Quote.astro";
 import RecentWriting from "@/components/RecentWriting.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   meta={{
-    title: "David D Lawson — Closing the gap between product and customer",
+    title: "David D Lawson — Customer success, security, and side projects",
     description:
-      "Customer experience, cloud security, and building in public.",
+      "I lead a technical account management team at Wiz. I write about customer success and security, and build small tools outside work.",
   }}
 >
   <div
@@ -23,7 +22,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     <Nav />
     <main id="main-content" class="max-w-content mx-auto px-(--m-gutter)">
       <Hero />
-      <Quote />
+      <div class="m-divider"></div>
       <Beliefs />
       <RecentWriting />
       <Projects />
